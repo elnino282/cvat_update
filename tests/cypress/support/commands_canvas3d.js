@@ -3,8 +3,6 @@
 //
 // SPDX-License-Identifier: MIT
 
-/* eslint-disable cypress/no-unnecessary-waiting */
-
 /// <reference types="cypress" />
 
 Cypress.Commands.add('compareImagesAndCheckResult', (baseImage, afterImage, noChangesExpected) => {
@@ -31,7 +29,7 @@ Cypress.Commands.add('create3DCuboid', (cuboidCreationParams) => {
     cy.get('.cvat-draw-cuboid-popover').should('be.hidden');
 });
 
-Cypress.Commands.add('customScreenshot', (element, screenshotName) => {
+Cypress.Commands.add('customScreenshot', (element, screenshotName, onAfterScreenshot) => {
     cy.get(`${element} canvas`).then(([$el]) => ($el.getBoundingClientRect())).then((rect) => {
         const iframe = window.parent.document
             .querySelector('iframe.aut-iframe');
@@ -43,6 +41,7 @@ Cypress.Commands.add('customScreenshot', (element, screenshotName) => {
             // we take a screenshot of the whole screen, including runner and then clip it
             // according to iframe coordinates and scale in the runner
             overwrite: true,
+            onAfterScreenshot: (_element, details) => onAfterScreenshot?.(details.path),
             capture: 'runner',
             scale: false,
             clip: {

@@ -18,6 +18,9 @@ import {
     Label, ObjectType, ShapeType, LabelType,
 } from 'cvat-core-wrapper';
 import openCVWrapper from 'utils/opencv-wrapper/opencv-wrapper';
+import {
+    autoFitPreference, setAutoFitPreference, autoFitDrawData, mockAutoFitEnabled,
+} from 'utils/auto-fit';
 
 interface OwnProps {
     shapeType: ShapeType;
@@ -95,6 +98,7 @@ interface State {
     numberOfPoints?: number;
     selectedLabelID: number | null;
     simplifyPoly: boolean;
+    autoFitEnabled: boolean;
 }
 
 class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
@@ -125,6 +129,7 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
                 defaultRectDrawingMethod : undefined,
             cuboidDrawingMethod: shapeType === ShapeType.CUBOID ? defaultCuboidDrawingMethod : undefined,
             simplifyPoly: false,
+            autoFitEnabled: autoFitPreference(props.canvasInstance),
         };
 
         if (shapeType === ShapeType.POLYGON) {
@@ -176,6 +181,7 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
         if (selectedLabel) {
             canvasInstance.draw({
                 enabled: true,
+                autoFit: autoFitDrawData(canvasInstance, shapeType, selectedLabel.id, objectType),
                 rectDrawingMethod,
                 rotatedShapeFitter: rectDrawingMethod === RectDrawingMethod.ROTATED_POINTS ?
                     openCVWrapper.contours : undefined,
@@ -231,7 +237,14 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
     };
 
     private onChangeLabel = (value: Label): void => {
+        if (this.state.autoFitEnabled && this.state.selectedLabelID !== value.id) this.props.canvasInstance.cancel();
         this.setState({ selectedLabelID: value.id as number });
+    };
+
+    private onChangeAutoFit = (enabled: boolean): void => {
+        this.props.canvasInstance.cancel();
+        setAutoFitPreference(this.props.canvasInstance, enabled);
+        this.setState({ autoFitEnabled: enabled });
     };
 
     private onChangeSimplifyPoly = (value: boolean): void => {
@@ -253,6 +266,9 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
         return (
             <DrawShapePopoverComponent
                 jobInstance={jobInstance}
+                autoFitEnabled={this.state.autoFitEnabled}
+                mockAutoFit={mockAutoFitEnabled}
+                onChangeAutoFit={this.onChangeAutoFit}
                 labels={satisfiedLabels}
                 shapeType={shapeType}
                 minimumPoints={this.minimumPoints}

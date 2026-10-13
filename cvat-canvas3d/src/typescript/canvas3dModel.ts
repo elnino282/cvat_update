@@ -6,6 +6,7 @@
 import { ObjectState } from '.';
 import { MasterImpl } from './master';
 import consts from './consts';
+import { AutoFitDraw } from './autoFit';
 
 export interface Size {
     width: number;
@@ -40,6 +41,7 @@ export interface DrawData {
     initialState?: any;
     redraw?: number;
     shapeType?: string;
+    autoFit?: AutoFitDraw;
 }
 
 export enum FrameZoom {
@@ -89,6 +91,7 @@ export enum UpdateReasons {
     DRAW = 'draw',
     SELECT = 'select',
     CANCEL = 'cancel',
+    DESTROY = 'destroy',
     DRAG_CANVAS = 'drag_canvas',
     SHAPE_ACTIVATED = 'shape_activated',
     GROUP = 'group',
@@ -230,6 +233,7 @@ export class Canvas3dModelImpl extends MasterImpl implements Canvas3dModel {
 
     public setup(frameData: any, objectStates: ObjectState[]): void {
         if (this.data.imageID !== frameData.number) {
+            if (this.data.drawData.autoFit) this.cancel();
             if ([Mode.EDIT].includes(this.data.mode)) {
                 throw Error(`Canvas is busy. Action: ${this.data.mode}`);
             }
@@ -460,5 +464,11 @@ export class Canvas3dModelImpl extends MasterImpl implements Canvas3dModel {
         return this.data.exception;
     }
 
-    public destroy(): void {}
+    public destroy(): void {
+        this.data.drawData.enabled = false;
+        this.data.drawData.autoFit = undefined;
+        this.data.mode = Mode.IDLE;
+        // Called inside the Redux job reducer: abort without dispatching canvas UI events.
+        this.notify(UpdateReasons.DESTROY);
+    }
 }

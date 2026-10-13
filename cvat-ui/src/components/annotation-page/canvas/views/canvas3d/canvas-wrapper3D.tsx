@@ -4,7 +4,11 @@
 // SPDX-License-Identifier: MIT
 
 import './styles.scss';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, {
+    useCallback, useEffect, useRef, useState,
+} from 'react';
+import { getCVATStore } from 'cvat-store';
+import { isAutoFitIdentityCurrent, mockAutoFitEnabled } from 'utils/auto-fit';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import {
     ArrowDownOutlined, ArrowLeftOutlined, ArrowRightOutlined, ArrowUpOutlined,
@@ -583,8 +587,9 @@ export const FrontViewComponent = React.memo(
     },
 );
 
-const Canvas3DWrapperComponent = React.memo((props: Props): null => {
+const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null => {
     const animateId = useRef(0);
+    const [autoFitHint, setAutoFitHint] = useState('');
 
     const {
         opacity,
@@ -662,6 +667,10 @@ const Canvas3DWrapperComponent = React.memo((props: Props): null => {
     };
 
     const onCanvasShapeDrawn = (event: any): void => {
+        const fitRequest = event.detail.autoFit;
+        if (fitRequest && (!isAutoFitIdentityCurrent(fitRequest) ||
+            fitRequest.jobId !== jobInstance.id || fitRequest.taskId !== jobInstance.taskId ||
+            fitRequest.frame !== frame)) return;
         if (!event.detail.continue) {
             updateActiveControl(ActiveControl.CURSOR);
         }
@@ -674,10 +683,11 @@ const Canvas3DWrapperComponent = React.memo((props: Props): null => {
             jobInstance.logger.log(EventScope.pasteObject, { count: 1, duration });
         }
 
-        state.objectType = state.objectType || activeObjectType;
-        state.label = state.label || jobInstance.labels.filter((label: any) => label.id === activeLabelID)[0];
+        state.objectType = fitRequest?.objectType || state.objectType || activeObjectType;
+        state.label = state.label || jobInstance.labels
+            .filter((label: any) => label.id === (fitRequest?.labelId ?? activeLabelID))[0];
         state.occluded = state.occluded || false;
-        state.frame = frame;
+        state.frame = fitRequest?.frame ?? frame;
         state.zOrder = 0;
         const objectState = new cvat.classes.ObjectState(state);
         onCreateAnnotations([objectState]);
@@ -743,6 +753,18 @@ const Canvas3DWrapperComponent = React.memo((props: Props): null => {
     useEffect(() => {
         const canvasInstanceDOM = canvasInstance.html();
 
+        let fittingIdentity: Parameters<typeof isAutoFitIdentityCurrent>[0] | null = null;
+        const onAutoFit = (event: CustomEvent): void => {
+            fittingIdentity = event.detail.status === 'fitting' ? event.detail.identity : null;
+            setAutoFitHint(event.detail.hint);
+        };
+        canvasInstanceDOM.perspective.addEventListener('canvas.autofit', onAutoFit as EventListener);
+        // Synchronous Redux subscription invalidates the lifetime even if the user switches away and back
+        // before React renders, or before a provider that ignores abort resolves.
+        const unsubscribe = getCVATStore().subscribe(() => {
+            if (fittingIdentity && !isAutoFitIdentityCurrent(fittingIdentity)) canvasInstance.cancel();
+        });
+
         document.addEventListener('keydown', keyControlsKeyDown);
         document.addEventListener('keyup', keyControlsKeyUp);
 
@@ -751,6 +773,9 @@ const Canvas3DWrapperComponent = React.memo((props: Props): null => {
         animateCanvas();
 
         return () => {
+            unsubscribe();
+            canvasInstanceDOM.perspective.removeEventListener('canvas.autofit', onAutoFit as EventListener);
+            canvasInstance.cancel();
             canvasInstanceDOM.perspective.removeEventListener('canvas.setup', onCanvasSetup);
             canvasInstanceDOM.perspective.removeEventListener('canvas.canceled', onCanvasCancel);
             canvasInstanceDOM.perspective.removeEventListener('canvas.dragstart', onCanvasDragStart);
@@ -874,7 +899,19 @@ const Canvas3DWrapperComponent = React.memo((props: Props): null => {
         };
     }, [frameData, annotations, hiddenZLayers, activeLabelID, contextMenuVisibility, activeObjectType]);
 
-    return null;
+    return autoFitHint ? (
+        <div
+            className='cvat-auto-fit-status'
+            role='status'
+            aria-live='polite'
+            style={{
+                position: 'absolute', top: 8, left: 8, padding: 8, background: '#fff', zIndex: 1, pointerEvents: 'none',
+            }}
+        >
+            {mockAutoFitEnabled && <span>Mock Auto Fit · </span>}
+            {autoFitHint}
+        </div>
+    ) : null;
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Canvas3DWrapperComponent);

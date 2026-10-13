@@ -19,6 +19,8 @@ import {
 } from './cuboid';
 import { ObjectState, ObjectType } from '.';
 import { disposeScene } from './utils';
+import { AutoFitOperation } from './autoFit';
+import { pickAutoFitSeed } from './autoFitSeed';
 
 export interface Canvas3dView {
     html(): ViewsDOM;
@@ -130,6 +132,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
         cuboid: CuboidModel;
     }>;
     private hoverNeedsUpdate: boolean;
+    private autoFitOperation = new AutoFitOperation();
 
     public focusObjectByClientId(clientID: number, animate: boolean = true): void {
         const cuboidModel = this.drawnObjects[clientID];
@@ -311,6 +314,12 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
                 enumerable: false,
                 configurable: false,
                 writable: false,
+            });
+
+            // Like scene/getDrawnObjects, expose a read-only view for browser geometry verification.
+            Object.defineProperty(view, 'camera', {
+                get: () => Object.values(this.views)
+                    .find((candidate) => candidate.renderer.domElement === view)?.camera,
             });
 
             Object.defineProperty(view, 'updatePosition', {
@@ -500,6 +509,12 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
                         }),
                     );
                 }
+                return;
+            }
+
+            const { drawData } = this.controller;
+            if (drawData.autoFit && !drawData.initialState && typeof drawData.redraw !== 'number') {
+                this.confirmAutoFit(e);
                 return;
             }
 
@@ -1342,7 +1357,64 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
         this.views.perspective.renderer.domElement.dispatchEvent(event);
     }
 
+    private autoFitStatus(status: string, hint: string): void {
+        this.dispatchEvent(new CustomEvent('canvas.autofit', {
+            detail: { status, hint, identity: this.controller.drawData.autoFit?.identity },
+        }));
+    }
+
+    private async confirmAutoFit(event: MouseEvent): Promise<void> {
+        if (this.autoFitOperation.inFlight) return;
+        const data = this.controller.drawData;
+        const draw = data.autoFit;
+        const view = this.views.perspective;
+        if (!draw.isCurrent() || this.model.data.isFrameUpdating || !this.model.data.image ||
+            this.model.data.imageIsDeleted || this.model.data.imageID !== draw.identity.frame) {
+            this.autoFitStatus('retry', 'Frame is not ready. Try again after it loads.');
+            return;
+        }
+        const rect = view.renderer.domElement.getBoundingClientRect();
+        const ndc = new THREE.Vector2(
+            (2 * (event.clientX - rect.left)) / rect.width - 1,
+            1 - (2 * (event.clientY - rect.top)) / rect.height,
+        );
+        const seed = pickAutoFitSeed(view.scene, view.camera, ndc, rect.width, rect.height);
+        if (!seed) {
+            this.autoFitStatus('retry', 'Double-click a visible LiDAR point to retry.');
+            return;
+        }
+        this.cube.perspective.position.set(seed.x, seed.y, seed.z);
+        // start() acquires its guard before the first await or UI notification.
+        const operation = this.autoFitOperation.start(draw, seed);
+        this.autoFitStatus('fitting', 'Auto Fit in progress… Press Escape to cancel.');
+        const outcome = await operation;
+        if (outcome.status === 'cancelled' || this.controller.drawData !== data ||
+            this.mode !== Mode.DRAW || !data.enabled || !draw.isCurrent()) return;
+        if (outcome.status === 'retry') {
+            this.autoFitStatus('retry', outcome.hint);
+            return;
+        }
+        // Disable synchronously before notifying consumers; exactly one existing creation transaction.
+        data.enabled = false;
+        this.mode = Mode.IDLE;
+        this.autoFitStatus('done', '');
+        data.autoFit = undefined;
+        this.dispatchEvent(new CustomEvent('canvas.drawn', {
+            detail: {
+                state: { shapeType: 'cuboid', points: outcome.points, frame: outcome.request.frame },
+                autoFit: outcome.request,
+                duration: Date.now() - outcome.request.requestedAt,
+            },
+        }));
+        this.views.perspective.scene.children[0]?.remove(this.cube.perspective);
+        this.dispatchEvent(new CustomEvent('canvas.canceled'));
+    }
+
     public notify(model: Canvas3dModel & Master, reason: UpdateReasons): void {
+        if (reason === UpdateReasons.DESTROY) {
+            this.autoFitOperation.cancel();
+            return;
+        }
         const resetColor = (list: ObjectState[]): void => {
             list.forEach((state: ObjectState) => {
                 const { clientID } = state;
@@ -1354,6 +1426,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
         };
 
         if (reason === UpdateReasons.IMAGE_CHANGED) {
+            this.autoFitOperation.cancel();
             this.statesToBeGrouped = [];
             this.clearScene();
 
@@ -1523,6 +1596,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
             this.activateObject();
             this.updateSideViewsZoom();
         } else if (reason === UpdateReasons.DRAW) {
+            this.autoFitOperation.cancel();
             const data: DrawData = this.controller.drawData;
             if (Number.isInteger(data.redraw)) {
                 if (this.drawnObjects[data.redraw]?.cuboid?.perspective?.visible) {
@@ -1563,6 +1637,9 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
             model.data.activeElement.clientID = null;
             this.deactivateObject();
         } else if (reason === UpdateReasons.CANCEL) {
+            this.autoFitOperation.cancel();
+            if (this.controller.drawData.autoFit) this.autoFitStatus('cancelled', 'Auto Fit cancelled. Draw again to retry.');
+            this.controller.drawData.autoFit = undefined;
             if (this.mode === Mode.DRAG_CANVAS) {
                 this.isPerspectiveBeingDragged = false;
                 this.dispatchEvent(
@@ -1955,6 +2032,18 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
     private renderRayCaster = (viewType: RenderView): void => {
         viewType.rayCaster.renderer.setFromCamera(viewType.rayCaster.mouseVector, viewType.camera);
         if (this.mode === Mode.DRAW) {
+            if (this.controller.drawData.autoFit && !this.controller.drawData.initialState &&
+                typeof this.controller.drawData.redraw !== 'number') {
+                if (!this.autoFitOperation.inFlight) {
+                    const rect = viewType.renderer.domElement.getBoundingClientRect();
+                    const seed = pickAutoFitSeed(
+                        this.views.perspective.scene, viewType.camera, viewType.rayCaster.mouseVector,
+                        rect.width, rect.height,
+                    );
+                    if (seed) this.cube.perspective.position.set(seed.x, seed.y, seed.z);
+                }
+                return;
+            }
             const [intersection] = viewType.rayCaster.renderer
                 .intersectObjects(this.views.perspective.scene.children, false);
             if (intersection) {
@@ -2011,6 +2100,8 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
     };
 
     public render(): void {
+        if (this.mode === Mode.DRAW && this.controller.drawData.autoFit &&
+            !this.controller.drawData.autoFit.isCurrent()) this.model.cancel();
         Object.keys(this.views).forEach((view: string): void => {
             const viewType = this.views[view as keyof Views];
             if (!(viewType.controls && viewType.camera && viewType.rayCaster)) return;

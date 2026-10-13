@@ -33,6 +33,7 @@ yarn-error.log*
 /tests/cypress/fixtures
 /tests/cypress/screenshots
 /tests/cypress/videos
+/tests/cypress/results
 /tests/coverage
 /tests/.nyc_output
 .idea/
@@ -62,6 +63,8 @@ cvat-core/dist
 cvat-canvas/dist
 cvat-canvas3d/dist
 cvat-ui/dist
+cvat-ui/dist-autofit-dev
+cvat-ui/dist-autofit-prod-check
 
 # produced by prepare in the root package.json script
 .husky
@@ -81,3 +84,4 @@ cvat-ui/dist
 **/!.yarn/releases
 **/!.yarn/sdks
 **/!.yarn/versions
+/docs

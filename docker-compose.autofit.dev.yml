@@ -1,0 +1,12 @@
+# Copyright (C) CVAT.ai Corporation
+# SPDX-License-Identifier: MIT
+
+# Explicit local development override. Build with --mode development and
+# CVAT_AUTOFIT_MOCK=true first; never include this override in production.
+# Backend services and data volumes use the existing base compose configuration.
+services:
+  cvat_ui:
+    volumes:
+      - ${CVAT_AUTOFIT_UI_DIR:-./cvat-ui/dist-autofit-dev}:/usr/share/nginx/html:ro
+    labels:
+      cvat.autofit.runtime: ${CVAT_AUTOFIT_RUNTIME:-development-mock}

@@ -9,6 +9,7 @@ import Icon from '@ant-design/icons';
 import { Canvas } from 'cvat-canvas-wrapper';
 import { Canvas3d } from 'cvat-canvas3d-wrapper';
 import { ShapeType } from 'cvat-core-wrapper';
+import { autoFitPreference } from 'utils/auto-fit';
 
 import { CubeIcon } from 'icons';
 
@@ -34,6 +35,11 @@ function DrawCuboidControl(props: Props): JSX.Element {
     const dynamicIconProps = isDrawing ? {
         className: 'cvat-draw-cuboid-control cvat-active-canvas-control',
         onClick: (): void => {
+            if (canvasInstance instanceof Canvas3d &&
+                autoFitPreference(canvasInstance)) {
+                canvasInstance.cancel();
+                return;
+            }
             canvasInstance.draw({ enabled: false });
         },
     } : {

@@ -7,7 +7,7 @@ import { AnyAction, Store } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'utils/redux';
 import isAbleToChangeFrame from 'utils/is-able-to-change-frame';
 import getHiddenZLayers from 'utils/get-hidden-z-layers';
-import { CanvasMode as Canvas3DMode } from 'cvat-canvas3d-wrapper';
+import { Canvas3d, CanvasMode as Canvas3DMode } from 'cvat-canvas3d-wrapper';
 import {
     RectDrawingMethod, CuboidDrawingMethod, Canvas, CanvasMode as Canvas2DMode, CanvasHistorySource,
     finalizePastedShapePoints,
@@ -20,6 +20,7 @@ import {
 import logger, { EventScope } from 'cvat-logger';
 import { getCVATStore } from 'cvat-store';
 import changeObjectOrientation from 'utils/change-object-orientation';
+import { autoFitDrawData } from 'utils/auto-fit';
 import { sanitizeSelectedObjectIDs } from 'utils/multi-selection';
 
 import {
@@ -2118,7 +2119,8 @@ export function repeatDrawShapeAsync(): ThunkAction {
             activeControl = ShapeTypeToControl[activeShapeType];
         }
 
-        if (canvasInstance instanceof Canvas) {
+        if (canvasInstance instanceof Canvas || (canvasInstance instanceof Canvas3d &&
+            autoFitDrawData(canvasInstance, activeShapeType, activeLabelID, activeObjectType))) {
             canvasInstance.cancel();
         }
 
@@ -2148,6 +2150,7 @@ export function repeatDrawShapeAsync(): ThunkAction {
             const effectiveSimplifyPoly = typeof activeNumOfPoints !== 'undefined' ? false : activeSimplifyPoly;
             canvasInstance.draw({
                 enabled: true,
+                autoFit: autoFitDrawData(canvasInstance, activeShapeType, activeLabelID, activeObjectType),
                 rectDrawingMethod: activeRectDrawingMethod,
                 cuboidDrawingMethod: activeCuboidDrawingMethod,
                 numberOfPoints: activeNumOfPoints,

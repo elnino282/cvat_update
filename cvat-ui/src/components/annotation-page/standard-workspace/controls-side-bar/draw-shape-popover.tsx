@@ -9,6 +9,7 @@ import Button from 'antd/lib/button';
 import InputNumber from 'antd/lib/input-number';
 import Radio, { RadioChangeEvent } from 'antd/lib/radio';
 import Switch from 'antd/lib/switch';
+import Checkbox from 'antd/lib/checkbox';
 import Text from 'antd/lib/typography/Text';
 import { RectDrawingMethod, CuboidDrawingMethod } from 'cvat-canvas-wrapper';
 
@@ -35,6 +36,9 @@ interface Props {
     onDrawTrack(): void;
     onDrawShape(): void;
     jobInstance: any;
+    autoFitEnabled: boolean;
+    mockAutoFit: boolean;
+    onChangeAutoFit(value: boolean): void;
 }
 
 function DrawShapePopoverComponent(props: Props): JSX.Element {
@@ -56,6 +60,9 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
         onChangeCuboidDrawingMethod,
         onChangeSimplifyPoly,
         jobInstance,
+        autoFitEnabled,
+        mockAutoFit,
+        onChangeAutoFit,
     } = props;
 
     const is2D = jobInstance.dimension === DimensionType.DIMENSION_2D;
@@ -86,6 +93,20 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
                     />
                 </Col>
             </Row>
+            {jobInstance.dimension === DimensionType.DIMENSION_3D && shapeType === ShapeType.CUBOID && (
+                <Row>
+                    <Col span={24}>
+                        <Checkbox
+                            className='cvat-auto-fit-box-checkbox'
+                            checked={autoFitEnabled}
+                            onChange={(event) => onChangeAutoFit(event.target.checked)}
+                        >
+                            Auto Fit Box
+                        </Checkbox>
+                        {mockAutoFit && <Text type='secondary' className='cvat-auto-fit-mock-indicator'>Mock Auto Fit</Text>}
+                    </Col>
+                </Row>
+            )}
             {is2D && [ShapeType.RECTANGLE, ShapeType.ELLIPSE].includes(shapeType) && (
                 <>
                     <Row>

@@ -132,3 +132,7 @@ export {
 };
 
 export type { ViewsDOM };
+export type {
+    AutoFitDraw, FitRequest, FitResult, AutoFitProvider,
+} from './autoFit';
+export { createMockAutoFitProvider } from './autoFitMock';

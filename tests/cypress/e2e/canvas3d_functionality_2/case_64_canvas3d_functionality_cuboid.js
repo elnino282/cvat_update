@@ -11,7 +11,7 @@ context('Canvas 3D functionality. Add cuboid.', () => {
     const caseId = '64';
     const platformModifier = Cypress.platform === 'darwin' ? { metaKey: true } : { ctrlKey: true };
 
-    const screenshotsPath = 'cypress/screenshots/canvas3d_functionality_2/case_64_canvas3d_functionality_cuboid.js';
+    let screenshotsPath;
     const cuboidCreationParams = {
         objectType: 'Shape',
         labelName,
@@ -23,7 +23,9 @@ context('Canvas 3D functionality. Add cuboid.', () => {
         cy.prepareUserSession();
         cy.openTaskJob(taskName);
         // Prepare screenshots to compare
-        cy.customScreenshot('.cvat-canvas3d-perspective', 'canvas3d_perspective_before_all');
+        cy.customScreenshot('.cvat-canvas3d-perspective', 'canvas3d_perspective_before_all', (path) => {
+            screenshotsPath = path.slice(0, path.lastIndexOf('/'));
+        });
         ['topview', 'sideview', 'frontview'].forEach((view) => {
             cy.customScreenshot(`.cvat-canvas3d-${view}`, `canvas3d_${view}_before_all`);
         });

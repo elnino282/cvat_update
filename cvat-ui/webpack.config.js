@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { DefinePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
@@ -201,6 +202,9 @@ module.exports = (env, argv = {}) => {
             },
         },
         plugins: [
+            new DefinePlugin({
+                CVAT_AUTOFIT_MOCK_BUILD_ENABLED: JSON.stringify(isDevMode && process.env.CVAT_AUTOFIT_MOCK === 'true'),
+            }),
             new ExecScriptsPlugin(pluginPaths.filter(({ script }) => !!script)),
             new HtmlWebpackPlugin({
                 template: './src/index.html',
