@@ -133,6 +133,9 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
     }>;
     private hoverNeedsUpdate: boolean;
     private autoFitOperation = new AutoFitOperation();
+    private autoFitPickKey = '';
+    private autoFitPointerInside = false;
+    private imageGeneration = 0;
 
     public focusObjectByClientId(clientID: number, animate: boolean = true): void {
         const cuboidModel = this.drawnObjects[clientID];
@@ -414,9 +417,18 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
             const canvas = this.views.perspective.renderer.domElement;
             const rect = canvas.getBoundingClientRect();
             const { mouseVector } = this.views.perspective.rayCaster as { mouseVector: THREE.Vector2 };
-            mouseVector.x = ((event.clientX - (canvas.offsetLeft + rect.left)) / canvas.clientWidth) * 2 - 1;
-            mouseVector.y = -((event.clientY - (canvas.offsetTop + rect.top)) / canvas.clientHeight) * 2 + 1;
+            mouseVector.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouseVector.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+            this.autoFitPointerInside = true;
             this.hoverNeedsUpdate = true;
+        });
+
+        canvasPerspectiveView.addEventListener('mouseleave', () => {
+            this.autoFitPointerInside = false;
+            this.autoFitPickKey = '';
+            if (this.controller.drawData.autoFit && !this.autoFitOperation.inFlight) {
+                this.cube.perspective.visible = false;
+            }
         });
 
         canvasPerspectiveView.addEventListener('click', (e: MouseEvent): void => {
@@ -1384,6 +1396,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
             return;
         }
         this.cube.perspective.position.set(seed.x, seed.y, seed.z);
+        this.cube.perspective.visible = true;
         // start() acquires its guard before the first await or UI notification.
         const operation = this.autoFitOperation.start(draw, seed);
         this.autoFitStatus('fitting', 'Auto Fit in progress… Press Escape to cancel.');
@@ -1397,12 +1410,14 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
         // Disable synchronously before notifying consumers; exactly one existing creation transaction.
         data.enabled = false;
         this.mode = Mode.IDLE;
-        this.autoFitStatus('done', '');
+        this.autoFitStatus('done', outcome.quality === 'estimated' ?
+            'Estimated box — review its position, size and rotation.' : '');
         data.autoFit = undefined;
         this.dispatchEvent(new CustomEvent('canvas.drawn', {
             detail: {
                 state: { shapeType: 'cuboid', points: outcome.points, frame: outcome.request.frame },
                 autoFit: outcome.request,
+                autoFitQuality: outcome.quality,
                 duration: Date.now() - outcome.request.requestedAt,
             },
         }));
@@ -1412,6 +1427,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
 
     public notify(model: Canvas3dModel & Master, reason: UpdateReasons): void {
         if (reason === UpdateReasons.DESTROY) {
+            this.imageGeneration += 1;
             this.autoFitOperation.cancel();
             return;
         }
@@ -1426,18 +1442,21 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
         };
 
         if (reason === UpdateReasons.IMAGE_CHANGED) {
+            const generation = ++this.imageGeneration;
+            this.autoFitPickKey = '';
             this.autoFitOperation.cancel();
             this.statesToBeGrouped = [];
             this.clearScene();
 
             const onPCDLoadSuccess = (points: any): void => {
-                try {
-                    this.onSceneImageLoaded(points);
-                    model.updateCanvasObjects();
-                } finally {
-                    model.unlockFrameUpdating();
-                    this.dispatchEvent(new CustomEvent('canvas.setup'));
+                if (generation !== this.imageGeneration) {
+                    points.geometry.dispose();
+                    return;
                 }
+                this.onSceneImageLoaded(points);
+                model.updateCanvasObjects();
+                this.dispatchEvent(new CustomEvent('canvas.setup'));
+                model.unlockFrameUpdating();
             };
 
             try {
@@ -1474,6 +1493,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
                         }
                     } else {
                         model.data.image.imageData.arrayBuffer().then((data) => {
+                            if (generation !== this.imageGeneration) return;
                             const defaultImpl = console.error;
                             // loader.parse will throw some errors to console when nan values are in PCD file
                             // there is not way to prevent it, because three.js opinion is that nan values
@@ -1536,6 +1556,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
                                 position: [], color: [], normal: [], intensity: [], label: [],
                             }));
 
+                            if (!position.length) throw new Error('The frame contains no finite LiDAR points.');
                             if (position.length) {
                                 cloud.geometry.setAttribute('position', new THREE.Float32BufferAttribute(position, 3));
                             }
@@ -1558,6 +1579,15 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
 
                             cloud.geometry.computeBoundingSphere();
                             onPCDLoadSuccess(cloud);
+                        }).catch((exception: unknown) => {
+                            if (generation !== this.imageGeneration) return;
+                            try {
+                                this.dispatchEvent(new CustomEvent('canvas.error', {
+                                    detail: { exception, domain: 'data fetching' },
+                                }));
+                            } finally {
+                                model.unlockFrameUpdating();
+                            }
                         });
                         const [overlay] = window.document.getElementsByClassName('cvat_3d_canvas_deleted_overlay');
                         if (overlay) {
@@ -1624,6 +1654,11 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
             this.cube.setName('drawTemplate');
             this.deactivateObject();
             this.views[ViewType.PERSPECTIVE].scene.children[0].add(this.cube.perspective);
+            if (data.autoFit && !data.initialState && !Number.isInteger(data.redraw)) {
+                this.autoFitPickKey = '';
+                this.cube.perspective.visible = false;
+                this.autoFitStatus('drawing', 'Double-click a visible LiDAR point on the car.');
+            }
         } else if (reason === UpdateReasons.OBJECTS_UPDATED) {
             this.setupObjectsIncremental(model.objects);
         } else if (reason === UpdateReasons.DRAG_CANVAS) {
@@ -2029,17 +2064,31 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
         }
     }
 
-    private renderRayCaster = (viewType: RenderView): void => {
+    private renderRayCaster(viewType: RenderView): void {
         viewType.rayCaster.renderer.setFromCamera(viewType.rayCaster.mouseVector, viewType.camera);
         if (this.mode === Mode.DRAW) {
             if (this.controller.drawData.autoFit && !this.controller.drawData.initialState &&
                 typeof this.controller.drawData.redraw !== 'number') {
                 if (!this.autoFitOperation.inFlight) {
                     const rect = viewType.renderer.domElement.getBoundingClientRect();
+                    if (!this.autoFitPointerInside) {
+                        this.cube.perspective.visible = false;
+                        return;
+                    }
+                    viewType.camera.updateMatrixWorld(true);
+                    const key = [
+                        this.imageGeneration, this.model.data.imageID,
+                        viewType.rayCaster.mouseVector.x, viewType.rayCaster.mouseVector.y,
+                        rect.width, rect.height, ...viewType.camera.matrixWorld.elements,
+                        ...viewType.camera.projectionMatrix.elements,
+                    ].join(',');
+                    if (key === this.autoFitPickKey) return;
+                    this.autoFitPickKey = key;
                     const seed = pickAutoFitSeed(
                         this.views.perspective.scene, viewType.camera, viewType.rayCaster.mouseVector,
                         rect.width, rect.height,
                     );
+                    this.cube.perspective.visible = Boolean(seed);
                     if (seed) this.cube.perspective.position.set(seed.x, seed.y, seed.z);
                 }
                 return;
@@ -2097,7 +2146,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
                 this.drawnObjects[state.clientID].cuboid.setColor(this.receiveShapeColor(state));
             }
         }
-    };
+    }
 
     public render(): void {
         if (this.mode === Mode.DRAW && this.controller.drawData.autoFit &&

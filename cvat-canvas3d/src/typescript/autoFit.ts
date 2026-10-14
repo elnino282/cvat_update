@@ -23,6 +23,8 @@ export interface FitRequest extends FitIdentity {
     requestId: string;
     requestedAt: number;
     seed: FitSeed;
+    frameToken?: string;
+    allowEstimated?: boolean;
 }
 
 export type FitResult = {
@@ -32,17 +34,22 @@ export type FitResult = {
     center: Triple;
     size: Triple;
     rotation: Triple;
-    provider: 'mock' | 'snap';
+    provider: 'mock' | 'snap' | 'geometry-only';
     confidence?: number;
+    quality?: 'confident' | 'estimated';
+    diagnostics?: Record<string, unknown>;
 } | {
     status: 'no-fit';
     requestId: string;
     frame: number;
-    reason: 'no-points' | 'ambiguous' | 'insufficient-evidence' | 'unavailable';
+    reason: 'no-points' | 'ambiguous' | 'insufficient-evidence' | 'unavailable' |
+    'timeout' | 'cancelled' | 'invalid-geometry' | 'invalid-seed' | 'frame-expired';
+    provider?: 'mock' | 'snap' | 'geometry-only';
+    diagnostics?: Record<string, unknown>;
 };
 
 export interface AutoFitProvider {
-    readonly kind: 'mock' | 'snap';
+    readonly kind: 'mock' | 'snap' | 'geometry-only';
     fit(request: FitRequest, signal: AbortSignal): Promise<FitResult>;
 }
 
@@ -50,6 +57,7 @@ export interface AutoFitDraw {
     identity: FitIdentity;
     provider: AutoFitProvider;
     isCurrent(): boolean;
+    allowEstimated?: boolean;
 }
 
 function finiteTriple(value: unknown): value is Triple {
@@ -62,8 +70,12 @@ export function fitResultToPoints(result: FitResult, request: FitRequest, provid
     if (!result || result.requestId !== request.requestId || result.frame !== request.frame) {
         throw new Error('Auto Fit response does not match this request');
     }
-    if (result.status !== 'ok' || result.provider !== provider ||
-        !['mock', 'snap'].includes(result.provider) ||
+    const fallback = request.allowEstimated && provider === 'snap' &&
+        result.status === 'ok' && result.provider === 'geometry-only' && result.quality === 'estimated';
+    if (result.status !== 'ok' || (result.provider !== provider && !fallback) ||
+        (result.quality !== undefined && !['confident', 'estimated'].includes(result.quality)) ||
+        (result.quality === 'estimated' && !request.allowEstimated) ||
+        !['mock', 'snap', 'geometry-only'].includes(result.provider) ||
         !finiteTriple(result.center) || !finiteTriple(result.rotation) || !finiteTriple(result.size) ||
         result.size.some((n) => n <= 0) ||
         (result.confidence !== undefined && (!Number.isFinite(result.confidence) ||
@@ -73,10 +85,19 @@ export function fitResultToPoints(result: FitResult, request: FitRequest, provid
     return [...result.center, ...result.rotation, ...result.size, 0, 0, 0, 0, 0, 0, 0];
 }
 
-export type FitOutcome = { status: 'ok'; request: FitRequest; points: number[] } |
+export type FitOutcome = { status: 'ok'; request: FitRequest; points: number[]; quality: 'confident' | 'estimated' } |
 { status: 'retry'; hint: string } | { status: 'cancelled' };
 
-let nextRequest = 0;
+function requestUUID(): string {
+    // randomUUID is restricted to secure contexts. getRandomValues also works on
+    // explicitly configured LAN development origins.
+    const bytes = new Uint8Array(16);
+    globalThis.crypto.getRandomValues(bytes);
+    bytes[6] = (bytes[6] % 16) + 64;
+    bytes[8] = (bytes[8] % 64) + 128;
+    const hex = Array.from(bytes, (value) => value.toString(16).padStart(2, '0')).join('');
+    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+}
 
 // Owns the synchronous gesture guard, cancellation and provider deadline. Independent of React rendering.
 export class AutoFitOperation {
@@ -95,7 +116,7 @@ export class AutoFitOperation {
         }
     }
 
-    public async start(draw: AutoFitDraw, seed: FitSeed, timeout = 10000): Promise<FitOutcome> {
+    public async start(draw: AutoFitDraw, seed: FitSeed, timeout = 2000): Promise<FitOutcome> {
         if (this.pending || !draw.isCurrent()) return { status: 'cancelled' };
         if (![seed.x, seed.y, seed.z].every(Number.isFinite) ||
             !Number.isInteger(seed.pointIndex) || seed.pointIndex < 0) {
@@ -104,8 +125,9 @@ export class AutoFitOperation {
         const request: FitRequest = {
             ...draw.identity,
             seed: { ...seed },
-            requestId: `autofit-${++nextRequest}`,
+            requestId: requestUUID(),
             requestedAt: Date.now(),
+            allowEstimated: draw.allowEstimated || false,
         };
         const abort = new AbortController();
         let timedOut = false;
@@ -128,13 +150,20 @@ export class AutoFitOperation {
                 throw new Error('Mismatched response');
             }
             if (result.status === 'no-fit') {
+                let hint = 'No confident fit. Double-click another LiDAR point to retry.';
+                if (result.reason === 'timeout') hint = 'Auto Fit timed out. Double-click a LiDAR point to retry.';
+                if (result.reason === 'unavailable') hint = 'Auto Fit is unavailable. Try again later.';
                 return {
                     status: 'retry',
-                    hint: result.reason === 'unavailable' ? 'Auto Fit is unavailable. Try again later.' :
-                        'No confident fit. Double-click another LiDAR point to retry.',
+                    hint,
                 };
             }
-            return { status: 'ok', request, points: fitResultToPoints(result, request, draw.provider.kind) };
+            return {
+                status: 'ok',
+                request,
+                points: fitResultToPoints(result, request, draw.provider.kind),
+                quality: result.quality || 'confident',
+            };
         } catch (_error) {
             if (this.pending !== pending || !draw.isCurrent()) return { status: 'cancelled' };
             return {

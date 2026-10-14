@@ -69,6 +69,7 @@ test('gesture guard admits one operation synchronously and snapshots input', asy
     const outcome = await first;
     assert.equal(outcome.status, 'ok');
     assert.equal(outcome.request.labelId, 4);
+    assert.match(captured.requestId, /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
     assert.equal(op.inFlight, false);
 });
 
@@ -126,7 +127,7 @@ test('destroy leaves the canvas idle and invalidates drawing without emitting a 
     assert.deepEqual(reasons, [UpdateReasons.DESTROY]);
 });
 
-test('production and default development gate never construct a mock or read fixture overrides', async () => {
+test('production/default gate is OFF and explicit real flag never reads mock overrides', async () => {
     const source = fs.readFileSync(path.resolve(__dirname, '../../cvat-ui/src/utils/auto-fit.ts'), 'utf8');
     const compiled = ts.transpileModule(source, {
         compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
@@ -134,16 +135,18 @@ test('production and default development gate never construct a mock or read fix
     for (const [NODE_ENV, CVAT_AUTOFIT_MOCK] of [['production', 'true'], ['development', 'false']]) {
         class Canvas3d {}
         const canvas = new Canvas3d();
-        const job = { id: 2, taskId: 1, dimension: '3d' };
+        const job = { id: 2, taskId: 1, dimension: '3d', labels: [{ id: 4, name: 'Car' }] };
         const annotation = {
             job: { instance: job }, player: { frame: { number: 3, fetching: false } },
             drawing: { activeLabelID: 4, activeObjectType: 'shape', activeShapeType: 'cuboid' },
             canvas: { instance: canvas, activeControl: 'draw-cuboid' },
         };
         const exports = {};
-        vm.runInNewContext(compiled, {
+        const context = {
             exports, process: { env: { NODE_ENV, CVAT_AUTOFIT_MOCK } },
             CVAT_AUTOFIT_MOCK_BUILD_ENABLED: CVAT_AUTOFIT_MOCK === 'true',
+            CVAT_AUTOFIT_REAL_BUILD_ENABLED: false,
+            CVAT_AUTOFIT_BACKEND_KIND: 'geometry-only',
             window: { localStorage: { getItem: () => assert.fail('Production read test overrides') } },
             require(name) {
                 if (name === 'cvat-canvas3d-wrapper') return {
@@ -154,12 +157,31 @@ test('production and default development gate never construct a mock or read fix
                 };
                 if (name === 'reducers') return { ActiveControl: { DRAW_CUBOID: 'draw-cuboid' } };
                 if (name === 'cvat-store') return { getCVATStore: () => ({ getState: () => ({ annotation }) }) };
+                if (name === './auto-fit-provider') return {
+                    createRealAutoFitProvider: (kind) => ({
+                        kind,
+                        async fit(r) {
+                            return { status: 'no-fit', requestId: r.requestId, frame: r.frame,
+                                reason: 'unavailable', provider: kind };
+                        },
+                    }),
+                };
                 assert.fail(`Unexpected import ${name}`);
             },
-        });
+        };
+        vm.runInNewContext(compiled, context);
+        exports.setAutoFitPreference(canvas, true);
+        assert.equal(exports.autoFitAvailable, false);
+        assert.equal(exports.autoFitDrawData(canvas, 'cuboid', 4, 'shape'), undefined);
+        vm.runInNewContext(compiled, { ...context, CVAT_AUTOFIT_REAL_BUILD_ENABLED: true });
         exports.setAutoFitPreference(canvas, true);
         const draw = exports.autoFitDrawData(canvas, 'cuboid', 4, 'shape');
         assert.equal(exports.mockAutoFitEnabled, false);
+        assert.equal(draw.provider.kind, 'geometry-only');
+        annotation.job.instance.labels = [{ id: 4, name: 'Pedestrian' }];
+        assert.equal(exports.autoFitDrawData(canvas, 'cuboid', 4, 'shape'), undefined);
+        assert.equal(draw.isCurrent(), false);
+        annotation.job.instance.labels = [{ id: 4, name: 'Car' }];
         assert.equal(draw.isCurrent(), true);
         annotation.job.instance = { ...job }; // A same-job metadata refresh preserves the session.
         assert.equal(draw.isCurrent(), true);
@@ -195,18 +217,27 @@ test('production and default development gate never construct a mock or read fix
 test('webpack owns the mock gate independently of dotenv and forces it OFF for production', () => {
     const config = require('../../cvat-ui/webpack.config.js');
     const previousFlag = process.env.CVAT_AUTOFIT_MOCK;
+    const previousRealFlag = process.env.CVAT_AUTOFIT_ENABLED;
     const previousServe = process.env.WEBPACK_SERVE;
     try {
         process.env.CVAT_AUTOFIT_MOCK = 'true';
+        delete process.env.CVAT_AUTOFIT_ENABLED;
         delete process.env.WEBPACK_SERVE;
         for (const [mode, expected] of [['production', 'false'], ['development', 'true']]) {
             const definition = config({}, { mode }).plugins.find((plugin) => plugin.definitions?.CVAT_AUTOFIT_MOCK_BUILD_ENABLED);
             assert.equal(definition.definitions.CVAT_AUTOFIT_MOCK_BUILD_ENABLED, expected);
             assert.equal(definition.definitions['process.env.CVAT_AUTOFIT_MOCK'], undefined);
+            assert.equal(definition.definitions.CVAT_AUTOFIT_REAL_BUILD_ENABLED, 'false');
         }
+        process.env.CVAT_AUTOFIT_ENABLED = 'true';
+        const enabled = config({}, { mode: 'development' }).plugins.find((plugin) =>
+            plugin.definitions?.CVAT_AUTOFIT_REAL_BUILD_ENABLED);
+        assert.equal(enabled.definitions.CVAT_AUTOFIT_REAL_BUILD_ENABLED, 'true');
     } finally {
         if (previousFlag === undefined) delete process.env.CVAT_AUTOFIT_MOCK;
         else process.env.CVAT_AUTOFIT_MOCK = previousFlag;
+        if (previousRealFlag === undefined) delete process.env.CVAT_AUTOFIT_ENABLED;
+        else process.env.CVAT_AUTOFIT_ENABLED = previousRealFlag;
         if (previousServe === undefined) delete process.env.WEBPACK_SERVE;
         else process.env.WEBPACK_SERVE = previousServe;
     }
@@ -228,6 +259,48 @@ test('all mock failure modes recover for retry; mock is deterministic and aborta
     const slow = op.start({ identity, isCurrent: () => true, provider: createMockAutoFitProvider('timeout') }, seed);
     op.cancel();
     assert.equal((await slow).status, 'cancelled');
+});
+
+test('real provider forwards same identity without retries and cancels on abort or deadline', async () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../../cvat-ui/src/utils/auto-fit-provider.ts'), 'utf8');
+    const compiled = ts.transpileModule(source, {
+        compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
+    }).outputText;
+    const calls = [];
+    let post = async () => ({ data: { ...result, provider: 'geometry-only' } });
+    const axios = {
+        post: (...args) => { calls.push(['POST', ...args]); return post(...args); },
+        delete: (...args) => { calls.push(['DELETE', ...args]); return Promise.resolve({ status: 204 }); },
+        isAxiosError: (error) => !!error.isAxiosError,
+    };
+    const exports = {};
+    vm.runInNewContext(compiled, { exports, require(name) {
+        if (name === 'axios') return { default: axios };
+        if (name === 'cvat-store') return {
+            getCVATStore: () => ({ getState: () => ({ organizations: { current: { slug: 'test-org' } } }) }),
+        };
+        assert.fail(`Unexpected provider import ${name}`);
+    } });
+    const provider = exports.createRealAutoFitProvider('geometry-only');
+    assert.equal((await provider.fit(request, new AbortController().signal)).provider, 'geometry-only');
+    assert.equal(calls[0][1], '/api/jobs/2/auto-fit');
+    assert.equal(calls[0][2], request);
+    assert.equal(calls[0][3]['axios-retry'].retries, 0);
+    assert.equal(calls[0][3].params.org, 'test-org');
+    const controller = new AbortController();
+    post = (_url, _data, config) => new Promise((_resolve, reject) => {
+        config.signal.addEventListener('abort', () => reject(new Error('cancelled')), { once: true });
+    });
+    const pending = provider.fit(request, controller.signal);
+    controller.abort();
+    await assert.rejects(pending);
+    assert.equal(calls.at(-1)[0], 'DELETE');
+    assert.equal(calls.at(-1)[1], '/api/jobs/2/auto-fit/fixture');
+    post = async () => { throw { isAxiosError: true, response: { status: 504 } }; };
+    assert.equal((await provider.fit(request, new AbortController().signal)).reason, 'timeout');
+    assert.equal(calls.at(-1)[0], 'DELETE');
+    post = async () => { throw { isAxiosError: true, response: { status: 503 } }; };
+    assert.equal((await provider.fit(request, new AbortController().signal)).reason, 'unavailable');
 });
 
 test('actual point picker ignores template, returns vertex XYZ/index and rejects empty/out-of-viewport coordinates', () => {
@@ -252,4 +325,170 @@ test('actual point picker ignores template, returns vertex XYZ/index and rejects
     assert.equal(pickAutoFitSeed(scene, camera, new THREE.Vector2(0, 0), 0, 1000), null);
     cloud.visible = false;
     assert.equal(pickAutoFitSeed(scene, camera, new THREE.Vector2(0, 0), 1000, 1000), null);
+});
+
+test('estimated results require negotiation and honest geometry fallback provenance', () => {
+    const estimated = { ...result, quality: 'estimated' };
+    assert.throws(() => fitResultToPoints(estimated, request, 'mock'));
+    assert.equal(fitResultToPoints(estimated, { ...request, allowEstimated: true }, 'mock').length, 16);
+    assert.throws(() => fitResultToPoints({ ...result, quality: 'anything' }, request, 'mock'));
+    const fallback = { ...estimated, provider: 'geometry-only' };
+    assert.equal(fitResultToPoints(fallback, { ...request, allowEstimated: true }, 'snap').length, 16);
+    assert.throws(() => fitResultToPoints({ ...fallback, quality: 'confident' },
+        { ...request, allowEstimated: true }, 'snap'));
+});
+
+function loadView(parse) {
+    const compiled = ts.transpileModule(fs.readFileSync(path.resolve(__dirname,
+        '../src/typescript/canvas3dView.ts'), 'utf8'), {
+        compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
+    }).outputText;
+    const exports = {};
+    vm.runInNewContext(compiled, {
+        exports, console, CustomEvent: class { constructor(type, init) { this.type = type; this.detail = init?.detail; } },
+        window: { document: { getElementsByClassName: () => [] } },
+        require(name) {
+            if (name === 'three') return THREE;
+            if (name.includes('PCDLoader')) return { PCDLoader: class { parse(data) { return parse(data); } } };
+            if (name === './canvas3dModel') return require('../src/typescript/canvas3dModel.ts');
+            if (name === './cuboid') return { CuboidModel: class {
+                constructor() { this.perspective = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshBasicMaterial()); }
+                setOrientationVisibility() {}
+                setName(name) { this.perspective.name = name; }
+            } };
+            if (name === './autoFit') return { AutoFitOperation };
+            if (name === './autoFitSeed') return { pickAutoFitSeed };
+            return {};
+        },
+    });
+    return exports.Canvas3dViewImpl;
+}
+
+function viewFixture(View) {
+    const events = [];
+    const scene = new THREE.Scene();
+    const cloud = new THREE.Points(new THREE.BufferGeometry().setAttribute('position',
+        new THREE.Float32BufferAttribute([0, 0, 0], 3)), new THREE.PointsMaterial({ size: .05 }));
+    scene.add(cloud);
+    const camera = new THREE.PerspectiveCamera(50, 1, .1, 1000);
+    camera.position.set(0, 0, 10);
+    camera.lookAt(0, 0, 0);
+    const model = { data: { imageID: 3, isFrameUpdating: true,
+        image: { imageData: { arrayBuffer: async () => new ArrayBuffer(1) } },
+        configuration: { orientationVisibility: 'all' } },
+        mode: Mode.DRAW, updateCanvasObjects() {}, unlockFrameUpdating() { this.data.isFrameUpdating = false; } };
+    const view = Object.create(View.prototype);
+    Object.assign(view, { model, controller: { mode: Mode.DRAW, imageIsDeleted: false, drawData: { enabled: true, autoFit: {} } },
+        imageGeneration: 0, autoFitPickKey: '', autoFitPointerInside: true,
+        autoFitOperation: new AutoFitOperation(), clearScene() {}, deactivateObject() {},
+        onSceneImageLoaded() {}, views: { perspective: { scene, camera,
+            renderer: { dispose() {}, domElement: { getBoundingClientRect: () => ({ width: 1000, height: 1000 }),
+                dispatchEvent(event) { events.push(event); } } },
+            rayCaster: { renderer: new THREE.Raycaster(), mouseVector: new THREE.Vector2(0, 0) } } } });
+    return { view, model, events, cloud };
+}
+
+test('real canvas orchestration unlocks rejected PCD reads/parses and can load again', async () => {
+    for (const failure of ['read', 'parse']) {
+        let badParse = failure === 'parse';
+        const View = loadView(() => {
+            if (badParse) throw new Error('broken PCD');
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute([1, 2, 3], 3));
+            return new THREE.Points(geometry, new THREE.PointsMaterial());
+        });
+        const { view, model, events } = viewFixture(View);
+        if (failure === 'read') model.data.image.imageData.arrayBuffer = async () => { throw new Error('read failed'); };
+        view.notify(model, UpdateReasons.IMAGE_CHANGED);
+        await new Promise((resolve) => setImmediate(resolve));
+        assert.equal(model.data.isFrameUpdating, false);
+        assert.equal(events.filter((event) => event.type === 'canvas.error').length, 1);
+        assert.equal(events.filter((event) => event.type === 'canvas.setup').length, 0);
+        badParse = false;
+        model.data.isFrameUpdating = true;
+        model.data.image.imageData.arrayBuffer = async () => new ArrayBuffer(1);
+        view.notify(model, UpdateReasons.IMAGE_CHANGED);
+        await new Promise((resolve) => setImmediate(resolve));
+        assert.equal(model.data.isFrameUpdating, false);
+        assert.equal(events.filter((event) => event.type === 'canvas.setup').length, 1);
+    }
+});
+
+test('auto fit preview is attached only by draw, moves to real point, hides on empty space and skips idle picks', () => {
+    const View = loadView(() => assert.fail('Unexpected parse'));
+    const { view, model, cloud } = viewFixture(View);
+    assert.equal(cloud.getObjectByName('drawTemplate'), undefined);
+    view.notify(model, UpdateReasons.DRAW);
+    assert.equal(cloud.getObjectByName('drawTemplate'), view.cube.perspective);
+    view.renderRayCaster(view.views.perspective);
+    assert.equal(view.cube.perspective.visible, true);
+    assert.equal(view.cube.perspective.position.z, 0);
+    const savedRay = view.views.perspective.rayCaster.renderer;
+    // The picker owns a separate raycaster; changing the key exposes whether idle work is skipped.
+    const key = view.autoFitPickKey;
+    view.renderRayCaster(view.views.perspective);
+    assert.equal(view.autoFitPickKey, key);
+    assert.equal(view.views.perspective.rayCaster.renderer, savedRay);
+    view.views.perspective.rayCaster.mouseVector.set(.9, .9);
+    view.renderRayCaster(view.views.perspective);
+    assert.equal(view.cube.perspective.visible, false);
+});
+
+test('preparation stays separate from drawing, supplies scoped token and stops after frame change', async () => {
+    const compiled = ts.transpileModule(fs.readFileSync(path.resolve(__dirname,
+        '../../cvat-ui/src/utils/auto-fit-provider.ts'), 'utf8'), {
+        compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
+    }).outputText;
+    const calls = [];
+    let resolveOld;
+    const axios = {
+        post: async (url, data, config) => {
+            calls.push({ url, data, config });
+            if (url.endsWith('/prepare')) {
+                if (data.frame === 4) return new Promise((resolve) => { resolveOld = resolve; });
+                return { data: { frame: data.frame, frameToken: 'a'.repeat(32), state: 'ready' } };
+            }
+            return { data: { ...result, provider: 'snap' } };
+        },
+        delete: async () => ({}), isAxiosError: () => false,
+    };
+    const exports = {};
+    vm.runInNewContext(compiled, { exports, AbortController, setTimeout, clearTimeout,
+        require(name) {
+            if (name === 'axios') return { default: axios };
+            if (name === 'cvat-store') return {
+                getCVATStore: () => ({ getState: () => ({ organizations: { current: null } }) }),
+            };
+            assert.fail(name);
+        },
+    });
+    const canvas = {};
+    const stop = exports.prepareRealAutoFitFrame(canvas, identity);
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0].url, '/api/jobs/2/auto-fit/prepare');
+    const provider = exports.createRealAutoFitProvider('snap', canvas);
+    await provider.fit(request, new AbortController().signal);
+    assert.equal(calls.at(-1).data.frameToken, 'a'.repeat(32));
+    const stopOld = exports.prepareRealAutoFitFrame(canvas, { ...identity, frame: 4 });
+    stopOld();
+    resolveOld({ data: { frame: 4, frameToken: 'b'.repeat(32), state: 'ready' } });
+    await new Promise((resolve) => setImmediate(resolve));
+    await provider.fit({ ...request, frame: 4 }, new AbortController().signal);
+    assert.equal(calls.at(-1).data.frameToken, undefined);
+    stop();
+});
+
+test('destroy during a delayed PCD read cannot publish setup or attach geometry', async () => {
+    let resolveRead;
+    let parseCalls = 0;
+    const View = loadView(() => { parseCalls += 1; assert.fail('Stale read parsed'); });
+    const { view, model, events } = viewFixture(View);
+    model.data.image.imageData.arrayBuffer = () => new Promise((resolve) => { resolveRead = resolve; });
+    view.notify(model, UpdateReasons.IMAGE_CHANGED);
+    view.notify(model, UpdateReasons.DESTROY);
+    resolveRead(new ArrayBuffer(1));
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(parseCalls, 0);
+    assert.equal(events.length, 0);
 });

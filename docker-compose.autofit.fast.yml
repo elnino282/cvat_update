@@ -1,0 +1,25 @@
+# Reproducible local Auto Fit runtime; keep the base CVAT data volumes.
+# docker compose -f docker-compose.yml -f docker-compose.autofit.pr3.yml \
+#   -f docker-compose.autofit.fast.yml up -d --no-deps cvat_server cvat_ui vehicle_fit
+services:
+  cvat_server:
+    image: cvat/server:autofit-fast
+    environment:
+      CVAT_AUTOFIT_ENABLED: 'true'
+      CVAT_AUTOFIT_BACKEND: snap
+    labels:
+      cvat.autofit.runtime: fast-prepared-frame
+  cvat_ui:
+    volumes:
+      - ./cvat-ui/dist-autofit-fast:/usr/share/nginx/html:ro
+    labels:
+      cvat.autofit.runtime: fast-prepared-frame
+  vehicle_fit:
+    image: cvat/vehicle-fit:autofit-fast
+    build:
+      context: .
+      dockerfile: components/vehicle_fit/Dockerfile.runtime
+    environment:
+      VEHICLE_FIT_BACKEND: snap
+    volumes:
+      - ./components/vehicle_fit/weights/SNAP_Outdoor.pth:/weights/SNAP_Outdoor.pth:ro

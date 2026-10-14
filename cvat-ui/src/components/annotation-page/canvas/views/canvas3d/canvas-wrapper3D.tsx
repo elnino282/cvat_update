@@ -8,7 +8,8 @@ import React, {
     useCallback, useEffect, useRef, useState,
 } from 'react';
 import { getCVATStore } from 'cvat-store';
-import { isAutoFitIdentityCurrent, mockAutoFitEnabled } from 'utils/auto-fit';
+import { isAutoFitIdentityCurrent, mockAutoFitEnabled, realAutoFitEnabled } from 'utils/auto-fit';
+import { prepareRealAutoFitFrame } from 'utils/auto-fit-provider';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import {
     ArrowDownOutlined, ArrowLeftOutlined, ArrowRightOutlined, ArrowUpOutlined,
@@ -158,7 +159,7 @@ interface StateToProps {
 interface DispatchToProps {
     onSetupCanvas(): void;
     onResetCanvas(): void;
-    onCreateAnnotations(states: ObjectState[]): void;
+    onCreateAnnotations(states: ObjectState[]): Promise<number[]>;
     onGroupAnnotations(states: ObjectState[]): void;
     onMergeAnnotations(states: ObjectState[]): void;
     onSplitAnnotations(state: ObjectState): void;
@@ -236,8 +237,8 @@ function mapDispatchToProps(dispatch: any): DispatchToProps {
         onResetCanvas(): void {
             dispatch(resetCanvas());
         },
-        onCreateAnnotations(states: ObjectState[]): void {
-            dispatch(createAnnotationsAsync(states));
+        onCreateAnnotations(states: ObjectState[]): Promise<number[]> {
+            return dispatch(createAnnotationsAsync(states));
         },
         onGroupAnnotations(states: ObjectState[]): void {
             dispatch(groupAnnotationsAsync(states));
@@ -590,6 +591,7 @@ export const FrontViewComponent = React.memo(
 const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null => {
     const animateId = useRef(0);
     const [autoFitHint, setAutoFitHint] = useState('');
+    const committedAutoFitRequests = useRef(new Set<string>());
 
     const {
         opacity,
@@ -624,6 +626,13 @@ const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null =
     } = props;
 
     const { canvasInstance } = props as { canvasInstance: Canvas3d };
+
+    useEffect(() => {
+        setAutoFitHint('');
+        if (!realAutoFitEnabled || !frameData || frameData.deleted ||
+            !jobInstance.labels.some((label) => label.name.trim().toLowerCase() === 'car')) return undefined;
+        return prepareRealAutoFitFrame(canvasInstance, { taskId: jobInstance.taskId, jobId: jobInstance.id, frame });
+    }, [canvasInstance, jobInstance.id, frame, frameData]);
 
     const onCanvasSetup = (): void => {
         onSetupCanvas();
@@ -670,7 +679,8 @@ const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null =
         const fitRequest = event.detail.autoFit;
         if (fitRequest && (!isAutoFitIdentityCurrent(fitRequest) ||
             fitRequest.jobId !== jobInstance.id || fitRequest.taskId !== jobInstance.taskId ||
-            fitRequest.frame !== frame)) return;
+            fitRequest.frame !== frame || committedAutoFitRequests.current.has(fitRequest.requestId))) return;
+        if (fitRequest) committedAutoFitRequests.current.add(fitRequest.requestId);
         if (!event.detail.continue) {
             updateActiveControl(ActiveControl.CURSOR);
         }
@@ -690,7 +700,12 @@ const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null =
         state.frame = fitRequest?.frame ?? frame;
         state.zOrder = 0;
         const objectState = new cvat.classes.ObjectState(state);
-        onCreateAnnotations([objectState]);
+        onCreateAnnotations([objectState]).then((ids) => {
+            const current = getCVATStore().getState().annotation;
+            if (event.detail.autoFitQuality === 'estimated' && ids.length === 1 &&
+                current.job.instance?.id === fitRequest.jobId && current.player.frame.number === fitRequest.frame &&
+                current.canvas.activeControl === ActiveControl.CURSOR) onActivateObject(ids[0]);
+        });
     };
 
     const onCanvasClick = (e: MouseEvent): void => {

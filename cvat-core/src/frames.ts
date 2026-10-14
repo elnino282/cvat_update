@@ -11,7 +11,7 @@ import PluginRegistry from './plugins';
 import { MediaType } from './enums';
 import serverProxy, { PREVIEW_DEFAULT, PreviewResponse } from './server-proxy';
 import { SerializedChapterMetaData, SerializedFramesMetaData } from './server-response-types';
-import { ArgumentError } from './exceptions';
+import { ArgumentError, ServerError } from './exceptions';
 import { FieldUpdateTrigger } from './common';
 import config from './config';
 
@@ -816,7 +816,13 @@ export async function getContextImage(
                     resolve(frameData.contextCache[frame].data);
                 } else {
                     frameData.activeContextRequest = getImageContext(frame)
-                        .then((encodedImages) => decodeContextImages(encodedImages, 0, relatedFiles));
+                        .then((encodedImages) => decodeContextImages(encodedImages, 0, relatedFiles))
+                        .catch((error: unknown) => {
+                            // Some LiDAR datasets have sparse or missing related camera images.
+                            // A missing context chunk must not prevent the frame's point cloud from loading.
+                            if (error instanceof ServerError && error.code === 404) return {};
+                            throw error;
+                        });
                     frameData.activeContextRequest.then((images) => {
                         const size = Object.values(images)
                             .reduce((acc, image) => acc + image.width * image.height * 4, 0);

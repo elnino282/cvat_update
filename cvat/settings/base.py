@@ -875,3 +875,8 @@ USER_LAST_ACTIVITY_UPDATE_MIN_INTERVAL = timedelta(days=1)
 
 # Health check settings
 HEALTH_CHECK = {"DISK_USAGE_MAX": int(os.getenv("CVAT_HEALTH_DISK_USAGE_MAX", 90))}
+
+# Real inference is explicitly enabled only in the local acceptance environment.
+CVAT_AUTOFIT_ENABLED = to_bool(os.getenv("CVAT_AUTOFIT_ENABLED", "false"))
+CVAT_AUTOFIT_BACKEND = os.getenv("CVAT_AUTOFIT_BACKEND", "snap")
+CVAT_AUTOFIT_SERVICE_URL = os.getenv("CVAT_AUTOFIT_SERVICE_URL", "http://vehicle_fit:8093").rstrip("/")

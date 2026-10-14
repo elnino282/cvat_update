@@ -204,6 +204,8 @@ module.exports = (env, argv = {}) => {
         plugins: [
             new DefinePlugin({
                 CVAT_AUTOFIT_MOCK_BUILD_ENABLED: JSON.stringify(isDevMode && process.env.CVAT_AUTOFIT_MOCK === 'true'),
+                CVAT_AUTOFIT_REAL_BUILD_ENABLED: JSON.stringify(process.env.CVAT_AUTOFIT_ENABLED === 'true'),
+                CVAT_AUTOFIT_BACKEND_KIND: JSON.stringify(process.env.CVAT_AUTOFIT_BACKEND || 'snap'),
             }),
             new ExecScriptsPlugin(pluginPaths.filter(({ script }) => !!script)),
             new HtmlWebpackPlugin({

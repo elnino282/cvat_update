@@ -35,6 +35,7 @@
     "@uiw/react-md-editor": "^3.22.0",
     "@wavesurfer/react": "^1.0.12",
     "antd": "5.17.1",
+    "axios": "^1.20.0",
     "chart.js": "^4.4.8",
     "chartjs-plugin-datalabels": "^2.2.0",
     "cvat-canvas": "link:./../cvat-canvas",

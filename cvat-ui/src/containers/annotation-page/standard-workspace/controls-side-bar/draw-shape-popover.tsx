@@ -19,7 +19,7 @@ import {
 } from 'cvat-core-wrapper';
 import openCVWrapper from 'utils/opencv-wrapper/opencv-wrapper';
 import {
-    autoFitPreference, setAutoFitPreference, autoFitDrawData, mockAutoFitEnabled,
+    autoFitPreference, setAutoFitPreference, autoFitDrawData, mockAutoFitEnabled, isCarLabel,
 } from 'utils/auto-fit';
 
 interface OwnProps {
@@ -238,7 +238,9 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
 
     private onChangeLabel = (value: Label): void => {
         if (this.state.autoFitEnabled && this.state.selectedLabelID !== value.id) this.props.canvasInstance.cancel();
-        this.setState({ selectedLabelID: value.id as number });
+        const autoFitEnabled = this.state.autoFitEnabled && isCarLabel(this.props.jobInstance, value.id);
+        setAutoFitPreference(this.props.canvasInstance, autoFitEnabled);
+        this.setState({ selectedLabelID: value.id as number, autoFitEnabled });
     };
 
     private onChangeAutoFit = (enabled: boolean): void => {

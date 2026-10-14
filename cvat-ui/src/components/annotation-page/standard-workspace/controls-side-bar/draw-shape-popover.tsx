@@ -17,6 +17,7 @@ import { ShapeType, Label, DimensionType } from 'cvat-core-wrapper';
 import { clamp } from 'utils/math';
 import LabelSelector from 'components/label-selector/label-selector';
 import CVATTooltip from 'components/common/cvat-tooltip';
+import { autoFitAvailable, isCarLabel } from 'utils/auto-fit';
 
 interface Props {
     shapeType: ShapeType;
@@ -93,12 +94,14 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
                     />
                 </Col>
             </Row>
-            {jobInstance.dimension === DimensionType.DIMENSION_3D && shapeType === ShapeType.CUBOID && (
+            {autoFitAvailable && jobInstance.dimension === DimensionType.DIMENSION_3D &&
+            shapeType === ShapeType.CUBOID && (
                 <Row>
                     <Col span={24}>
                         <Checkbox
                             className='cvat-auto-fit-box-checkbox'
-                            checked={autoFitEnabled}
+                            checked={autoFitEnabled && isCarLabel(jobInstance, selectedLabelID)}
+                            disabled={!isCarLabel(jobInstance, selectedLabelID)}
                             onChange={(event) => onChangeAutoFit(event.target.checked)}
                         >
                             Auto Fit Box

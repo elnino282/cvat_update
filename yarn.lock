@@ -6637,6 +6637,7 @@ __metadata:
     "@uiw/react-md-editor": "npm:^3.22.0"
     "@wavesurfer/react": "npm:^1.0.12"
     antd: "npm:5.17.1"
+    axios: "npm:^1.20.0"
     chart.js: "npm:^4.4.8"
     chartjs-plugin-datalabels: "npm:^2.2.0"
     cvat-canvas: "link:./../cvat-canvas"

@@ -65,6 +65,8 @@ cvat-canvas3d/dist
 cvat-ui/dist
 cvat-ui/dist-autofit-dev
 cvat-ui/dist-autofit-prod-check
+cvat-ui/dist-autofit-real
+cvat-ui/dist-autofit-fast
 
 # produced by prepare in the root package.json script
 .husky
@@ -85,3 +87,7 @@ cvat-ui/dist-autofit-prod-check
 **/!.yarn/sdks
 **/!.yarn/versions
 /docs
+
+# Local Auto Fit checkpoint, mounted read-only and never committed
+components/vehicle_fit/weights/
+components/vehicle_fit/

@@ -18,6 +18,8 @@ export {
 };
 
 export type { ViewsDOM, OrientationVisibility };
-export type { AutoFitDraw, FitRequest } from 'cvat-canvas3d/src/typescript/autoFit';
+export type {
+    AutoFitDraw, FitRequest, FitResult, AutoFitProvider,
+} from 'cvat-canvas3d/src/typescript/autoFit';
 export { createMockAutoFitProvider } from 'cvat-canvas3d/src/typescript/autoFitMock';
 export type { MockMode } from 'cvat-canvas3d/src/typescript/autoFitMock';

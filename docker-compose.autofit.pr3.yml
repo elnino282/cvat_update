@@ -1,0 +1,59 @@
+# Copyright (C) CVAT.ai Corporation
+# SPDX-License-Identifier: MIT
+
+# Explicit local runtime: docker compose -f docker-compose.yml
+# -f docker-compose.autofit.pr3.yml up -d --no-deps cvat_server cvat_ui vehicle_fit
+services:
+  cvat_server:
+    image: ${CVAT_AUTOFIT_SERVER_IMAGE:-cvat/server:autofit-pr3}
+    build:
+      context: .
+      dockerfile: Dockerfile.autofit-pr3
+    environment:
+      CVAT_AUTOFIT_ENABLED: ${CVAT_AUTOFIT_ENABLED:-false}
+      CVAT_AUTOFIT_BACKEND: ${CVAT_AUTOFIT_BACKEND:-snap}
+      CVAT_AUTOFIT_SERVICE_URL: http://vehicle_fit:8093
+    labels:
+      cvat.autofit.runtime: ${CVAT_AUTOFIT_RUNTIME:-real-service}
+
+  cvat_ui:
+    volumes:
+      - ${CVAT_AUTOFIT_UI_DIR:-./cvat-ui/dist-autofit-real}:/usr/share/nginx/html:ro
+    labels:
+      cvat.autofit.runtime: ${CVAT_AUTOFIT_RUNTIME:-real-service}
+
+  vehicle_fit:
+    image: ${CVAT_AUTOFIT_SERVICE_IMAGE:-cvat/vehicle-fit:pr2}
+    build:
+      context: .
+      dockerfile: ${CVAT_AUTOFIT_SERVICE_DOCKERFILE:-components/vehicle_fit/Dockerfile.snap}
+    restart: unless-stopped
+    environment:
+      VEHICLE_FIT_BACKEND: ${CVAT_AUTOFIT_BACKEND:-snap}
+      VEHICLE_FIT_PRIOR_LENGTH: ${CVAT_AUTOFIT_PRIOR_LENGTH:-3.7}
+      VEHICLE_FIT_PRIOR_WIDTH: ${CVAT_AUTOFIT_PRIOR_WIDTH:-1.61}
+      VEHICLE_FIT_PRIOR_HEIGHT: ${CVAT_AUTOFIT_PRIOR_HEIGHT:-1.49}
+      VEHICLE_FIT_MAX_SURFACE_SCORE: ${CVAT_AUTOFIT_MAX_SURFACE_SCORE:-0.10}
+      SNAP_CHECKPOINT: /weights/SNAP_Outdoor.pth
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '2'
+    healthcheck:
+      test: ['CMD', 'python3', '-c', 'import urllib.request; urllib.request.urlopen("http://127.0.0.1:8093/health", timeout=3)']
+      interval: 15s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
+    volumes:
+      - ${CVAT_AUTOFIT_SNAP_CHECKPOINT:-/tmp/SNAP_Outdoor.pth}:/weights/SNAP_Outdoor.pth:ro
+    networks:
+      - cvat
+    # Development-only replay from the host; keep it loopback-bound.
+    ports:
+      - '127.0.0.1:${CVAT_AUTOFIT_SERVICE_PORT:-8093}:8093'
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

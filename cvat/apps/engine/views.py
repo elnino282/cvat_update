@@ -46,6 +46,13 @@ from rq.job import JobStatus as RQJobStatus
 import cvat.apps.dataset_manager as dm
 from cvat.apps.dataset_manager.serializers import DatasetFormatsSerializer
 from cvat.apps.engine import backup
+from cvat.apps.engine.auto_fit import (
+    AutoFitRequestSerializer,
+    AutoFitPrepareSerializer,
+    cancel_job_fit,
+    fit_job_frame,
+    prepare_job_frame,
+)
 from cvat.apps.engine.background import BackupImporter, DatasetImporter, TaskCreator
 from cvat.apps.engine.cache import (
     CacheTooLargeDataError,
@@ -2244,6 +2251,26 @@ class JobViewSet(
         "segment__task__project",
     )
     annotations_get_throttle_scope = "job_annotations_get"
+
+    @extend_schema(request=AutoFitRequestSerializer, responses={200: OpenApiTypes.OBJECT})
+    @action(detail=True, methods=["POST"], url_path="auto-fit", serializer_class=AutoFitRequestSerializer)
+    def auto_fit(self, request: ExtendedRequest, pk: int):
+        return fit_job_frame(request, self.get_object())
+
+    @extend_schema(request=AutoFitPrepareSerializer, responses={200: OpenApiTypes.OBJECT, 202: OpenApiTypes.OBJECT})
+    @action(detail=True, methods=["POST", "GET"], url_path="auto-fit/prepare", serializer_class=AutoFitPrepareSerializer)
+    def prepare_auto_fit(self, request: ExtendedRequest, pk: int):
+        return prepare_job_frame(request, self.get_object())
+
+    @extend_schema(responses={204: OpenApiResponse(description="Auto Fit cancelled")})
+    @action(
+        detail=True,
+        methods=["DELETE"],
+        url_path=r"auto-fit/(?P<request_id>[0-9a-fA-F-]{36})",
+        serializer_class=None,
+    )
+    def cancel_auto_fit(self, request: ExtendedRequest, pk: int, request_id: str):
+        return cancel_job_fit(request, self.get_object(), request_id)
 
     iam_supports_organization_params = True
     iam_permission_class = JobPermission

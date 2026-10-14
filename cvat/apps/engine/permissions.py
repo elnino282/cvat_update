@@ -1001,6 +1001,8 @@ class JobPermission(OpenPolicyAgentPermission, DownloadExportedExtension):
     @classmethod
     def _get_scopes(cls, request: ExtendedRequest, view: ViewSet, obj: Job | None):
         Scopes = cls.Scopes
+        if view.action in {"auto_fit", "cancel_auto_fit", "prepare_auto_fit"}:
+            return [Scopes.VIEW_DATA, Scopes.UPDATE_ANNOTATIONS]
         scope = {
             ("list", "GET"): Scopes.LIST,
             ("create", "POST"): Scopes.CREATE,
