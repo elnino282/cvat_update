@@ -1,0 +1,53 @@
+Final audit run: installed cvat/vehicle-fit:autofit-fast, frozen Object tune assets mounted.
+This is the captured completion/tail of the final 70-test run; it is not a full console transcript.
+Exit code: 0
+ok
+test_rejected_top_candidate_does_not_hide_safe_candidates_after_rank_47 (tests.test_recovery.FrozenRecoveryTests) ... ok
+test_shortening_does_not_replace_a_safe_prior_hypothesis (tests.test_recovery.FrozenRecoveryTests) ... ok
+test_geometry_only_and_cancelled_refinement_cannot_bypass_safety (tests.test_refinement.InstanceSafetyTests) ... ok
+test_isolated_measured_seed_cannot_borrow_a_neighbor_cluster (tests.test_refinement.InstanceSafetyTests) ... ok
+test_neighbor_mask_with_one_selected_seed_is_terminal_in_every_path (tests.test_refinement.InstanceSafetyTests) ... ok
+test_seed_containment_tolerance_and_vertical_axis (tests.test_refinement.InstanceSafetyTests) ... ok
+test_seed_outside_winning_candidate_is_terminal_even_when_components_touch (tests.test_refinement.InstanceSafetyTests) ... ok
+test_touching_bumpers_do_not_make_one_seed_a_neighbor_instance (tests.test_refinement.InstanceSafetyTests) ... ok
+test_two_compact_cars_with_touching_bumpers_are_not_one_long_car (tests.test_refinement.InstanceSafetyTests) ... ok
+test_extension_into_detached_support_is_blocked (tests.test_refinement.RefinementTests) ... ok
+test_fragment_with_no_supported_ends_is_refused_in_both_policies (tests.test_refinement.RefinementTests) ... ok
+test_full_observation_and_unknown_ends_do_not_extend (tests.test_refinement.RefinementTests) ... ok
+test_no_extension_with_unstable_yaw_or_horizontal_only_cap_patch (tests.test_refinement.RefinementTests) ... ok
+test_one_end_extension_preserves_anchor_and_improves_length (tests.test_refinement.RefinementTests) ... ok
+test_quality_is_assessed_before_strict_policy (tests.test_refinement.RefinementTests) ... ok
+test_refinement_default_prior_matches_runtime (tests.test_refinement.RefinementTests) ... ok
+test_rotated_translated_end_anchoring (tests.test_refinement.RefinementTests) ... ok
+test_supported_long_car_does_not_shrink_or_trigger_joined_surface_gate (tests.test_refinement.RefinementTests) ... ok
+test_supported_small_car_is_preserved_below_prior (tests.test_refinement.RefinementTests) ... ok
+test_cancelled_gpu_queue_never_calls_segment (tests.test_service.RuntimeLifecycleTests) ... ok
+test_cold_inference_and_quality_are_independent_of_estimated_policy (tests.test_service.RuntimeLifecycleTests) ... ok
+test_cold_snap_estimate_is_explicit_and_does_not_wait_for_gpu (tests.test_service.RuntimeLifecycleTests) ... ok
+test_expiry_during_diagnostics_cannot_publish_ok (tests.test_service.RuntimeLifecycleTests) ... ok
+test_geometry_deadline_is_timeout_not_explicit_cancellation (tests.test_service.RuntimeLifecycleTests) ... ok
+test_owner_deadline_returns_without_waiting_for_running_work (tests.test_service.RuntimeLifecycleTests) ... ok
+test_prepared_scope_expiry_and_cache_skip_decode (tests.test_service.RuntimeLifecycleTests) ... ok
+test_prepared_token_is_not_a_new_identity_and_expired_request_can_recover (tests.test_service.RuntimeLifecycleTests) ... ok
+test_prompt_gpu_failure_recovers_to_explicit_estimate_and_schedules_prepare (tests.test_service.RuntimeLifecycleTests) ... SNAP prompt failed; using explicit geometry estimate
+Traceback (most recent call last):
+  File "/workspace/components/vehicle_fit/service.py", line 273, in _fit
+    mask, diagnostics = self.backend.segment(cloud, seed, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: CUDA temporary failure
+ok
+test_warm_snap_is_selected_for_both_quality_policies (tests.test_service.RuntimeLifecycleTests) ... ok
+test_duplicate_request_is_single_flight_and_payload_mismatch_conflicts (tests.test_service.ServiceTests) ... ok
+test_no_fit_retains_snap_mask_diagnostics_and_quality_gate_measurements (tests.test_service.ServiceTests) ... ok
+test_private_http_fit_returns_single_valid_geometry_and_provenance (tests.test_service.ServiceTests) ... ok
+
+----------------------------------------------------------------------
+Ran 70 tests in 4.814s
+
+OK
+

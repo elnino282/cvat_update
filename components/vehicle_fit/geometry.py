@@ -212,6 +212,80 @@ def _placement(lower, upper, dimensions, supported):
     return centre
 
 
+def _candidate_placements(lower, upper, dimensions, supported):
+    """Cap evidence suggests placement; absence never gates orientation.
+
+    Measured margins are symmetric around their measured bounds. Prior-sized
+    placements may remain uncertain estimates. No reference placement is a
+    claim about sensor origin/visibility.
+    """
+    midpoint = (lower+upper)/2
+    reference = np.where(midpoint > 0, lower+dimensions/2, upper-dimensions/2)
+    anchored = midpoint.copy()
+    for axis in (0,1):
+        enlarged = dimensions[axis] > upper[axis]-lower[axis]+FACE_BAND
+        if enlarged and sum(supported[axis]) == 2:
+            return []
+        if enlarged and sum(supported[axis]) == 1:
+            a = -1 if supported[axis][0] else 1
+            edge = lower[axis] if a == -1 else upper[axis]
+            anchored[axis] = edge-a*dimensions[axis]/2
+    # The frozen baseline estimator centered well-observed axes (>=.75)
+    # independently while estimating hidden axes. Preserve this mixed-axis
+    # hypothesis; midpoint/reference on both axes alone lose that geometry.
+    hybrid = np.where((upper-lower)/dimensions >= .75, midpoint, reference)
+    centres = [midpoint.copy(), reference.copy(), hybrid.copy(), anchored]
+    unique = []
+    for centre in centres:
+        basis = []
+        for axis in (0,1):
+            measured = upper[axis]-lower[axis]
+            margin = .10 if axis==0 else .08
+            length_is_measured = abs(dimensions[0]-(upper[0]-lower[0])-.10) < 1e-8
+            if axis == 1 and not length_is_measured and abs(dimensions[axis]-measured-margin) < 1e-8:
+                centre[axis] = midpoint[axis]
+            enlarged = dimensions[axis] > measured+FACE_BAND
+            if not enlarged:
+                basis.append("observed-bounds")
+            elif sum(supported[axis]) == 1:
+                a = -1 if supported[axis][0] else 1
+                edge = lower[axis] if a==-1 else upper[axis]
+                aligned = abs(centre[axis]+a*dimensions[axis]/2-edge) <= FACE_BAND
+                basis.append("observed-face" if aligned else "estimated")
+            else:
+                basis.append("estimated")
+        if not any(np.array_equal(centre, old[0]) for old in unique):
+            unique.append((centre, basis))
+    return unique
+
+
+def _dimension_provenance(dimensions, measured, roof, priors):
+    observed = [float(measured[0]),float(measured[1]),float(roof)]
+    target = [priors.length,priors.width,priors.height]
+    margins = [.10,.08,.10]
+    bounds = [(2.6,5.6),(1.45,2.3),(1.,2.4)]
+    sources = []
+    for axis, value in enumerate(dimensions):
+        origin = []
+        raw = observed[axis]+margins[axis]
+        clipped = float(np.clip(raw,*bounds[axis]))
+        if abs(value-clipped) < 1e-8:
+            origin.append("measured-margin" if abs(raw-clipped) < 1e-8 else "bound-limited")
+        offsets = (-.30,0.,.30) if axis==0 else (-.12,0.,.12) if axis==1 else (0.,)
+        if any(abs(value-target[axis]-offset) < 1e-8 for offset in offsets):
+            origin.append("prior")
+        sources.append(origin or ["bound-limited"])
+    return {"dimensionSourceLWH": sources, "observedSpanLWH": observed,
+            "measurementMarginsLWH": margins, "priorLWH": target}
+
+
+def _placement_provenance(basis, supported):
+    source = "estimated" if "estimated" in basis else (
+        "observed-face" if "observed-face" in basis else "observed-bounds")
+    return {"placementSource": source, "placementBasisLW": list(basis),
+            "supportedFacesLW": [[bool(face) for face in axis] for axis in supported]}
+
+
 def _validate_geometry(result, evidence, cancelled):
     if cancelled():
         raise NoFit("cancelled", "Operation cancelled")
@@ -291,6 +365,13 @@ def _finish(result, evidence, priors, adaptive_refinement, cancelled):
                        ground_plane=evidence.plane.tolist(), maskSource=evidence.source,
                        observed_footprint=observed.tolist(), priors={"length": priors.length, "width": priors.width, "height": priors.height},
                        sizeRefinement=refinement)
+    if refinement["applied"] and "dimensionSourceLWH" in diagnostics:
+        original_sources = [list(source) for source in diagnostics["dimensionSourceLWH"]]
+        diagnostics["dimensionSourceBeforeRefinementLWH"] = original_sources
+        diagnostics["dimensionSourceLWH"] = [["prior-blend"], *original_sources[1:]]
+        diagnostics["placementSource"] = "observed-face"
+        diagnostics["placementBasisLW"] = ["observed-face", *diagnostics.get("placementBasisLW", ["estimated", "estimated"])[1:]]
+        diagnostics["refinementDirectionBasis"] = "one-supported-end-face"
     coverage = observed / np.asarray(result["size"][:2])
     if result.get("quality") == "estimated" or sum(faces[0]) != 2 or np.any(coverage < .85) or not stable:
         result["quality"] = "estimated"
@@ -305,7 +386,102 @@ def _finish(result, evidence, priors, adaptive_refinement, cancelled):
     return result
 
 
-def _fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False, max_surface_score=0.10, evidence=None):
+def _select_hypotheses(hypotheses, evidence, priors, cancelled, max_surface_score, trace=None):
+    """Rank geometry only after per-candidate P0; no top-k safety shortcut.
+
+    The score band limits same-instance GEOMETRY comparison. The validator
+    checks the complete scene context for each tested candidate and again for
+    the final result, independently of any hypothesis score.
+    """
+    hypotheses.sort(key=lambda item: item[0])
+    counts = {"generated": len(hypotheses), "evaluated": 0, "safe": 0,
+              "ambiguityCompared": 0, "completed": False, "firstSafeRank": None}
+    rejected = {}
+    selected = None
+    plausible = []
+    safe_choices = []
+    geometry_ambiguous = False
+    try:
+        for rank, item in enumerate(hypotheses, 1):
+            if cancelled():
+                raise NoFit("cancelled", "Candidate validation ended")
+            if selected is not None and item[0] > selected[0] + .002:
+                break  # Geometry alternatives only; never limits scene P0.
+            score, xy, length, width, height, yaw, contamination, measured = item[:8]
+            ground = float(xy @ evidence.plane[:2] + evidence.plane[2])
+            candidate = {"center": [float(xy[0]), float(xy[1]), ground + height/2],
+                         "size": [float(length), float(width), float(height)],
+                         "rotation": [0., 0., (float(yaw)+math.pi/2)%math.pi-math.pi/2]}
+            counts["evaluated"] += 1
+            record = {"rank": rank, "score": float(score), **candidate}
+            if len(item) > 8:
+                record["provenance"] = item[8]
+            try:
+                _validate_geometry(candidate, evidence, cancelled)
+            except NoFit as exc:
+                if exc.reason == "cancelled":
+                    raise
+                gate = exc.diagnostics.get("safetyGate", exc.reason)
+                rejected[gate] = rejected.get(gate, 0) + 1
+                record.update(validation="reject", reason=gate)
+                if trace is not None:
+                    trace.append(record)
+                continue
+            counts["safe"] += 1
+            safe_choices.append((item,candidate,rank))
+            record["validation"] = "pass"
+            if trace is not None:
+                trace.append(record)
+            if selected is None:
+                selected, result = item, candidate
+                counts["firstSafeRank"] = rank
+            else:
+                counts["ambiguityCompared"] += 1
+                if np.linalg.norm(xy-selected[1]) > .50 or abs(length-selected[2]) > .70:
+                    geometry_ambiguous = True
+            plausible.append(float(yaw))
+        if selected is None:
+            raise NoFit("ambiguous", "No candidate passed common instance/geometry validation",
+                        {"safetyGate": "no-safe-candidate", "candidateRejections": rejected})
+        if cancelled():
+            raise NoFit("cancelled", "Ambiguity verification ended")
+        counts["completed"] = True
+        # Near-tied geometry scores cannot justify unstable placement changes.
+        # Prefer measured width over a prior width when length is incomplete;
+        # otherwise retain a safe baseline-compatible placement. This choice
+        # uses measurement provenance only, never evaluator GT or case IDs.
+        score_anchor = selected[0]
+        def preference(choice):
+            item = choice[0]
+            info = item[8] if len(item)>8 else {}
+            return (not info.get("mixedMeasuredWidth",False),
+                    not info.get("baselineCompatiblePlacement",False),item[0],choice[2])
+        selected,result,selected_rank = min(safe_choices,key=preference)
+        counts["selectedRank"] = selected_rank
+        counts["geometryScoreAnchor"] = float(score_anchor)
+        score, xy, length, width, height, yaw, contamination, measured = selected[:8]
+        diagnostics = {"candidateCounts": counts, "candidateRejections": rejected,
+                       "plausible_yaws": plausible, "surface_score": float(score),
+                       "mask_contamination": float(contamination), "observed_footprint": measured.tolist(),
+                       "hypothesis_count": len(hypotheses), "prior_uncertainty_lw": [.70,.20],
+                       "geometryAmbiguity": geometry_ambiguous,
+                       "instanceValidation": "complete-scene-context",
+                       "surface_residual_and_contamination": float(score - .02*(
+                           ((length-priors.length)/.70)**2+((width-priors.width)/.20)**2))}
+        if len(selected) > 8:
+            diagnostics.update(selected[8])
+        result["diagnostics"] = diagnostics
+        result["confidence"] = float(np.clip(1-score/max_surface_score, 0, 1))
+        if geometry_ambiguous or score > max_surface_score or diagnostics.pop("alwaysEstimated", False):
+            result["quality"] = "estimated"
+            diagnostics["reviewReason"] = "geometry-ambiguity-same-instance" if geometry_ambiguous else "uncertain-surface-fit"
+        return result
+    except NoFit as exc:
+        exc.diagnostics.update(candidateCounts=dict(counts), candidateRejections=dict(rejected))
+        raise
+
+
+def _fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False, max_surface_score=0.10, evidence=None, trace=None):
     if not np.isfinite(max_surface_score) or max_surface_score <= 0:
         raise ValueError("max_surface_score must be finite and positive")
     priors = priors or VehiclePriors()
@@ -326,6 +502,8 @@ def _fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False, m
     angles = np.arange(0, math.pi / 2, math.pi / 90)
     proposals = []
     for angle in angles:
+        if cancelled():
+            raise NoFit("cancelled", "Orientation generation ended")
         local = points[:, :2] @ _rotation(angle)
         lower, upper = np.quantile(local, [0.01, 0.99], axis=0)
         residual = np.minimum(np.abs(local - lower), np.abs(local - upper)).min(axis=1)
@@ -338,6 +516,8 @@ def _fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False, m
     yaws = [angle + turn for angle in yaws for turn in (0, math.pi / 2)]
     hypotheses = []
     for yaw in yaws:
+        if cancelled():
+            raise NoFit("cancelled", "Hypothesis generation ended")
         rotation = _rotation(yaw)
         local = points[:, :2] @ rotation
         lower, upper = np.quantile(local, [0.01, 0.99], axis=0)
@@ -349,6 +529,8 @@ def _fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False, m
         widths = sorted(set([max(1.45, measured[1] + 0.08), priors.width, priors.width - 0.12, priors.width + 0.12]))
         for length in lengths:
             for width in widths:
+                if cancelled():
+                    raise NoFit("cancelled", "Dimension generation ended")
                 if not 2.6 <= length <= 5.6 or not 1.45 <= width <= 2.3:
                     continue
                 if measured[0] > length + 0.12 or measured[1] > width + 0.12:
@@ -357,14 +539,20 @@ def _fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False, m
                 if measured[0] / length < 0.55 or measured[1] / width < 0.40:
                     continue
                 dimensions = np.array([length, width])
-                placement = _placement(lower, upper, dimensions, face_support)
-                centres = [] if placement is None else [placement]
-                for centre in centres:
+                placements = _candidate_placements(lower, upper, dimensions, face_support)
+                for centre, basis in placements:
                     relative = local - centre
                     outside = np.maximum(np.abs(relative) - dimensions / 2, 0)
                     contamination = float((np.linalg.norm(outside, axis=1) > 0.18).mean())
                     faces = np.abs(np.abs(relative) - dimensions / 2)
-                    residual = np.minimum(faces[:, 0], faces[:, 1])
+                    # With prior-completed length, compare the measured width
+                    # surface before its symmetric measurement padding. Padding
+                    # is uncertainty, not evidence favoring an off-center fit.
+                    mixed = bool(abs(width-measured[1]-.08) < 1e-8 and abs(length-measured[0]-.10) >= 1e-8)
+                    scored_faces = faces.copy()
+                    if mixed:
+                        scored_faces[:,1] = np.maximum(scored_faces[:,1]-.04,0)
+                    residual = np.minimum(scored_faces[:, 0], scored_faces[:, 1])
                     # Height-return support is scored separately, preventing roof-only seeds.
                     supported_x = faces[:, 0] < 0.16
                     supported_y = faces[:, 1] < 0.16
@@ -378,7 +566,12 @@ def _fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False, m
                     world = centre @ rotation.T
                     height = float(np.clip(max(roof + 0.10, priors.height), 1.0, 2.4))
                     z_ground = float(world @ plane[:2] + plane[2])
-                    hypotheses.append((score, world, length, width, height, yaw, contamination, measured))
+                    provenance = _dimension_provenance([length,width,height], measured, roof, priors)
+                    provenance.update(_placement_provenance(basis, face_support))
+                    provenance.update(alwaysEstimated="estimated" in basis,
+                                      mixedMeasuredWidth=mixed,
+                                      baselineCompatiblePlacement=bool(np.array_equal(centre,(lower+upper)/2) or np.array_equal(centre,np.where((lower+upper)/2>0,lower+dimensions/2,upper-dimensions/2))))
+                    hypotheses.append((score, world, length, width, height, yaw, contamination, measured, provenance))
     if cancelled():
         raise NoFit("cancelled", "Operation cancelled")
     if not hypotheses:
@@ -388,61 +581,10 @@ def _fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False, m
             {"maskPointCount": int(len(points)), "observedFootprint": measured.tolist(),
              "observedHeight95Metres": roof},
         )
-    hypotheses.sort(key=lambda item: item[0])
-    best = hypotheses[0]
-    score, centre_xy, length, width, height, yaw, contamination, measured = best
-    ground = float(centre_xy @ plane[:2] + plane[2])
-    proposed_geometry = {
-        "center": [float(centre_xy[0]), float(centre_xy[1]), ground + height / 2],
-        "size": [float(length), float(width), float(height)],
-        "rotation": [0.0, 0.0, float(yaw)],
-    }
-    _validate_geometry(proposed_geometry, evidence, cancelled)
-    candidate_diagnostics = {"plausible_yaws": [h[5] for h in hypotheses if h[0] <= score + .002]}
-    if score > max_surface_score or contamination > 0.08:
-        raise NoFit(
-            "ambiguous", "Surface residual or mask contamination is too high",
-            {"maskPointCount": int(len(points)), "surfaceScore": score,
-             "maskContamination": contamination, "observedFootprint": measured.tolist(),
-             "proposedDimensionsLWH": [length, width, height],
-             "proposedCuboid": proposed_geometry, **candidate_diagnostics},
-        )
-    # Equally plausible, materially different placements are evidence of hidden-extent ambiguity.
-    for alternative in hypotheses[1:]:
-        if alternative[0] - score > 0.002:
-            break
-        if np.linalg.norm(alternative[1] - centre_xy) > 0.50 or abs(alternative[2] - length) > 0.70:
-            raise NoFit(
-                "ambiguous", "Competing whole-car hypotheses remain unresolved",
-                {"bestSurfaceScore": score, "alternativeSurfaceScore": alternative[0],
-                 "centerDistanceMetres": float(np.linalg.norm(alternative[1] - centre_xy)),
-                 "bestLengthMetres": length, "alternativeLengthMetres": alternative[2],
-                 "proposedCuboid": proposed_geometry, **candidate_diagnostics},
-            )
-    yaw = (float(yaw) + math.pi / 2) % math.pi - math.pi / 2
-    return {
-        "center": [float(centre_xy[0]), float(centre_xy[1]), ground + height / 2],
-        "size": [float(length), float(width), float(height)],
-        "rotation": [0.0, 0.0, yaw],
-        "confidence": float(np.clip(1 - score / max_surface_score, 0, 1)),
-        "diagnostics": {
-            **candidate_diagnostics,
-            "mask_indices": np.flatnonzero(mask).tolist(),
-            "point_count": int(mask.sum()),
-            "ground_plane": plane.tolist(),
-            "surface_score": score,
-            "surface_residual_and_contamination": score - .02 * (
-                ((length - priors.length) / .70) ** 2 + ((width - priors.width) / .20) ** 2),
-            "prior_uncertainty_lw": [.70, .20],
-            "mask_contamination": contamination,
-            "observed_footprint": measured.tolist(),
-            "hypothesis_count": len(hypotheses),
-            "priors": {"length": priors.length, "width": priors.width, "height": priors.height},
-        },
-    }
+    return _select_hypotheses(hypotheses, evidence, priors, cancelled, max_surface_score, trace)
 
 
-def _estimate_candidate(evidence, priors, cancelled):
+def _estimate_candidate(evidence, priors, cancelled, trace=None):
     xyz, support, plane = evidence.xyz, evidence.support, evidence.plane
     points = xyz[support]
     if cancelled():
@@ -450,58 +592,83 @@ def _estimate_candidate(evidence, priors, cancelled):
     span = np.ptp(points, axis=0)
     if np.linalg.norm(span[:2]) > 7 or span[2] > 3.2:
         _unsafe("component-extent", "Component joins scene clutter or several vehicles")
-    if len(points) < 30 and np.linalg.norm(span[:2]) < 1.0:
-        raise NoFit("insufficient-evidence", "Sparse patch does not constrain orientation")
+    if np.linalg.norm(span[:2]) < 1.0:
+        raise NoFit("insufficient-evidence", "Compact patch does not constrain car orientation")
     roof = float(np.quantile(evidence.above[support], .98))
     if not .45 <= roof <= 2.4:
         raise NoFit("insufficient-evidence", "Observed height does not support a car")
     _, vectors = np.linalg.eigh(np.cov(points[:, :2], rowvar=False))
     pca = math.atan2(vectors[1, -1], vectors[0, -1])
     candidates = []
-    for yaw in [pca, pca + math.pi / 2, *np.arange(0, math.pi, math.pi / 45)]:
+    cap_candidates = []
+    height = float(np.clip(max(roof+.10, priors.height), 1., 2.4))
+    for yaw in [pca, pca+math.pi/2, *np.arange(0, math.pi, math.pi/45)]:
         if cancelled():
-            raise NoFit("cancelled", "Operation cancelled")
+            raise NoFit("cancelled", "Estimate generation ended")
         rotation = _rotation(yaw)
         local = points[:, :2] @ rotation
         lower, upper, face_support, _ = _faces(evidence, yaw)
-        measured = upper - lower
+        measured = upper-lower
         if measured[0] < .35 or measured[1] < .15 or measured[0] > 5.6 or measured[1] > 2.3:
             continue
-        # A fallback does not force every fragment up to the median size.
-        dimensions = np.clip(measured + [.10, .08], [2.6, 1.45], [5.6, 2.3])
-        centre = _placement(lower, upper, dimensions, face_support)
-        if centre is None:
-            continue
-        outside = np.maximum(np.abs(local - centre) - dimensions / 2, 0)
-        contamination = float((np.linalg.norm(outside, axis=1) > .18).mean())
-        if contamination > .08:
-            continue
-        residual = np.minimum(np.abs(local - lower), np.abs(local - upper)).min(axis=1)
-        score = float(np.mean(np.minimum(residual, .35) ** 2) + contamination * .5)
-        candidates.append((score, yaw, centre @ rotation.T, dimensions))
+        lengths = sorted(set([max(2.6,measured[0]+.10),priors.length,priors.length-.30,priors.length+.30]))
+        widths = sorted(set([max(1.45,measured[1]+.08),priors.width,priors.width-.12,priors.width+.12]))
+        residual = np.minimum(np.abs(local-lower),np.abs(local-upper)).min(axis=1)
+        # A dense, broad end cap with <1 m longitudinal depth does not measure
+        # the hidden body. Retain the observed/bounded estimate rather than let
+        # dimension priors decide a different orientation. This reuses the
+        # existing 30-point, 1 m orientation and .85 coverage evidence gates.
+        if len(points) >= 30 and measured[0] < 1.0 and measured[1]/priors.width >= .85 and sum(face_support[0]) == 1:
+            dimensions = np.clip(measured+[.10,.08],[2.6,1.45],[5.6,2.3])
+            centre = _placement(lower,upper,dimensions,face_support)
+            if centre is not None:
+                outside = np.maximum(np.abs(local-centre)-dimensions/2,0)
+                contamination = float((np.linalg.norm(outside,axis=1) > .18).mean())
+                if contamination <= .08:
+                    score = float(np.mean(np.minimum(residual,.35)**2)+contamination*.5)
+                    provenance = _dimension_provenance([*dimensions,height],measured,roof,priors)
+                    provenance.update(_placement_provenance(["observed-face", "observed-bounds"], face_support))
+                    provenance.update(alwaysEstimated=True,estimateEvidence="dense-end-cap-hidden-body")
+                    cap_candidates.append((score,centre@rotation.T,*dimensions,height,yaw,contamination,measured,provenance))
+        for length in lengths:
+            for width in widths:
+                if cancelled():
+                    raise NoFit("cancelled", "Estimate dimension generation ended")
+                if not 2.6 <= length <= 5.6 or not 1.45 <= width <= 2.3:
+                    continue
+                if measured[0] > length+.12 or measured[1] > width+.12:
+                    continue
+                dimensions = np.array([length,width])
+                for centre, basis in _candidate_placements(lower,upper,dimensions,face_support):
+                    outside = np.maximum(np.abs(local-centre)-dimensions/2,0)
+                    contamination = float((np.linalg.norm(outside,axis=1) > .18).mean())
+                    if contamination > .08:
+                        continue
+                    prior_penalty = ((length-priors.length)/.70)**2+((width-priors.width)/.20)**2
+                    score = float(np.mean(np.minimum(residual,.35)**2)+contamination*.5+prior_penalty*.02)
+                    provenance = _dimension_provenance([length,width,height],measured,roof,priors)
+                    hybrid = np.where(measured/dimensions >= .75,(lower+upper)/2,
+                                      np.where((lower+upper)/2>0,lower+dimensions/2,upper-dimensions/2))
+                    provenance.update(_placement_provenance(basis, face_support))
+                    provenance.update(alwaysEstimated=True,
+                                      baselineCompatiblePlacement=bool(np.array_equal(centre,hybrid)))
+                    candidates.append((score,centre@rotation.T,length,width,height,yaw,contamination,measured,provenance))
+    if cap_candidates:
+        candidates = cap_candidates
     if not candidates:
         raise NoFit("insufficient-evidence", "No isolated car footprint supports an estimate")
-    candidates.sort(key=lambda item: item[0])
-    score, yaw, centre, dimensions = candidates[0]
-    height = float(np.clip(max(roof + .10, priors.height), 1.0, 2.4))
-    ground = float(centre @ plane[:2] + plane[2])
-    return {
-        "center": [float(centre[0]), float(centre[1]), ground + height / 2],
-        "size": [float(dimensions[0]), float(dimensions[1]), height],
-        "rotation": [0.0, 0.0, (float(yaw) + math.pi / 2) % math.pi - math.pi / 2],
-        "quality": "estimated",
-        "diagnostics": {"surface_score": score,
-                        "plausible_yaws": [c[1] for c in candidates if c[0] <= score + .002],
-                        "reviewReason": "hidden-extent-or-uncertain-fit"},
-    }
+    result = _select_hypotheses(candidates,evidence,priors,cancelled,.10,trace)
+    result["quality"] = "estimated"
+    result["diagnostics"].setdefault("reviewReason", "hidden-extent-or-uncertain-fit")
+    return result
 
 
 def estimate_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False,
-                     adaptive_refinement=False):
+                     adaptive_refinement=False, trace=None):
     """Validated uncertain geometry; direct callers cannot bypass instance safety."""
     priors = priors or VehiclePriors()
     evidence = _prepare_evidence(cloud, seed, mask, cancelled)
-    return _finish(_estimate_candidate(evidence, priors, cancelled), evidence, priors,
+    return _finish(_estimate_candidate(evidence, priors, cancelled, trace), evidence, priors,
                    adaptive_refinement, cancelled)
 
 
@@ -514,12 +681,12 @@ def apply_quality_policy(result, allow_estimated):
 
 
 def fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False,
-                max_surface_score=.10, allow_estimated=False, adaptive_refinement=False):
+                max_surface_score=.10, allow_estimated=False, adaptive_refinement=False, trace=None):
     priors = priors or VehiclePriors()
     evidence = _prepare_evidence(cloud, seed, mask, cancelled)
     try:
         result = _fit_vehicle(cloud, seed, priors=priors, cancelled=cancelled,
-                              max_surface_score=max_surface_score, evidence=evidence)
+                              max_surface_score=max_surface_score, evidence=evidence, trace=trace)
     except NoFit as exc:
         if exc.diagnostics.get("safetyGate") or exc.reason not in {"ambiguous", "insufficient-evidence"}:
             raise
@@ -529,7 +696,7 @@ def fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False,
                 **exc.diagnostics, "reviewReason": exc.detail}}
             result["diagnostics"].pop("proposedCuboid", None)
         else:
-            result = _estimate_candidate(evidence, priors, cancelled)
+            result = _estimate_candidate(evidence, priors, cancelled, trace)
             result["diagnostics"]["reviewReason"] = exc.detail
     result = _finish(result, evidence, priors, adaptive_refinement, cancelled)
     return apply_quality_policy(result, allow_estimated)

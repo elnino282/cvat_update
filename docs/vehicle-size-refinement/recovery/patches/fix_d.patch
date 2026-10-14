@@ -1,0 +1,101 @@
+--- a/geometry.py
++++ b/geometry.py
+@@ -213,32 +213,44 @@
+ 
+ 
+ def _candidate_placements(lower, upper, dimensions, supported):
+-    """Measured/estimated placements without using cap absence as a yaw gate.
+-
+-    The legacy reference placement is only an estimated hypothesis, never a
+-    claim about sensor origin/visibility. A supported face overrides it when
+-    it actually constrains an unobserved extent.
++    """Cap evidence suggests placement; absence never gates orientation.
++
++    Measured margins are symmetric around their measured bounds. Prior-sized
++    placements may remain uncertain estimates. No reference placement is a
++    claim about sensor origin/visibility.
+     """
+     midpoint = (lower+upper)/2
+     reference = np.where(midpoint > 0, lower+dimensions/2, upper-dimensions/2)
+-    centres = [midpoint.copy(), reference.copy()]
+-    basis = []
++    anchored = midpoint.copy()
+     for axis in (0,1):
+         enlarged = dimensions[axis] > upper[axis]-lower[axis]+FACE_BAND
+         if enlarged and sum(supported[axis]) == 2:
+-            return []  # A fully observed compact vehicle is not forced to prior.
++            return []
+         if enlarged and sum(supported[axis]) == 1:
+             a = -1 if supported[axis][0] else 1
+             edge = lower[axis] if a == -1 else upper[axis]
+-            for centre in centres:
+-                centre[axis] = edge-a*dimensions[axis]/2
+-            basis.append("observed-face")
+-        else:
+-            basis.append("estimated" if enlarged else "observed-bounds")
++            anchored[axis] = edge-a*dimensions[axis]/2
++    centres = [midpoint.copy(), reference.copy(), anchored]
+     unique = []
+     for centre in centres:
++        basis = []
++        for axis in (0,1):
++            measured = upper[axis]-lower[axis]
++            margin = .10 if axis==0 else .08
++            if abs(dimensions[axis]-measured-margin) < 1e-8:
++                centre[axis] = midpoint[axis]
++            enlarged = dimensions[axis] > measured+FACE_BAND
++            if not enlarged:
++                basis.append("observed-bounds")
++            elif sum(supported[axis]) == 1:
++                a = -1 if supported[axis][0] else 1
++                edge = lower[axis] if a==-1 else upper[axis]
++                aligned = abs(centre[axis]+a*dimensions[axis]/2-edge) <= FACE_BAND
++                basis.append("observed-face" if aligned else "estimated")
++            else:
++                basis.append("estimated")
+         if not any(np.array_equal(centre, old[0]) for old in unique):
+-            unique.append((centre, list(basis)))
++            unique.append((centre, basis))
+     return unique
+ 
+ 
+@@ -545,6 +557,7 @@
+     _, vectors = np.linalg.eigh(np.cov(points[:, :2], rowvar=False))
+     pca = math.atan2(vectors[1, -1], vectors[0, -1])
+     candidates = []
++    cap_candidates = []
+     height = float(np.clip(max(roof+.10, priors.height), 1., 2.4))
+     for yaw in [pca, pca+math.pi/2, *np.arange(0, math.pi, math.pi/45)]:
+         if cancelled():
+@@ -558,6 +571,22 @@
+         lengths = sorted(set([max(2.6,measured[0]+.10),priors.length,priors.length-.30,priors.length+.30]))
+         widths = sorted(set([max(1.45,measured[1]+.08),priors.width,priors.width-.12,priors.width+.12]))
+         residual = np.minimum(np.abs(local-lower),np.abs(local-upper)).min(axis=1)
++        # A dense, broad end cap with <1 m longitudinal depth does not measure
++        # the hidden body. Retain the observed/bounded estimate rather than let
++        # dimension priors decide a different orientation. This reuses the
++        # existing 30-point, 1 m orientation and .85 coverage evidence gates.
++        if len(points) >= 30 and measured[0] < 1.0 and measured[1]/priors.width >= .85 and sum(face_support[0]) == 1:
++            dimensions = np.clip(measured+[.10,.08],[2.6,1.45],[5.6,2.3])
++            centre = _placement(lower,upper,dimensions,face_support)
++            if centre is not None:
++                outside = np.maximum(np.abs(local-centre)-dimensions/2,0)
++                contamination = float((np.linalg.norm(outside,axis=1) > .18).mean())
++                if contamination <= .08:
++                    score = float(np.mean(np.minimum(residual,.35)**2)+contamination*.5)
++                    provenance = _dimension_provenance([*dimensions,height],measured,roof,priors)
++                    provenance.update(placementSource="observed-face",placementBasisLW=["observed-face","observed-bounds"],
++                                      alwaysEstimated=True,estimateEvidence="dense-end-cap-hidden-body")
++                    cap_candidates.append((score,centre@rotation.T,*dimensions,height,yaw,contamination,measured,provenance))
+         for length in lengths:
+             for width in widths:
+                 if cancelled():
+@@ -578,6 +607,8 @@
+                     provenance.update(placementSource="estimated" if "estimated" in basis else "observed-face",
+                                       placementBasisLW=basis, alwaysEstimated=True)
+                     candidates.append((score,centre@rotation.T,length,width,height,yaw,contamination,measured,provenance))
++    if cap_candidates:
++        candidates = cap_candidates
+     if not candidates:
+         raise NoFit("insufficient-evidence", "No isolated car footprint supports an estimate")
+     result = _select_hypotheses(candidates,evidence,priors,cancelled,.10,trace)

@@ -1,0 +1,114 @@
+--- a/geometry.py
++++ b/geometry.py
+@@ -529,7 +529,7 @@
+     return _select_hypotheses(hypotheses, evidence, priors, cancelled, max_surface_score, trace)
+ 
+ 
+-def _estimate_candidate(evidence, priors, cancelled):
++def _estimate_candidate(evidence, priors, cancelled, trace=None):
+     xyz, support, plane = evidence.xyz, evidence.support, evidence.plane
+     points = xyz[support]
+     if cancelled():
+@@ -537,58 +537,61 @@
+     span = np.ptp(points, axis=0)
+     if np.linalg.norm(span[:2]) > 7 or span[2] > 3.2:
+         _unsafe("component-extent", "Component joins scene clutter or several vehicles")
+-    if len(points) < 30 and np.linalg.norm(span[:2]) < 1.0:
+-        raise NoFit("insufficient-evidence", "Sparse patch does not constrain orientation")
++    if np.linalg.norm(span[:2]) < 1.0:
++        raise NoFit("insufficient-evidence", "Compact patch does not constrain car orientation")
+     roof = float(np.quantile(evidence.above[support], .98))
+     if not .45 <= roof <= 2.4:
+         raise NoFit("insufficient-evidence", "Observed height does not support a car")
+     _, vectors = np.linalg.eigh(np.cov(points[:, :2], rowvar=False))
+     pca = math.atan2(vectors[1, -1], vectors[0, -1])
+     candidates = []
+-    for yaw in [pca, pca + math.pi / 2, *np.arange(0, math.pi, math.pi / 45)]:
++    height = float(np.clip(max(roof+.10, priors.height), 1., 2.4))
++    for yaw in [pca, pca+math.pi/2, *np.arange(0, math.pi, math.pi/45)]:
+         if cancelled():
+-            raise NoFit("cancelled", "Operation cancelled")
++            raise NoFit("cancelled", "Estimate generation ended")
+         rotation = _rotation(yaw)
+         local = points[:, :2] @ rotation
+         lower, upper, face_support, _ = _faces(evidence, yaw)
+-        measured = upper - lower
++        measured = upper-lower
+         if measured[0] < .35 or measured[1] < .15 or measured[0] > 5.6 or measured[1] > 2.3:
+             continue
+-        # A fallback does not force every fragment up to the median size.
+-        dimensions = np.clip(measured + [.10, .08], [2.6, 1.45], [5.6, 2.3])
+-        centre = _placement(lower, upper, dimensions, face_support)
+-        if centre is None:
+-            continue
+-        outside = np.maximum(np.abs(local - centre) - dimensions / 2, 0)
+-        contamination = float((np.linalg.norm(outside, axis=1) > .18).mean())
+-        if contamination > .08:
+-            continue
+-        residual = np.minimum(np.abs(local - lower), np.abs(local - upper)).min(axis=1)
+-        score = float(np.mean(np.minimum(residual, .35) ** 2) + contamination * .5)
+-        candidates.append((score, yaw, centre @ rotation.T, dimensions))
++        lengths = sorted(set([max(2.6,measured[0]+.10),priors.length,priors.length-.30,priors.length+.30]))
++        widths = sorted(set([max(1.45,measured[1]+.08),priors.width,priors.width-.12,priors.width+.12]))
++        residual = np.minimum(np.abs(local-lower),np.abs(local-upper)).min(axis=1)
++        for length in lengths:
++            for width in widths:
++                if cancelled():
++                    raise NoFit("cancelled", "Estimate dimension generation ended")
++                if not 2.6 <= length <= 5.6 or not 1.45 <= width <= 2.3:
++                    continue
++                if measured[0] > length+.12 or measured[1] > width+.12:
++                    continue
++                dimensions = np.array([length,width])
++                for centre, basis in _candidate_placements(lower,upper,dimensions,face_support):
++                    outside = np.maximum(np.abs(local-centre)-dimensions/2,0)
++                    contamination = float((np.linalg.norm(outside,axis=1) > .18).mean())
++                    if contamination > .08:
++                        continue
++                    prior_penalty = ((length-priors.length)/.70)**2+((width-priors.width)/.20)**2
++                    score = float(np.mean(np.minimum(residual,.35)**2)+contamination*.5+prior_penalty*.02)
++                    provenance = _dimension_provenance([length,width,height],measured,roof,priors)
++                    provenance.update(placementSource="estimated" if "estimated" in basis else "observed-face",
++                                      placementBasisLW=basis, alwaysEstimated=True)
++                    candidates.append((score,centre@rotation.T,length,width,height,yaw,contamination,measured,provenance))
+     if not candidates:
+         raise NoFit("insufficient-evidence", "No isolated car footprint supports an estimate")
+-    candidates.sort(key=lambda item: item[0])
+-    score, yaw, centre, dimensions = candidates[0]
+-    height = float(np.clip(max(roof + .10, priors.height), 1.0, 2.4))
+-    ground = float(centre @ plane[:2] + plane[2])
+-    return {
+-        "center": [float(centre[0]), float(centre[1]), ground + height / 2],
+-        "size": [float(dimensions[0]), float(dimensions[1]), height],
+-        "rotation": [0.0, 0.0, (float(yaw) + math.pi / 2) % math.pi - math.pi / 2],
+-        "quality": "estimated",
+-        "diagnostics": {"surface_score": score,
+-                        "plausible_yaws": [c[1] for c in candidates if c[0] <= score + .002],
+-                        "reviewReason": "hidden-extent-or-uncertain-fit"},
+-    }
++    result = _select_hypotheses(candidates,evidence,priors,cancelled,.10,trace)
++    result["quality"] = "estimated"
++    result["diagnostics"].setdefault("reviewReason", "hidden-extent-or-uncertain-fit")
++    return result
+ 
+ 
+ def estimate_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False,
+-                     adaptive_refinement=False):
++                     adaptive_refinement=False, trace=None):
+     """Validated uncertain geometry; direct callers cannot bypass instance safety."""
+     priors = priors or VehiclePriors()
+     evidence = _prepare_evidence(cloud, seed, mask, cancelled)
+-    return _finish(_estimate_candidate(evidence, priors, cancelled), evidence, priors,
++    return _finish(_estimate_candidate(evidence, priors, cancelled, trace), evidence, priors,
+                    adaptive_refinement, cancelled)
+ 
+ 
+@@ -616,7 +619,7 @@
+                 **exc.diagnostics, "reviewReason": exc.detail}}
+             result["diagnostics"].pop("proposedCuboid", None)
+         else:
+-            result = _estimate_candidate(evidence, priors, cancelled)
++            result = _estimate_candidate(evidence, priors, cancelled, trace)
+             result["diagnostics"]["reviewReason"] = exc.detail
+     result = _finish(result, evidence, priors, adaptive_refinement, cancelled)
+     return apply_quality_policy(result, allow_estimated)

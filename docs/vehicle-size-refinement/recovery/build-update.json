@@ -1,0 +1,259 @@
+{
+  "status": "BUILT_AND_ACTIVATED_LOCAL",
+  "updated_at_utc": "2026-10-14 06:46:30 UTC",
+  "scope": "Local CVAT vehicle_fit service; user requested build update after source freeze",
+  "image": "cvat/vehicle-fit:recovery-46ba9fa4330f",
+  "active_tag": "cvat/vehicle-fit:autofit-fast",
+  "image_id": "sha256:17bfc929ca3768504f16fa1ef6cb3831cf6fe37df983bb88d958bb5c19962d06",
+  "previous_image_id": "sha256:07111e8f68378dede391ec23e650339aaa4e002c12cba66f63f140e321aa7004",
+  "rollback_tag": "cvat/vehicle-fit:before-recovery-07111e8f6837",
+  "geometry_sha256": "46ba9fa4330fd70dffe244c9a4f73a89ecdf88f727c37e9492eb4f77b5239c60",
+  "service_sha256": "d60ce8a2b125ef6289c75acd97e14dcefb10bbea846beb13e0eebb2e511f3900",
+  "build": {
+    "dockerfile": "components/vehicle_fit/Dockerfile.runtime",
+    "base": "cvat/vehicle-fit:autofit-fast (previous_image_id at build time)",
+    "network": "none",
+    "dependencies_downloaded": false,
+    "models_downloaded": false,
+    "installed_runtime_hashes_match_freeze": true
+  },
+  "verification": {
+    "tests": 70,
+    "skips": 0,
+    "exit_code": 0,
+    "log": "build-tests.log",
+    "runtime_imports": "/app/components/vehicle_fit (installed image code); only tests/evaluator mounted from workspace",
+    "container_health": "healthy",
+    "container_state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 289571,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-14T06:43:05.853407181Z",
+      "FinishedAt": "0001-01-01T00:00:00Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-10-14T13:43:11.032911637+07:00",
+            "End": "2026-10-14T13:43:11.096774874+07:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-14T13:43:26.097677256+07:00",
+            "End": "2026-10-14T13:43:26.150184005+07:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-14T13:43:41.151020374+07:00",
+            "End": "2026-10-14T13:43:41.199854888+07:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-14T13:43:56.200595131+07:00",
+            "End": "2026-10-14T13:43:56.2541675+07:00",
+            "ExitCode": 0,
+            "Output": ""
+          },
+          {
+            "Start": "2026-10-14T13:44:11.255165909+07:00",
+            "End": "2026-10-14T13:44:11.309524095+07:00",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    },
+    "network_smoke": "vehicle_fit health and CVAT /api/server/about from cvat_cvat; CVAT Host header localhost",
+    "initial_internal_host_probe": "HTTP 400 for Host=cvat_server; browser Host=localhost succeeds",
+    "cvat_server_config": [
+      "CVAT_AUTOFIT_BACKEND=snap",
+      "CVAT_AUTOFIT_ENABLED=true",
+      "CVAT_AUTOFIT_SERVICE_URL=http://vehicle_fit:8093"
+    ]
+  },
+  "health_before": {
+    "status": "ready",
+    "backend": "snap",
+    "snapAvailable": true,
+    "geometryAvailable": true,
+    "error": null,
+    "vehiclePriorsMetres": {
+      "length": 3.7,
+      "width": 1.61,
+      "height": 1.49
+    },
+    "maxSurfaceScore": 0.1,
+    "provenance": {
+      "backend": "snap-outdoor",
+      "modelRevision": "59fa79b3948e2a9aec4e69efccb1f0677bdb4295",
+      "checkpointSHA256": "266b00df105b494e9c86d416f4715bf615baf2ba6c830c298f02e3dbebedd8bb",
+      "checkpointSource": "https://drive.google.com/file/d/128PoQvnmupWmWWLWNfzHyyQrv2nUpukq/view",
+      "missingWeights": [],
+      "unexpectedWeights": [
+        "merge_text.p2p_sa.mha.in_proj_weight",
+        "merge_text.p2p_sa.mha.in_proj_bias",
+        "merge_text.p2p_sa.mha.out_proj.weight",
+        "merge_text.p2p_sa.mha.out_proj.bias",
+        "merge_text.p2p_sa.norm.weight",
+        "merge_text.p2p_sa.norm.bias",
+        "merge_text.p2t_ca.mha.in_proj_weight",
+        "merge_text.p2t_ca.mha.in_proj_bias",
+        "merge_text.p2t_ca.mha.out_proj.weight",
+        "merge_text.p2t_ca.mha.out_proj.bias",
+        "merge_text.p2t_ca.norm.weight",
+        "merge_text.p2t_ca.norm.bias",
+        "merge_text.p2p_ca.mha.in_proj_weight",
+        "merge_text.p2p_ca.mha.in_proj_bias",
+        "merge_text.p2p_ca.mha.out_proj.weight",
+        "merge_text.p2p_ca.mha.out_proj.bias",
+        "merge_text.p2p_ca.norm.weight",
+        "merge_text.p2p_ca.norm.bias",
+        "merge_text.ffn.linear1.weight",
+        "merge_text.ffn.linear1.bias",
+        "merge_text.ffn.linear2.weight",
+        "merge_text.ffn.linear2.bias",
+        "merge_text.ffn.norm.weight",
+        "merge_text.ffn.norm.bias",
+        "confidence_head.0.weight",
+        "confidence_head.0.bias",
+        "confidence_head.2.weight",
+        "confidence_head.2.bias",
+        "iou_token_queries.weight",
+        "bg_query_feat.weight"
+      ],
+      "torch": "2.7.1+cu128",
+      "cuda": "12.8",
+      "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "computeCapability": [
+        12,
+        0
+      ],
+      "attention": "flash",
+      "gridSizeMetres": 0.05,
+      "serializationShuffle": false
+    }
+  },
+  "health_after": {
+    "adaptiveSizeRefinement": false,
+    "backend": "snap",
+    "error": null,
+    "geometryAvailable": true,
+    "maxSurfaceScore": 0.1,
+    "provenance": {
+      "attention": "flash",
+      "backend": "snap-outdoor",
+      "checkpointSHA256": "266b00df105b494e9c86d416f4715bf615baf2ba6c830c298f02e3dbebedd8bb",
+      "checkpointSource": "https://drive.google.com/file/d/128PoQvnmupWmWWLWNfzHyyQrv2nUpukq/view",
+      "computeCapability": [
+        12,
+        0
+      ],
+      "cuda": "12.8",
+      "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "gridSizeMetres": 0.05,
+      "missingWeights": [],
+      "modelRevision": "59fa79b3948e2a9aec4e69efccb1f0677bdb4295",
+      "serializationShuffle": false,
+      "torch": "2.7.1+cu128",
+      "unexpectedWeights": [
+        "merge_text.p2p_sa.mha.in_proj_weight",
+        "merge_text.p2p_sa.mha.in_proj_bias",
+        "merge_text.p2p_sa.mha.out_proj.weight",
+        "merge_text.p2p_sa.mha.out_proj.bias",
+        "merge_text.p2p_sa.norm.weight",
+        "merge_text.p2p_sa.norm.bias",
+        "merge_text.p2t_ca.mha.in_proj_weight",
+        "merge_text.p2t_ca.mha.in_proj_bias",
+        "merge_text.p2t_ca.mha.out_proj.weight",
+        "merge_text.p2t_ca.mha.out_proj.bias",
+        "merge_text.p2t_ca.norm.weight",
+        "merge_text.p2t_ca.norm.bias",
+        "merge_text.p2p_ca.mha.in_proj_weight",
+        "merge_text.p2p_ca.mha.in_proj_bias",
+        "merge_text.p2p_ca.mha.out_proj.weight",
+        "merge_text.p2p_ca.mha.out_proj.bias",
+        "merge_text.p2p_ca.norm.weight",
+        "merge_text.p2p_ca.norm.bias",
+        "merge_text.ffn.linear1.weight",
+        "merge_text.ffn.linear1.bias",
+        "merge_text.ffn.linear2.weight",
+        "merge_text.ffn.linear2.bias",
+        "merge_text.ffn.norm.weight",
+        "merge_text.ffn.norm.bias",
+        "confidence_head.0.weight",
+        "confidence_head.0.bias",
+        "confidence_head.2.weight",
+        "confidence_head.2.bias",
+        "iou_token_queries.weight",
+        "bg_query_feat.weight"
+      ]
+    },
+    "snapAvailable": true,
+    "status": "model-ready",
+    "vehiclePriorsMetres": {
+      "height": 1.49,
+      "length": 3.7,
+      "width": 1.61
+    }
+  },
+  "cvat_server": {
+    "host_header": "localhost",
+    "reachable": true,
+    "version": "2.78.1"
+  },
+  "activation_argv": [
+    "docker",
+    "compose",
+    "-f",
+    "docker-compose.yml",
+    "-f",
+    "docker-compose.autofit.pr3.yml",
+    "-f",
+    "docker-compose.autofit.fast.yml",
+    "up",
+    "-d",
+    "--no-deps",
+    "--no-build",
+    "--pull",
+    "never",
+    "vehicle_fit"
+  ],
+  "rollback_argv": [
+    [
+      "docker",
+      "tag",
+      "cvat/vehicle-fit:before-recovery-07111e8f6837",
+      "cvat/vehicle-fit:autofit-fast"
+    ],
+    [
+      "docker",
+      "compose",
+      "-f",
+      "docker-compose.yml",
+      "-f",
+      "docker-compose.autofit.pr3.yml",
+      "-f",
+      "docker-compose.autofit.fast.yml",
+      "up",
+      "-d",
+      "--no-deps",
+      "--no-build",
+      "--pull",
+      "never",
+      "vehicle_fit"
+    ]
+  ],
+  "annotation_writes": false,
+  "new_held_out": "Still BLOCKED; this build update does not constitute independent quality acceptance",
+  "historical_replay_image": "Use previous_image_id or rollback_tag for the historical replay; mutable autofit-fast now points at new image"
+}

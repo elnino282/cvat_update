@@ -1,0 +1,92 @@
+[
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/acceptance-final",
+    "completed": true,
+    "run_sha256": "e107c7b3b142363485dae8a4bcb97b00d0efd5c08731066a6f8192d16ae3f005",
+    "summary_sha256": "4c70da13ec6459bd6531c6dc6ddafddb137ad10e7cf7baebd3b5442a694f223d",
+    "selected_for_final_acceptance": false
+  },
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/acceptance-frozen",
+    "completed": true,
+    "run_sha256": "98b8c283b4c5ba2de92bc228128669339ce65298f80273ec3aab975fe1cf7043",
+    "summary_sha256": "4a6482e1d5e5ae6d4c9b1f7c67173172e69ca5776ce807f3c9dfac571cd36ed4",
+    "selected_for_final_acceptance": true
+  },
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/controls",
+    "completed": true,
+    "run_sha256": "290f7b5255644e43cb8a38d841c716ba189718792c8ceb074261c22c4debf607",
+    "summary_sha256": "5606137e8a20d520082cae321873f26283acd0e1323a9d8dee2dc38d4c2cd4af",
+    "selected_for_final_acceptance": false
+  },
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/final-matrix",
+    "completed": true,
+    "run_sha256": "6a880f95634a389660df6bc9d859626c0703df33f8679cfadfc289695734fbc1",
+    "summary_sha256": "2c36f11c7d5f8e65c68adaeda530e6085f820b705c3ef9066d60f043d1cc1586",
+    "selected_for_final_acceptance": false
+  },
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/fix-a",
+    "completed": true,
+    "run_sha256": "9c66870ee15ea8364905e58d7168a3ccf42d7f3601af7003aec52661b366101e",
+    "summary_sha256": "1af1b85edb1df0aaa0270f5bc129744041839e0d1cb3b2525498d21dd9653805",
+    "selected_for_final_acceptance": false
+  },
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/fix-b",
+    "completed": true,
+    "run_sha256": "d5f67cfeaff83430b4489a44288c71c6fbb140c94ecd154408c4a4c92e4b8f6a",
+    "summary_sha256": "2c25762aa9416d3bdb0682e4549bd1e0e1b80f4e157e56dbcc0cf06001005984",
+    "selected_for_final_acceptance": false
+  },
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/fix-c",
+    "completed": true,
+    "run_sha256": "71a7b4f9338158293f1c8d8e079def08702c8a8bc96b0396c64c90278e94299a",
+    "summary_sha256": "622b0101062cb3d434bf95a617df22bf84208bd87a9695f855f507884678f2d3",
+    "selected_for_final_acceptance": false
+  },
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/fix-d",
+    "completed": true,
+    "run_sha256": "920ff7a6eb5f7ecd1e630b6b8d71a4f94886e18570882af00f449f6e0b641057",
+    "summary_sha256": "96b18e25709369ab767d2099997a325173b03ec82ddcb8cf40704891556557fc",
+    "selected_for_final_acceptance": false
+  },
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/fix-e",
+    "completed": false,
+    "run_sha256": "ca0991a7ae3410331678a658cf210012b7bd214338d478b36b2b2e6d983a5b72",
+    "selected_for_final_acceptance": false
+  },
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/fix-e-json",
+    "completed": true,
+    "run_sha256": "2b8400fb7cad164df87a1a0ef296ad59a3b3634f368f59af391f21bae5fef21f",
+    "summary_sha256": "a58e47c8d4e64728520ba42d60f0a99461cba2bfc6c518e702784cfc8aaef409",
+    "selected_for_final_acceptance": false
+  },
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/fix-f",
+    "completed": true,
+    "run_sha256": "415f7ef6653621d47620db998dbfe51169829a4d1975dd85cbb8908001b32935",
+    "summary_sha256": "cd2bd217bd997de6c5f8a60aa9eacae968918b39e02ea0436a41d6a274980278",
+    "selected_for_final_acceptance": false
+  },
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/fix-g",
+    "completed": true,
+    "run_sha256": "fdbf2c9ec7acfc5367e22e1196e367ae567928163ef9bd12e8f19e7fc14bd3dc",
+    "summary_sha256": "a03ad213bcffa9dcd13f6f3609e6c4dd02013bf6e9cb22a5d421e7ac55de630f",
+    "selected_for_final_acceptance": false
+  },
+  {
+    "path": "components/vehicle_fit/evidence/vehicle-size-recovery/trial-skin",
+    "completed": true,
+    "run_sha256": "a454338925f0f2a1b6739eabd99fc8a8e257dc4b476c6ed42c1c13a5e0272ffb",
+    "summary_sha256": "ba71fecbb6e43b06c67c27a445c19ea58dae11c5eaa0080efe42558810f3b129",
+    "selected_for_final_acceptance": false
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "object_tune": {
+    "frames": "000000\u2013000019",
+    "cases": 43,
+    "role": "tune; subsequently also regression",
+    "input_manifest_sha256": "9502eef757b57cdac7054f95ae84c573ccd61659c7e4d762b0560bd6a1532c14"
+  },
+  "object_legacy_eval": {
+    "frames": "000020\u2013000099",
+    "cases": 259,
+    "role": "regression; previously analyzed",
+    "rerun_in_this_recovery": false
+  },
+  "raw50": {
+    "drive": "2011_09_26_drive_0005_sync",
+    "frames": "104\u2013153",
+    "role": "regression; previously analyzed",
+    "rerun_in_this_recovery": false
+  },
+  "other_same_drive_frames": {
+    "role": "not independent held-out data"
+  },
+  "fresh_independent_evaluation": {
+    "status": "BLOCKED",
+    "reason": "No new independent dataset supplied; no results claimed"
+  }
+}

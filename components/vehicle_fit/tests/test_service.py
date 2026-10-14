@@ -164,6 +164,24 @@ class RuntimeLifecycleTests(unittest.TestCase):
             result = self.runtime.fit_once(meta, self.raw)
         self.assertEqual(result['reason'], 'timeout')
 
+    def test_expiry_during_diagnostics_cannot_publish_ok(self):
+        meta=metadata()
+        runtime=self.runtime
+        class ExpiringIndices:
+            def __array__(self,dtype=None,copy=None):
+                runtime._requests[runtime._key(meta)]['deadline']=time.monotonic()-1
+                return np.array([0],dtype=dtype)
+        def fit(*args,**kwargs):
+            result=fake_fit(*args,**kwargs)
+            result['diagnostics']['mask_indices']=ExpiringIndices()
+            return result
+        with patch('vehicle_fit.service.fit_vehicle',side_effect=fit):
+            self.runtime.fit_once(meta,self.raw)
+            entry=self.runtime._requests[self.runtime._key(meta)]
+            self.assertTrue(entry['done'].wait(1))
+        self.assertEqual(entry['result']['status'],'no-fit')
+        self.assertEqual(entry['result']['reason'],'timeout')
+
     def test_cancelled_gpu_queue_never_calls_segment(self):
         self.runtime.backend_name = 'snap'
         self.runtime.backend = Mock()

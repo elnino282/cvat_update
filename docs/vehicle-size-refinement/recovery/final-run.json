@@ -1,0 +1,25 @@
+{
+  "policy_sha256": "b445e4e74ba372c9e08491196ab0a5897de3b522643a43bd4fb9deeb6119659b",
+  "manifest_sha256": "9502eef757b57cdac7054f95ae84c573ccd61659c7e4d762b0560bd6a1532c14",
+  "inputs_sha256": "fdb2eea4cdf537093d5ed0a958f5fbeae6663125c1ec34fb13eab68b3adb768c",
+  "evaluator_sha256": "e1cc155513516e59838fa819a22961e3e798930a5623e600b175a5f71f642bb2",
+  "stage_sources": {
+    "baseline": "de2192980ddab9818ffe0e4d88d49f00c637b91ef85b8e8423308d89f154817f",
+    "baseline_p0": "de2192980ddab9818ffe0e4d88d49f00c637b91ef85b8e8423308d89f154817f",
+    "reference9277": "e5205d346b581103f8bfec62f85c4b7c2dc5bca97a1c3860b2c9a99248a1dd0a",
+    "fix_a": "6888b877233815a408de664174cc951e995f0600cf33bb50d49719512f6d6ae4",
+    "fix_b": "518597f856421e1dfabec563a5eb669cb480f7f6dec0fc991d7c130a54bd561b",
+    "fix_c": "d939a694891b25b306b672e13f3af36253ee4175b952dc4e9e1b57b95aa67b16",
+    "fix_d": "47595b3c553d460664dd274ea55feaac5b1638667919172091ec709df6be0705",
+    "fix_e": "bb430dddcb53ca447698900cdf488a1d436394f65c7459ba3bb3700e075e9ae6",
+    "final": "46ba9fa4330fd70dffe244c9a4f73a89ecdf88f727c37e9492eb4f77b5239c60"
+  },
+  "split_role": "tune",
+  "completed": true,
+  "deadline_ms": 1700,
+  "trace_enabled": false,
+  "association_protocol": "all valid annotated 3D instances; unique target maximum IoU with epsilon",
+  "latency_scope": "CPU geometry, excludes cloud I/O and GT evaluation",
+  "expected_cases": 43,
+  "protected_sha256": "9b0016c82ce109c22e7ddc32da7eec2d5d24c5fc4a0490fa29c323693f5c3932"
+}

@@ -1,0 +1,193 @@
+--- a/geometry.py
++++ b/geometry.py
+@@ -305,7 +305,87 @@
+     return result
+ 
+ 
+-def _fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False, max_surface_score=0.10, evidence=None):
++def _select_hypotheses(hypotheses, evidence, priors, cancelled, max_surface_score, trace=None):
++    """Rank geometry only after per-candidate P0; no top-k safety shortcut.
++
++    The score band limits same-instance GEOMETRY comparison. The validator
++    checks the complete scene context for each tested candidate and again for
++    the final result, independently of any hypothesis score.
++    """
++    hypotheses.sort(key=lambda item: item[0])
++    counts = {"generated": len(hypotheses), "evaluated": 0, "safe": 0,
++              "ambiguityCompared": 0, "completed": False, "firstSafeRank": None}
++    rejected = {}
++    selected = None
++    plausible = []
++    geometry_ambiguous = False
++    try:
++        for rank, item in enumerate(hypotheses, 1):
++            if cancelled():
++                raise NoFit("cancelled", "Candidate validation ended")
++            if selected is not None and item[0] > selected[0] + .002:
++                break  # Geometry alternatives only; never limits scene P0.
++            score, xy, length, width, height, yaw, contamination, measured = item[:8]
++            ground = float(xy @ evidence.plane[:2] + evidence.plane[2])
++            candidate = {"center": [float(xy[0]), float(xy[1]), ground + height/2],
++                         "size": [float(length), float(width), float(height)],
++                         "rotation": [0., 0., (float(yaw)+math.pi/2)%math.pi-math.pi/2]}
++            counts["evaluated"] += 1
++            record = {"rank": rank, "score": float(score), **candidate}
++            if len(item) > 8:
++                record["provenance"] = item[8]
++            try:
++                _validate_geometry(candidate, evidence, cancelled)
++            except NoFit as exc:
++                if exc.reason == "cancelled":
++                    raise
++                gate = exc.diagnostics.get("safetyGate", exc.reason)
++                rejected[gate] = rejected.get(gate, 0) + 1
++                record.update(validation="reject", reason=gate)
++                if trace is not None:
++                    trace.append(record)
++                continue
++            counts["safe"] += 1
++            record["validation"] = "pass"
++            if trace is not None:
++                trace.append(record)
++            if selected is None:
++                selected, result = item, candidate
++                counts["firstSafeRank"] = rank
++            else:
++                counts["ambiguityCompared"] += 1
++                if np.linalg.norm(xy-selected[1]) > .50 or abs(length-selected[2]) > .70:
++                    geometry_ambiguous = True
++            plausible.append(float(yaw))
++        if selected is None:
++            raise NoFit("ambiguous", "No candidate passed common instance/geometry validation",
++                        {"safetyGate": "no-safe-candidate", "candidateRejections": rejected})
++        if cancelled():
++            raise NoFit("cancelled", "Ambiguity verification ended")
++        counts["completed"] = True
++        score, xy, length, width, height, yaw, contamination, measured = selected[:8]
++        diagnostics = {"candidateCounts": counts, "candidateRejections": rejected,
++                       "plausible_yaws": plausible, "surface_score": float(score),
++                       "mask_contamination": float(contamination), "observed_footprint": measured.tolist(),
++                       "hypothesis_count": len(hypotheses), "prior_uncertainty_lw": [.70,.20],
++                       "geometryAmbiguity": geometry_ambiguous,
++                       "instanceValidation": "complete-scene-context",
++                       "surface_residual_and_contamination": float(score - .02*(
++                           ((length-priors.length)/.70)**2+((width-priors.width)/.20)**2))}
++        if len(selected) > 8:
++            diagnostics.update(selected[8])
++        result["diagnostics"] = diagnostics
++        result["confidence"] = float(np.clip(1-score/max_surface_score, 0, 1))
++        if geometry_ambiguous or score > max_surface_score or diagnostics.pop("alwaysEstimated", False):
++            result["quality"] = "estimated"
++            diagnostics["reviewReason"] = "geometry-ambiguity-same-instance" if geometry_ambiguous else "uncertain-surface-fit"
++        return result
++    except NoFit as exc:
++        exc.diagnostics.update(candidateCounts=dict(counts), candidateRejections=dict(rejected))
++        raise
++
++
++def _fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False, max_surface_score=0.10, evidence=None, trace=None):
+     if not np.isfinite(max_surface_score) or max_surface_score <= 0:
+         raise ValueError("max_surface_score must be finite and positive")
+     priors = priors or VehiclePriors()
+@@ -326,6 +406,8 @@
+     angles = np.arange(0, math.pi / 2, math.pi / 90)
+     proposals = []
+     for angle in angles:
++        if cancelled():
++            raise NoFit("cancelled", "Orientation generation ended")
+         local = points[:, :2] @ _rotation(angle)
+         lower, upper = np.quantile(local, [0.01, 0.99], axis=0)
+         residual = np.minimum(np.abs(local - lower), np.abs(local - upper)).min(axis=1)
+@@ -338,6 +420,8 @@
+     yaws = [angle + turn for angle in yaws for turn in (0, math.pi / 2)]
+     hypotheses = []
+     for yaw in yaws:
++        if cancelled():
++            raise NoFit("cancelled", "Hypothesis generation ended")
+         rotation = _rotation(yaw)
+         local = points[:, :2] @ rotation
+         lower, upper = np.quantile(local, [0.01, 0.99], axis=0)
+@@ -349,6 +433,8 @@
+         widths = sorted(set([max(1.45, measured[1] + 0.08), priors.width, priors.width - 0.12, priors.width + 0.12]))
+         for length in lengths:
+             for width in widths:
++                if cancelled():
++                    raise NoFit("cancelled", "Dimension generation ended")
+                 if not 2.6 <= length <= 5.6 or not 1.45 <= width <= 2.3:
+                     continue
+                 if measured[0] > length + 0.12 or measured[1] > width + 0.12:
+@@ -388,58 +474,7 @@
+             {"maskPointCount": int(len(points)), "observedFootprint": measured.tolist(),
+              "observedHeight95Metres": roof},
+         )
+-    hypotheses.sort(key=lambda item: item[0])
+-    best = hypotheses[0]
+-    score, centre_xy, length, width, height, yaw, contamination, measured = best
+-    ground = float(centre_xy @ plane[:2] + plane[2])
+-    proposed_geometry = {
+-        "center": [float(centre_xy[0]), float(centre_xy[1]), ground + height / 2],
+-        "size": [float(length), float(width), float(height)],
+-        "rotation": [0.0, 0.0, float(yaw)],
+-    }
+-    _validate_geometry(proposed_geometry, evidence, cancelled)
+-    candidate_diagnostics = {"plausible_yaws": [h[5] for h in hypotheses if h[0] <= score + .002]}
+-    if score > max_surface_score or contamination > 0.08:
+-        raise NoFit(
+-            "ambiguous", "Surface residual or mask contamination is too high",
+-            {"maskPointCount": int(len(points)), "surfaceScore": score,
+-             "maskContamination": contamination, "observedFootprint": measured.tolist(),
+-             "proposedDimensionsLWH": [length, width, height],
+-             "proposedCuboid": proposed_geometry, **candidate_diagnostics},
+-        )
+-    # Equally plausible, materially different placements are evidence of hidden-extent ambiguity.
+-    for alternative in hypotheses[1:]:
+-        if alternative[0] - score > 0.002:
+-            break
+-        if np.linalg.norm(alternative[1] - centre_xy) > 0.50 or abs(alternative[2] - length) > 0.70:
+-            raise NoFit(
+-                "ambiguous", "Competing whole-car hypotheses remain unresolved",
+-                {"bestSurfaceScore": score, "alternativeSurfaceScore": alternative[0],
+-                 "centerDistanceMetres": float(np.linalg.norm(alternative[1] - centre_xy)),
+-                 "bestLengthMetres": length, "alternativeLengthMetres": alternative[2],
+-                 "proposedCuboid": proposed_geometry, **candidate_diagnostics},
+-            )
+-    yaw = (float(yaw) + math.pi / 2) % math.pi - math.pi / 2
+-    return {
+-        "center": [float(centre_xy[0]), float(centre_xy[1]), ground + height / 2],
+-        "size": [float(length), float(width), float(height)],
+-        "rotation": [0.0, 0.0, yaw],
+-        "confidence": float(np.clip(1 - score / max_surface_score, 0, 1)),
+-        "diagnostics": {
+-            **candidate_diagnostics,
+-            "mask_indices": np.flatnonzero(mask).tolist(),
+-            "point_count": int(mask.sum()),
+-            "ground_plane": plane.tolist(),
+-            "surface_score": score,
+-            "surface_residual_and_contamination": score - .02 * (
+-                ((length - priors.length) / .70) ** 2 + ((width - priors.width) / .20) ** 2),
+-            "prior_uncertainty_lw": [.70, .20],
+-            "mask_contamination": contamination,
+-            "observed_footprint": measured.tolist(),
+-            "hypothesis_count": len(hypotheses),
+-            "priors": {"length": priors.length, "width": priors.width, "height": priors.height},
+-        },
+-    }
++    return _select_hypotheses(hypotheses, evidence, priors, cancelled, max_surface_score, trace)
+ 
+ 
+ def _estimate_candidate(evidence, priors, cancelled):
+@@ -514,12 +549,12 @@
+ 
+ 
+ def fit_vehicle(cloud, seed, mask=None, priors=None, cancelled=lambda: False,
+-                max_surface_score=.10, allow_estimated=False, adaptive_refinement=False):
++                max_surface_score=.10, allow_estimated=False, adaptive_refinement=False, trace=None):
+     priors = priors or VehiclePriors()
+     evidence = _prepare_evidence(cloud, seed, mask, cancelled)
+     try:
+         result = _fit_vehicle(cloud, seed, priors=priors, cancelled=cancelled,
+-                              max_surface_score=max_surface_score, evidence=evidence)
++                              max_surface_score=max_surface_score, evidence=evidence, trace=trace)
+     except NoFit as exc:
+         if exc.diagnostics.get("safetyGate") or exc.reason not in {"ambiguous", "insufficient-evidence"}:
+             raise

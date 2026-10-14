@@ -1,0 +1,5789 @@
+{
+  "policy_sha256": "b445e4e74ba372c9e08491196ab0a5897de3b522643a43bd4fb9deeb6119659b",
+  "control_run": {
+    "policy_sha256": "b445e4e74ba372c9e08491196ab0a5897de3b522643a43bd4fb9deeb6119659b",
+    "manifest_sha256": "9502eef757b57cdac7054f95ae84c573ccd61659c7e4d762b0560bd6a1532c14",
+    "inputs_sha256": "fdb2eea4cdf537093d5ed0a958f5fbeae6663125c1ec34fb13eab68b3adb768c",
+    "evaluator_sha256": "dbe0e096b69b10cab0a0ae4d813cc6787d0ea56a24ec7ce0fd0254730eb6e77f",
+    "stage_sources": {
+      "baseline": "de2192980ddab9818ffe0e4d88d49f00c637b91ef85b8e8423308d89f154817f",
+      "baseline_p0": "de2192980ddab9818ffe0e4d88d49f00c637b91ef85b8e8423308d89f154817f",
+      "reference9277": "e5205d346b581103f8bfec62f85c4b7c2dc5bca97a1c3860b2c9a99248a1dd0a"
+    },
+    "split_role": "tune",
+    "completed": false,
+    "deadline_ms": 1700,
+    "trace_enabled": true,
+    "association_protocol": "all valid annotated 3D instances; unique target maximum IoU with epsilon",
+    "latency_scope": "CPU geometry, excludes cloud I/O and GT evaluation",
+    "expected_cases": 43
+  },
+  "cases": {
+    "object-000003-car-0": {
+      "reference_iou": 0.7440752735571444,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000003-car-0",
+          "frame": "000003",
+          "variant": "baseline_p0",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "d1f539ec0cea591cb4e5b8b28402cdd82692e67fb53b8a3356105ed948aab697",
+          "seed": {
+            "point": [
+              11.737000465393066,
+              -0.8870000243186951,
+              -0.9559999704360962
+            ],
+            "pointIndex": 45349
+          },
+          "original_candidate": {
+            "center": [
+              13.364948425682606,
+              -0.9015286045450706,
+              -0.928948155303797
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.7343180975436683
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.06981317007977328
+            ],
+            "confidence": 0.10465767287215988,
+            "diagnostics": {
+              "point_count": 689,
+              "ground_plane": [
+                -0.012072869946488651,
+                -0.0342546008600233,
+                -1.665635422403422
+              ],
+              "surface_score": 0.08953423271278402,
+              "surface_residual_and_contamination": 0.08953423271278402,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0043541364296081275,
+              "observed_footprint": [
+                3.3403479364695663,
+                1.7208000899399623
+              ],
+              "hypothesis_count": 90,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              }
+            },
+            "quality": "confident"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              13.364948425682606,
+              -0.9015286045450706,
+              -0.928948155303797
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.7343180975436683
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.06981317007977328
+            ],
+            "confidence": 0.10465767287215988,
+            "diagnostics": {
+              "point_count": 689,
+              "ground_plane": [
+                -0.012072869946488651,
+                -0.0342546008600233,
+                -1.665635422403422
+              ],
+              "surface_score": 0.08953423271278402,
+              "surface_residual_and_contamination": 0.08953423271278402,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0043541364296081275,
+              "observed_footprint": [
+                3.340347936469568,
+                1.7208000899399623
+              ],
+              "hypothesis_count": 90,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.7343180975436683
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.7343180975436683
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9027967395863697,
+                  1.068819931639728
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  129,
+                  7
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.08735716449797998
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 119.72812699968927,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 90,
+          "metrics": {
+            "iou_3d": 0.7440752735571444,
+            "center_error_m": 0.1647295541018685,
+            "yaw_error_rad_mod_pi": 0.020734192920069283,
+            "dimension_error_m_lwh": [
+              0.4500000000000002,
+              0.11999999999999988,
+              0.16431809754366822
+            ],
+            "dimension_relative_error_lwh": [
+              0.10843373493975907,
+              0.06936416184971092,
+              0.10466120862654026
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 0,
+            "target_iou": 0.7440752735571444,
+            "best_neighbor": null,
+            "margin": 0.7440752735571444,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.7440752735571444
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000003-car-0",
+          "frame": "000003",
+          "variant": "reference9277",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "d1f539ec0cea591cb4e5b8b28402cdd82692e67fb53b8a3356105ed948aab697",
+          "seed": {
+            "point": [
+              11.737000465393066,
+              -0.8870000243186951,
+              -0.9559999704360962
+            ],
+            "pointIndex": 45349
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              13.359760771602303,
+              -0.8639702016357602,
+              -0.9301720735313566
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.7343180975436683
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.03490658503988664
+            ],
+            "confidence": 0.11728799527266709,
+            "diagnostics": {
+              "point_count": 689,
+              "ground_plane": [
+                -0.012072869946488651,
+                -0.0342546008600233,
+                -1.665635422403422
+              ],
+              "surface_score": 0.08827120047273329,
+              "surface_residual_and_contamination": 0.08827120047273329,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.002902757619738752,
+              "observed_footprint": [
+                3.3315651890912026,
+                1.6988608449931015
+              ],
+              "hypothesis_count": 60,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.7343180975436683
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.7343180975436683
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9004230240787033,
+                  1.0551930714242865
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  119,
+                  2
+                ],
+                "yawStable": false
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.08681982166286373
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 106.08439099996758,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 60,
+          "metrics": {
+            "iou_3d": 0.7051422304557124,
+            "center_error_m": 0.1915741486622359,
+            "yaw_error_rad_mod_pi": 0.08398556219959064,
+            "dimension_error_m_lwh": [
+              0.4500000000000002,
+              0.11999999999999988,
+              0.16431809754366822
+            ],
+            "dimension_relative_error_lwh": [
+              0.10843373493975907,
+              0.06936416184971092,
+              0.10466120862654026
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 0,
+            "target_iou": 0.7051422304557124,
+            "best_neighbor": null,
+            "margin": 0.7051422304557124,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.7051422304557124
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000006-car-2": {
+      "reference_iou": 0.7446817850562222,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000006-car-2",
+          "frame": "000006",
+          "variant": "baseline_p0",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "1ece17a8559f674daa3edfb450e2373af6fe615048aecc527eb331c6a43166d3",
+          "seed": {
+            "point": [
+              19.027999877929688,
+              12.72599983215332,
+              -0.8149999976158142
+            ],
+            "pointIndex": 21711
+          },
+          "original_candidate": {
+            "center": [
+              19.781801803066823,
+              12.799684714338056,
+              -0.7788631445377366
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.5286467103282686
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -1.1519173063162573
+            ],
+            "confidence": 0.5655429973500207,
+            "diagnostics": {
+              "point_count": 350,
+              "ground_plane": [
+                0.014123116866150935,
+                -0.011010751287892556,
+                -1.6816330534366026
+              ],
+              "surface_score": 0.04344570026499794,
+              "surface_residual_and_contamination": 0.04344570026499794,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.6861878975965405,
+                1.184038669898655
+              ],
+              "hypothesis_count": 72,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "reviewReason": "partially-observed-footprint"
+            },
+            "quality": "estimated"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              19.781801803066823,
+              12.799684714338056,
+              -0.7788631445377366
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.5286467103282686
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -1.1519173063162573
+            ],
+            "confidence": 0.5655429973500207,
+            "diagnostics": {
+              "point_count": 350,
+              "ground_plane": [
+                0.014123116866150935,
+                -0.011010751287892556,
+                -1.6816330534366026
+              ],
+              "surface_score": 0.04344570026499794,
+              "surface_residual_and_contamination": 0.04344570026499794,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.6861878975965396,
+                1.1840386698986514
+              ],
+              "hypothesis_count": 72,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "reviewReason": "partially-observed-footprint",
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.5286467103282686
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.5286467103282686
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9962669993504161,
+                  0.7354277452786654
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  false,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  12,
+                  11
+                ],
+                "yawStable": true
+              },
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.04344570026499784
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 80.24998099972436,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 72,
+          "metrics": {
+            "iou_3d": 0.7423394692476216,
+            "center_error_m": 0.2343318441980602,
+            "yaw_error_rad_mod_pi": 0.005999042749725625,
+            "dimension_error_m_lwh": [
+              0.17999999999999972,
+              0.010000000000000009,
+              0.0286467103282686
+            ],
+            "dimension_relative_error_lwh": [
+              0.04639175257731951,
+              0.006172839506172844,
+              0.019097806885512398
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 2,
+            "target_iou": 0.7423394692476216,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.7423394692476216,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.7423394692476216
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000006-car-2",
+          "frame": "000006",
+          "variant": "reference9277",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "1ece17a8559f674daa3edfb450e2373af6fe615048aecc527eb331c6a43166d3",
+          "seed": {
+            "point": [
+              19.027999877929688,
+              12.72599983215332,
+              -0.8149999976158142
+            ],
+            "pointIndex": 21711
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              19.784610747149525,
+              12.793375722632469,
+              -0.7787540067536386
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.5286467103282686
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -1.1519173063162573
+            ],
+            "confidence": 0.5659714349911042,
+            "diagnostics": {
+              "point_count": 350,
+              "ground_plane": [
+                0.014123116866150935,
+                -0.011010751287892556,
+                -1.6816330534366026
+              ],
+              "surface_score": 0.043402856500889576,
+              "surface_residual_and_contamination": 0.043402856500889576,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.6861878975965396,
+                1.1840386698986514
+              ],
+              "hypothesis_count": 40,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.5286467103282686
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.5286467103282686
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9962669993504161,
+                  0.7354277452786654
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  false,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  12,
+                  11
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.04340285650088942
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 67.09769200097071,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 40,
+          "metrics": {
+            "iou_3d": 0.7446817850562222,
+            "center_error_m": 0.22840512431230897,
+            "yaw_error_rad_mod_pi": 0.005999042749725625,
+            "dimension_error_m_lwh": [
+              0.17999999999999972,
+              0.010000000000000009,
+              0.0286467103282686
+            ],
+            "dimension_relative_error_lwh": [
+              0.04639175257731951,
+              0.006172839506172844,
+              0.019097806885512398
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 2,
+            "target_iou": 0.7446817850562222,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.7446817850562222,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.7446817850562222
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000007-car-0": {
+      "reference_iou": 0.7742930359418014,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000007-car-0",
+          "frame": "000007",
+          "variant": "baseline_p0",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "9c576a7ee3dc3672de9426a2847f8014ac4a6163abfaae43a6d987d6355adff6",
+          "seed": {
+            "point": [
+              23.783000946044922,
+              0.7559999823570251,
+              -0.8550000190734863
+            ],
+            "pointIndex": 23181
+          },
+          "original_candidate": {
+            "center": [
+              25.554069843292236,
+              0.7410799981281162,
+              -0.7234142714443771
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.7054158342323473
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "confidence": 0.559970669459686,
+            "diagnostics": {
+              "point_count": 170,
+              "ground_plane": [
+                0.009063501856583852,
+                0.004838434945752645,
+                -1.8113172153890447
+              ],
+              "surface_score": 0.0440029330540314,
+              "surface_residual_and_contamination": 0.0440029330540314,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                2.1864000701904303,
+                1.6231899987533691
+              ],
+              "hypothesis_count": 63,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "reviewReason": "partially-observed-footprint"
+            },
+            "quality": "estimated"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              25.554069843292236,
+              0.7410799981281162,
+              -0.7234142714443771
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.7054158342323473
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "confidence": 0.559970669459686,
+            "diagnostics": {
+              "point_count": 170,
+              "ground_plane": [
+                0.009063501856583852,
+                0.004838434945752645,
+                -1.8113172153890447
+              ],
+              "surface_score": 0.0440029330540314,
+              "surface_residual_and_contamination": 0.0440029330540314,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                2.1864000701904303,
+                1.6231899987533691
+              ],
+              "hypothesis_count": 63,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "reviewReason": "partially-observed-footprint",
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.7054158342323473
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.7054158342323473
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.5909189378893055,
+                  1.008192545809546
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  94,
+                  0
+                ],
+                "yawStable": true
+              },
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.0440029330540314
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 86.39420200051973,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 63,
+          "metrics": {
+            "iou_3d": 0.7742930359418014,
+            "center_error_m": 0.26883658216253664,
+            "yaw_error_rad_mod_pi": 0.019328064338321127,
+            "dimension_error_m_lwh": [
+              0.5,
+              0.04999999999999982,
+              0.09541583423234723
+            ],
+            "dimension_relative_error_lwh": [
+              0.15625,
+              0.03012048192771074,
+              0.05926449331201691
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 0,
+            "target_iou": 0.7742930359418014,
+            "best_neighbor": {
+              "id": 1,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.7742930359418014,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.7742930359418014
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Cyclist",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000007-car-0",
+          "frame": "000007",
+          "variant": "reference9277",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "9c576a7ee3dc3672de9426a2847f8014ac4a6163abfaae43a6d987d6355adff6",
+          "seed": {
+            "point": [
+              23.783000946044922,
+              0.7559999823570251,
+              -0.8550000190734863
+            ],
+            "pointIndex": 23181
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              25.554069843292236,
+              0.7476749975048006,
+              -0.7233823619689256
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.7054158342323473
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "confidence": 0.5596431385446821,
+            "diagnostics": {
+              "point_count": 170,
+              "ground_plane": [
+                0.009063501856583852,
+                0.004838434945752645,
+                -1.8113172153890447
+              ],
+              "surface_score": 0.0440356861455318,
+              "surface_residual_and_contamination": 0.0440356861455318,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                2.1864000701904303,
+                1.6231899987533691
+              ],
+              "hypothesis_count": 58,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.7054158342323473
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.7054158342323473
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.5909189378893055,
+                  1.008192545809546
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  94,
+                  0
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.0440356861455318
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 69.69269700130098,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 58,
+          "metrics": {
+            "iou_3d": 0.7696823301441994,
+            "center_error_m": 0.2699078475203481,
+            "yaw_error_rad_mod_pi": 0.019328064338321127,
+            "dimension_error_m_lwh": [
+              0.5,
+              0.04999999999999982,
+              0.09541583423234723
+            ],
+            "dimension_relative_error_lwh": [
+              0.15625,
+              0.03012048192771074,
+              0.05926449331201691
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 0,
+            "target_iou": 0.7696823301441994,
+            "best_neighbor": {
+              "id": 1,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.7696823301441994,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.7696823301441994
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Cyclist",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000008-car-1": {
+      "reference_iou": 0.827697530262546,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000008-car-1",
+          "frame": "000008",
+          "variant": "baseline_p0",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "36577910945c98033fc898eb75a970f38bfbf807fdb3be871169057ba705e97a",
+          "seed": {
+            "point": [
+              6.986999988555908,
+              0.8629999756813049,
+              -1.062000036239624
+            ],
+            "pointIndex": 65730
+          },
+          "original_candidate": {
+            "center": [
+              8.119067033141434,
+              1.1731909947195607,
+              -0.7295681964335928
+            ],
+            "size": [
+              3.7,
+              1.561662663956834,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.3490658503988655
+            ],
+            "confidence": 0.31635119003853696,
+            "diagnostics": {
+              "point_count": 1593,
+              "ground_plane": [
+                0.016486406864327834,
+                0.05472553202656749,
+                -1.6726259402555195
+              ],
+              "surface_score": 0.06836488099614631,
+              "surface_residual_and_contamination": 0.06719663196827133,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0006277463904582549,
+              "observed_footprint": [
+                3.385097777466118,
+                1.481662663956834
+              ],
+              "hypothesis_count": 120,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              }
+            },
+            "quality": "confident"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              8.119067033141434,
+              1.1731909947195607,
+              -0.7295681964335928
+            ],
+            "size": [
+              3.7,
+              1.561662663956834,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.3490658503988655
+            ],
+            "confidence": 0.31635119003853696,
+            "diagnostics": {
+              "point_count": 1593,
+              "ground_plane": [
+                0.016486406864327834,
+                0.05472553202656749,
+                -1.6726259402555195
+              ],
+              "surface_score": 0.06836488099614631,
+              "surface_residual_and_contamination": 0.06719663196827133,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0006277463904582549,
+              "observed_footprint": [
+                3.3850977774661155,
+                1.4816626639568349
+              ],
+              "hypothesis_count": 120,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.561662663956834,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.561662663956834,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9148912912070583,
+                  0.9487725474608577
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  217,
+                  21
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.06688275877304231
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 156.23486900040007,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 120,
+          "metrics": {
+            "iou_3d": 0.8213023003471375,
+            "center_error_m": 0.11537171610675273,
+            "yaw_error_rad_mod_pi": 0.019998440946159324,
+            "dimension_error_m_lwh": [
+              0.020000000000000018,
+              0.06166266395683406,
+              0.08000000000000007
+            ],
+            "dimension_relative_error_lwh": [
+              0.005434782608695656,
+              0.041108442637889375,
+              0.0509554140127389
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 1,
+            "target_iou": 0.8213023003471375,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.8213023003471375,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.8213023003471375
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000008-car-1",
+          "frame": "000008",
+          "variant": "reference9277",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "36577910945c98033fc898eb75a970f38bfbf807fdb3be871169057ba705e97a",
+          "seed": {
+            "point": [
+              6.986999988555908,
+              0.8629999756813049,
+              -1.062000036239624
+            ],
+            "pointIndex": 65730
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              8.113238027085917,
+              1.1603768802007557,
+              -0.7303655550335296
+            ],
+            "size": [
+              3.7,
+              1.4900000000000002,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.3141592653589793
+            ],
+            "confidence": 0.30474256499235475,
+            "diagnostics": {
+              "point_count": 1593,
+              "ground_plane": [
+                0.016486406864327834,
+                0.05472553202656749,
+                -1.6726259402555195
+              ],
+              "surface_score": 0.06952574350076453,
+              "surface_residual_and_contamination": 0.062325743500764544,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0012554927809165098,
+              "observed_footprint": [
+                3.366446162415782,
+                1.4868680437793582
+              ],
+              "hypothesis_count": 64,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.4900000000000002,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.4900000000000002,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9098503141664275,
+                  0.9978980159593007
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  225,
+                  5
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.06169799711030645
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 153.48650299893052,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 64,
+          "metrics": {
+            "iou_3d": 0.827697530262546,
+            "center_error_m": 0.117101995825194,
+            "yaw_error_rad_mod_pi": 0.014908144093726872,
+            "dimension_error_m_lwh": [
+              0.020000000000000018,
+              0.009999999999999787,
+              0.08000000000000007
+            ],
+            "dimension_relative_error_lwh": [
+              0.005434782608695656,
+              0.006666666666666525,
+              0.0509554140127389
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 1,
+            "target_iou": 0.827697530262546,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.827697530262546,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.827697530262546
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000008-car-3": {
+      "reference_iou": 0.8699218600948324,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000008-car-3",
+          "frame": "000008",
+          "variant": "baseline_p0",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "00891433d6d38d0dd15994c9e307a7e2f2525bbef10560eb62b24187bb9ac8e6",
+          "seed": {
+            "point": [
+              13.083999633789062,
+              -0.781000018119812,
+              -0.7639999985694885
+            ],
+            "pointIndex": 38567
+          },
+          "original_candidate": {
+            "center": [
+              14.727471495326608,
+              -1.1173830796479303,
+              -0.7056329648696981
+            ],
+            "size": [
+              3.7,
+              1.4900000000000002,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.3141592653589793
+            ],
+            "confidence": 0.4222608468058534,
+            "diagnostics": {
+              "point_count": 630,
+              "ground_plane": [
+                0.027722305992736423,
+                0.06426285336710374,
+                -1.7871062111601481
+              ],
+              "surface_score": 0.05777391531941466,
+              "surface_residual_and_contamination": 0.05057391531941468,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.231903394728956,
+                1.5065645256517852
+              ],
+              "hypothesis_count": 120,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              }
+            },
+            "quality": "confident"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              14.727471495326608,
+              -1.1173830796479303,
+              -0.7056329648696981
+            ],
+            "size": [
+              3.7,
+              1.4900000000000002,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.3141592653589793
+            ],
+            "confidence": 0.4222608468058534,
+            "diagnostics": {
+              "point_count": 630,
+              "ground_plane": [
+                0.027722305992736423,
+                0.06426285336710374,
+                -1.7871062111601481
+              ],
+              "surface_score": 0.05777391531941466,
+              "surface_residual_and_contamination": 0.05057391531941468,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.2319033947289597,
+                1.5065645256517852
+              ],
+              "hypothesis_count": 120,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.4900000000000002,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.4900000000000002,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.8734874039807998,
+                  1.0111171313099228
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  248,
+                  0
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.05057391531941474
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 111.1040440009674,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 120,
+          "metrics": {
+            "iou_3d": 0.8686817488332367,
+            "center_error_m": 0.07018356243222525,
+            "yaw_error_rad_mod_pi": 0.00650136712920113,
+            "dimension_error_m_lwh": [
+              0.040000000000000036,
+              0.10999999999999988,
+              0.020000000000000018
+            ],
+            "dimension_relative_error_lwh": [
+              0.010928961748633888,
+              0.06874999999999992,
+              0.01360544217687076
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 3,
+            "target_iou": 0.8686817488332367,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.8686817488332367,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.8686817488332367
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000008-car-3",
+          "frame": "000008",
+          "variant": "reference9277",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "00891433d6d38d0dd15994c9e307a7e2f2525bbef10560eb62b24187bb9ac8e6",
+          "seed": {
+            "point": [
+              13.083999633789062,
+              -0.781000018119812,
+              -0.7639999985694885
+            ],
+            "pointIndex": 38567
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              14.73003085529169,
+              -1.1095061796176964,
+              -0.7050558214379704
+            ],
+            "size": [
+              3.7,
+              1.4900000000000002,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.3141592653589793
+            ],
+            "confidence": 0.4237362679170784,
+            "diagnostics": {
+              "point_count": 630,
+              "ground_plane": [
+                0.027722305992736423,
+                0.06426285336710374,
+                -1.7871062111601481
+              ],
+              "surface_score": 0.05762637320829216,
+              "surface_residual_and_contamination": 0.05042637320829218,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.2319033947289597,
+                1.5065645256517852
+              ],
+              "hypothesis_count": 64,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.4900000000000002,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.4900000000000002,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.8734874039807998,
+                  1.0111171313099228
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  248,
+                  0
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.050426373208292144
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 98.67307000058645,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 64,
+          "metrics": {
+            "iou_3d": 0.8699218600948324,
+            "center_error_m": 0.06478030864334881,
+            "yaw_error_rad_mod_pi": 0.00650136712920113,
+            "dimension_error_m_lwh": [
+              0.040000000000000036,
+              0.10999999999999988,
+              0.020000000000000018
+            ],
+            "dimension_relative_error_lwh": [
+              0.010928961748633888,
+              0.06874999999999992,
+              0.01360544217687076
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 3,
+            "target_iou": 0.8699218600948324,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.8699218600948324,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.8699218600948324
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000008-car-5": {
+      "reference_iou": 0.8811981429820108,
+      "references": {
+        "reference9277": {
+          "case_id": "object-000008-car-5",
+          "frame": "000008",
+          "variant": "reference9277",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "76a78954385d4885776025982be68a368d786bc8695aaac58f9f630c07f3d042",
+          "seed": {
+            "point": [
+              19.101999282836914,
+              -8.043000221252441,
+              -0.968999981880188
+            ],
+            "pointIndex": 32532
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              20.26295347398869,
+              -8.48697231981277,
+              -0.9192952303520058
+            ],
+            "size": [
+              2.6,
+              1.489635612988132,
+              1.582052079365061
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.3490658503988655
+            ],
+            "quality": "estimated",
+            "diagnostics": {
+              "surface_score": 0.015563549047404318,
+              "reviewReason": "Observed surfaces do not constrain a whole-car hypothesis",
+              "point_count": 205,
+              "seedLocalMaskCoverage": 1.0,
+              "ground_plane": [
+                0.020595589026871353,
+                0.03952632663416361,
+                -1.7921898922073978
+              ],
+              "maskSource": "snap",
+              "observed_footprint": [
+                0.7484566539178914,
+                1.4096356129881316
+              ],
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  2.6,
+                  1.489635612988132,
+                  1.582052079365061
+                ],
+                "refinedDimensionsLWH": [
+                  2.6,
+                  1.489635612988132,
+                  1.582052079365061
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.2878679438145736,
+                  0.9462955911482778
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  120,
+                  3
+                ],
+                "yawStable": true
+              },
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.025269075269078397
+            }
+          },
+          "geometry_ms": 84.6104149986786,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 0,
+          "metrics": {
+            "iou_3d": 0.8811981429820108,
+            "center_error_m": 0.028591216776397112,
+            "yaw_error_rad_mod_pi": 0.028405217910684843,
+            "dimension_error_m_lwh": [
+              0.1299999999999999,
+              0.100364387011868,
+              0.007947920634939099
+            ],
+            "dimension_relative_error_lwh": [
+              0.052631578947368376,
+              0.06312225598230692,
+              0.0049986922232321375
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 5,
+            "target_iou": 0.8811981429820108,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.8811981429820108,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.8811981429820108
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000009-car-0": {
+      "reference_iou": 0.8072873347592302,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000009-car-0",
+          "frame": "000009",
+          "variant": "baseline_p0",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "617d7fd8f95e06c03c6cb5c8b597938f9aa465970994eaf79ac717af7578e45e",
+          "seed": {
+            "point": [
+              22.63599967956543,
+              -0.5450000166893005,
+              -0.9330000281333923
+            ],
+            "pointIndex": 28158
+          },
+          "original_candidate": {
+            "center": [
+              24.416502405188712,
+              -0.6972375773197627,
+              -0.7722508572181829
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.5454018960561744
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.06981317007977328
+            ],
+            "confidence": 0.786224850386847,
+            "diagnostics": {
+              "point_count": 184,
+              "ground_plane": [
+                0.008581114095063127,
+                -0.002333199982863521,
+                -1.756099392891032
+              ],
+              "surface_score": 0.021377514961315305,
+              "surface_residual_and_contamination": 0.021377514961315305,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                2.215963638587823,
+                1.6162383890596461
+              ],
+              "hypothesis_count": 63,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "reviewReason": "partially-observed-footprint"
+            },
+            "quality": "estimated"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              24.416502405188712,
+              -0.6972375773197627,
+              -0.7722508572181829
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.5454018960561744
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.06981317007977328
+            ],
+            "confidence": 0.786224850386847,
+            "diagnostics": {
+              "point_count": 184,
+              "ground_plane": [
+                0.008581114095063127,
+                -0.002333199982863521,
+                -1.756099392891032
+              ],
+              "surface_score": 0.021377514961315305,
+              "surface_residual_and_contamination": 0.021377514961315305,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                2.215963638587823,
+                1.6162383890596461
+              ],
+              "hypothesis_count": 63,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "reviewReason": "partially-observed-footprint",
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.5454018960561744
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.5454018960561744
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.5989090915102224,
+                  1.0038747758134448
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  114,
+                  0
+                ],
+                "yawStable": true
+              },
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.02137751496131543
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 85.65774300041085,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 63,
+          "metrics": {
+            "iou_3d": 0.8072873347592302,
+            "center_error_m": 0.25521606863516233,
+            "yaw_error_rad_mod_pi": 0.0208577726989152,
+            "dimension_error_m_lwh": [
+              0.5,
+              0.04999999999999982,
+              0.0645981039438257
+            ],
+            "dimension_relative_error_lwh": [
+              0.15625,
+              0.03012048192771074,
+              0.04012304592784205
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 0,
+            "target_iou": 0.8072873347592302,
+            "best_neighbor": {
+              "id": 1,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.8072873347592302,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.8072873347592302
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000009-car-0",
+          "frame": "000009",
+          "variant": "reference9277",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "617d7fd8f95e06c03c6cb5c8b597938f9aa465970994eaf79ac717af7578e45e",
+          "seed": {
+            "point": [
+              22.63599967956543,
+              -0.5450000166893005,
+              -0.9330000281333923
+            ],
+            "pointIndex": 28158
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              24.416719989200033,
+              -0.6941259809910442,
+              -0.7722562500814575
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.5454018960561744
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.06981317007977328
+            ],
+            "confidence": 0.7860191467685413,
+            "diagnostics": {
+              "point_count": 184,
+              "ground_plane": [
+                0.008581114095063127,
+                -0.002333199982863521,
+                -1.756099392891032
+              ],
+              "surface_score": 0.02139808532314586,
+              "surface_residual_and_contamination": 0.02139808532314586,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                2.215963638587823,
+                1.6162383890596461
+              ],
+              "hypothesis_count": 55,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.5454018960561744
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.5454018960561744
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.5989090915102224,
+                  1.0038747758134448
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  114,
+                  0
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.021398085323146278
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 71.92593799845781,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 55,
+          "metrics": {
+            "iou_3d": 0.8065152561698921,
+            "center_error_m": 0.25535000838299254,
+            "yaw_error_rad_mod_pi": 0.0208577726989152,
+            "dimension_error_m_lwh": [
+              0.5,
+              0.04999999999999982,
+              0.0645981039438257
+            ],
+            "dimension_relative_error_lwh": [
+              0.15625,
+              0.03012048192771074,
+              0.04012304592784205
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 0,
+            "target_iou": 0.8065152561698921,
+            "best_neighbor": {
+              "id": 1,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.8065152561698921,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.8065152561698921
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000010-car-0": {
+      "reference_iou": 0.7141086467731265,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000010-car-0",
+          "frame": "000010",
+          "variant": "baseline_p0",
+          "adequate": false,
+          "input_provider": "snap",
+          "mask_sha256": "b3a0f830e6395f464b01fd92f93f711020076b158d853343f94161d6b8db3cdc",
+          "seed": {
+            "point": [
+              4.0269999504089355,
+              -3.811000108718872,
+              -1.0670000314712524
+            ],
+            "pointIndex": 71260
+          },
+          "original_candidate": {
+            "center": [
+              5.6055398756809,
+              -4.344356371780852,
+              -0.8177041011849485
+            ],
+            "size": [
+              3.7,
+              1.5572197205363394,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.10471975511965947
+            ],
+            "confidence": 0.5421452557554491,
+            "diagnostics": {
+              "point_count": 1673,
+              "ground_plane": [
+                0.0045539582638617175,
+                -0.025848217993042016,
+                -1.7005253663624644
+              ],
+              "surface_score": 0.045785474424455096,
+              "surface_residual_and_contamination": 0.04439259547432403,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.1396335889871274,
+                1.4772197205363393
+              ],
+              "hypothesis_count": 118,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "reviewReason": "partially-observed-footprint"
+            },
+            "quality": "estimated"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              5.6055398756809,
+              -4.344356371780852,
+              -0.8177041011849485
+            ],
+            "size": [
+              3.7,
+              1.5572197205363394,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.10471975511965947
+            ],
+            "confidence": 0.5421452557554491,
+            "diagnostics": {
+              "point_count": 1673,
+              "ground_plane": [
+                0.0045539582638617175,
+                -0.025848217993042016,
+                -1.7005253663624644
+              ],
+              "surface_score": 0.045785474424455096,
+              "surface_residual_and_contamination": 0.04439259547432403,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.1396335889871283,
+                1.4772197205363389
+              ],
+              "hypothesis_count": 118,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "reviewReason": "partially-observed-footprint",
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.5572197205363394,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.5572197205363394,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.8485496186451698,
+                  0.9486263891055484
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  520,
+                  1
+                ],
+                "yawStable": true
+              },
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.044392595474323907
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 162.86388099979376,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 118,
+          "metrics": {
+            "iou_3d": 0.7116150053387579,
+            "center_error_m": 0.18340763205899588,
+            "yaw_error_rad_mod_pi": 0.04594953673578117,
+            "dimension_error_m_lwh": [
+              0.3500000000000001,
+              0.09278027946366052,
+              0.08000000000000007
+            ],
+            "dimension_relative_error_lwh": [
+              0.10447761194029853,
+              0.0562304724022185,
+              0.0509554140127389
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 0,
+            "target_iou": 0.7116150053387579,
+            "best_neighbor": {
+              "id": 1,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.7116150053387579,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.7116150053387579
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 6,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 7,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 8,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000010-car-0",
+          "frame": "000010",
+          "variant": "reference9277",
+          "adequate": false,
+          "input_provider": "snap",
+          "mask_sha256": "b3a0f830e6395f464b01fd92f93f711020076b158d853343f94161d6b8db3cdc",
+          "seed": {
+            "point": [
+              4.0269999504089355,
+              -3.811000108718872,
+              -1.0670000314712524
+            ],
+            "pointIndex": 71260
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              5.60414906991292,
+              -4.348058209852528,
+              -0.8176147489389173
+            ],
+            "size": [
+              3.7,
+              1.5900865403469124,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.13962634015954656
+            ],
+            "confidence": 0.5193502032636399,
+            "diagnostics": {
+              "point_count": 1673,
+              "ground_plane": [
+                0.0045539582638617175,
+                -0.025848217993042016,
+                -1.7005253663624644
+              ],
+              "surface_score": 0.048064979673636016,
+              "surface_residual_and_contamination": 0.04786670673595844,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.1166154901652865,
+                1.510086540346911
+              ],
+              "hypothesis_count": 72,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.5900865403469124,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.5900865403469124,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.8423285108554828,
+                  0.9496882729523969
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  530,
+                  0
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.04786670673595841
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 158.13956100100768,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 72,
+          "metrics": {
+            "iou_3d": 0.7141086467731265,
+            "center_error_m": 0.1809915295911584,
+            "yaw_error_rad_mod_pi": 0.011042951695894088,
+            "dimension_error_m_lwh": [
+              0.3500000000000001,
+              0.059913459653087475,
+              0.08000000000000007
+            ],
+            "dimension_relative_error_lwh": [
+              0.10447761194029853,
+              0.036311187668537866,
+              0.0509554140127389
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 0,
+            "target_iou": 0.7141086467731265,
+            "best_neighbor": {
+              "id": 1,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.7141086467731265,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.7141086467731265
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 6,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 7,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 8,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000010-car-1": {
+      "reference_iou": 0.8277904355115577,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000010-car-1",
+          "frame": "000010",
+          "variant": "baseline_p0",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "299599b3019479d8ad3b0278bb801024301b76aed4cef7c4df6da397e7ee356a",
+          "seed": {
+            "point": [
+              10.656000137329102,
+              2.200000047683716,
+              -1.0069999694824219
+            ],
+            "pointIndex": 42421
+          },
+          "original_candidate": {
+            "center": [
+              11.994666357044464,
+              2.392967410789167,
+              -0.8166286060842615
+            ],
+            "size": [
+              3.6901451936756637,
+              1.61,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.17453292519943275
+            ],
+            "confidence": 0.4002569491628094,
+            "diagnostics": {
+              "point_count": 1007,
+              "ground_plane": [
+                0.020109225227547912,
+                0.019180410267160997,
+                -1.8487301500822424
+              ],
+              "surface_score": 0.05997430508371906,
+              "surface_residual_and_contamination": 0.059970341116058236,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.5901451936756636,
+                1.590481343129746
+              ],
+              "hypothesis_count": 80,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              }
+            },
+            "quality": "confident"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              11.994666357044464,
+              2.392967410789167,
+              -0.8166286060842615
+            ],
+            "size": [
+              3.6901451936756637,
+              1.61,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.17453292519943275
+            ],
+            "confidence": 0.4002569491628094,
+            "diagnostics": {
+              "point_count": 1007,
+              "ground_plane": [
+                0.020109225227547912,
+                0.019180410267160997,
+                -1.8487301500822424
+              ],
+              "surface_score": 0.05997430508371906,
+              "surface_residual_and_contamination": 0.059970341116058236,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.59014519367566,
+                1.5904813431297464
+              ],
+              "hypothesis_count": 80,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.6901451936756637,
+                  1.61,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  3.6901451936756637,
+                  1.61,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9729007952935326,
+                  0.987876610639594
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  206,
+                  6
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.05997034111605841
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 110.6272289998742,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 80,
+          "metrics": {
+            "iou_3d": 0.8277904355115577,
+            "center_error_m": 0.10146614211660747,
+            "yaw_error_rad_mod_pi": 0.014542257626225297,
+            "dimension_error_m_lwh": [
+              0.25985480632433644,
+              0.08999999999999986,
+              0.06000000000000005
+            ],
+            "dimension_relative_error_lwh": [
+              0.06578602691755353,
+              0.05294117647058815,
+              0.041958041958041994
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 1,
+            "target_iou": 0.8277904355115577,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.8277904355115577,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.8277904355115577
+              },
+              {
+                "id": 2,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 6,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 7,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 8,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000010-car-1",
+          "frame": "000010",
+          "variant": "reference9277",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "299599b3019479d8ad3b0278bb801024301b76aed4cef7c4df6da397e7ee356a",
+          "seed": {
+            "point": [
+              10.656000137329102,
+              2.200000047683716,
+              -1.0069999694824219
+            ],
+            "pointIndex": 42421
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              12.145545375234603,
+              2.3564534872522813,
+              -0.8142948979592658
+            ],
+            "size": [
+              4.0,
+              1.4900000000000002,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.17453292519943275
+            ],
+            "confidence": 0.3619984824496526,
+            "diagnostics": {
+              "point_count": 1007,
+              "ground_plane": [
+                0.020109225227547912,
+                0.019180410267160997,
+                -1.8487301500822424
+              ],
+              "surface_score": 0.06380015175503474,
+              "surface_residual_and_contamination": 0.05292668236727966,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0029791459781529296,
+              "observed_footprint": [
+                3.59014519367566,
+                1.5904813431297464
+              ],
+              "hypothesis_count": 48,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  4.0,
+                  1.4900000000000002,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  4.0,
+                  1.4900000000000002,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.897536298418915,
+                  1.0674371430400982
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  206,
+                  6
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.05143710937820323
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 102.40527599853522,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 48,
+          "metrics": {
+            "iou_3d": 0.79337157214351,
+            "center_error_m": 0.09424789191102856,
+            "yaw_error_rad_mod_pi": 0.014542257626225297,
+            "dimension_error_m_lwh": [
+              0.04999999999999982,
+              0.20999999999999974,
+              0.06000000000000005
+            ],
+            "dimension_relative_error_lwh": [
+              0.01265822784810122,
+              0.12352941176470573,
+              0.041958041958041994
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 1,
+            "target_iou": 0.79337157214351,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.79337157214351,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.79337157214351
+              },
+              {
+                "id": 2,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 6,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 7,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 8,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000010-car-5": {
+      "reference_iou": 0.781086280661162,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000010-car-5",
+          "frame": "000010",
+          "variant": "baseline_p0",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "26b011ddc3bc6ec7ec8a6a170489c20abf8991f52b60ab9c36d1af2f3c9f0bcc",
+          "seed": {
+            "point": [
+              22.530000686645508,
+              0.16500000655651093,
+              -0.9279999732971191
+            ],
+            "pointIndex": 24084
+          },
+          "original_candidate": {
+            "center": [
+              23.872345916663523,
+              0.33683839639357915,
+              -0.7080100123348457
+            ],
+            "size": [
+              3.6653421762879668,
+              1.61,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.24434609527920603
+            ],
+            "confidence": 0.3610136275948256,
+            "diagnostics": {
+              "point_count": 206,
+              "ground_plane": [
+                0.013348854449029323,
+                0.027777669908435665,
+                -1.7810350691207741
+              ],
+              "surface_score": 0.06389863724051745,
+              "surface_residual_and_contamination": 0.06384961010809073,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0048543689320388345,
+              "observed_footprint": [
+                3.5653421762879667,
+                1.633075419067862
+              ],
+              "hypothesis_count": 75,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              }
+            },
+            "quality": "confident"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              23.872345916663523,
+              0.33683839639357915,
+              -0.7080100123348457
+            ],
+            "size": [
+              3.6653421762879668,
+              1.61,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.24434609527920603
+            ],
+            "confidence": 0.3610136275948256,
+            "diagnostics": {
+              "point_count": 206,
+              "ground_plane": [
+                0.013348854449029323,
+                0.027777669908435665,
+                -1.7810350691207741
+              ],
+              "surface_score": 0.06389863724051745,
+              "surface_residual_and_contamination": 0.06384961010809073,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0048543689320388345,
+              "observed_footprint": [
+                3.5653421762879702,
+                1.6330754190678611
+              ],
+              "hypothesis_count": 75,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.6653421762879668,
+                  1.61,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  3.6653421762879668,
+                  1.61,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9727174175860246,
+                  1.014332558427243
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  54,
+                  4
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.061422425642071524
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 80.84746200074733,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 75,
+          "metrics": {
+            "iou_3d": 0.781086280661162,
+            "center_error_m": 0.12671463732033839,
+            "yaw_error_rad_mod_pi": 0.03527179025775906,
+            "dimension_error_m_lwh": [
+              0.12465782371203327,
+              0.06999999999999984,
+              0.050000000000000044
+            ],
+            "dimension_relative_error_lwh": [
+              0.03289124636201406,
+              0.041666666666666574,
+              0.03246753246753249
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 5,
+            "target_iou": 0.781086280661162,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.781086280661162,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.781086280661162
+              },
+              {
+                "id": 6,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 7,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 8,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000010-car-5",
+          "frame": "000010",
+          "variant": "reference9277",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "26b011ddc3bc6ec7ec8a6a170489c20abf8991f52b60ab9c36d1af2f3c9f0bcc",
+          "seed": {
+            "point": [
+              22.530000686645508,
+              0.16500000655651093,
+              -0.9279999732971191
+            ],
+            "pointIndex": 24084
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              24.03749566928116,
+              0.3075528591005295,
+              -0.7066189363128771
+            ],
+            "size": [
+              4.0,
+              1.61,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.24434609527920603
+            ],
+            "confidence": 0.3235518411171122,
+            "diagnostics": {
+              "point_count": 206,
+              "ground_plane": [
+                0.013348854449029323,
+                0.027777669908435665,
+                -1.7810350691207741
+              ],
+              "surface_score": 0.06764481588828879,
+              "surface_residual_and_contamination": 0.06397134650053368,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0048543689320388345,
+              "observed_footprint": [
+                3.5653421762879702,
+                1.6330754190678611
+              ],
+              "hypothesis_count": 39,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  4.0,
+                  1.61,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  4.0,
+                  1.61,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.8913355440719926,
+                  1.014332558427243
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  54,
+                  4
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.06154416203451402
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 65.40288100040925,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 39,
+          "metrics": {
+            "iou_3d": 0.7639247270715273,
+            "center_error_m": 0.1769653261056443,
+            "yaw_error_rad_mod_pi": 0.03527179025775906,
+            "dimension_error_m_lwh": [
+              0.20999999999999996,
+              0.06999999999999984,
+              0.050000000000000044
+            ],
+            "dimension_relative_error_lwh": [
+              0.05540897097625329,
+              0.041666666666666574,
+              0.03246753246753249
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 5,
+            "target_iou": 0.7639247270715273,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.7639247270715273,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.7639247270715273
+              },
+              {
+                "id": 6,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 7,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 8,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000010-car-6": {
+      "reference_iou": 0.7356400999373839,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000010-car-6",
+          "frame": "000010",
+          "variant": "baseline_p0",
+          "adequate": false,
+          "input_provider": "snap",
+          "mask_sha256": "171f7d4b93aee80413f5cf76d65bf04c606d965be9bda968bbdaba1f98ca7563",
+          "seed": {
+            "point": [
+              28.999000549316406,
+              -1.2999999523162842,
+              -0.7250000238418579
+            ],
+            "pointIndex": 20224
+          },
+          "original_candidate": {
+            "center": [
+              29.464721328909985,
+              -0.6119495947822441,
+              -0.6632149361969574
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.17453292519943275
+            ],
+            "confidence": 0.33932774598771687,
+            "diagnostics": {
+              "point_count": 49,
+              "ground_plane": [
+                0.01227721918602848,
+                0.027392963979796292,
+                -1.7531966649999127
+              ],
+              "surface_score": 0.06606722540122832,
+              "surface_residual_and_contamination": 0.06606722540122832,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.094131977165855,
+                1.0191059518035082
+              ],
+              "hypothesis_count": 80,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "reviewReason": "partially-observed-footprint"
+            },
+            "quality": "estimated"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              29.464721328909985,
+              -0.6119495947822441,
+              -0.6632149361969574
+            ],
+            "size": [
+              3.7,
+              1.61,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.17453292519943275
+            ],
+            "confidence": 0.33932774598771687,
+            "diagnostics": {
+              "point_count": 49,
+              "ground_plane": [
+                0.01227721918602848,
+                0.027392963979796292,
+                -1.7531966649999127
+              ],
+              "surface_score": 0.06606722540122832,
+              "surface_residual_and_contamination": 0.06606722540122832,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.0941319771658513,
+                1.019105951803509
+              ],
+              "hypothesis_count": 80,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "reviewReason": "partially-observed-footprint",
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.8362518857205004,
+                  0.6329850632319931
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  false,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  5,
+                  0
+                ],
+                "yawStable": true
+              },
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.06606722540122838
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 74.58156499887991,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 80,
+          "metrics": {
+            "iou_3d": 0.7356400999373839,
+            "center_error_m": 0.15625820160363343,
+            "yaw_error_rad_mod_pi": 0.044540910706404535,
+            "dimension_error_m_lwh": [
+              0.3500000000000001,
+              0.09000000000000008,
+              0.0
+            ],
+            "dimension_relative_error_lwh": [
+              0.10447761194029853,
+              0.059210526315789526,
+              0.0
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 6,
+            "target_iou": 0.7356400999373839,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.7356400999373839,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 6,
+                "class": "Car",
+                "iou": 0.7356400999373839
+              },
+              {
+                "id": 7,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 8,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000010-car-6",
+          "frame": "000010",
+          "variant": "reference9277",
+          "adequate": false,
+          "input_provider": "snap",
+          "mask_sha256": "171f7d4b93aee80413f5cf76d65bf04c606d965be9bda968bbdaba1f98ca7563",
+          "seed": {
+            "point": [
+              28.999000549316406,
+              -1.2999999523162842,
+              -0.7250000238418579
+            ],
+            "pointIndex": 20224
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              29.17059316502423,
+              -0.6497382939337508,
+              -0.6678611566084675
+            ],
+            "size": [
+              3.198944506130291,
+              1.45,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.20943951023931895
+            ],
+            "quality": "estimated",
+            "diagnostics": {
+              "surface_score": 0.02456425878535958,
+              "reviewReason": "Observed surfaces do not constrain a whole-car hypothesis",
+              "point_count": 49,
+              "seedLocalMaskCoverage": 1.0,
+              "ground_plane": [
+                0.01227721918602848,
+                0.027392963979796292,
+                -1.7531966649999127
+              ],
+              "maskSource": "snap",
+              "observed_footprint": [
+                3.098944506130291,
+                1.0460434251082091
+              ],
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.198944506130291,
+                  1.45,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  3.198944506130291,
+                  1.45,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9687396890416932,
+                  0.7214092586953167
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  false,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  4,
+                  0
+                ],
+                "yawStable": true
+              },
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.05926315564814741
+            }
+          },
+          "geometry_ms": 73.86682200012729,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 0,
+          "metrics": {
+            "iou_3d": 0.7326170256830504,
+            "center_error_m": 0.20927478782181938,
+            "yaw_error_rad_mod_pi": 0.00963432566651834,
+            "dimension_error_m_lwh": [
+              0.15105549386970907,
+              0.07000000000000006,
+              0.0
+            ],
+            "dimension_relative_error_lwh": [
+              0.04509119219991315,
+              0.04605263157894741,
+              0.0
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 6,
+            "target_iou": 0.7326170256830504,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Car",
+              "iou": 0.0
+            },
+            "margin": 0.7326170256830504,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 6,
+                "class": "Car",
+                "iou": 0.7326170256830504
+              },
+              {
+                "id": 7,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 8,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000011-car-2": {
+      "reference_iou": 0.7716672635631575,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000011-car-2",
+          "frame": "000011",
+          "variant": "baseline_p0",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "f433e396ddec31a90a16ec76b5a7cb35e76ae9274f4d40d1f03ca63b3115f1ee",
+          "seed": {
+            "point": [
+              25.347000122070312,
+              4.5960001945495605,
+              -0.9419999718666077
+            ],
+            "pointIndex": 25710
+          },
+          "original_candidate": {
+            "center": [
+              27.331245319595485,
+              4.999940428170876,
+              -0.6228390748443096
+            ],
+            "size": [
+              4.575507634348403,
+              1.61,
+              1.8047474415504094
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.03490658503988664
+            ],
+            "confidence": 0.03537408056292235,
+            "diagnostics": {
+              "point_count": 187,
+              "ground_plane": [
+                0.01121483167257514,
+                -0.030494518538013216,
+                -1.6792573352048163
+              ],
+              "surface_score": 0.09646259194370777,
+              "surface_residual_and_contamination": 0.06517632182932666,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                4.4755076343484035,
+                1.6438743441571226
+              ],
+              "hypothesis_count": 34,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              }
+            },
+            "quality": "confident"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              27.331245319595485,
+              4.999940428170876,
+              -0.6228390748443096
+            ],
+            "size": [
+              4.575507634348403,
+              1.61,
+              1.8047474415504094
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.03490658503988664
+            ],
+            "confidence": 0.03537408056292235,
+            "diagnostics": {
+              "point_count": 187,
+              "ground_plane": [
+                0.01121483167257514,
+                -0.030494518538013216,
+                -1.6792573352048163
+              ],
+              "surface_score": 0.09646259194370777,
+              "surface_residual_and_contamination": 0.06517632182932666,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                4.4755076343484035,
+                1.643874344157123
+              ],
+              "hypothesis_count": 34,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  4.575507634348403,
+                  1.61,
+                  1.8047474415504094
+                ],
+                "refinedDimensionsLWH": [
+                  4.575507634348403,
+                  1.61,
+                  1.8047474415504094
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9781445015522872,
+                  1.0210399653149833
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  48,
+                  0
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.06517632182932658
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 71.48595699982252,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 34,
+          "metrics": {
+            "iou_3d": 0.7716672635631575,
+            "center_error_m": 0.4138530994128289,
+            "yaw_error_rad_mod_pi": 0.01398586190873452,
+            "dimension_error_m_lwh": [
+              0.7455076343484031,
+              0.040000000000000036,
+              0.05525255844959065
+            ],
+            "dimension_relative_error_lwh": [
+              0.19464951288470053,
+              0.02547770700636945,
+              0.02970567658580142
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 2,
+            "target_iou": 0.7716672635631575,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Pedestrian",
+              "iou": 0.0
+            },
+            "margin": 0.7716672635631575,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.7716672635631575
+              },
+              {
+                "id": 3,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Pedestrian",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000011-car-2",
+          "frame": "000011",
+          "variant": "reference9277",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "f433e396ddec31a90a16ec76b5a7cb35e76ae9274f4d40d1f03ca63b3115f1ee",
+          "seed": {
+            "point": [
+              25.347000122070312,
+              4.5960001945495605,
+              -0.9419999718666077
+            ],
+            "pointIndex": 25710
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              27.267704912591253,
+              5.0327929634469655,
+              -0.6245534920592666
+            ],
+            "size": [
+              4.548323433588289,
+              1.61,
+              1.8047474415504094
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.06981317007977318
+            ],
+            "quality": "estimated",
+            "diagnostics": {
+              "maskPointCount": 187,
+              "surfaceScore": 0.10035820788990091,
+              "maskContamination": 0.0,
+              "observedFootprint": [
+                4.448323433588289,
+                1.7276844996632867
+              ],
+              "proposedDimensionsLWH": [
+                4.548323433588289,
+                1.61,
+                1.8047474415504094
+              ],
+              "reviewReason": "Surface residual or mask contamination is too high",
+              "point_count": 187,
+              "seedLocalMaskCoverage": 1.0,
+              "ground_plane": [
+                0.01121483167257514,
+                -0.030494518538013216,
+                -1.6792573352048163
+              ],
+              "maskSource": "snap",
+              "observed_footprint": [
+                4.448323433588289,
+                1.7276844996632867
+              ],
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  4.548323433588289,
+                  1.61,
+                  1.8047474415504094
+                ],
+                "refinedDimensionsLWH": [
+                  4.548323433588289,
+                  1.61,
+                  1.8047474415504094
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9780138766602385,
+                  1.0730959625237806
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  47,
+                  0
+                ],
+                "yawStable": true
+              },
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.07098463042153313
+            }
+          },
+          "geometry_ms": 59.717458998420625,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 17,
+          "metrics": {
+            "iou_3d": 0.7613932782254463,
+            "center_error_m": 0.35583108384680384,
+            "yaw_error_rad_mod_pi": 0.048892446948620716,
+            "dimension_error_m_lwh": [
+              0.7183234335882887,
+              0.040000000000000036,
+              0.05525255844959065
+            ],
+            "dimension_relative_error_lwh": [
+              0.18755181033636778,
+              0.02547770700636945,
+              0.02970567658580142
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 2,
+            "target_iou": 0.7613932782254463,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Pedestrian",
+              "iou": 0.0
+            },
+            "margin": 0.7613932782254463,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.7613932782254463
+              },
+              {
+                "id": 3,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 5,
+                "class": "Pedestrian",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000011-car-4": {
+      "reference_iou": 0.9235483194089773,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000011-car-4",
+          "frame": "000011",
+          "variant": "baseline_p0",
+          "adequate": false,
+          "input_provider": "snap",
+          "mask_sha256": "1db723513d35524259ffae2a58d4f9807f3f2ca1923977c1d5c982cb4ea9d4dd",
+          "seed": {
+            "point": [
+              3.890000104904175,
+              4.465000152587891,
+              -1.1480000019073486
+            ],
+            "pointIndex": 69607
+          },
+          "original_candidate": {
+            "center": [
+              4.411859982013702,
+              5.131535041332245,
+              -1.0939117234642302
+            ],
+            "size": [
+              3.653439908027648,
+              1.5309297418594365,
+              1.500475632426938
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "confidence": 0.4067048174352049,
+            "diagnostics": {
+              "point_count": 2908,
+              "ground_plane": [
+                0.017161601057771283,
+                -0.02991423776651425,
+                -1.766358161278152
+              ],
+              "surface_score": 0.059329518256479516,
+              "surface_residual_and_contamination": 0.05611498204161984,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.5534399080276478,
+                1.4509297418594365
+              ],
+              "hypothesis_count": 108,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              }
+            },
+            "quality": "confident"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              4.411859982013702,
+              5.131535041332245,
+              -1.0939117234642302
+            ],
+            "size": [
+              3.653439908027648,
+              1.5309297418594365,
+              1.500475632426938
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "confidence": 0.4067048174352049,
+            "diagnostics": {
+              "point_count": 2908,
+              "ground_plane": [
+                0.017161601057771283,
+                -0.02991423776651425,
+                -1.766358161278152
+              ],
+              "surface_score": 0.059329518256479516,
+              "surface_residual_and_contamination": 0.05611498204161984,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.5534399080276478,
+                1.4509297418594365
+              ],
+              "hypothesis_count": 108,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.653439908027648,
+                  1.5309297418594365,
+                  1.500475632426938
+                ],
+                "refinedDimensionsLWH": [
+                  3.653439908027648,
+                  1.5309297418594365,
+                  1.500475632426938
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9726285357040438,
+                  0.9477441728300127
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  208,
+                  37
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.05611498204161984
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 205.20222800041665,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 108,
+          "metrics": {
+            "iou_3d": 0.9191857068160301,
+            "center_error_m": 0.019100357596995233,
+            "yaw_error_rad_mod_pi": 0.010920699742939632,
+            "dimension_error_m_lwh": [
+              0.046560091972352335,
+              0.07092974185943657,
+              0.00047563242693793306
+            ],
+            "dimension_relative_error_lwh": [
+              0.012583808641176307,
+              0.04858201497221683,
+              0.0003170882846252887
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 4,
+            "target_iou": 0.9191857068160301,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Pedestrian",
+              "iou": 0.0
+            },
+            "margin": 0.9191857068160301,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.9191857068160301
+              },
+              {
+                "id": 5,
+                "class": "Pedestrian",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000011-car-4",
+          "frame": "000011",
+          "variant": "reference9277",
+          "adequate": false,
+          "input_provider": "snap",
+          "mask_sha256": "1db723513d35524259ffae2a58d4f9807f3f2ca1923977c1d5c982cb4ea9d4dd",
+          "seed": {
+            "point": [
+              3.890000104904175,
+              4.465000152587891,
+              -1.1480000019073486
+            ],
+            "pointIndex": 69607
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              4.434989097154602,
+              5.1034704802462585,
+              -1.0926752608642238
+            ],
+            "size": [
+              3.7,
+              1.4900000000000002,
+              1.500475632426938
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.03490658503988664
+            ],
+            "confidence": 0.36914542763321345,
+            "diagnostics": {
+              "point_count": 2908,
+              "ground_plane": [
+                0.017161601057771283,
+                -0.02991423776651425,
+                -1.766358161278152
+              ],
+              "surface_score": 0.06308545723667866,
+              "surface_residual_and_contamination": 0.055885457236678676,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.5348338409870523,
+                1.4627322115423533
+              ],
+              "hypothesis_count": 61,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.4900000000000002,
+                  1.500475632426938
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.4900000000000002,
+                  1.500475632426938
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9553604975640682,
+                  0.981699470833794
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  222,
+                  16
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.05588545723667851
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 215.68698000010045,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 61,
+          "metrics": {
+            "iou_3d": 0.9235483194089773,
+            "center_error_m": 0.03870059467415093,
+            "yaw_error_rad_mod_pi": 0.023985885296946563,
+            "dimension_error_m_lwh": [
+              0.0,
+              0.03000000000000025,
+              0.00047563242693793306
+            ],
+            "dimension_relative_error_lwh": [
+              0.0,
+              0.020547945205479624,
+              0.0003170882846252887
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 4,
+            "target_iou": 0.9235483194089773,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Pedestrian",
+              "iou": 0.0
+            },
+            "margin": 0.9235483194089773,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Car",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Car",
+                "iou": 0.9235483194089773
+              },
+              {
+                "id": 5,
+                "class": "Pedestrian",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000013-car-0": {
+      "reference_iou": 0.7710317482402324,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000013-car-0",
+          "frame": "000013",
+          "variant": "baseline_p0",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "e277d1d21a27569cc4c81fd88b334bc26dc5ff8050fbe8260c5f8f11c5974eca",
+          "seed": {
+            "point": [
+              19.177000045776367,
+              3.0789999961853027,
+              -0.8949999809265137
+            ],
+            "pointIndex": 29873
+          },
+          "original_candidate": {
+            "center": [
+              20.54007053375244,
+              3.17512006521225,
+              -0.9862043002296793
+            ],
+            "size": [
+              3.7,
+              1.4900000000000002,
+              1.5028178456050998
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "confidence": 0.20897950315479252,
+            "diagnostics": {
+              "point_count": 302,
+              "ground_plane": [
+                0.00799770429380258,
+                -0.008813081028266057,
+                -1.87390404292584
+              ],
+              "surface_score": 0.07910204968452075,
+              "surface_residual_and_contamination": 0.07190204968452077,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0033112582781456954,
+              "observed_footprint": [
+                3.1488401603698755,
+                1.5488300251960752
+              ],
+              "hypothesis_count": 110,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              }
+            },
+            "quality": "confident"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              20.54007053375244,
+              3.17512006521225,
+              -0.9862043002296793
+            ],
+            "size": [
+              3.7,
+              1.4900000000000002,
+              1.5028178456050998
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "confidence": 0.20897950315479252,
+            "diagnostics": {
+              "point_count": 302,
+              "ground_plane": [
+                0.00799770429380258,
+                -0.008813081028266057,
+                -1.87390404292584
+              ],
+              "surface_score": 0.07910204968452075,
+              "surface_residual_and_contamination": 0.07190204968452077,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0033112582781456954,
+              "observed_footprint": [
+                3.1488401603698755,
+                1.5488300251960752
+              ],
+              "hypothesis_count": 110,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.4900000000000002,
+                  1.5028178456050998
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.4900000000000002,
+                  1.5028178456050998
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.8510378811810474,
+                  1.0394832383866275
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  60,
+                  5
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.07024642054544793
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 96.22011200008274,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 110,
+          "metrics": {
+            "iou_3d": 0.7710317482402324,
+            "center_error_m": 0.17071711470720433,
+            "yaw_error_rad_mod_pi": 0.019079237937319693,
+            "dimension_error_m_lwh": [
+              0.22999999999999998,
+              0.06999999999999984,
+              0.052817845605099834
+            ],
+            "dimension_relative_error_lwh": [
+              0.06628242074927954,
+              0.04487179487179477,
+              0.03642610041731023
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 0,
+            "target_iou": 0.7710317482402324,
+            "best_neighbor": null,
+            "margin": 0.7710317482402324,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.7710317482402324
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000013-car-0",
+          "frame": "000013",
+          "variant": "reference9277",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "e277d1d21a27569cc4c81fd88b334bc26dc5ff8050fbe8260c5f8f11c5974eca",
+          "seed": {
+            "point": [
+              19.177000045776367,
+              3.0789999961853027,
+              -0.8949999809265137
+            ],
+            "pointIndex": 29873
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              20.537157384117865,
+              3.1601365562782555,
+              -0.9860955478606971
+            ],
+            "size": [
+              3.7,
+              1.4900000000000002,
+              1.5028178456050998
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.06981317007977328
+            ],
+            "confidence": 0.23928424822368732,
+            "diagnostics": {
+              "point_count": 302,
+              "ground_plane": [
+                0.00799770429380258,
+                -0.008813081028266057,
+                -1.87390404292584
+              ],
+              "surface_score": 0.07607157517763127,
+              "surface_residual_and_contamination": 0.06887157517763129,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.173269861925508,
+                1.5969311148833318
+              ],
+              "hypothesis_count": 59,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.4900000000000002,
+                  1.5028178456050998
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.4900000000000002,
+                  1.5028178456050998
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.8576405032231103,
+                  1.0717658489149877
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  61,
+                  12
+                ],
+                "yawStable": false
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.06887157517763155
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 78.67153700135532,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 59,
+          "metrics": {
+            "iou_3d": 0.7567510369758844,
+            "center_error_m": 0.1688046148844263,
+            "yaw_error_rad_mod_pi": 0.050733932142453586,
+            "dimension_error_m_lwh": [
+              0.22999999999999998,
+              0.06999999999999984,
+              0.052817845605099834
+            ],
+            "dimension_relative_error_lwh": [
+              0.06628242074927954,
+              0.04487179487179477,
+              0.03642610041731023
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 0,
+            "target_iou": 0.7567510369758844,
+            "best_neighbor": null,
+            "margin": 0.7567510369758844,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.7567510369758844
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000015-car-0": {
+      "reference_iou": 0.893048267996231,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000015-car-0",
+          "frame": "000015",
+          "variant": "baseline_p0",
+          "adequate": false,
+          "input_provider": "snap",
+          "mask_sha256": "f2f4b5719b9b7dd2fdb9766e6add4111989b87839ba2721c27d600ede972ad9d",
+          "seed": {
+            "point": [
+              3.2880001068115234,
+              2.2320001125335693,
+              -1.1510000228881836
+            ],
+            "pointIndex": 98828
+          },
+          "original_candidate": {
+            "center": [
+              4.31847672661225,
+              2.7767709713340296,
+              -0.9863555639058866
+            ],
+            "size": [
+              3.962995009529246,
+              1.61,
+              1.5570239413240914
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.13962634015954656
+            ],
+            "confidence": 0.4301890646193831,
+            "diagnostics": {
+              "point_count": 5445,
+              "ground_plane": [
+                0.0029335283086105984,
+                -0.020602580380432445,
+                -1.7203272611605647
+              ],
+              "surface_score": 0.05698109353806169,
+              "surface_residual_and_contamination": 0.05415797618960095,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.00018365472910927456,
+              "observed_footprint": [
+                3.862995009529246,
+                1.4098895269753955
+              ],
+              "hypothesis_count": 72,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              }
+            },
+            "quality": "confident"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              4.31847672661225,
+              2.7767709713340296,
+              -0.9863555639058866
+            ],
+            "size": [
+              3.962995009529246,
+              1.61,
+              1.5570239413240914
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.13962634015954656
+            ],
+            "confidence": 0.4301890646193831,
+            "diagnostics": {
+              "point_count": 5445,
+              "ground_plane": [
+                0.0029335283086105984,
+                -0.020602580380432445,
+                -1.7203272611605647
+              ],
+              "surface_score": 0.05698109353806169,
+              "surface_residual_and_contamination": 0.05415797618960095,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.00018365472910927456,
+              "observed_footprint": [
+                3.8629950095292482,
+                1.4098895269753955
+              ],
+              "hypothesis_count": 72,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.962995009529246,
+                  1.61,
+                  1.5570239413240914
+                ],
+                "refinedDimensionsLWH": [
+                  3.962995009529246,
+                  1.61,
+                  1.5570239413240914
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9747665591908286,
+                  0.8757077807300593
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  741,
+                  11
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.05406614882504637
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 440.99575399923197,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 72,
+          "metrics": {
+            "iou_3d": 0.893048267996231,
+            "center_error_m": 0.04195894084181422,
+            "yaw_error_rad_mod_pi": 0.004685400961968789,
+            "dimension_error_m_lwh": [
+              0.17700499047075358,
+              0.05999999999999983,
+              0.012976058675908675
+            ],
+            "dimension_relative_error_lwh": [
+              0.042754828616124056,
+              0.03592814371257475,
+              0.00826500552605648
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 0,
+            "target_iou": 0.893048267996231,
+            "best_neighbor": {
+              "id": 1,
+              "class": "Pedestrian",
+              "iou": 0.0
+            },
+            "margin": 0.893048267996231,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.893048267996231
+              },
+              {
+                "id": 1,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Pedestrian",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000015-car-0",
+          "frame": "000015",
+          "variant": "reference9277",
+          "adequate": false,
+          "input_provider": "snap",
+          "mask_sha256": "f2f4b5719b9b7dd2fdb9766e6add4111989b87839ba2721c27d600ede972ad9d",
+          "seed": {
+            "point": [
+              3.2880001068115234,
+              2.2320001125335693,
+              -1.1510000228881836
+            ],
+            "pointIndex": 98828
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              4.268963323175171,
+              2.783729626382033,
+              -0.9866441791264912
+            ],
+            "size": [
+              3.962995009529246,
+              1.61,
+              1.5570239413240914
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.13962634015954656
+            ],
+            "confidence": 0.38622262498723436,
+            "diagnostics": {
+              "point_count": 5445,
+              "ground_plane": [
+                0.0029335283086105984,
+                -0.020602580380432445,
+                -1.7203272611605647
+              ],
+              "surface_score": 0.061377737501276564,
+              "surface_residual_and_contamination": 0.058554620152815824,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0011019283746556473,
+              "observed_footprint": [
+                3.8629950095292482,
+                1.4098895269753955
+              ],
+              "hypothesis_count": 40,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.962995009529246,
+                  1.61,
+                  1.5570239413240914
+                ],
+                "refinedDimensionsLWH": [
+                  3.962995009529246,
+                  1.61,
+                  1.5570239413240914
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.9747665591908286,
+                  0.8757077807300593
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  741,
+                  11
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.058003655965488024
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 502.74370500119403,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 40,
+          "metrics": {
+            "iou_3d": 0.8924815058328236,
+            "center_error_m": 0.08679269690463239,
+            "yaw_error_rad_mod_pi": 0.004685400961968789,
+            "dimension_error_m_lwh": [
+              0.17700499047075358,
+              0.05999999999999983,
+              0.012976058675908675
+            ],
+            "dimension_relative_error_lwh": [
+              0.042754828616124056,
+              0.03592814371257475,
+              0.00826500552605648
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 0,
+            "target_iou": 0.8924815058328236,
+            "best_neighbor": {
+              "id": 1,
+              "class": "Pedestrian",
+              "iou": 0.0
+            },
+            "margin": 0.8924815058328236,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Car",
+                "iou": 0.8924815058328236
+              },
+              {
+                "id": 1,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 2,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Pedestrian",
+                "iou": 0.0
+              },
+              {
+                "id": 4,
+                "class": "Pedestrian",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object-000019-car-1": {
+      "reference_iou": 0.8363481476551794,
+      "references": {
+        "baseline_p0": {
+          "case_id": "object-000019-car-1",
+          "frame": "000019",
+          "variant": "baseline_p0",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "278ccd6901f7840fa55b2a49a707230983dfb4ea82dbc4636133db6a847ece17",
+          "seed": {
+            "point": [
+              8.42199993133545,
+              -2.618000030517578,
+              -0.9900000095367432
+            ],
+            "pointIndex": 55456
+          },
+          "original_candidate": {
+            "center": [
+              10.161685661357895,
+              -2.8714260588269376,
+              -0.8368829763147377
+            ],
+            "size": [
+              3.7,
+              1.5793912752595958,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.034906585039886195
+            ],
+            "confidence": 0.55991096492534,
+            "diagnostics": {
+              "point_count": 1057,
+              "ground_plane": [
+                -0.0029510941232860637,
+                -0.04943228883463591,
+                -1.6938360477840575
+              ],
+              "surface_score": 0.044008903507466,
+              "surface_residual_and_contamination": 0.04354045649234908,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.09765120285493,
+                1.4993912752595957
+              ],
+              "hypothesis_count": 110,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "reviewReason": "partially-observed-footprint"
+            },
+            "quality": "estimated"
+          },
+          "validator_input": "pass",
+          "validator_final": "pass",
+          "geometry_unchanged": true,
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              10.161685661357895,
+              -2.8714260588269376,
+              -0.8368829763147377
+            ],
+            "size": [
+              3.7,
+              1.5793912752595958,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.034906585039886195
+            ],
+            "confidence": 0.55991096492534,
+            "diagnostics": {
+              "point_count": 1057,
+              "ground_plane": [
+                -0.0029510941232860637,
+                -0.04943228883463591,
+                -1.6938360477840575
+              ],
+              "surface_score": 0.044008903507466,
+              "surface_residual_and_contamination": 0.04354045649234908,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.097651202854932,
+                1.4993912752595953
+              ],
+              "hypothesis_count": 110,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "reviewReason": "partially-observed-footprint",
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.5793912752595958,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.5793912752595958,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.8372030277986302,
+                  0.9493475738069711
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  474,
+                  0
+                ],
+                "yawStable": true
+              },
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.04354045649234896
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 137.7500360013073,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 110,
+          "metrics": {
+            "iou_3d": 0.8111176364281751,
+            "center_error_m": 0.176194952081488,
+            "yaw_error_rad_mod_pi": 0.004234770791510245,
+            "dimension_error_m_lwh": [
+              0.009999999999999787,
+              0.020608724740404316,
+              0.030000000000000027
+            ],
+            "dimension_relative_error_lwh": [
+              0.002695417789757355,
+              0.012880452962752698,
+              0.02054794520547947
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 1,
+            "target_iou": 0.8111176364281751,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Truck",
+              "iou": 0.0
+            },
+            "margin": 0.8111176364281751,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Truck",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.8111176364281751
+              },
+              {
+                "id": 2,
+                "class": "Van",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        },
+        "reference9277": {
+          "case_id": "object-000019-car-1",
+          "frame": "000019",
+          "variant": "reference9277",
+          "adequate": true,
+          "input_provider": "snap",
+          "mask_sha256": "278ccd6901f7840fa55b2a49a707230983dfb4ea82dbc4636133db6a847ece17",
+          "seed": {
+            "point": [
+              8.42199993133545,
+              -2.618000030517578,
+              -0.9900000095367432
+            ],
+            "pointIndex": 55456
+          },
+          "status": "ok",
+          "quality": "estimated",
+          "response": {
+            "center": [
+              10.163081641225995,
+              -2.8314504257461737,
+              -0.8388631830235184
+            ],
+            "size": [
+              3.7,
+              1.5793912752595958,
+              1.49
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              -0.034906585039886195
+            ],
+            "confidence": 0.5283978282066082,
+            "diagnostics": {
+              "point_count": 1057,
+              "ground_plane": [
+                -0.0029510941232860637,
+                -0.04943228883463591,
+                -1.6938360477840575
+              ],
+              "surface_score": 0.04716021717933919,
+              "surface_residual_and_contamination": 0.04669177016422227,
+              "prior_uncertainty_lw": [
+                0.7,
+                0.2
+              ],
+              "mask_contamination": 0.0,
+              "observed_footprint": [
+                3.097651202854932,
+                1.4993912752595953
+              ],
+              "hypothesis_count": 68,
+              "priors": {
+                "length": 3.7,
+                "width": 1.61,
+                "height": 1.49
+              },
+              "seedLocalMaskCoverage": 1.0,
+              "maskSource": "snap",
+              "sizeRefinement": {
+                "applied": false,
+                "originalDimensionsLWH": [
+                  3.7,
+                  1.5793912752595958,
+                  1.49
+                ],
+                "refinedDimensionsLWH": [
+                  3.7,
+                  1.5793912752595958,
+                  1.49
+                ],
+                "appliedPriorLWH": [
+                  3.7,
+                  1.61,
+                  1.49
+                ],
+                "observedCoverageLW": [
+                  0.8372030277986302,
+                  0.9493475738069711
+                ],
+                "extensionDirection": "unknown",
+                "alpha": 0.0,
+                "endFaceSupport": [
+                  true,
+                  false
+                ],
+                "endFaceCorePoints": [
+                  474,
+                  0
+                ],
+                "yawStable": true
+              },
+              "reviewReason": "partially-observed-footprint",
+              "assessedQuality": "estimated",
+              "finalSurfaceResidualSquaredMetres": 0.046691770164222136
+            },
+            "quality": "estimated"
+          },
+          "geometry_ms": 120.00045999957365,
+          "counts": {},
+          "candidate_trace": [],
+          "legacy_generated_candidates": 68,
+          "metrics": {
+            "iou_3d": 0.8363481476551794,
+            "center_error_m": 0.1720934794348552,
+            "yaw_error_rad_mod_pi": 0.004234770791510245,
+            "dimension_error_m_lwh": [
+              0.009999999999999787,
+              0.020608724740404316,
+              0.030000000000000027
+            ],
+            "dimension_relative_error_lwh": [
+              0.002695417789757355,
+              0.012880452962752698,
+              0.02054794520547947
+            ]
+          },
+          "correct_vehicle": true,
+          "seed_inside": true,
+          "association": {
+            "target_id": 1,
+            "target_iou": 0.8363481476551794,
+            "best_neighbor": {
+              "id": 0,
+              "class": "Truck",
+              "iou": 0.0
+            },
+            "margin": 0.8363481476551794,
+            "classification": "target",
+            "neighbors": [
+              {
+                "id": 0,
+                "class": "Truck",
+                "iou": 0.0
+              },
+              {
+                "id": 1,
+                "class": "Car",
+                "iou": 0.8363481476551794
+              },
+              {
+                "id": 2,
+                "class": "Van",
+                "iou": 0.0
+              },
+              {
+                "id": 3,
+                "class": "Car",
+                "iou": 0.0
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

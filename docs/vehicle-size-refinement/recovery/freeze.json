@@ -1,0 +1,93 @@
+{
+  "status": "FROZEN_SOURCE; TUNE_PASS; OVERALL_PARTIAL",
+  "frozen_at_utc": "2026-10-14T06:03:53.848368+00:00",
+  "git_head": "9277fe1e6ce380638b22dff79857278bd71e2e00",
+  "git_branch": "feat/lidar-autofit-ux-mock",
+  "baseline_sha": "f2bdb5b28655a191e2764b75c74eb840158426a6",
+  "reference_sha": "9277fe1e6ce380638b22dff79857278bd71e2e00",
+  "source_sha256": {
+    "components/vehicle_fit/geometry.py": "46ba9fa4330fd70dffe244c9a4f73a89ecdf88f727c37e9492eb4f77b5239c60",
+    "components/vehicle_fit/service.py": "d60ce8a2b125ef6289c75acd97e14dcefb10bbea846beb13e0eebb2e511f3900",
+    "components/vehicle_fit/evaluation/recovery.py": "e1cc155513516e59838fa819a22961e3e798930a5623e600b175a5f71f642bb2",
+    "components/vehicle_fit/evaluation/test_recovery.py": "e4084ba050d9cb10bb2440b381eba4c80a252380596e403bc592633cb8d3e9fa",
+    "components/vehicle_fit/tests/test_recovery.py": "828bf6c512acdc81c2e607e4eea4dcedf106ed618566f066527e340d774ab561",
+    "components/vehicle_fit/tests/test_service.py": "21a3912a9cdaceaf1b38214144d9de0adf130ba74c66b2f32e597b1dd955328d",
+    "components/vehicle_fit/evaluation/metrics.py": "85914bf96eb7f071110b306e7ae7b131413792ea78fa97e51c1b9abf3fe001ae",
+    "components/vehicle_fit/evaluation/replay.py": "82a6b93515c0cefbeac2a54b943af683ba73574e7377b017fadd297333fa4e60",
+    "components/vehicle_fit/tests/test_geometry.py": "9b956cd9206e5d2940ce20b5279feba15e1b3fb5bedff43c33dc240c26b908ff",
+    "components/vehicle_fit/__init__.py": "9d02bfb6ae00062a1506b7ebdc43993c42065de44eb06b2695631b2d087b6ef5",
+    "components/vehicle_fit/cloud.py": "09ce6d69e955bbf650225af3b6037d16ed0c7adaccf292448fc2df8c875c3aa9",
+    "components/vehicle_fit/snap_backend.py": "fe84280793cc7a6e244e0ff11ed07ac3ed74e32222c84af9c34415b7892040d5",
+    "components/vehicle_fit/evaluation/__init__.py": "4df81c572c542dc5a9a4e9604b47526d6c12fd26998ca7a5d36c4ac23e58028f",
+    "components/vehicle_fit/evaluation/cli.py": "edcf87074a3b5349f599fc9c297c39de7d281accf13bf27d1b76f30b1a17c5fe",
+    "components/vehicle_fit/evaluation/interactive.py": "9c9d91db7cd023ebd29961231ce6a3aaf3e5137630542b49b01257298d7913a3",
+    "components/vehicle_fit/evaluation/manifest.py": "64d4176374e26c0ac8134c929e2c49e203e861cfe1f8adecf170e512b3967e01",
+    "components/vehicle_fit/evaluation/overlay.py": "e479dea215344806da96c5e0eb0faea5e65c00188fcf277ce7300ea21684bb95",
+    "components/vehicle_fit/evaluation/package_raw50.py": "ae13b234944e91856c478de4486f8b8fb9a91380d45a5b4d759a5e9ac9c1b567",
+    "components/vehicle_fit/evaluation/test_evaluation.py": "bc4b6600457d8ebc93ba196f397e55dd32375256d0e6456c5615411ee720d893",
+    "components/vehicle_fit/evaluation/test_metrics.py": "832e270c40889869d1ddcec7a6e12a8ad7f21d994ff97bd649310df11fc3c4a9",
+    "components/vehicle_fit/evaluation/test_replay.py": "049c29768e41aa490a8d0b0e4d1cad424baca842843c9abedb13c9be44ada412",
+    "components/vehicle_fit/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "components/vehicle_fit/tests/test_cloud.py": "e6d435bd372fcdefc50ed8212ce47738c758541d45e432d194168bc79288e74e",
+    "components/vehicle_fit/tests/test_refinement.py": "62ed3a99c7fa8d237edf0240e2874b6ca3e03ad6b2fb62a284a5f65f1dcd6538"
+  },
+  "control_run_completed": true,
+  "policy_sha256": "b445e4e74ba372c9e08491196ab0a5897de3b522643a43bd4fb9deeb6119659b",
+  "protected_sha256": "9b0016c82ce109c22e7ddc32da7eec2d5d24c5fc4a0490fa29c323693f5c3932",
+  "manifest_sha256": "9502eef757b57cdac7054f95ae84c573ccd61659c7e4d762b0560bd6a1532c14",
+  "saved_masks_sha256": "fdb2eea4cdf537093d5ed0a958f5fbeae6663125c1ec34fb13eab68b3adb768c",
+  "acceptance_run_sha256": "98b8c283b4c5ba2de92bc228128669339ce65298f80273ec3aab975fe1cf7043",
+  "full_local_ledger_sha256": "91cdb4473db455151870ceb8ec6234438c56b5c9ecae4af6052939d8cc17aae0",
+  "full_local_ledger_path": "components/vehicle_fit/evidence/vehicle-size-recovery/acceptance-frozen/cases.jsonl",
+  "review_ledger_sha256": "5d4bcfb95054009eee0312dd8d7c6c934c2516fee7df7919f8946bca5e895e01",
+  "summary_sha256": "4a6482e1d5e5ae6d4c9b1f7c67173172e69ca5776ce807f3c9dfac571cd36ed4",
+  "image_id": "sha256:07111e8f68378dede391ec23e650339aaa4e002c12cba66f63f140e321aa7004",
+  "tune_gates": {
+    "count": true,
+    "good_count": true,
+    "protected_cases": true,
+    "paired_length": true,
+    "wrong_instance": true,
+    "seed_containment": true,
+    "deadline": true,
+    "complete_candidate_checks": true
+  },
+  "p0_validator_and_evidence_ast_unchanged": true,
+  "score_band_limits_instance_checks": false,
+  "adaptive_refinement": false,
+  "deadline_ms": 1700,
+  "new_held_out": "BLOCKED: no new independent data",
+  "deployment": "NOT_PERFORMED",
+  "production_end_to_end_latency": "NOT_MEASURED",
+  "verification": {
+    "vehicle_fit": {
+      "tests": 70,
+      "status": "PASS",
+      "skips": 0,
+      "exit_code": 0,
+      "seconds": 4.814,
+      "log": "focused-tests.log"
+    },
+    "historical_reference": {
+      "tests": 3,
+      "expected_failures": 2,
+      "expected_errors": 1,
+      "status": "REPRODUCED",
+      "details": {
+        "short_length_m": 2.8699021227823125,
+        "yaw_difference_rad": 1.5358897417550104,
+        "top_candidate_rejection": "neighbor-overlap"
+      }
+    },
+    "adapter": {
+      "tests": 13,
+      "status": "PASS",
+      "scope": "prior task-phase validation; adapter unchanged"
+    },
+    "canvas": {
+      "status": "PASS",
+      "command": "node --test cvat-canvas3d/tests/auto-fit.test.cjs",
+      "scope": "prior task-phase validation; canvas unchanged"
+    }
+  }
+}

@@ -1,0 +1,75 @@
+--- a/geometry.py
++++ b/geometry.py
+@@ -237,7 +237,8 @@
+         for axis in (0,1):
+             measured = upper[axis]-lower[axis]
+             margin = .10 if axis==0 else .08
+-            if abs(dimensions[axis]-measured-margin) < 1e-8:
++            length_is_measured = abs(dimensions[0]-(upper[0]-lower[0])-.10) < 1e-8
++            if axis == 1 and not length_is_measured and abs(dimensions[axis]-measured-margin) < 1e-8:
+                 centre[axis] = midpoint[axis]
+             enlarged = dimensions[axis] > measured+FACE_BAND
+             if not enlarged:
+@@ -380,6 +381,7 @@
+     rejected = {}
+     selected = None
+     plausible = []
++    safe_choices = []
+     geometry_ambiguous = False
+     try:
+         for rank, item in enumerate(hypotheses, 1):
+@@ -408,6 +410,7 @@
+                     trace.append(record)
+                 continue
+             counts["safe"] += 1
++            safe_choices.append((item,candidate,rank))
+             record["validation"] = "pass"
+             if trace is not None:
+                 trace.append(record)
+@@ -425,6 +428,19 @@
+         if cancelled():
+             raise NoFit("cancelled", "Ambiguity verification ended")
+         counts["completed"] = True
++        # Near-tied geometry scores cannot justify unstable placement changes.
++        # Prefer measured width over a prior width when length is incomplete;
++        # otherwise retain a safe baseline-compatible placement. This choice
++        # uses measurement provenance only, never evaluator GT or case IDs.
++        score_anchor = selected[0]
++        def preference(choice):
++            item = choice[0]
++            info = item[8] if len(item)>8 else {}
++            return (not info.get("mixedMeasuredWidth",False),
++                    not info.get("baselineCompatiblePlacement",False),item[0],choice[2])
++        selected,result,selected_rank = min(safe_choices,key=preference)
++        counts["selectedRank"] = selected_rank
++        counts["geometryScoreAnchor"] = float(score_anchor)
+         score, xy, length, width, height, yaw, contamination, measured = selected[:8]
+         diagnostics = {"candidateCounts": counts, "candidateRejections": rejected,
+                        "plausible_yaws": plausible, "surface_score": float(score),
+@@ -511,7 +527,14 @@
+                     outside = np.maximum(np.abs(relative) - dimensions / 2, 0)
+                     contamination = float((np.linalg.norm(outside, axis=1) > 0.18).mean())
+                     faces = np.abs(np.abs(relative) - dimensions / 2)
+-                    residual = np.minimum(faces[:, 0], faces[:, 1])
++                    # With prior-completed length, compare the measured width
++                    # surface before its symmetric measurement padding. Padding
++                    # is uncertainty, not evidence favoring an off-center fit.
++                    mixed = bool(abs(width-measured[1]-.08) < 1e-8 and abs(length-measured[0]-.10) >= 1e-8)
++                    scored_faces = faces.copy()
++                    if mixed:
++                        scored_faces[:,1] = np.maximum(scored_faces[:,1]-.04,0)
++                    residual = np.minimum(scored_faces[:, 0], scored_faces[:, 1])
+                     # Height-return support is scored separately, preventing roof-only seeds.
+                     supported_x = faces[:, 0] < 0.16
+                     supported_y = faces[:, 1] < 0.16
+@@ -527,7 +550,9 @@
+                     z_ground = float(world @ plane[:2] + plane[2])
+                     provenance = _dimension_provenance([length,width,height], measured, roof, priors)
+                     provenance.update(placementSource="estimated" if "estimated" in basis else "observed-face",
+-                                      placementBasisLW=basis, alwaysEstimated="estimated" in basis)
++                                      placementBasisLW=basis, alwaysEstimated="estimated" in basis,
++                                      mixedMeasuredWidth=mixed,
++                                      baselineCompatiblePlacement=bool(np.array_equal(centre,(lower+upper)/2) or np.array_equal(centre,np.where((lower+upper)/2>0,lower+dimensions/2,upper-dimensions/2))))
+                     hypotheses.append((score, world, length, width, height, yaw, contamination, measured, provenance))
+     if cancelled():
+         raise NoFit("cancelled", "Operation cancelled")

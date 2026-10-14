@@ -1,0 +1,79 @@
+--- a/geometry.py
++++ b/geometry.py
+@@ -230,7 +230,11 @@
+             a = -1 if supported[axis][0] else 1
+             edge = lower[axis] if a == -1 else upper[axis]
+             anchored[axis] = edge-a*dimensions[axis]/2
+-    centres = [midpoint.copy(), reference.copy(), anchored]
++    # The frozen baseline estimator centered well-observed axes (>=.75)
++    # independently while estimating hidden axes. Preserve this mixed-axis
++    # hypothesis; midpoint/reference on both axes alone lose that geometry.
++    hybrid = np.where((upper-lower)/dimensions >= .75, midpoint, reference)
++    centres = [midpoint.copy(), reference.copy(), hybrid.copy(), anchored]
+     unique = []
+     for centre in centres:
+         basis = []
+@@ -273,6 +277,13 @@
+         sources.append(origin or ["bound-limited"])
+     return {"dimensionSourceLWH": sources, "observedSpanLWH": observed,
+             "measurementMarginsLWH": margins, "priorLWH": target}
++
++
++def _placement_provenance(basis, supported):
++    source = "estimated" if "estimated" in basis else (
++        "observed-face" if "observed-face" in basis else "observed-bounds")
++    return {"placementSource": source, "placementBasisLW": list(basis),
++            "supportedFacesLW": [[bool(face) for face in axis] for axis in supported]}
+ 
+ 
+ def _validate_geometry(result, evidence, cancelled):
+@@ -354,6 +365,13 @@
+                        ground_plane=evidence.plane.tolist(), maskSource=evidence.source,
+                        observed_footprint=observed.tolist(), priors={"length": priors.length, "width": priors.width, "height": priors.height},
+                        sizeRefinement=refinement)
++    if refinement["applied"] and "dimensionSourceLWH" in diagnostics:
++        original_sources = [list(source) for source in diagnostics["dimensionSourceLWH"]]
++        diagnostics["dimensionSourceBeforeRefinementLWH"] = original_sources
++        diagnostics["dimensionSourceLWH"] = [["prior-blend"], *original_sources[1:]]
++        diagnostics["placementSource"] = "observed-face"
++        diagnostics["placementBasisLW"] = ["observed-face", *diagnostics.get("placementBasisLW", ["estimated", "estimated"])[1:]]
++        diagnostics["refinementDirectionBasis"] = "one-supported-end-face"
+     coverage = observed / np.asarray(result["size"][:2])
+     if result.get("quality") == "estimated" or sum(faces[0]) != 2 or np.any(coverage < .85) or not stable:
+         result["quality"] = "estimated"
+@@ -549,8 +567,8 @@
+                     height = float(np.clip(max(roof + 0.10, priors.height), 1.0, 2.4))
+                     z_ground = float(world @ plane[:2] + plane[2])
+                     provenance = _dimension_provenance([length,width,height], measured, roof, priors)
+-                    provenance.update(placementSource="estimated" if "estimated" in basis else "observed-face",
+-                                      placementBasisLW=basis, alwaysEstimated="estimated" in basis,
++                    provenance.update(_placement_provenance(basis, face_support))
++                    provenance.update(alwaysEstimated="estimated" in basis,
+                                       mixedMeasuredWidth=mixed,
+                                       baselineCompatiblePlacement=bool(np.array_equal(centre,(lower+upper)/2) or np.array_equal(centre,np.where((lower+upper)/2>0,lower+dimensions/2,upper-dimensions/2))))
+                     hypotheses.append((score, world, length, width, height, yaw, contamination, measured, provenance))
+@@ -609,8 +627,8 @@
+                 if contamination <= .08:
+                     score = float(np.mean(np.minimum(residual,.35)**2)+contamination*.5)
+                     provenance = _dimension_provenance([*dimensions,height],measured,roof,priors)
+-                    provenance.update(placementSource="observed-face",placementBasisLW=["observed-face","observed-bounds"],
+-                                      alwaysEstimated=True,estimateEvidence="dense-end-cap-hidden-body")
++                    provenance.update(_placement_provenance(["observed-face", "observed-bounds"], face_support))
++                    provenance.update(alwaysEstimated=True,estimateEvidence="dense-end-cap-hidden-body")
+                     cap_candidates.append((score,centre@rotation.T,*dimensions,height,yaw,contamination,measured,provenance))
+         for length in lengths:
+             for width in widths:
+@@ -629,8 +647,11 @@
+                     prior_penalty = ((length-priors.length)/.70)**2+((width-priors.width)/.20)**2
+                     score = float(np.mean(np.minimum(residual,.35)**2)+contamination*.5+prior_penalty*.02)
+                     provenance = _dimension_provenance([length,width,height],measured,roof,priors)
+-                    provenance.update(placementSource="estimated" if "estimated" in basis else "observed-face",
+-                                      placementBasisLW=basis, alwaysEstimated=True)
++                    hybrid = np.where(measured/dimensions >= .75,(lower+upper)/2,
++                                      np.where((lower+upper)/2>0,lower+dimensions/2,upper-dimensions/2))
++                    provenance.update(_placement_provenance(basis, face_support))
++                    provenance.update(alwaysEstimated=True,
++                                      baselineCompatiblePlacement=bool(np.array_equal(centre,hybrid)))
+                     candidates.append((score,centre@rotation.T,length,width,height,yaw,contamination,measured,provenance))
+     if cap_candidates:
+         candidates = cap_candidates

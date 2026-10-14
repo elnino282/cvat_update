@@ -1,0 +1,26 @@
+{
+  "adaptive_refinement": false,
+  "allowEstimated": true,
+  "baseline_sha": "f2bdb5b28655a191e2764b75c74eb840158426a6",
+  "deadline_ms": 1700,
+  "dimension_error_gate": "paired MAE and median no worse than baseline_p0; lost cases explicit",
+  "fresh_holdout_status": "BLOCKED - no new data",
+  "geometry_ambiguity_score_band": 0.002,
+  "legacy_eval_role": "regression",
+  "maximum_protected_iou_drop": 0.02,
+  "minimum_correct_boxes": 28,
+  "minimum_good_boxes": 16,
+  "minimum_iou": 0.7,
+  "numeric_epsilon": 1e-06,
+  "priors_lwh": [
+    3.7,
+    1.61,
+    1.49
+  ],
+  "protected_iou_reference": "maximum of baseline_p0 and reference9277 for that case",
+  "raw50_role": "regression",
+  "reference_sha": "9277fe1e6ce380638b22dff79857278bd71e2e00",
+  "score_band_limits_instance_checks": false,
+  "surface_threshold": 0.1,
+  "version": 1
+}

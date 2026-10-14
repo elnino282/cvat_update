@@ -1,0 +1,83 @@
+--- a/geometry.py
++++ b/geometry.py
+@@ -210,6 +210,56 @@
+             edge = lower[axis] if a == -1 else upper[axis]
+             centre[axis] = edge - a * dimensions[axis] / 2
+     return centre
++
++
++def _candidate_placements(lower, upper, dimensions, supported):
++    """Measured/estimated placements without using cap absence as a yaw gate.
++
++    The legacy reference placement is only an estimated hypothesis, never a
++    claim about sensor origin/visibility. A supported face overrides it when
++    it actually constrains an unobserved extent.
++    """
++    midpoint = (lower+upper)/2
++    reference = np.where(midpoint > 0, lower+dimensions/2, upper-dimensions/2)
++    centres = [midpoint.copy(), reference.copy()]
++    basis = []
++    for axis in (0,1):
++        enlarged = dimensions[axis] > upper[axis]-lower[axis]+FACE_BAND
++        if enlarged and sum(supported[axis]) == 2:
++            return []  # A fully observed compact vehicle is not forced to prior.
++        if enlarged and sum(supported[axis]) == 1:
++            a = -1 if supported[axis][0] else 1
++            edge = lower[axis] if a == -1 else upper[axis]
++            for centre in centres:
++                centre[axis] = edge-a*dimensions[axis]/2
++            basis.append("observed-face")
++        else:
++            basis.append("estimated" if enlarged else "observed-bounds")
++    unique = []
++    for centre in centres:
++        if not any(np.array_equal(centre, old[0]) for old in unique):
++            unique.append((centre, list(basis)))
++    return unique
++
++
++def _dimension_provenance(dimensions, measured, roof, priors):
++    observed = [float(measured[0]),float(measured[1]),float(roof)]
++    target = [priors.length,priors.width,priors.height]
++    margins = [.10,.08,.10]
++    bounds = [(2.6,5.6),(1.45,2.3),(1.,2.4)]
++    sources = []
++    for axis, value in enumerate(dimensions):
++        origin = []
++        raw = observed[axis]+margins[axis]
++        clipped = float(np.clip(raw,*bounds[axis]))
++        if abs(value-clipped) < 1e-8:
++            origin.append("measured-margin" if abs(raw-clipped) < 1e-8 else "bound-limited")
++        offsets = (-.30,0.,.30) if axis==0 else (-.12,0.,.12) if axis==1 else (0.,)
++        if any(abs(value-target[axis]-offset) < 1e-8 for offset in offsets):
++            origin.append("prior")
++        sources.append(origin or ["bound-limited"])
++    return {"dimensionSourceLWH": sources, "observedSpanLWH": observed,
++            "measurementMarginsLWH": margins, "priorLWH": target}
+ 
+ 
+ def _validate_geometry(result, evidence, cancelled):
+@@ -443,9 +493,8 @@
+                 if measured[0] / length < 0.55 or measured[1] / width < 0.40:
+                     continue
+                 dimensions = np.array([length, width])
+-                placement = _placement(lower, upper, dimensions, face_support)
+-                centres = [] if placement is None else [placement]
+-                for centre in centres:
++                placements = _candidate_placements(lower, upper, dimensions, face_support)
++                for centre, basis in placements:
+                     relative = local - centre
+                     outside = np.maximum(np.abs(relative) - dimensions / 2, 0)
+                     contamination = float((np.linalg.norm(outside, axis=1) > 0.18).mean())
+@@ -464,7 +513,10 @@
+                     world = centre @ rotation.T
+                     height = float(np.clip(max(roof + 0.10, priors.height), 1.0, 2.4))
+                     z_ground = float(world @ plane[:2] + plane[2])
+-                    hypotheses.append((score, world, length, width, height, yaw, contamination, measured))
++                    provenance = _dimension_provenance([length,width,height], measured, roof, priors)
++                    provenance.update(placementSource="estimated" if "estimated" in basis else "observed-face",
++                                      placementBasisLW=basis, alwaysEstimated="estimated" in basis)
++                    hypotheses.append((score, world, length, width, height, yaw, contamination, measured, provenance))
+     if cancelled():
+         raise NoFit("cancelled", "Operation cancelled")
+     if not hypotheses:

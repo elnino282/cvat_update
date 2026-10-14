@@ -187,3 +187,22 @@ RAW additionally requires `--tracklet-zip`. It uses the first frozen seed and
 the same historical mask for every variant, never GT geometry as fitter input.
 The evaluator flushes each case, separates transport errors and unseedable
 cases, and reports coverage, seed containment and common-accepted metrics.
+
+## Recovery after 9277fe1
+
+The [follow-up recovery report](../../docs/vehicle-size-refinement/recovery/README.md)
+compares immutable f2bdb5b, baseline+P0, 9277fe1 and cumulative fixes using the
+same tune inputs. Protected case IDs and the maximum 0.02 absolute IoU drop
+were frozen before tuning. The earlier report remains a historical reference.
+
+Candidate failures no longer reject a request if another candidate passes P0;
+global evidence failures remain terminal. Geometry ambiguity among placements
+of the same instance stays estimated. The 0.002 score band only limits geometry
+comparison, never the scene/neighbor checks. Generation and validation honor
+the existing deadline and cancellation; no small top-k cutoff is used.
+
+`diagnostics.candidateCounts` records generated/evaluated/safe candidates and
+completion of geometry verification. `dimensionSourceLWH`, `placementSource`
+and related fields distinguish measurements, priors and estimated placement.
+Complete traces are evaluator-only. Refinement remains disabled by default;
+new independent evaluation is blocked until a genuinely unused dataset exists.

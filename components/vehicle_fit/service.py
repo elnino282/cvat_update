@@ -308,6 +308,7 @@ class FitRuntime:
                 diagnostics["maskIndices"] = original_indices[np.asarray(mask_indices, dtype=int)].tolist()
             diagnostics.update({"rawPoints": len(cloud), "cloudSHA256": cloud_hash,
                                 "latencyMilliseconds": (time.perf_counter() - started) * 1000})
+            check()  # Includes diagnostic/index construction before publication.
             return {"status": "ok", **result_base, **fit, "diagnostics": diagnostics}
         except PreparedFrameMissing:
             return {"status": "no-fit", **result_base, "reason": "frame-expired"}

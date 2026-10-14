@@ -1,0 +1,5960 @@
+{
+  "epsilon": 1e-06,
+  "meaning": "All losses, IoU decreases, per-axis error increases, shorter lengths and quality downgrades; no replacement credit",
+  "stages": {
+    "baseline": {
+      "baseline": [],
+      "baseline_p0": [],
+      "reference9277": [
+        {
+          "case_id": "object-000006-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.002342315808600559,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7446817850562222,
+          "iou": 0.7423394692476216,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.006395229915408529,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.051662663956834276,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.07166266395683385,
+            0.0
+          ],
+          "reference_iou": 0.827697530262546,
+          "iou": 0.8213023003471375,
+          "reference_quality": "estimated",
+          "quality": "confident",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.00868871976637775,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.6915424152041956,
+          "iou": 0.6828536954378178,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0012401112615957333,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8699218600948324,
+          "iou": 0.8686817488332367,
+          "reference_quality": "estimated",
+          "quality": "confident",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.5772425769507592,
+          "dimension_error_delta_m_lwh": [
+            1.1,
+            -0.08036438701186799,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            1.1,
+            0.12036438701186802,
+            0.0
+          ],
+          "reference_iou": 0.8811981429820108,
+          "iou": 0.30395556603125157,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0024936414343685875,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.032866819810573045,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.032866819810573045,
+            0.0
+          ],
+          "reference_iou": 0.7141086467731265,
+          "iou": 0.7116150053387579,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.03441886336804778,
+          "dimension_error_delta_m_lwh": [
+            0.20985480632433662,
+            -0.11999999999999988,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.30985480632433626,
+            0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.79337157214351,
+          "iou": 0.8277904355115577,
+          "reference_quality": "estimated",
+          "quality": "confident",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.6917656050136001,
+          "iou": 0.698168822762263,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.01716155358963478,
+          "dimension_error_delta_m_lwh": [
+            -0.0853421762879667,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.33465782371203323,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7639247270715273,
+          "iou": 0.781086280661162,
+          "reference_quality": "estimated",
+          "quality": "confident",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-6",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0030230742543334577,
+          "dimension_error_delta_m_lwh": [
+            0.19894450613029102,
+            0.020000000000000018,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.5010554938697092,
+            0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.7326170256830504,
+          "iou": 0.7356400999373839,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.010273985337711178,
+          "dimension_error_delta_m_lwh": [
+            0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7613932782254463,
+          "iou": 0.7716672635631575,
+          "reference_quality": "estimated",
+          "quality": "confident",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.004362612592947235,
+          "dimension_error_delta_m_lwh": [
+            0.046560091972352335,
+            0.04092974185943632,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.046560091972352335,
+            0.04092974185943632,
+            0.0
+          ],
+          "reference_iou": 0.9235483194089773,
+          "iou": 0.9191857068160301,
+          "reference_quality": "estimated",
+          "quality": "confident",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000019-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.02523051122700426,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8363481476551794,
+          "iou": 0.8111176364281751,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ]
+    },
+    "baseline_p0": {
+      "baseline": [
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7440752735571444,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-0",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "neighbor-overlap",
+          "reference_iou": 0.5336790917679978
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8213023003471375,
+          "iou": 0.8213023003471375,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8686817488332367,
+          "iou": 0.8686817488332367,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-5",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "neighbor-overlap",
+          "reference_iou": 0.30395556603125157
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8277904355115577,
+          "iou": 0.8277904355115577,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.781086280661162,
+          "iou": 0.781086280661162,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7716672635631575,
+          "iou": 0.7716672635631575,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.9191857068160301,
+          "iou": 0.9191857068160301,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7710317482402324,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000015-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.893048267996231,
+          "iou": 0.893048267996231,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-0",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "neighbor-overlap",
+          "reference_iou": 0.1794663683668131
+        },
+        {
+          "case_id": "object-000016-car-3",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "neighbor-overlap",
+          "reference_iou": 0.7891830328134413
+        }
+      ],
+      "baseline_p0": [],
+      "reference9277": [
+        {
+          "case_id": "object-000006-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.002342315808600559,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7446817850562222,
+          "iou": 0.7423394692476216,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.006395229915408529,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.051662663956834276,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.07166266395683385,
+            0.0
+          ],
+          "reference_iou": 0.827697530262546,
+          "iou": 0.8213023003471375,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.00868871976637775,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.6915424152041956,
+          "iou": 0.6828536954378178,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0012401112615957333,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8699218600948324,
+          "iou": 0.8686817488332367,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-5",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "neighbor-overlap",
+          "reference_iou": 0.8811981429820108
+        },
+        {
+          "case_id": "object-000010-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0024936414343685875,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.032866819810573045,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.032866819810573045,
+            0.0
+          ],
+          "reference_iou": 0.7141086467731265,
+          "iou": 0.7116150053387579,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.03441886336804778,
+          "dimension_error_delta_m_lwh": [
+            0.20985480632433662,
+            -0.11999999999999988,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.30985480632433626,
+            0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.79337157214351,
+          "iou": 0.8277904355115577,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.6917656050136001,
+          "iou": 0.698168822762263,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.01716155358963478,
+          "dimension_error_delta_m_lwh": [
+            -0.0853421762879667,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.33465782371203323,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7639247270715273,
+          "iou": 0.781086280661162,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-6",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0030230742543334577,
+          "dimension_error_delta_m_lwh": [
+            0.19894450613029102,
+            0.020000000000000018,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.5010554938697092,
+            0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.7326170256830504,
+          "iou": 0.7356400999373839,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.010273985337711178,
+          "dimension_error_delta_m_lwh": [
+            0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7613932782254463,
+          "iou": 0.7716672635631575,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.004362612592947235,
+          "dimension_error_delta_m_lwh": [
+            0.046560091972352335,
+            0.04092974185943632,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.046560091972352335,
+            0.04092974185943632,
+            0.0
+          ],
+          "reference_iou": 0.9235483194089773,
+          "iou": 0.9191857068160301,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000019-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.02523051122700426,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8363481476551794,
+          "iou": 0.8111176364281751,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ]
+    },
+    "reference9277": {
+      "baseline": [
+        {
+          "case_id": "object-000002-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.3542632698232154,
+          "dimension_error_delta_m_lwh": [
+            0.8000000000000003,
+            0.327198897685232,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.8000000000000003,
+            0.5071988976852317,
+            0.0
+          ],
+          "reference_iou": 0.65454790960757,
+          "iou": 0.30028463978435466,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038933043101431974,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7051422304557124,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0013961560871476042,
+          "dimension_error_delta_m_lwh": [
+            0.07633015741733695,
+            0.002130719866971331,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.07633015741733695,
+            -0.002130719866971331,
+            0.0
+          ],
+          "reference_iou": 0.6786650648407339,
+          "iou": 0.6772689087535863,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-1",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.560994674930671
+        },
+        {
+          "case_id": "object-000006-car-3",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.627406824317781
+        },
+        {
+          "case_id": "object-000007-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.004610705797602033,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7742930359418014,
+          "iou": 0.7696823301441994,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000007-car-1",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.250081705954643
+        },
+        {
+          "case_id": "object-000008-car-0",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "neighbor-overlap",
+          "reference_iou": 0.5336790917679978
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.006395229915408529,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.051662663956834276,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.07166266395683385,
+            0.0
+          ],
+          "reference_iou": 0.8213023003471375,
+          "iou": 0.827697530262546,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0012401112615957333,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8686817488332367,
+          "iou": 0.8699218600948324,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.3339887639746523,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0800000000000003,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.6533735304288216,
+          "iou": 0.3193847664541693,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.5772425769507592,
+          "dimension_error_delta_m_lwh": [
+            -1.1,
+            0.08036438701186799,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -1.1,
+            -0.12036438701186802,
+            0.0
+          ],
+          "reference_iou": 0.30395556603125157,
+          "iou": 0.8811981429820108,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000009-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0007720785893381432,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8072873347592302,
+          "iou": 0.8065152561698921,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.03441886336804778,
+          "dimension_error_delta_m_lwh": [
+            -0.20985480632433662,
+            0.11999999999999988,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.30985480632433626,
+            -0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.8277904355115577,
+          "iou": 0.79337157214351,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.698168822762263,
+          "iou": 0.6917656050136001,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.13184234005626438,
+          "dimension_error_delta_m_lwh": [
+            0.8300978772176877,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.8300978772176877,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.6531953308232279,
+          "iou": 0.5213529907669635,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.01716155358963478,
+          "dimension_error_delta_m_lwh": [
+            0.0853421762879667,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.33465782371203323,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.781086280661162,
+          "iou": 0.7639247270715273,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-6",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0030230742543334577,
+          "dimension_error_delta_m_lwh": [
+            -0.19894450613029102,
+            -0.020000000000000018,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.5010554938697092,
+            -0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.7356400999373839,
+          "iou": 0.7326170256830504,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-8",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.29571091441058917
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.010273985337711178,
+          "dimension_error_delta_m_lwh": [
+            -0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7716672635631575,
+          "iou": 0.7613932782254463,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.004362612592947235,
+          "dimension_error_delta_m_lwh": [
+            -0.046560091972352335,
+            -0.04092974185943632,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.046560091972352335,
+            -0.04092974185943632,
+            0.0
+          ],
+          "reference_iou": 0.9191857068160301,
+          "iou": 0.9235483194089773,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000012-car-0",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.24083435945312448
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.014280711264347934,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7567510369758844,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000015-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0005667621634074527,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.893048267996231,
+          "iou": 0.8924815058328236,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-0",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.1794663683668131
+        },
+        {
+          "case_id": "object-000016-car-2",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.6576637375441099
+        },
+        {
+          "case_id": "object-000016-car-3",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "neighbor-overlap",
+          "reference_iou": 0.7891830328134413
+        },
+        {
+          "case_id": "object-000019-car-3",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.21284525372840488
+        }
+      ],
+      "baseline_p0": [
+        {
+          "case_id": "object-000002-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.3542632698232154,
+          "dimension_error_delta_m_lwh": [
+            0.8000000000000003,
+            0.327198897685232,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.8000000000000003,
+            0.5071988976852317,
+            0.0
+          ],
+          "reference_iou": 0.65454790960757,
+          "iou": 0.30028463978435466,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038933043101431974,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7051422304557124,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0013961560871476042,
+          "dimension_error_delta_m_lwh": [
+            0.07633015741733695,
+            0.002130719866971331,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.07633015741733695,
+            -0.002130719866971331,
+            0.0
+          ],
+          "reference_iou": 0.6786650648407339,
+          "iou": 0.6772689087535863,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-1",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.560994674930671
+        },
+        {
+          "case_id": "object-000006-car-3",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.627406824317781
+        },
+        {
+          "case_id": "object-000007-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.004610705797602033,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7742930359418014,
+          "iou": 0.7696823301441994,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000007-car-1",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.250081705954643
+        },
+        {
+          "case_id": "object-000008-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.3339887639746523,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0800000000000003,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.6533735304288216,
+          "iou": 0.3193847664541693,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000009-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0007720785893381432,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8072873347592302,
+          "iou": 0.8065152561698921,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.03441886336804778,
+          "dimension_error_delta_m_lwh": [
+            -0.20985480632433662,
+            0.11999999999999988,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.30985480632433626,
+            -0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.8277904355115577,
+          "iou": 0.79337157214351,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.698168822762263,
+          "iou": 0.6917656050136001,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.13184234005626438,
+          "dimension_error_delta_m_lwh": [
+            0.8300978772176877,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.8300978772176877,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.6531953308232279,
+          "iou": 0.5213529907669635,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.01716155358963478,
+          "dimension_error_delta_m_lwh": [
+            0.0853421762879667,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.33465782371203323,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.781086280661162,
+          "iou": 0.7639247270715273,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-6",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0030230742543334577,
+          "dimension_error_delta_m_lwh": [
+            -0.19894450613029102,
+            -0.020000000000000018,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.5010554938697092,
+            -0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.7356400999373839,
+          "iou": 0.7326170256830504,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-8",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.29571091441058917
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.010273985337711178,
+          "dimension_error_delta_m_lwh": [
+            -0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7716672635631575,
+          "iou": 0.7613932782254463,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000012-car-0",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.24083435945312448
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.014280711264347934,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7567510369758844,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000015-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0005667621634074527,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.893048267996231,
+          "iou": 0.8924815058328236,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-2",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.6576637375441099
+        },
+        {
+          "case_id": "object-000019-car-3",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.21284525372840488
+        }
+      ],
+      "reference9277": []
+    },
+    "fix_a": {
+      "baseline": [
+        {
+          "case_id": "object-000002-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.3542632698232154,
+          "dimension_error_delta_m_lwh": [
+            0.8000000000000003,
+            0.327198897685232,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.8000000000000003,
+            0.5071988976852317,
+            0.0
+          ],
+          "reference_iou": 0.65454790960757,
+          "iou": 0.30028463978435466,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038933043101431974,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7051422304557124,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0013961560871476042,
+          "dimension_error_delta_m_lwh": [
+            0.07633015741733695,
+            0.002130719866971331,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.07633015741733695,
+            -0.002130719866971331,
+            0.0
+          ],
+          "reference_iou": 0.6786650648407339,
+          "iou": 0.6772689087535863,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-1",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.560994674930671
+        },
+        {
+          "case_id": "object-000006-car-3",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.627406824317781
+        },
+        {
+          "case_id": "object-000007-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.004610705797602033,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7742930359418014,
+          "iou": 0.7696823301441994,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000007-car-1",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.250081705954643
+        },
+        {
+          "case_id": "object-000008-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.07468185619446827,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.08000000000000007,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.5336790917679978,
+          "iou": 0.4589972355735295,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.006395229915408529,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.051662663956834276,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.07166266395683385,
+            0.0
+          ],
+          "reference_iou": 0.8213023003471375,
+          "iou": 0.827697530262546,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0012401112615957333,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8686817488332367,
+          "iou": 0.8699218600948324,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.3339887639746523,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0800000000000003,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.6533735304288216,
+          "iou": 0.3193847664541693,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.5772425769507592,
+          "dimension_error_delta_m_lwh": [
+            -1.1,
+            0.08036438701186799,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -1.1,
+            -0.12036438701186802,
+            0.0
+          ],
+          "reference_iou": 0.30395556603125157,
+          "iou": 0.8811981429820108,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000009-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0007720785893381432,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8072873347592302,
+          "iou": 0.8065152561698921,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.03441886336804778,
+          "dimension_error_delta_m_lwh": [
+            -0.20985480632433662,
+            0.11999999999999988,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.30985480632433626,
+            -0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.8277904355115577,
+          "iou": 0.79337157214351,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.698168822762263,
+          "iou": 0.6917656050136001,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.13184234005626438,
+          "dimension_error_delta_m_lwh": [
+            0.8300978772176877,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.8300978772176877,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.6531953308232279,
+          "iou": 0.5213529907669635,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.01716155358963478,
+          "dimension_error_delta_m_lwh": [
+            0.0853421762879667,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.33465782371203323,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.781086280661162,
+          "iou": 0.7639247270715273,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-6",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0030230742543334577,
+          "dimension_error_delta_m_lwh": [
+            -0.19894450613029102,
+            -0.020000000000000018,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.5010554938697092,
+            -0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.7356400999373839,
+          "iou": 0.7326170256830504,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-8",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.29571091441058917
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.010273985337711178,
+          "dimension_error_delta_m_lwh": [
+            -0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7716672635631575,
+          "iou": 0.7613932782254463,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.004362612592947235,
+          "dimension_error_delta_m_lwh": [
+            -0.046560091972352335,
+            -0.04092974185943632,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.046560091972352335,
+            -0.04092974185943632,
+            0.0
+          ],
+          "reference_iou": 0.9191857068160301,
+          "iou": 0.9235483194089773,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000012-car-0",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.24083435945312448
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.014280711264347934,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7567510369758844,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000015-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0005667621634074527,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.893048267996231,
+          "iou": 0.8924815058328236,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-0",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.1794663683668131
+        },
+        {
+          "case_id": "object-000016-car-2",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.6576637375441099
+        },
+        {
+          "case_id": "object-000016-car-3",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "no-safe-candidate",
+          "reference_iou": 0.7891830328134413
+        },
+        {
+          "case_id": "object-000019-car-3",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.21284525372840488
+        }
+      ],
+      "baseline_p0": [
+        {
+          "case_id": "object-000002-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.3542632698232154,
+          "dimension_error_delta_m_lwh": [
+            0.8000000000000003,
+            0.327198897685232,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.8000000000000003,
+            0.5071988976852317,
+            0.0
+          ],
+          "reference_iou": 0.65454790960757,
+          "iou": 0.30028463978435466,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038933043101431974,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7051422304557124,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0013961560871476042,
+          "dimension_error_delta_m_lwh": [
+            0.07633015741733695,
+            0.002130719866971331,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.07633015741733695,
+            -0.002130719866971331,
+            0.0
+          ],
+          "reference_iou": 0.6786650648407339,
+          "iou": 0.6772689087535863,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-1",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.560994674930671
+        },
+        {
+          "case_id": "object-000006-car-3",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.627406824317781
+        },
+        {
+          "case_id": "object-000007-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.004610705797602033,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7742930359418014,
+          "iou": 0.7696823301441994,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000007-car-1",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.250081705954643
+        },
+        {
+          "case_id": "object-000008-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.3339887639746523,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0800000000000003,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.6533735304288216,
+          "iou": 0.3193847664541693,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000009-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0007720785893381432,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8072873347592302,
+          "iou": 0.8065152561698921,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.03441886336804778,
+          "dimension_error_delta_m_lwh": [
+            -0.20985480632433662,
+            0.11999999999999988,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.30985480632433626,
+            -0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.8277904355115577,
+          "iou": 0.79337157214351,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.698168822762263,
+          "iou": 0.6917656050136001,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.13184234005626438,
+          "dimension_error_delta_m_lwh": [
+            0.8300978772176877,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.8300978772176877,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.6531953308232279,
+          "iou": 0.5213529907669635,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.01716155358963478,
+          "dimension_error_delta_m_lwh": [
+            0.0853421762879667,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.33465782371203323,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.781086280661162,
+          "iou": 0.7639247270715273,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-6",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0030230742543334577,
+          "dimension_error_delta_m_lwh": [
+            -0.19894450613029102,
+            -0.020000000000000018,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.5010554938697092,
+            -0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.7356400999373839,
+          "iou": 0.7326170256830504,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-8",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.29571091441058917
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.010273985337711178,
+          "dimension_error_delta_m_lwh": [
+            -0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7716672635631575,
+          "iou": 0.7613932782254463,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000012-car-0",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.24083435945312448
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.014280711264347934,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7567510369758844,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000015-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0005667621634074527,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.893048267996231,
+          "iou": 0.8924815058328236,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-2",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.6576637375441099
+        },
+        {
+          "case_id": "object-000019-car-3",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.21284525372840488
+        }
+      ],
+      "reference9277": []
+    },
+    "fix_b": {
+      "baseline": [
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038933043101431974,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7051422304557124,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0013961560871476042,
+          "dimension_error_delta_m_lwh": [
+            0.07633015741733695,
+            0.002130719866971331,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.07633015741733695,
+            -0.002130719866971331,
+            0.0
+          ],
+          "reference_iou": 0.6786650648407339,
+          "iou": 0.6772689087535863,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-1",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.560994674930671
+        },
+        {
+          "case_id": "object-000006-car-3",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.627406824317781
+        },
+        {
+          "case_id": "object-000007-car-1",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.250081705954643
+        },
+        {
+          "case_id": "object-000008-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.05938300677188296,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.08000000000000007,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.5336790917679978,
+          "iou": 0.4742960849961148,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8213023003471375,
+          "iou": 0.8213023003471375,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0012401112615957333,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8686817488332367,
+          "iou": 0.8699218600948324,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.5772425769507592,
+          "dimension_error_delta_m_lwh": [
+            -1.1,
+            0.08036438701186799,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -1.1,
+            -0.12036438701186802,
+            0.0
+          ],
+          "reference_iou": 0.30395556603125157,
+          "iou": 0.8811981429820108,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8277904355115577,
+          "iou": 0.8277904355115577,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.781086280661162,
+          "iou": 0.781086280661162,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-8",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.29571091441058917
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7716672635631575,
+          "iou": 0.7716672635631575,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.9191857068160301,
+          "iou": 0.9191857068160301,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000012-car-0",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.24083435945312448
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.014280711264347934,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7567510369758844,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000015-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.893048267996231,
+          "iou": 0.893048267996231,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-0",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.1794663683668131
+        },
+        {
+          "case_id": "object-000016-car-2",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.6576637375441099
+        },
+        {
+          "case_id": "object-000016-car-3",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "no-safe-candidate",
+          "reference_iou": 0.7891830328134413
+        },
+        {
+          "case_id": "object-000019-car-3",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.21284525372840488
+        }
+      ],
+      "baseline_p0": [
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038933043101431974,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7051422304557124,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0013961560871476042,
+          "dimension_error_delta_m_lwh": [
+            0.07633015741733695,
+            0.002130719866971331,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.07633015741733695,
+            -0.002130719866971331,
+            0.0
+          ],
+          "reference_iou": 0.6786650648407339,
+          "iou": 0.6772689087535863,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-1",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.560994674930671
+        },
+        {
+          "case_id": "object-000006-car-3",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.627406824317781
+        },
+        {
+          "case_id": "object-000007-car-1",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.250081705954643
+        },
+        {
+          "case_id": "object-000010-car-8",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.29571091441058917
+        },
+        {
+          "case_id": "object-000012-car-0",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.24083435945312448
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.014280711264347934,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7567510369758844,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-2",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.6576637375441099
+        },
+        {
+          "case_id": "object-000019-car-3",
+          "kind": "lost",
+          "reason": "insufficient-evidence",
+          "safety_gate": null,
+          "reference_iou": 0.21284525372840488
+        }
+      ],
+      "reference9277": [
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.006395229915408529,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.051662663956834276,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.07166266395683385,
+            0.0
+          ],
+          "reference_iou": 0.827697530262546,
+          "iou": 0.8213023003471375,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0024936414343685875,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.032866819810573045,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.032866819810573045,
+            0.0
+          ],
+          "reference_iou": 0.7141086467731265,
+          "iou": 0.7116150053387579,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.03441886336804778,
+          "dimension_error_delta_m_lwh": [
+            0.20985480632433662,
+            -0.11999999999999988,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.30985480632433626,
+            0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.79337157214351,
+          "iou": 0.8277904355115577,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.6917656050136001,
+          "iou": 0.698168822762263,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.01716155358963478,
+          "dimension_error_delta_m_lwh": [
+            -0.0853421762879667,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.33465782371203323,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7639247270715273,
+          "iou": 0.781086280661162,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-6",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0030230742543334577,
+          "dimension_error_delta_m_lwh": [
+            0.19894450613029102,
+            0.020000000000000018,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.5010554938697092,
+            0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.7326170256830504,
+          "iou": 0.7356400999373839,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.010273985337711178,
+          "dimension_error_delta_m_lwh": [
+            0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7613932782254463,
+          "iou": 0.7716672635631575,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.004362612592947235,
+          "dimension_error_delta_m_lwh": [
+            0.046560091972352335,
+            0.04092974185943632,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.046560091972352335,
+            0.04092974185943632,
+            0.0
+          ],
+          "reference_iou": 0.9235483194089773,
+          "iou": 0.9191857068160301,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000019-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.02523051122700426,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8363481476551794,
+          "iou": 0.8111176364281751,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ]
+    },
+    "fix_c": {
+      "baseline": [
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038933043101431974,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7051422304557124,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.25187310782713224,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.560994674930671,
+          "iou": 0.3091215671035388,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000006-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.2846535152861555,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.627406824317781,
+          "iou": 0.34275330903162554,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000007-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.08639967703203358,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.250081705954643,
+          "iou": 0.16368202892260944,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.05938300677188296,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.08000000000000007,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.5336790917679978,
+          "iou": 0.4742960849961148,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8213023003471375,
+          "iou": 0.8213023003471375,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0012401112615957333,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8686817488332367,
+          "iou": 0.8699218600948324,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8277904355115577,
+          "iou": 0.8277904355115577,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.781086280661162,
+          "iou": 0.781086280661162,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-8",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.09591442588216725,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.2080866178223204,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.2080866178223204,
+            0.0
+          ],
+          "reference_iou": 0.29571091441058917,
+          "iou": 0.1997964885284219,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7716672635631575,
+          "iou": 0.7716672635631575,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.9191857068160301,
+          "iou": 0.9191857068160301,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000012-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.09815396266771345,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.24083435945312448,
+          "iou": 0.14268039678541103,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.014280711264347934,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7567510369758844,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000015-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.893048267996231,
+          "iou": 0.893048267996231,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038763403704777905,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.1794663683668131,
+          "iou": 0.1407029646620352,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.267708581332144,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.09942647269035954,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.09942647269035954,
+            0.0
+          ],
+          "reference_iou": 0.6576637375441099,
+          "iou": 0.3899551562119659,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-3",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "no-safe-candidate",
+          "reference_iou": 0.7891830328134413
+        },
+        {
+          "case_id": "object-000019-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.07203083506037797,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.21284525372840488,
+          "iou": 0.1408144186680269,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ],
+      "baseline_p0": [
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038933043101431974,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7051422304557124,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.25187310782713224,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.560994674930671,
+          "iou": 0.3091215671035388,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000006-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.2846535152861555,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.627406824317781,
+          "iou": 0.34275330903162554,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000007-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.08639967703203358,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.250081705954643,
+          "iou": 0.16368202892260944,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-8",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.09591442588216725,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.2080866178223204,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.2080866178223204,
+            0.0
+          ],
+          "reference_iou": 0.29571091441058917,
+          "iou": 0.1997964885284219,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000012-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.09815396266771345,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.24083435945312448,
+          "iou": 0.14268039678541103,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.014280711264347934,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7567510369758844,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.267708581332144,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.09942647269035954,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.09942647269035954,
+            0.0
+          ],
+          "reference_iou": 0.6576637375441099,
+          "iou": 0.3899551562119659,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000019-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.07203083506037797,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.21284525372840488,
+          "iou": 0.1408144186680269,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ],
+      "reference9277": [
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.006395229915408529,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.051662663956834276,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.07166266395683385,
+            0.0
+          ],
+          "reference_iou": 0.827697530262546,
+          "iou": 0.8213023003471375,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.5457646758252293,
+          "dimension_error_delta_m_lwh": [
+            1.1,
+            -0.08036438701186799,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            1.1,
+            0.12036438701186802,
+            0.0
+          ],
+          "reference_iou": 0.8811981429820108,
+          "iou": 0.3354334671567815,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.0024936414343685875,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.032866819810573045,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.032866819810573045,
+            0.0
+          ],
+          "reference_iou": 0.7141086467731265,
+          "iou": 0.7116150053387579,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.03441886336804778,
+          "dimension_error_delta_m_lwh": [
+            0.20985480632433662,
+            -0.11999999999999988,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.30985480632433626,
+            0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.79337157214351,
+          "iou": 0.8277904355115577,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.6917656050136001,
+          "iou": 0.698168822762263,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.01716155358963478,
+          "dimension_error_delta_m_lwh": [
+            -0.0853421762879667,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.33465782371203323,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7639247270715273,
+          "iou": 0.781086280661162,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-6",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0030230742543334577,
+          "dimension_error_delta_m_lwh": [
+            0.19894450613029102,
+            0.020000000000000018,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.5010554938697092,
+            0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.7326170256830504,
+          "iou": 0.7356400999373839,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.010273985337711178,
+          "dimension_error_delta_m_lwh": [
+            0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7613932782254463,
+          "iou": 0.7716672635631575,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.004362612592947235,
+          "dimension_error_delta_m_lwh": [
+            0.046560091972352335,
+            0.04092974185943632,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.046560091972352335,
+            0.04092974185943632,
+            0.0
+          ],
+          "reference_iou": 0.9235483194089773,
+          "iou": 0.9191857068160301,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000019-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.02523051122700426,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8363481476551794,
+          "iou": 0.8111176364281751,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ]
+    },
+    "fix_d": {
+      "baseline": [
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038933043101431974,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7051422304557124,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.25187310782713224,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.560994674930671,
+          "iou": 0.3091215671035388,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000006-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.2846535152861555,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.627406824317781,
+          "iou": 0.34275330903162554,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000007-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.08639967703203358,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.250081705954643,
+          "iou": 0.16368202892260944,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.05938300677188296,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.08000000000000007,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.5336790917679978,
+          "iou": 0.4742960849961148,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.007615649298448601,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.051662663956834276,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.07166266395683385,
+            0.0
+          ],
+          "reference_iou": 0.8213023003471375,
+          "iou": 0.8289179496455861,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0012401112615957333,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8686817488332367,
+          "iou": 0.8699218600948324,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.5772425769507592,
+          "dimension_error_delta_m_lwh": [
+            -1.1,
+            0.08036438701186799,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -1.1,
+            -0.12036438701186802,
+            0.0
+          ],
+          "reference_iou": 0.30395556603125157,
+          "iou": 0.8811981429820108,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0020605328121181543,
+          "dimension_error_delta_m_lwh": [
+            -0.00985480632433644,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.00985480632433644,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.8277904355115577,
+          "iou": 0.8298509683236759,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0064544502924642755,
+          "dimension_error_delta_m_lwh": [
+            -0.03465782371203341,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.03465782371203341,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.781086280661162,
+          "iou": 0.7875407309536263,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-8",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.09591442588216725,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.2080866178223204,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.2080866178223204,
+            0.0
+          ],
+          "reference_iou": 0.29571091441058917,
+          "iou": 0.1997964885284219,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.010273985337711178,
+          "dimension_error_delta_m_lwh": [
+            -0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7716672635631575,
+          "iou": 0.7613932782254463,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.04499955546195955,
+          "dimension_error_delta_m_lwh": [
+            -0.046560091972352335,
+            0.07907025814056357,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.046560091972352335,
+            0.07907025814056357,
+            0.0
+          ],
+          "reference_iou": 0.9191857068160301,
+          "iou": 0.8741861513540705,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000012-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.09815396266771345,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.24083435945312448,
+          "iou": 0.14268039678541103,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.014280711264347934,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7567510369758844,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000015-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.008453301604114172,
+          "dimension_error_delta_m_lwh": [
+            -0.037004990470753896,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.037004990470753896,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.893048267996231,
+          "iou": 0.9015015696003452,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038763403704777905,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.1794663683668131,
+          "iou": 0.1407029646620352,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.267708581332144,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.09942647269035954,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.09942647269035954,
+            0.0
+          ],
+          "reference_iou": 0.6576637375441099,
+          "iou": 0.3899551562119659,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-3",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "no-safe-candidate",
+          "reference_iou": 0.7891830328134413
+        },
+        {
+          "case_id": "object-000019-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.014787704450837325,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.010608724740404307,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.030608724740404325,
+            0.0
+          ],
+          "reference_iou": 0.8111176364281751,
+          "iou": 0.7963299319773378,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000019-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.07203083506037797,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.21284525372840488,
+          "iou": 0.1408144186680269,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ],
+      "baseline_p0": [
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038933043101431974,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7051422304557124,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.25187310782713224,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.560994674930671,
+          "iou": 0.3091215671035388,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000006-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.2846535152861555,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.627406824317781,
+          "iou": 0.34275330903162554,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000007-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.08639967703203358,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.250081705954643,
+          "iou": 0.16368202892260944,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-8",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.09591442588216725,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.2080866178223204,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.2080866178223204,
+            0.0
+          ],
+          "reference_iou": 0.29571091441058917,
+          "iou": 0.1997964885284219,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.010273985337711178,
+          "dimension_error_delta_m_lwh": [
+            -0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7716672635631575,
+          "iou": 0.7613932782254463,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.04499955546195955,
+          "dimension_error_delta_m_lwh": [
+            -0.046560091972352335,
+            0.07907025814056357,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.046560091972352335,
+            0.07907025814056357,
+            0.0
+          ],
+          "reference_iou": 0.9191857068160301,
+          "iou": 0.8741861513540705,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000012-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.09815396266771345,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.24083435945312448,
+          "iou": 0.14268039678541103,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.014280711264347934,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7567510369758844,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.267708581332144,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.09942647269035954,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.09942647269035954,
+            0.0
+          ],
+          "reference_iou": 0.6576637375441099,
+          "iou": 0.3899551562119659,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000019-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.014787704450837325,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.010608724740404307,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.030608724740404325,
+            0.0
+          ],
+          "reference_iou": 0.8111176364281751,
+          "iou": 0.7963299319773378,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000019-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.07203083506037797,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.21284525372840488,
+          "iou": 0.1408144186680269,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ],
+      "reference9277": [
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.036479396180165935,
+          "dimension_error_delta_m_lwh": [
+            0.20000000000000018,
+            -0.11999999999999988,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.2999999999999998,
+            0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.79337157214351,
+          "iou": 0.8298509683236759,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.6917656050136001,
+          "iou": 0.698168822762263,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.023616003882099057,
+          "dimension_error_delta_m_lwh": [
+            -0.1200000000000001,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.2999999999999998,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7639247270715273,
+          "iou": 0.7875407309536263,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-6",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0030230742543334577,
+          "dimension_error_delta_m_lwh": [
+            0.19894450613029102,
+            0.020000000000000018,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.5010554938697092,
+            0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.7326170256830504,
+          "iou": 0.7356400999373839,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.049362168054906785,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.11999999999999988,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.11999999999999988,
+            0.0
+          ],
+          "reference_iou": 0.9235483194089773,
+          "iou": 0.8741861513540705,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000019-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.040018215677841584,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.010608724740404307,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.030608724740404325,
+            0.0
+          ],
+          "reference_iou": 0.8363481476551794,
+          "iou": 0.7963299319773378,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ]
+    },
+    "fix_e": {
+      "baseline": [
+        {
+          "case_id": "object-000002-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.011006234649033053,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.033804216120126185,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.033804216120126185,
+            0.0
+          ],
+          "reference_iou": 0.65454790960757,
+          "iou": 0.643541674958537,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7440752735571444,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.25187310782713224,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.560994674930671,
+          "iou": 0.3091215671035388,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000006-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.2846535152861555,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.627406824317781,
+          "iou": 0.34275330903162554,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000007-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.08639967703203358,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.250081705954643,
+          "iou": 0.16368202892260944,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.05938300677188296,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.08000000000000007,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.5336790917679978,
+          "iou": 0.4742960849961148,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.003353291799482294,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.005205379822524225,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.005205379822524225,
+            0.0
+          ],
+          "reference_iou": 0.8213023003471375,
+          "iou": 0.8179490085476552,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.016297112412135162,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.09656452565178508,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.09656452565178508,
+            0.0
+          ],
+          "reference_iou": 0.8686817488332367,
+          "iou": 0.8849788612453718,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.5772425769507592,
+          "dimension_error_delta_m_lwh": [
+            -1.1,
+            0.08036438701186799,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -1.1,
+            -0.12036438701186802,
+            0.0
+          ],
+          "reference_iou": 0.30395556603125157,
+          "iou": 0.8811981429820108,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.014892790673049827,
+          "dimension_error_delta_m_lwh": [
+            -0.00985480632433644,
+            -0.06048134312974596,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.00985480632433644,
+            0.06048134312974596,
+            0.0
+          ],
+          "reference_iou": 0.8277904355115577,
+          "iou": 0.8426832261846076,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.698168822762263,
+          "iou": 0.6917656050136001,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.781086280661162,
+          "iou": 0.781086280661162,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-8",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.09591442588216725,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.2080866178223204,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.2080866178223204,
+            0.0
+          ],
+          "reference_iou": 0.29571091441058917,
+          "iou": 0.1997964885284219,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7716672635631575,
+          "iou": 0.7716672635631575,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.01096822085509086,
+          "dimension_error_delta_m_lwh": [
+            -0.046560091972352335,
+            0.011802469682916872,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.046560091972352335,
+            0.011802469682916872,
+            0.0
+          ],
+          "reference_iou": 0.9191857068160301,
+          "iou": 0.9082174859609392,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000012-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.09815396266771345,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.24083435945312448,
+          "iou": 0.14268039678541103,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.003379566427993197,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.010404484717567275,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.1295955152824324,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7744113146682255,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000015-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.893048267996231,
+          "iou": 0.893048267996231,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.038763403704777905,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.1794663683668131,
+          "iou": 0.1407029646620352,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.267708581332144,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.09942647269035954,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.09942647269035954,
+            0.0
+          ],
+          "reference_iou": 0.6576637375441099,
+          "iou": 0.3899551562119659,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-3",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "no-safe-candidate",
+          "reference_iou": 0.7891830328134413
+        },
+        {
+          "case_id": "object-000019-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.07203083506037797,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.21284525372840488,
+          "iou": 0.1408144186680269,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ],
+      "baseline_p0": [
+        {
+          "case_id": "object-000002-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.011006234649033053,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.033804216120126185,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.033804216120126185,
+            0.0
+          ],
+          "reference_iou": 0.65454790960757,
+          "iou": 0.643541674958537,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000004-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.25187310782713224,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.560994674930671,
+          "iou": 0.3091215671035388,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000006-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.2846535152861555,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.627406824317781,
+          "iou": 0.34275330903162554,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000007-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.08639967703203358,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.250081705954643,
+          "iou": 0.16368202892260944,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.003353291799482294,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.005205379822524225,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.005205379822524225,
+            0.0
+          ],
+          "reference_iou": 0.8213023003471375,
+          "iou": 0.8179490085476552,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.698168822762263,
+          "iou": 0.6917656050136001,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-8",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.09591442588216725,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.2080866178223204,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.2080866178223204,
+            0.0
+          ],
+          "reference_iou": 0.29571091441058917,
+          "iou": 0.1997964885284219,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.01096822085509086,
+          "dimension_error_delta_m_lwh": [
+            -0.046560091972352335,
+            0.011802469682916872,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.046560091972352335,
+            0.011802469682916872,
+            0.0
+          ],
+          "reference_iou": 0.9191857068160301,
+          "iou": 0.9082174859609392,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000012-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.09815396266771345,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.24083435945312448,
+          "iou": 0.14268039678541103,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.267708581332144,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.09942647269035954,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.09942647269035954,
+            0.0
+          ],
+          "reference_iou": 0.6576637375441099,
+          "iou": 0.3899551562119659,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000019-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.07203083506037797,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.21284525372840488,
+          "iou": 0.1408144186680269,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ],
+      "reference9277": [
+        {
+          "case_id": "object-000006-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.002342315808600559,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7446817850562222,
+          "iou": 0.7423394692476216,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.009748521714890823,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0568680437793585,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.07686804377935808,
+            0.0
+          ],
+          "reference_iou": 0.827697530262546,
+          "iou": 0.8179490085476552,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.04931165404109761,
+          "dimension_error_delta_m_lwh": [
+            0.20000000000000018,
+            -0.18048134312974584,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.2999999999999998,
+            0.18048134312974584,
+            0.0
+          ],
+          "reference_iou": 0.79337157214351,
+          "iou": 0.8426832261846076,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.01716155358963478,
+          "dimension_error_delta_m_lwh": [
+            -0.0853421762879667,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.33465782371203323,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7639247270715273,
+          "iou": 0.781086280661162,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-6",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0030230742543334577,
+          "dimension_error_delta_m_lwh": [
+            0.19894450613029102,
+            0.020000000000000018,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.5010554938697092,
+            0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.7326170256830504,
+          "iou": 0.7356400999373839,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.010273985337711178,
+          "dimension_error_delta_m_lwh": [
+            0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7613932782254463,
+          "iou": 0.7716672635631575,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.015330833448038095,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.05273221154235319,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.05273221154235319,
+            0.0
+          ],
+          "reference_iou": 0.9235483194089773,
+          "iou": 0.9082174859609392,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ]
+    },
+    "final": {
+      "baseline": [
+        {
+          "case_id": "object-000002-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.011006234649033053,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.033804216120126185,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.033804216120126185,
+            0.0
+          ],
+          "reference_iou": 0.65454790960757,
+          "iou": 0.643541674958537,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000003-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7440752735571444,
+          "iou": 0.7440752735571444,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.05938300677188296,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.08000000000000007,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.5336790917679978,
+          "iou": 0.4742960849961148,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.003353291799482294,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.005205379822524225,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.005205379822524225,
+            0.0
+          ],
+          "reference_iou": 0.8213023003471375,
+          "iou": 0.8179490085476552,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.016297112412135162,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.09656452565178508,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.09656452565178508,
+            0.0
+          ],
+          "reference_iou": 0.8686817488332367,
+          "iou": 0.8849788612453718,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.5772425769507592,
+          "dimension_error_delta_m_lwh": [
+            -1.1,
+            0.08036438701186799,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -1.1,
+            -0.12036438701186802,
+            0.0
+          ],
+          "reference_iou": 0.30395556603125157,
+          "iou": 0.8811981429820108,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.014892790673049827,
+          "dimension_error_delta_m_lwh": [
+            -0.00985480632433644,
+            -0.06048134312974596,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.00985480632433644,
+            0.06048134312974596,
+            0.0
+          ],
+          "reference_iou": 0.8277904355115577,
+          "iou": 0.8426832261846076,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.698168822762263,
+          "iou": 0.6917656050136001,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.781086280661162,
+          "iou": 0.781086280661162,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7716672635631575,
+          "iou": 0.7716672635631575,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.01096822085509086,
+          "dimension_error_delta_m_lwh": [
+            -0.046560091972352335,
+            0.011802469682916872,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.046560091972352335,
+            0.011802469682916872,
+            0.0
+          ],
+          "reference_iou": 0.9191857068160301,
+          "iou": 0.9082174859609392,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000013-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.003379566427993197,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.010404484717567275,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.1295955152824324,
+            0.0
+          ],
+          "reference_iou": 0.7710317482402324,
+          "iou": 0.7744113146682255,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000015-car-0",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.893048267996231,
+          "iou": 0.893048267996231,
+          "reference_quality": "confident",
+          "quality": "estimated",
+          "quality_decreased": true,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000016-car-3",
+          "kind": "lost",
+          "reason": "ambiguous",
+          "safety_gate": "no-safe-candidate",
+          "reference_iou": 0.7891830328134413
+        }
+      ],
+      "baseline_p0": [
+        {
+          "case_id": "object-000002-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.011006234649033053,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.033804216120126185,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.033804216120126185,
+            0.0
+          ],
+          "reference_iou": 0.65454790960757,
+          "iou": 0.643541674958537,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.003353291799482294,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.005205379822524225,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.005205379822524225,
+            0.0
+          ],
+          "reference_iou": 0.8213023003471375,
+          "iou": 0.8179490085476552,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-3",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.006403217748662926,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            -0.0005130986863000064,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            -0.01948690131370001,
+            0.0
+          ],
+          "reference_iou": 0.698168822762263,
+          "iou": 0.6917656050136001,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.01096822085509086,
+          "dimension_error_delta_m_lwh": [
+            -0.046560091972352335,
+            0.011802469682916872,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.046560091972352335,
+            0.011802469682916872,
+            0.0
+          ],
+          "reference_iou": 0.9191857068160301,
+          "iou": 0.9082174859609392,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ],
+      "reference9277": [
+        {
+          "case_id": "object-000006-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.002342315808600559,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7446817850562222,
+          "iou": 0.7423394692476216,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000008-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.009748521714890823,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.0568680437793585,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.07686804377935808,
+            0.0
+          ],
+          "reference_iou": 0.827697530262546,
+          "iou": 0.8179490085476552,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-1",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.04931165404109761,
+          "dimension_error_delta_m_lwh": [
+            0.20000000000000018,
+            -0.18048134312974584,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.2999999999999998,
+            0.18048134312974584,
+            0.0
+          ],
+          "reference_iou": 0.79337157214351,
+          "iou": 0.8426832261846076,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-5",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.01716155358963478,
+          "dimension_error_delta_m_lwh": [
+            -0.0853421762879667,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            -0.33465782371203323,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7639247270715273,
+          "iou": 0.781086280661162,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000010-car-6",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.0030230742543334577,
+          "dimension_error_delta_m_lwh": [
+            0.19894450613029102,
+            0.020000000000000018,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.5010554938697092,
+            0.16000000000000014,
+            0.0
+          ],
+          "reference_iou": 0.7326170256830504,
+          "iou": 0.7356400999373839,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-2",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": 0.010273985337711178,
+          "dimension_error_delta_m_lwh": [
+            0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.027184200760114408,
+            0.0,
+            0.0
+          ],
+          "reference_iou": 0.7613932782254463,
+          "iou": 0.7716672635631575,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        },
+        {
+          "case_id": "object-000011-car-4",
+          "kind": "geometry-or-quality-change",
+          "iou_delta": -0.015330833448038095,
+          "dimension_error_delta_m_lwh": [
+            0.0,
+            0.05273221154235319,
+            0.0
+          ],
+          "size_delta_m_lwh": [
+            0.0,
+            0.05273221154235319,
+            0.0
+          ],
+          "reference_iou": 0.9235483194089773,
+          "iou": 0.9082174859609392,
+          "reference_quality": "estimated",
+          "quality": "estimated",
+          "quality_decreased": false,
+          "correct_instance": true
+        }
+      ]
+    }
+  }
+}
