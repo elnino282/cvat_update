@@ -1,0 +1,8 @@
+ARG VEHICLE_FIT_BASE_IMAGE=cvat/server:dev
+FROM ${VEHICLE_FIT_BASE_IMAGE}
+WORKDIR /opt/vehicle-fit
+COPY components/vehicle_fit/__init__.py components/vehicle_fit/cloud.py \
+    components/vehicle_fit/geometry.py components/vehicle_fit/service.py \
+    components/vehicle_fit/snap_backend.py /opt/vehicle-fit/vehicle_fit/
+ENV PYTHONUNBUFFERED=1 VEHICLE_FIT_BACKEND=geometry-only VEHICLE_FIT_PORT=8093
+ENTRYPOINT ["python3", "-m", "vehicle_fit.service"]

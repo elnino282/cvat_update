@@ -1,0 +1,11 @@
+# Mask-only inference deliberately excludes GUI, CLIP, and training datasets.
+--find-links https://data.pyg.org/whl/torch-2.7.0+cu128.html
+numpy==2.2.6
+scipy==1.15.3
+addict==2.4.0
+timm==0.9.16
+einops==0.8.1
+spconv-cu126==2.3.8
+cumm-cu126==0.7.11
+torch-scatter==2.1.2+pt27cu128
+torch-cluster==1.6.3+pt27cu128

@@ -1,0 +1,6 @@
+# Local delta on the already verified CUDA/SNAP image; no dependency download.
+ARG VEHICLE_FIT_RUNTIME_BASE=cvat/vehicle-fit:pr2
+FROM ${VEHICLE_FIT_RUNTIME_BASE}
+COPY components/vehicle_fit/__init__.py components/vehicle_fit/cloud.py \
+    components/vehicle_fit/geometry.py components/vehicle_fit/service.py \
+    components/vehicle_fit/snap_backend.py /app/components/vehicle_fit/

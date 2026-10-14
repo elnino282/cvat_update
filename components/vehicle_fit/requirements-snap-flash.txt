@@ -1,0 +1,2 @@
+# Install after requirements-snap-cuda.txt, with --no-build-isolation.
+flash-attn==2.8.3

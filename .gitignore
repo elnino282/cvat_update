@@ -90,4 +90,4 @@ cvat-ui/dist-autofit-fast
 
 # Local Auto Fit checkpoint, mounted read-only and never committed
 components/vehicle_fit/weights/
-components/vehicle_fit/
+components/vehicle_fit/evidence
