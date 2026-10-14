@@ -66,9 +66,8 @@ class EstimateTests(unittest.TestCase):
         seed = np.array([10.05, .9, .75])
         mask = np.zeros(len(cloud), dtype=bool)
         points = cloud[:, :3]
-        # A fragment with measured breadth and height but insufficient full-car surfaces.
-        mask = ((points[:, 0] >= 9.9) & (points[:, 0] <= 10.55) &
-                (points[:, 1] >= .60) & (points[:, 1] <= .91) & (points[:, 2] > .1))
+        # A partial car with one real end, breadth and vertical support.
+        mask = (points[:, 0] <= 10.3) & (points[:, 2] > .1)
         with self.assertRaises(NoFit):
             fit_vehicle(cloud, seed, mask=mask)
         result = fit_vehicle(cloud, seed, mask=mask, allow_estimated=True)
@@ -81,17 +80,16 @@ class EstimateTests(unittest.TestCase):
     def test_merged_cars_are_not_enclosed_in_one_estimate(self):
         cloud = road_scene(((10, -3), (10, 3)))
         xyz = cloud[:, :3]
-        result = fit_vehicle(cloud, np.array([10.05, -2.1, .75]), mask=xyz[:, 2] > .1,
-                             allow_estimated=True)
-        self.assertLess(result['center'][1], 0)
-        self.assertLessEqual(result['size'][1], 2.3)
+        with self.assertRaises(NoFit) as caught:
+            fit_vehicle(cloud, np.array([10.05, -2.1, .75]), mask=xyz[:, 2] > .1,
+                        allow_estimated=True)
+        self.assertEqual(caught.exception.diagnostics['safetyGate'], 'mask-extent')
 
     def test_prior_completed_footprint_is_marked_for_review_even_if_surface_gate_passes(self):
-        from unittest.mock import patch
-        candidate = {'center': [10, 0, 1], 'size': [4, 1.8, 1.5], 'rotation': [0, 0, 0],
-                     'diagnostics': {'observed_footprint': [2.4, 1.6]}}
-        with patch('vehicle_fit.geometry._fit_vehicle', return_value=candidate):
-            result = fit_vehicle(road_scene(), [10, .9, .75], allow_estimated=True)
+        cloud = road_scene()
+        mask = (cloud[:, 0] <= 11.3) & (cloud[:, 2] > .1)
+        result = fit_vehicle(cloud, [10.05, .9, .75], mask=mask, allow_estimated=True,
+                             max_surface_score=.10)
         self.assertEqual(result['quality'], 'estimated')
         self.assertEqual(result['diagnostics']['reviewReason'], 'partially-observed-footprint')
 
@@ -105,12 +103,9 @@ class EstimateTests(unittest.TestCase):
         mask = np.zeros(len(cloud), dtype=bool)
         mask[np.r_[near, far]] = True
         from vehicle_fit.geometry import estimate_vehicle
-        try:
-            result = estimate_vehicle(cloud, xyz[near[0]], mask=mask)
-        except NoFit:
-            return  # Refusal is also valid when the isolated fragment has no width evidence.
-        self.assertLess(result['center'][1], 0)
-        self.assertTrue(np.all(xyz[result['diagnostics']['mask_indices'], 1] < 0))
+        with self.assertRaises(NoFit) as caught:
+            estimate_vehicle(cloud, xyz[near[0]], mask=mask)
+        self.assertIn(caught.exception.diagnostics['safetyGate'], ('seed-local-mask', 'seed-orientation'))
 
     def test_sparse_isotropic_patch_is_refused_instead_of_guessing_vehicle_orientation(self):
         cloud = road_scene()

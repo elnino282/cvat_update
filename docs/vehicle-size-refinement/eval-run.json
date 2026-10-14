@@ -1,0 +1,17 @@
+{
+  "manifest_sha256": "9502eef757b57cdac7054f95ae84c573ccd61659c7e4d762b0560bd6a1532c14",
+  "inputs_sha256": "1180fdf2381ba40230b475269b76e851d3e26fa0567527667fff0ee0a8856ce3",
+  "replay_sha256": "82a6b93515c0cefbeac2a54b943af683ba73574e7377b017fadd297333fa4e60",
+  "baseline_geometry_sha256": "de2192980ddab9818ffe0e4d88d49f00c637b91ef85b8e8423308d89f154817f",
+  "new_geometry_sha256": "e5205d346b581103f8bfec62f85c4b7c2dc5bca97a1c3860b2c9a99248a1dd0a",
+  "split": "eval",
+  "protocol": "first frozen seed, historical mask held fixed (may be post ground-filter); fresh geometry; no retries; allowEstimated=true; explicit geometry-only rows replay estimator",
+  "latency": "CPU geometry only, no model/HTTP/UI latency",
+  "priors_lwh": [
+    3.7,
+    1.61,
+    1.49
+  ],
+  "completed": true,
+  "expected_cases": 259
+}

@@ -107,6 +107,28 @@ class AutoFitAdapterTests(SimpleTestCase):
         for override in [{"requestId": "old-id"}, {"objectType": "tag"}, {"frame": -1}]:
             self.assertFalse(AutoFitRequestSerializer(data={**self.data, **override}).is_valid())
 
+    def test_explicit_timeout_is_bounded_and_independent_of_policy(self):
+        for value in (0, -1, 16001):
+            self.assertFalse(AutoFitRequestSerializer(data={**self.data, 'timeout_ms': value}).is_valid())
+        for allow in (False, True):
+            self.data.update(allowEstimated=allow, timeout_ms=8000)
+            fit_job_frame(self.request, self.job)
+            forwarded = json.loads(self.post.call_args.kwargs['data']['metadata'])
+            self.assertGreater(forwarded['timeout_ms'], 7000)
+            self.assertLessEqual(forwarded['timeout_ms'], 8000)
+        self.data.pop('timeout_ms')
+        fit_job_frame(self.request, self.job)
+        forwarded = json.loads(self.post.call_args.kwargs['data']['metadata'])
+        self.assertLessEqual(forwarded['timeout_ms'], 1700)
+
+    @override_settings(CVAT_AUTOFIT_BACKEND='snap')
+    def test_strict_fallback_rejection_is_valid_no_fit(self):
+        rejection = {'status': 'no-fit', 'requestId': self.data['requestId'], 'frame': 3,
+                     'provider': 'snap', 'reason': 'insufficient-evidence',
+                     'diagnostics': {'attemptedProvider': 'geometry-only', 'assessedQuality': 'estimated'}}
+        self.post.return_value.json.return_value = rejection
+        self.assertEqual(fit_job_frame(self.request, self.job).data, rejection)
+
     def test_invalid_geometry_and_wrong_provenance_create_no_fit(self):
         for override in [
             {"center": [float("nan"), 0, 0]}, {"size": [-1, 1, 1]},

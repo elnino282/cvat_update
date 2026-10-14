@@ -103,7 +103,7 @@ class ServiceTests(unittest.TestCase):
         self.runtime.backend.segment.return_value = (np.array([True]), details)
         with patch("vehicle_fit.service.decode_cloud", return_value=(cloud, np.array([0]))), \
              patch("vehicle_fit.service.fit_vehicle", side_effect=error):
-            result = self.runtime.fit_once(metadata(), raw)
+            result = self.runtime.fit_once(dict(metadata(), timeout_ms=8000), raw)
         self.assertEqual(result["status"], "no-fit")
         self.assertEqual(result["diagnostics"]["surfaceScore"], .22)
         self.assertEqual(result["diagnostics"]["maskPoints"], 12)
@@ -155,11 +155,20 @@ class RuntimeLifecycleTests(unittest.TestCase):
             self.runtime._requests[self.runtime._key(meta)]['done'].wait(1)
             self.assertEqual(self.runtime._requests[self.runtime._key(meta)]['result']['reason'], 'timeout')
 
+    def test_geometry_deadline_is_timeout_not_explicit_cancellation(self):
+        meta = metadata()
+        def expired(*args, **kwargs):
+            self.runtime._requests[self.runtime._key(meta)]['deadline'] = time.monotonic()-1
+            raise NoFit('cancelled', 'Geometry observed expired deadline')
+        with patch('vehicle_fit.service.fit_vehicle', side_effect=expired):
+            result = self.runtime.fit_once(meta, self.raw)
+        self.assertEqual(result['reason'], 'timeout')
+
     def test_cancelled_gpu_queue_never_calls_segment(self):
         self.runtime.backend_name = 'snap'
         self.runtime.backend = Mock()
         self.runtime._gpu.acquire()
-        meta = metadata()
+        meta = dict(metadata(), timeout_ms=8000)
         output = []
         with patch('vehicle_fit.service.fit_vehicle', side_effect=fake_fit):
             thread = threading.Thread(target=lambda: output.append(self.runtime.fit_once(meta, self.raw)))
@@ -173,6 +182,45 @@ class RuntimeLifecycleTests(unittest.TestCase):
             thread.join(2)
         self.runtime.backend.segment.assert_not_called()
         self.assertEqual(output[0]['reason'], 'cancelled')
+
+    def test_cold_inference_and_quality_are_independent_of_estimated_policy(self):
+        from vehicle_fit.tests.test_geometry import road_scene
+        cloud = road_scene().astype('<f4')
+        seed = {'x': 10.05, 'y': .9, 'z': .75, 'pointIndex': 0}
+        self.runtime.backend_name = 'snap'
+        self.runtime.backend = None
+        responses = []
+        for allow in (False, True):
+            meta = dict(metadata('1ab2c3d4-e5f6-4789-8123-456789abcde' + str(int(allow))),
+                        seed=seed, allowEstimated=allow)
+            responses.append(self.runtime.fit_once(meta, cloud.tobytes()))
+        strict, relaxed = responses
+        self.assertEqual(strict['status'], 'no-fit')
+        self.assertEqual(strict['provider'], 'snap')
+        self.assertEqual(strict['diagnostics']['assessedQuality'], 'estimated')
+        self.assertEqual(strict['diagnostics']['attemptedProvider'], 'geometry-only')
+        self.assertEqual(relaxed['quality'], 'estimated')
+        self.assertEqual(relaxed['provider'], 'geometry-only')
+
+    def test_warm_snap_is_selected_for_both_quality_policies(self):
+        from vehicle_fit.tests.test_geometry import road_scene
+        cloud = road_scene().astype('<f4')
+        token = self.runtime.prepare(metadata(), cloud.tobytes())['frameToken']
+        entry = self.runtime._frames[token]
+        entry['prepared'] = True
+        self.runtime.backend_name = 'snap'
+        self.runtime.backend = Mock(_cached_key=entry['feature_key'])
+        self.runtime.backend.segment.return_value = ((cloud[:, 0] <= 11.3) & (cloud[:, 2] > .1), {})
+        responses = []
+        for allow in (False, True):
+            meta = dict(metadata('1ab2c3d4-e5f6-4789-8123-456789abcde' + str(int(allow))),
+                        seed={'x': 10.05, 'y': .9, 'z': .75, 'pointIndex': 0},
+                        frameToken=token, allowEstimated=allow)
+            responses.append(self.runtime.fit_once(meta))
+        self.assertEqual(self.runtime.backend.segment.call_count, 2)
+        self.assertEqual(responses[0]['status'], 'no-fit')
+        self.assertEqual(responses[0]['diagnostics']['assessedQuality'], responses[1]['quality'])
+        self.assertEqual(responses[1]['provider'], 'snap')
 
     def test_cold_snap_estimate_is_explicit_and_does_not_wait_for_gpu(self):
         self.runtime.backend_name = 'snap'

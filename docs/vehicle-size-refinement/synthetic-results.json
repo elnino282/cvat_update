@@ -1,0 +1,208 @@
+[
+  {
+    "missing_end": -1,
+    "variant": "baseline",
+    "length": 3.4000000000000004,
+    "center": [
+      10.399999999999999,
+      1.1102230246251565e-16,
+      0.8
+    ],
+    "quality": "confident",
+    "length_error": 0.7999999999999998,
+    "refinement": null
+  },
+  {
+    "missing_end": -1,
+    "variant": "safety",
+    "length": 3.4000000000000004,
+    "center": [
+      10.399999999999999,
+      1.1102230246251565e-16,
+      0.8
+    ],
+    "quality": "estimated",
+    "length_error": 0.7999999999999998,
+    "refinement": {
+      "applied": false,
+      "originalDimensionsLWH": [
+        3.4000000000000004,
+        1.73,
+        1.6
+      ],
+      "refinedDimensionsLWH": [
+        3.4000000000000004,
+        1.73,
+        1.6
+      ],
+      "appliedPriorLWH": [
+        3.7,
+        1.61,
+        1.49
+      ],
+      "observedCoverageLW": [
+        1.0,
+        1.0404624277456649
+      ],
+      "extensionDirection": "unknown",
+      "alpha": 0.0,
+      "endFaceSupport": [
+        false,
+        true
+      ],
+      "endFaceCorePoints": [
+        0,
+        72
+      ],
+      "yawStable": true
+    }
+  },
+  {
+    "missing_end": -1,
+    "variant": "refined",
+    "length": 3.528571428571429,
+    "center": [
+      10.335714285714284,
+      1.1102230246251565e-16,
+      0.8
+    ],
+    "quality": "estimated",
+    "length_error": 0.6714285714285713,
+    "refinement": {
+      "applied": true,
+      "originalDimensionsLWH": [
+        3.4000000000000004,
+        1.73,
+        1.6
+      ],
+      "refinedDimensionsLWH": [
+        3.528571428571429,
+        1.73,
+        1.6
+      ],
+      "appliedPriorLWH": [
+        3.7,
+        1.61,
+        1.49
+      ],
+      "observedCoverageLW": [
+        1.0,
+        1.0404624277456649
+      ],
+      "extensionDirection": "negative-local-x",
+      "alpha": 0.4285714285714283,
+      "endFaceSupport": [
+        false,
+        true
+      ],
+      "endFaceCorePoints": [
+        0,
+        72
+      ],
+      "yawStable": true
+    }
+  },
+  {
+    "missing_end": 1,
+    "variant": "baseline",
+    "length": 3.4000000000000004,
+    "center": [
+      9.575,
+      1.1102230246251565e-16,
+      0.8
+    ],
+    "quality": "confident",
+    "length_error": 0.7999999999999998,
+    "refinement": null
+  },
+  {
+    "missing_end": 1,
+    "variant": "safety",
+    "length": 3.4000000000000004,
+    "center": [
+      9.575,
+      1.1102230246251565e-16,
+      0.8
+    ],
+    "quality": "estimated",
+    "length_error": 0.7999999999999998,
+    "refinement": {
+      "applied": false,
+      "originalDimensionsLWH": [
+        3.4000000000000004,
+        1.73,
+        1.6
+      ],
+      "refinedDimensionsLWH": [
+        3.4000000000000004,
+        1.73,
+        1.6
+      ],
+      "appliedPriorLWH": [
+        3.7,
+        1.61,
+        1.49
+      ],
+      "observedCoverageLW": [
+        0.9852941176470581,
+        1.0404624277456649
+      ],
+      "extensionDirection": "unknown",
+      "alpha": 0.0,
+      "endFaceSupport": [
+        true,
+        false
+      ],
+      "endFaceCorePoints": [
+        72,
+        0
+      ],
+      "yawStable": true
+    }
+  },
+  {
+    "missing_end": 1,
+    "variant": "refined",
+    "length": 3.550000000000001,
+    "center": [
+      9.65,
+      1.1102230246251565e-16,
+      0.8
+    ],
+    "quality": "estimated",
+    "length_error": 0.649999999999999,
+    "refinement": {
+      "applied": true,
+      "originalDimensionsLWH": [
+        3.4000000000000004,
+        1.73,
+        1.6
+      ],
+      "refinedDimensionsLWH": [
+        3.550000000000001,
+        1.73,
+        1.6
+      ],
+      "appliedPriorLWH": [
+        3.7,
+        1.61,
+        1.49
+      ],
+      "observedCoverageLW": [
+        0.9852941176470581,
+        1.0404624277456649
+      ],
+      "extensionDirection": "positive-local-x",
+      "alpha": 0.5000000000000033,
+      "endFaceSupport": [
+        true,
+        false
+      ],
+      "endFaceCorePoints": [
+        72,
+        0
+      ],
+      "yawStable": true
+    }
+  }
+]

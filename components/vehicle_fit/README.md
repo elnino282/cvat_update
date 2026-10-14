@@ -93,6 +93,12 @@ preparation replaces older queued work. Missing tokens can be re-prepared
 once within the original gesture deadline.
 
 New fit requests opt in with allowEstimated=true and optionally frameToken.
+`allowEstimated` now controls only acceptance of an assessed estimate. The
+public job API accepts optional integer `timeout_ms` in 1..16000, default 1700;
+the private API retains its 16000 ms default. Readiness and budget select
+inference independently of quality policy. Budgets up to 2000 ms use only a
+prepared SNAP frame and wait at most 200 ms for its GPU lock; cold/busy/error
+cases attempt validated geometry estimates, then apply the requested policy.
 The canvas deadline is 2 seconds, provider 1.85 seconds and adapter 1.7 seconds
 including frame access. The private runtime applies its deadline to owners,
 duplicates, GPU queue and result publication. CUDA work already running is
@@ -122,7 +128,62 @@ OPENBLAS_NUM_THREADS=1 PYTHONPATH=components /tmp/cvat-pointsam-venv/bin/python 
   --endpoint http://127.0.0.1:8093 --output /tmp/auto-fit-eval
 ```
 
-The same harness accepts raw50-manifest.json. It reports every vehicle, no-fit,
+The same harness accepts raw50-manifest.json with `--tracklet-zip` pointing to
+the matching frozen tracklet archive. It reports every vehicle, no-fit,
 unseedable, confident/estimated quality, exact 3D IoU and wrong-vehicle results
 on the first seed with no retry. Prepared private HTTP latency is distinct
 from browser gesture-to-cuboid latency; the latter is not measured here.
+
+## Experimental adaptive size refinement
+
+`VEHICLE_FIT_ADAPTIVE_SIZE_REFINEMENT=false` is the default; Compose exposes it
+as `CVAT_AUTOFIT_ADAPTIVE_SIZE_REFINEMENT`. Keep it disabled until geometry and
+integration acceptance pass. Disabling it rolls back only the additional
+length refinement. Instance validation and honest quality classification stay
+active. Both geometry and runtime default to the frozen tune medians
+`[3.70, 1.61, 1.49]` m; explicit environment overrides remain available.
+
+All paths require real supporting returns around the selected seed, final
+oriented containment with 0.05 m tolerance, physical dimension bounds,
+support containment and detached-neighbor checks. Mask connectivity alone is
+insufficient when parked cars touch: the mask must cover at least 55% of
+distinct local non-ground voxels around the seed. Sparse disconnected scan
+rings may still belong to the supplied SNAP instance; final geometry must
+contain the seed and fit those returns. Safety failures cannot invoke an
+estimated/proposed-cuboid rescue. Strict policy rejects an estimate without
+changing its assessed quality.
+An internal transverse cap with ≥2.6 m of observed length on either side also
+rejects a candidate that plausibly joins two compact cars bumper-to-bumper.
+
+The independently implemented observed-end detector requires a cap patch
+inside a 0.16 m face band, away from side edges and the upper 0.20 m of the
+roof, with sufficient support across width and height. Only one supported end
+and stable yaw permit length growth toward the existing prior. Alpha is
+`clip((prior_length - observed_length)/0.70, 0, 1)`. The supported face stays
+fixed while the opposite end moves; width, height and yaw remain unchanged.
+Unknown direction and two supported ends prevent growth. A refined box stays
+estimated and passes all safety checks again. No sensor origin is assumed for
+extension direction; the existing range-based connectivity radius is retained.
+
+This alpha formula is a CVAT proposal, not an Autoware or OpenBox algorithm.
+See the [audit and evaluation report](../../docs/vehicle-size-refinement/README.md)
+for exact thresholds, upstream references, completed A/B results and limitations.
+The feature is experimental: synthetic improvement does not establish a KITTI
+or browser acceptance PASS.
+
+Frozen-mask replay operates without GPU inference or annotation writes:
+
+```bash
+PYTHONPATH=components python3 -m vehicle_fit.evaluation.replay \
+  --manifest components/vehicle_fit/evidence/object-manifest.json --split eval \
+  --inputs components/vehicle_fit/evidence/fast-final-heldout/cases.jsonl \
+  --baseline /tmp/vehicle-size-baseline/components/vehicle_fit/geometry.py \
+  --output components/vehicle_fit/evidence/vehicle-size-refinement/final-eval
+```
+
+Extract baseline source from the reported SHA into a separate directory before
+using that command. Replay verifies frozen frame assets including calibration;
+RAW additionally requires `--tracklet-zip`. It uses the first frozen seed and
+the same historical mask for every variant, never GT geometry as fitter input.
+The evaluator flushes each case, separates transport errors and unseedable
+cases, and reports coverage, seed containment and common-accepted metrics.

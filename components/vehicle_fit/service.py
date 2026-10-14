@@ -18,7 +18,7 @@ from urllib.parse import parse_qs, urlparse
 import numpy as np
 
 from .cloud import decode_cloud
-from .geometry import NoFit, VehiclePriors, estimate_vehicle, fit_vehicle
+from .geometry import NoFit, VehiclePriors, apply_quality_policy, estimate_vehicle, fit_vehicle
 
 LOGGER = logging.getLogger("vehicle_fit")
 MAX_BODY_BYTES = 128 * 1024 * 1024
@@ -40,11 +40,18 @@ class FitRuntime:
         self.backend_error = None
         self.model_loading = self.backend_name == "snap"
         self.warmed = False
+        defaults = VehiclePriors()
         self.priors = VehiclePriors(
-            length=float(os.getenv("VEHICLE_FIT_PRIOR_LENGTH", "3.7")),
-            width=float(os.getenv("VEHICLE_FIT_PRIOR_WIDTH", "1.61")),
-            height=float(os.getenv("VEHICLE_FIT_PRIOR_HEIGHT", "1.49")),
+            length=float(os.getenv("VEHICLE_FIT_PRIOR_LENGTH", str(defaults.length))),
+            width=float(os.getenv("VEHICLE_FIT_PRIOR_WIDTH", str(defaults.width))),
+            height=float(os.getenv("VEHICLE_FIT_PRIOR_HEIGHT", str(defaults.height))),
         )
+        flag = os.getenv("VEHICLE_FIT_ADAPTIVE_SIZE_REFINEMENT", "false").lower()
+        if flag not in {"true", "false"}:
+            raise RuntimeError("VEHICLE_FIT_ADAPTIVE_SIZE_REFINEMENT must be true or false")
+        self.adaptive_refinement = flag == "true"
+        if not np.isfinite([self.priors.length, self.priors.width, self.priors.height]).all() or min(self.priors.length, self.priors.width, self.priors.height) <= 0:
+            raise RuntimeError("Vehicle priors must be finite and positive")
         self.max_surface_score = float(os.getenv("VEHICLE_FIT_MAX_SURFACE_SCORE", "0.10"))
         if not np.isfinite(self.max_surface_score) or self.max_surface_score <= 0:
             raise RuntimeError("VEHICLE_FIT_MAX_SURFACE_SCORE must be finite and positive")
@@ -126,6 +133,7 @@ class FitRuntime:
             "vehiclePriorsMetres": {"length": self.priors.length, "width": self.priors.width,
                                     "height": self.priors.height},
             "maxSurfaceScore": self.max_surface_score,
+            "adaptiveSizeRefinement": self.adaptive_refinement,
             "provenance": getattr(self.backend, "provenance", {}),
         }
 
@@ -236,6 +244,7 @@ class FitRuntime:
                 raise ValueError("seed contains a non-finite coordinate")
             entry = self._requests[self._key(meta)]
             allow_estimated = meta.get("allowEstimated") is True
+            interactive = float(meta.get("timeout_ms", 16000)) <= 2000
 
             def cancelled():
                 return entry["cancelled"] or time.monotonic() >= entry["deadline"]
@@ -248,17 +257,15 @@ class FitRuntime:
             mask = None
             use_snap = self.backend_name == "snap" and self.backend is not None
             # Interactive clients never pay the first full-scene CUDA inference.
-            if allow_estimated and (not prepared or self._frame_status(meta["frameToken"], prepared)["state"] != "ready"):
+            if interactive and (not prepared or self._frame_status(meta["frameToken"], prepared)["state"] != "ready"):
                 use_snap = False
             if use_snap:
                 remaining = max(0, entry["deadline"] - time.monotonic())
-                acquired = self._gpu.acquire(timeout=min(remaining, .2 if allow_estimated else remaining))
-                if not acquired and not allow_estimated:
-                    raise NoFit("timeout", "GPU queue deadline exceeded")
+                acquired = self._gpu.acquire(timeout=min(remaining, .2 if interactive else remaining))
                 if acquired:
                     try:
                         check()
-                        if allow_estimated and getattr(self.backend, "_cached_key", None) != prepared["feature_key"]:
+                        if interactive and getattr(self.backend, "_cached_key", None) != prepared["feature_key"]:
                             use_snap = False
                         else:
                             kwargs = {"frame_key": prepared["feature_key"]} if prepared else {}
@@ -266,14 +273,14 @@ class FitRuntime:
                                 mask, diagnostics = self.backend.segment(cloud, seed, **kwargs)
                                 mask_indices = np.flatnonzero(mask)
                             except Exception as exc:
-                                if not allow_estimated:
-                                    raise
                                 use_snap = False
-                                prepared["prepared"] = False
-                                prepared["error"] = f"{type(exc).__name__}: {exc}"
+                                if prepared:
+                                    prepared["prepared"] = False
+                                    prepared["error"] = f"{type(exc).__name__}: {exc}"
                                 if "out of memory" in str(exc).lower():
                                     self.backend.clear_cache()
-                                self._retry_prepare(meta["frameToken"], prepared)
+                                if prepared:
+                                    self._retry_prepare(meta["frameToken"], prepared)
                                 LOGGER.exception("SNAP prompt failed; using explicit geometry estimate")
                             check()
                     finally:
@@ -281,14 +288,16 @@ class FitRuntime:
                 else:
                     use_snap = False
             if self.backend_name == "snap" and not use_snap:
-                if not allow_estimated:
-                    raise RuntimeError(self.backend_error or "SNAP is not ready")
-                result_base["provider"] = "geometry-only"
-                fit = estimate_vehicle(cloud, seed, priors=self.priors, cancelled=cancelled)
                 diagnostics = {"fallbackFrom": "snap", "fallbackReason": "model-or-frame-not-ready"}
+                fit = estimate_vehicle(cloud, seed, priors=self.priors, cancelled=cancelled,
+                                       adaptive_refinement=self.adaptive_refinement)
+                diagnostics["attemptedProvider"] = "geometry-only"
+                fit = apply_quality_policy(fit, allow_estimated)
+                result_base["provider"] = "geometry-only"
             else:
                 fit = fit_vehicle(cloud, seed, mask=mask, priors=self.priors, cancelled=cancelled,
-                                  max_surface_score=self.max_surface_score, allow_estimated=allow_estimated)
+                                  max_surface_score=self.max_surface_score, allow_estimated=allow_estimated,
+                                  adaptive_refinement=self.adaptive_refinement)
             check()
             mask_indices = fit["diagnostics"].pop("mask_indices", mask_indices)
             diagnostics.update(fit.pop("diagnostics"))
@@ -307,7 +316,11 @@ class FitRuntime:
             diagnostics.update(detail=exc.detail, cloudSHA256=cloud_hash)
             if mask_indices is not None:
                 diagnostics["maskIndices"] = original_indices[np.asarray(mask_indices, dtype=int)].tolist()
-            return {"status": "no-fit", **result_base, "reason": exc.reason, "diagnostics": diagnostics}
+            reason = exc.reason
+            request = self._requests.get(self._key(meta))
+            if reason == "cancelled" and request and not request["cancelled"] and time.monotonic() >= request["deadline"]:
+                reason = "timeout"
+            return {"status": "no-fit", **result_base, "reason": reason, "diagnostics": diagnostics}
         except ValueError as exc:
             return {"status": "no-fit", **result_base, "reason": "invalid-seed", "diagnostics": {"detail": str(exc)}}
         except Exception as exc:

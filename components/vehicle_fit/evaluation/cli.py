@@ -168,7 +168,9 @@ def summarize(records):
         successes = [r for r in accepted if r["correct_vehicle"] and r["metrics"]["iou_3d"] >= .7]
         summary[name] = {"cases": len(cohort), "primary_attempted": len(submitted),
                          "accepted": len(accepted), "unseedable": sum(not r["attempts"] for r in cohort),
-                         "no_fit": sum(bool(r["attempts"]) and not r["accepted"] for r in cohort),
+                         "no_fit": sum(r["outcome"] == "NO_FIT" for r in cohort),
+                         "transport_error": sum(r["outcome"] == "TRANSPORT_ERROR" for r in cohort),
+                         "invalid_geometry": sum(r["outcome"] == "INVALID_GEOMETRY" for r in cohort),
                          "correct_vehicle": len(correct), "wrong_vehicle": len(accepted) - len(correct),
                          "coverage": len(accepted) / len(cohort) if cohort else None,
                          "correct_vehicle_rate_of_accepted": len(correct) / len(accepted) if accepted else None,

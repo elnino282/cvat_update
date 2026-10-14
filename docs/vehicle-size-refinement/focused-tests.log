@@ -1,0 +1,67 @@
+test_refusals_unseedable_and_retry_remain_in_denominator (evaluation.test_evaluation.EvaluationTests) ... ok
+test_seeds_are_measured_finite_and_frozen (evaluation.test_evaluation.EvaluationTests) ... ok
+test_calibration_and_bottom_center (evaluation.test_metrics.MetricsTests) ... ok
+test_containment (evaluation.test_metrics.MetricsTests) ... ok
+test_identical_disjoint_touching_and_translation (evaluation.test_metrics.MetricsTests) ... ok
+test_invalid_geometry (evaluation.test_metrics.MetricsTests) ... ok
+test_true_3d_rotation_and_symmetry (evaluation.test_metrics.MetricsTests) ... ok
+test_yaw_mod_pi (evaluation.test_metrics.MetricsTests) ... ok
+test_calibration_hash_is_checked_before_geometry_evaluation (evaluation.test_replay.ReplayTests) ... ok
+test_missing_masks_and_unseedable_cases_are_explicit (evaluation.test_replay.ReplayTests) ... ok
+test_transport_failure_is_flushed_and_distinct_from_algorithm_no_fit (evaluation.test_replay.ReplayTests) ... ok
+test_ascii_pcd_field_order_and_compressed_voxel_inverse (tests.test_cloud.CloudTests) ... ok
+test_kitti_bin_finite_point_and_intensity_mapping (tests.test_cloud.CloudTests) ... ok
+test_rejects_truncated_cloud (tests.test_cloud.CloudTests) ... ok
+test_estimate_is_opt_in_and_ground_never_creates_box (tests.test_geometry.EstimateTests) ... ok
+test_merged_cars_are_not_enclosed_in_one_estimate (tests.test_geometry.EstimateTests) ... ok
+test_prior_completed_footprint_is_marked_for_review_even_if_surface_gate_passes (tests.test_geometry.EstimateTests) ... ok
+test_sparse_isotropic_patch_is_refused_instead_of_guessing_vehicle_orientation (tests.test_geometry.EstimateTests) ... ok
+test_sparse_mask_with_detached_neighbor_returns_keeps_only_seed_vehicle (tests.test_geometry.EstimateTests) ... ok
+test_full_observed_car_returns_whole_finite_cuboid (tests.test_geometry.GeometryTests) ... ok
+test_ground_seed_and_insufficient_surface_are_refused (tests.test_geometry.GeometryTests) ... ok
+test_neighboring_cars_do_not_join_into_an_oversized_fit (tests.test_geometry.GeometryTests) ... ok
+test_geometry_only_and_cancelled_refinement_cannot_bypass_safety (tests.test_refinement.InstanceSafetyTests) ... ok
+test_isolated_measured_seed_cannot_borrow_a_neighbor_cluster (tests.test_refinement.InstanceSafetyTests) ... ok
+test_neighbor_mask_with_one_selected_seed_is_terminal_in_every_path (tests.test_refinement.InstanceSafetyTests) ... ok
+test_seed_containment_tolerance_and_vertical_axis (tests.test_refinement.InstanceSafetyTests) ... ok
+test_seed_outside_winning_candidate_is_terminal_even_when_components_touch (tests.test_refinement.InstanceSafetyTests) ... ok
+test_touching_bumpers_do_not_make_one_seed_a_neighbor_instance (tests.test_refinement.InstanceSafetyTests) ... ok
+test_two_compact_cars_with_touching_bumpers_are_not_one_long_car (tests.test_refinement.InstanceSafetyTests) ... ok
+test_extension_into_detached_support_is_blocked (tests.test_refinement.RefinementTests) ... ok
+test_fragment_with_no_supported_ends_is_refused_in_both_policies (tests.test_refinement.RefinementTests) ... ok
+test_full_observation_and_unknown_ends_do_not_extend (tests.test_refinement.RefinementTests) ... ok
+test_no_extension_with_unstable_yaw_or_horizontal_only_cap_patch (tests.test_refinement.RefinementTests) ... ok
+test_one_end_extension_preserves_anchor_and_improves_length (tests.test_refinement.RefinementTests) ... ok
+test_quality_is_assessed_before_strict_policy (tests.test_refinement.RefinementTests) ... ok
+test_refinement_default_prior_matches_runtime (tests.test_refinement.RefinementTests) ... ok
+test_rotated_translated_end_anchoring (tests.test_refinement.RefinementTests) ... ok
+test_supported_long_car_does_not_shrink_or_trigger_joined_surface_gate (tests.test_refinement.RefinementTests) ... ok
+test_supported_small_car_is_preserved_below_prior (tests.test_refinement.RefinementTests) ... ok
+test_cancelled_gpu_queue_never_calls_segment (tests.test_service.RuntimeLifecycleTests) ... ok
+test_cold_inference_and_quality_are_independent_of_estimated_policy (tests.test_service.RuntimeLifecycleTests) ... ok
+test_cold_snap_estimate_is_explicit_and_does_not_wait_for_gpu (tests.test_service.RuntimeLifecycleTests) ... ok
+test_geometry_deadline_is_timeout_not_explicit_cancellation (tests.test_service.RuntimeLifecycleTests) ... ok
+test_owner_deadline_returns_without_waiting_for_running_work (tests.test_service.RuntimeLifecycleTests) ... ok
+test_prepared_scope_expiry_and_cache_skip_decode (tests.test_service.RuntimeLifecycleTests) ... ok
+test_prepared_token_is_not_a_new_identity_and_expired_request_can_recover (tests.test_service.RuntimeLifecycleTests) ... ok
+test_prompt_gpu_failure_recovers_to_explicit_estimate_and_schedules_prepare (tests.test_service.RuntimeLifecycleTests) ... SNAP prompt failed; using explicit geometry estimate
+Traceback (most recent call last):
+  File "/workspace/components/vehicle_fit/service.py", line 273, in _fit
+    mask, diagnostics = self.backend.segment(cloud, seed, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: CUDA temporary failure
+ok
+test_warm_snap_is_selected_for_both_quality_policies (tests.test_service.RuntimeLifecycleTests) ... ok
+test_duplicate_request_is_single_flight_and_payload_mismatch_conflicts (tests.test_service.ServiceTests) ... ok
+test_no_fit_retains_snap_mask_diagnostics_and_quality_gate_measurements (tests.test_service.ServiceTests) ... ok
+test_private_http_fit_returns_single_valid_geometry_and_provenance (tests.test_service.ServiceTests) ... ok
+
+----------------------------------------------------------------------
+Ran 51 tests in 2.987s
+
+OK

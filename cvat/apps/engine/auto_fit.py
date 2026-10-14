@@ -49,6 +49,7 @@ class AutoFitRequestSerializer(serializers.Serializer):
     seed = AutoFitSeedSerializer()
     frameToken = serializers.RegexField(r"^[0-9a-f]{32}$", required=False)
     allowEstimated = serializers.BooleanField(default=False)
+    timeout_ms = serializers.IntegerField(min_value=1, max_value=16000, default=1700)
 
 
 class AutoFitPrepareSerializer(serializers.Serializer):
@@ -141,7 +142,7 @@ def fit_job_frame(request, job):
             cloud = frame.data.getvalue()
     finally:
         provider.unload()
-    remaining = (1.7 if metadata.get("allowEstimated") else 16) - (time.monotonic() - started)
+    remaining = metadata["timeout_ms"] / 1000 - (time.monotonic() - started)
     if remaining <= 0:
         return _no_fit(metadata, "timeout", response_status=status.HTTP_504_GATEWAY_TIMEOUT)
     metadata.update(
