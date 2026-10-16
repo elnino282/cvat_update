@@ -1655,6 +1655,8 @@ class LabeledImageAttributeVal(AttributeVal):
 
 
 class LabeledShape(Annotation, FrameAnnotationMixin, ShapeAnnotationMixin, ScoredAnnotationMixin):
+    # Creation provenance; retained when an annotator adjusts the geometry.
+    auto_fit = models.JSONField(blank=True, default=dict)
     parent = models.ForeignKey(
         "self", on_delete=models.DO_NOTHING, null=True, related_name="elements"
     )
@@ -1670,6 +1672,8 @@ class LabeledShapeAttributeVal(AttributeVal):
 
 
 class LabeledTrack(Annotation, FrameAnnotationMixin):
+    # Applies to the creation frame, not inferred accuracy on interpolated frames.
+    auto_fit = models.JSONField(blank=True, default=dict)
     parent = models.ForeignKey(
         "self", on_delete=models.DO_NOTHING, null=True, related_name="elements"
     )

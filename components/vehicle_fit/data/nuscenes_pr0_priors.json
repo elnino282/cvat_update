@@ -1,0 +1,799 @@
+{
+  "created_at": "2026-10-16",
+  "dataset_version": "v1.0-mini",
+  "dev_input_sha256": "17df8848bc2700d59782d660725300c67b85eff0b448a1d080103b6491328019",
+  "limitations": [
+    "Prototype clusters are geometric; do not assert pickup/rigid/tractor labels",
+    "Sparse pools retained and flagged insufficient-data; not accepted production priors",
+    "P10/P90 are descriptive dev quantiles, not validated safety ranges",
+    "Van reuses Car-Van pool; no independent Van ground truth"
+  ],
+  "method": "Dev only; per-instance median dimensions avoid temporal count bias; log-size deterministic k-means k<=3, floor(instances/8); source-category/rider pools; stats across instance medians",
+  "prior_version": "nuscenes-pr0-v1-17df8848bc27",
+  "random_seed": 20261016,
+  "records": [
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 13,
+      "instance_count": 13,
+      "latent_prototype_key": "human.pedestrian.adult:None:geometry-00",
+      "mad_lwh": [
+        0.034999999999999976,
+        0.04200000000000004,
+        0.06900000000000017
+      ],
+      "median_lwh": [
+        0.439,
+        0.509,
+        1.725
+      ],
+      "p10_lwh": [
+        0.3952,
+        0.4514,
+        1.6607999999999998
+      ],
+      "p90_lwh": [
+        0.4838,
+        0.6086,
+        1.8821999999999999
+      ],
+      "ride_state": null,
+      "sample_count": 186,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "human.pedestrian.adult",
+      "split": "dev",
+      "status": "development-prototype",
+      "target_label": "pedestrian",
+      "vehicles_type": null
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 81,
+      "instance_count": 81,
+      "latent_prototype_key": "human.pedestrian.adult:None:geometry-01",
+      "mad_lwh": [
+        0.03199999999999992,
+        0.007000000000000006,
+        0.08699999999999997
+      ],
+      "median_lwh": [
+        0.58,
+        0.643,
+        1.752
+      ],
+      "p10_lwh": [
+        0.548,
+        0.585,
+        1.609
+      ],
+      "p90_lwh": [
+        0.716,
+        0.693,
+        1.911
+      ],
+      "ride_state": null,
+      "sample_count": 1716,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "human.pedestrian.adult",
+      "split": "dev",
+      "status": "development-prototype",
+      "target_label": "pedestrian",
+      "vehicles_type": null
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 86,
+      "instance_count": 86,
+      "latent_prototype_key": "human.pedestrian.adult:None:geometry-02",
+      "mad_lwh": [
+        0.068,
+        0.07350000000000001,
+        0.0714999999999999
+      ],
+      "median_lwh": [
+        0.883,
+        0.771,
+        1.799
+      ],
+      "p10_lwh": [
+        0.77,
+        0.672,
+        1.6465
+      ],
+      "p90_lwh": [
+        1.0390000000000001,
+        0.911,
+        1.9465
+      ],
+      "ride_state": null,
+      "sample_count": 1835,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "human.pedestrian.adult",
+      "split": "dev",
+      "status": "development-prototype",
+      "target_label": "pedestrian",
+      "vehicles_type": null
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 4,
+      "instance_count": 4,
+      "latent_prototype_key": "human.pedestrian.child:None:geometry-00",
+      "mad_lwh": [
+        0.05300000000000002,
+        0.05050000000000002,
+        0.07050000000000012
+      ],
+      "median_lwh": [
+        0.394,
+        0.4455,
+        1.4135
+      ],
+      "p10_lwh": [
+        0.337,
+        0.36779999999999996,
+        1.3326
+      ],
+      "p90_lwh": [
+        0.4944,
+        0.5064,
+        1.4860000000000002
+      ],
+      "ride_state": null,
+      "sample_count": 46,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "human.pedestrian.child",
+      "split": "dev",
+      "status": "insufficient-data",
+      "target_label": "pedestrian",
+      "vehicles_type": null
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 7,
+      "instance_count": 7,
+      "latent_prototype_key": "human.pedestrian.construction_worker:None:geometry-00",
+      "mad_lwh": [
+        0.119,
+        0.05400000000000005,
+        0.014000000000000012
+      ],
+      "median_lwh": [
+        0.718,
+        0.705,
+        1.766
+      ],
+      "p10_lwh": [
+        0.496,
+        0.6136,
+        1.7544
+      ],
+      "p90_lwh": [
+        0.8426,
+        0.7654,
+        1.8762
+      ],
+      "ride_state": null,
+      "sample_count": 190,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "human.pedestrian.construction_worker",
+      "split": "dev",
+      "status": "insufficient-data",
+      "target_label": "pedestrian",
+      "vehicles_type": null
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 1,
+      "instance_count": 1,
+      "latent_prototype_key": "human.pedestrian.personal_mobility:None:geometry-00",
+      "mad_lwh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_lwh": [
+        1.284,
+        0.826,
+        1.869
+      ],
+      "p10_lwh": [
+        1.284,
+        0.826,
+        1.869
+      ],
+      "p90_lwh": [
+        1.284,
+        0.826,
+        1.869
+      ],
+      "ride_state": null,
+      "sample_count": 25,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "human.pedestrian.personal_mobility",
+      "split": "dev",
+      "status": "insufficient-data",
+      "target_label": "pedestrian",
+      "vehicles_type": null
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 1,
+      "instance_count": 1,
+      "latent_prototype_key": "human.pedestrian.police_officer:None:geometry-00",
+      "mad_lwh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_lwh": [
+        0.474,
+        0.595,
+        1.807
+      ],
+      "p10_lwh": [
+        0.474,
+        0.595,
+        1.807
+      ],
+      "p90_lwh": [
+        0.474,
+        0.595,
+        1.807
+      ],
+      "ride_state": null,
+      "sample_count": 11,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "human.pedestrian.police_officer",
+      "split": "dev",
+      "status": "insufficient-data",
+      "target_label": "pedestrian",
+      "vehicles_type": null
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 11,
+      "instance_count": 11,
+      "latent_prototype_key": "vehicle.bicycle:False:geometry-00",
+      "mad_lwh": [
+        0.052000000000000046,
+        0.05999999999999994,
+        0.05499999999999994
+      ],
+      "median_lwh": [
+        1.791,
+        0.55,
+        1.137
+      ],
+      "p10_lwh": [
+        1.647,
+        0.458,
+        1.023
+      ],
+      "p90_lwh": [
+        1.843,
+        0.646,
+        1.21
+      ],
+      "ride_state": false,
+      "sample_count": 139,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "vehicle.bicycle",
+      "split": "dev",
+      "status": "development-prototype",
+      "target_label": "two-wheels",
+      "vehicles_type": null
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 3,
+      "instance_count": 3,
+      "latent_prototype_key": "vehicle.bicycle:True:geometry-00",
+      "mad_lwh": [
+        0.09400000000000008,
+        0.028000000000000025,
+        0.09299999999999997
+      ],
+      "median_lwh": [
+        1.864,
+        0.717,
+        1.839
+      ],
+      "p10_lwh": [
+        1.7888,
+        0.6946,
+        1.735
+      ],
+      "p90_lwh": [
+        2.0304,
+        0.8898,
+        1.9134
+      ],
+      "ride_state": true,
+      "sample_count": 76,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "vehicle.bicycle",
+      "split": "dev",
+      "status": "insufficient-data",
+      "target_label": "two-wheels",
+      "vehicles_type": null
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 12,
+      "instance_count": 12,
+      "latent_prototype_key": "vehicle.motorcycle:False:geometry-00",
+      "mad_lwh": [
+        0.2254999999999997,
+        0.0645,
+        0.05500000000000005
+      ],
+      "median_lwh": [
+        2.0999999999999996,
+        0.627,
+        1.3375
+      ],
+      "p10_lwh": [
+        1.8123,
+        0.5577000000000001,
+        1.2134
+      ],
+      "p90_lwh": [
+        2.5876,
+        0.8321000000000001,
+        1.514
+      ],
+      "ride_state": false,
+      "sample_count": 295,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "vehicle.motorcycle",
+      "split": "dev",
+      "status": "development-prototype",
+      "target_label": "two-wheels",
+      "vehicles_type": null
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 3,
+      "instance_count": 3,
+      "latent_prototype_key": "vehicle.motorcycle:True:geometry-00",
+      "mad_lwh": [
+        0.13100000000000023,
+        0.09500000000000008,
+        0.18599999999999994
+      ],
+      "median_lwh": [
+        2.235,
+        0.81,
+        1.745
+      ],
+      "p10_lwh": [
+        2.0942000000000003,
+        0.734,
+        1.5954000000000002
+      ],
+      "p90_lwh": [
+        2.3398,
+        1.0972,
+        1.8938000000000001
+      ],
+      "ride_state": true,
+      "sample_count": 44,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "vehicle.motorcycle",
+      "split": "dev",
+      "status": "insufficient-data",
+      "target_label": "two-wheels",
+      "vehicles_type": null
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 2,
+      "instance_count": 2,
+      "latent_prototype_key": "vehicle.bus.bendy:None:geometry-00",
+      "mad_lwh": [
+        0.35000000000000053,
+        0.09350000000000014,
+        0.07499999999999996
+      ],
+      "median_lwh": [
+        9.129999999999999,
+        2.8575,
+        3.2990000000000004
+      ],
+      "p10_lwh": [
+        8.85,
+        2.7826999999999997,
+        3.2390000000000003
+      ],
+      "p90_lwh": [
+        9.41,
+        2.9323,
+        3.359
+      ],
+      "ride_state": null,
+      "sample_count": 57,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "vehicle.bus.bendy",
+      "split": "dev",
+      "status": "insufficient-data",
+      "target_label": "vehicles",
+      "vehicles_type": "bus"
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 6,
+      "instance_count": 6,
+      "latent_prototype_key": "vehicle.bus.rigid:None:geometry-00",
+      "mad_lwh": [
+        1.0200000000000005,
+        0.12550000000000017,
+        0.14300000000000002
+      ],
+      "median_lwh": [
+        12.116,
+        3.0215,
+        3.4885
+      ],
+      "p10_lwh": [
+        8.996,
+        2.896,
+        3.2904999999999998
+      ],
+      "p90_lwh": [
+        13.471,
+        3.3440000000000003,
+        4.0995
+      ],
+      "ride_state": null,
+      "sample_count": 157,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "vehicle.bus.rigid",
+      "split": "dev",
+      "status": "insufficient-data",
+      "target_label": "vehicles",
+      "vehicles_type": "bus"
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 148,
+      "instance_count": 148,
+      "latent_prototype_key": "car_van:None:geometry-00",
+      "mad_lwh": [
+        0.21150000000000002,
+        0.09899999999999987,
+        0.06299999999999972
+      ],
+      "median_lwh": [
+        4.466,
+        1.8315000000000001,
+        1.5619999999999998
+      ],
+      "p10_lwh": [
+        4.0812,
+        1.6447,
+        1.4786000000000001
+      ],
+      "p90_lwh": [
+        4.792800000000001,
+        1.9968000000000001,
+        1.6973
+      ],
+      "ride_state": null,
+      "sample_count": 3241,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "car_van",
+      "split": "dev",
+      "status": "development-prototype",
+      "target_label": "vehicles",
+      "vehicles_type": "car"
+    },
+    {
+      "acceptance_gt": "insufficient-ground-truth",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 148,
+      "instance_count": 148,
+      "latent_prototype_key": "car_van:None:geometry-00",
+      "mad_lwh": [
+        0.21150000000000002,
+        0.09899999999999987,
+        0.06299999999999972
+      ],
+      "median_lwh": [
+        4.466,
+        1.8315000000000001,
+        1.5619999999999998
+      ],
+      "p10_lwh": [
+        4.0812,
+        1.6447,
+        1.4786000000000001
+      ],
+      "p90_lwh": [
+        4.792800000000001,
+        1.9968000000000001,
+        1.6973
+      ],
+      "ride_state": null,
+      "sample_count": 3241,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "car_van",
+      "split": "dev",
+      "status": "development-prototype",
+      "target_label": "vehicles",
+      "vehicles_type": "van"
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 115,
+      "instance_count": 115,
+      "latent_prototype_key": "car_van:None:geometry-01",
+      "mad_lwh": [
+        0.21699999999999964,
+        0.07699999999999996,
+        0.125
+      ],
+      "median_lwh": [
+        4.758,
+        2.024,
+        1.85
+      ],
+      "p10_lwh": [
+        4.4052,
+        1.8892,
+        1.6924
+      ],
+      "p90_lwh": [
+        5.1692,
+        2.1948000000000003,
+        2.0666
+      ],
+      "ride_state": null,
+      "sample_count": 2134,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "car_van",
+      "split": "dev",
+      "status": "development-prototype",
+      "target_label": "vehicles",
+      "vehicles_type": "car"
+    },
+    {
+      "acceptance_gt": "insufficient-ground-truth",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 115,
+      "instance_count": 115,
+      "latent_prototype_key": "car_van:None:geometry-01",
+      "mad_lwh": [
+        0.21699999999999964,
+        0.07699999999999996,
+        0.125
+      ],
+      "median_lwh": [
+        4.758,
+        2.024,
+        1.85
+      ],
+      "p10_lwh": [
+        4.4052,
+        1.8892,
+        1.6924
+      ],
+      "p90_lwh": [
+        5.1692,
+        2.1948000000000003,
+        2.0666
+      ],
+      "ride_state": null,
+      "sample_count": 2134,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "car_van",
+      "split": "dev",
+      "status": "development-prototype",
+      "target_label": "vehicles",
+      "vehicles_type": "van"
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 1,
+      "instance_count": 1,
+      "latent_prototype_key": "car_van:None:geometry-02",
+      "mad_lwh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_lwh": [
+        6.524,
+        2.424,
+        3.065
+      ],
+      "p10_lwh": [
+        6.524,
+        2.424,
+        3.065
+      ],
+      "p90_lwh": [
+        6.524,
+        2.424,
+        3.065
+      ],
+      "ride_state": null,
+      "sample_count": 40,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "car_van",
+      "split": "dev",
+      "status": "insufficient-data",
+      "target_label": "vehicles",
+      "vehicles_type": "car"
+    },
+    {
+      "acceptance_gt": "insufficient-ground-truth",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 1,
+      "instance_count": 1,
+      "latent_prototype_key": "car_van:None:geometry-02",
+      "mad_lwh": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_lwh": [
+        6.524,
+        2.424,
+        3.065
+      ],
+      "p10_lwh": [
+        6.524,
+        2.424,
+        3.065
+      ],
+      "p90_lwh": [
+        6.524,
+        2.424,
+        3.065
+      ],
+      "ride_state": null,
+      "sample_count": 40,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "car_van",
+      "split": "dev",
+      "status": "insufficient-data",
+      "target_label": "vehicles",
+      "vehicles_type": "van"
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 13,
+      "instance_count": 13,
+      "latent_prototype_key": "vehicle.truck:None:geometry-00",
+      "mad_lwh": [
+        0.11399999999999988,
+        0.062000000000000055,
+        0.10799999999999987
+      ],
+      "median_lwh": [
+        5.375,
+        1.998,
+        1.914
+      ],
+      "p10_lwh": [
+        4.74,
+        1.8914,
+        1.7724
+      ],
+      "p90_lwh": [
+        5.6914,
+        2.2722,
+        2.1182000000000003
+      ],
+      "ride_state": null,
+      "sample_count": 237,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "vehicle.truck",
+      "split": "dev",
+      "status": "development-prototype",
+      "target_label": "vehicles",
+      "vehicles_type": "truck"
+    },
+    {
+      "acceptance_gt": "source-category",
+      "created_at": "2026-10-16",
+      "dataset_version": "v1.0-mini",
+      "independent_instance_count": 9,
+      "instance_count": 9,
+      "latent_prototype_key": "vehicle.truck:None:geometry-01",
+      "mad_lwh": [
+        1.1139999999999999,
+        0.15700000000000003,
+        0.42600000000000016
+      ],
+      "median_lwh": [
+        7.127,
+        2.592,
+        3.024
+      ],
+      "p10_lwh": [
+        5.9686,
+        2.2902,
+        2.5374
+      ],
+      "p90_lwh": [
+        10.1258,
+        2.8578,
+        3.5976000000000004
+      ],
+      "ride_state": null,
+      "sample_count": 307,
+      "script_version": "nuscenes-pr0-v1",
+      "source_pool": "vehicle.truck",
+      "split": "dev",
+      "status": "development-prototype",
+      "target_label": "vehicles",
+      "vehicles_type": "truck"
+    }
+  ],
+  "schema_version": 1,
+  "script_sha256": "1435d94146e8c149eca36abc833faf23e11181a68443e0dd58e3cffc1eaf2170",
+  "script_version": "nuscenes-pr0-v1",
+  "source_artifact_sha256": "91610855d38745f949f157a2d1a743ff0aced46687d202e5f40caec531322f79",
+  "source_hashes": {
+    "v1.0-mini/attribute.json": "dc01438363e29188f25785884bb2431a7aa27ba0debbc359cb21cf1f00652210",
+    "v1.0-mini/calibrated_sensor.json": "13d35eeb08bfbc4d0c9eaede7824ff65efe16f8bf345aa7ba9fd75f9866a8d0f",
+    "v1.0-mini/category.json": "30f64fb175e5bd7db99892d90f9034481bca491f26600c5c0d1a56106b198dfe",
+    "v1.0-mini/ego_pose.json": "62817fd8b1633ed7925db46a29ec4c70f77116b866f248f0dc1bac4774459d70",
+    "v1.0-mini/instance.json": "38bbfcf53fb78469ec2c5b07fdafc9a44e9fbf9ab858d35a007dd8347428a14a",
+    "v1.0-mini/log.json": "d543b6fd127a6496ab9fa8de5c96a0887e0996e56f7a6c606de6d8b34827df58",
+    "v1.0-mini/map.json": "6b1d504987d0630e7e32affb7ae0d99fe9b427c757a315ec2f56fb09ebd1bfce",
+    "v1.0-mini/sample.json": "3c47794e2e6c09af4be7907b83f50750351180008d059899f42a9d405ed68586",
+    "v1.0-mini/sample_annotation.json": "49703705e98ddea281ca321aae3b7352a8b6495840fe654cf0717c5b7b721080",
+    "v1.0-mini/sample_data.json": "db18a189bd73648013d3e77ce6f5236d7c5997c0bdbf71166ddd8a6cb5c2c288",
+    "v1.0-mini/scene.json": "cc4dfeac83ac4f5d3e7fc899f90156891a21fa08bc0f8a1ac0e0a27cc1a0bfa6",
+    "v1.0-mini/sensor.json": "4d5c96570e2d8b09b88ce4c605e40ee43c4909f97bea5741185f18f92eb491ae",
+    "v1.0-mini/visibility.json": "87088bf2c78d070e1e215ff108f9c5c0958d124a14cce8f72bfb5d9651295749"
+  },
+  "training_scene_tokens": [
+    "2fc3753772e241f2ab2cd16a784cc680",
+    "325cef682f064c55a255f2625c533b75",
+    "bebf5f5b2a674631ab5c88fd1aa9e87a",
+    "cc8c0bf57f984915a77078b10eb33198",
+    "de7d80a1f5fb4c3e82ce8a4f213b450a",
+    "fcbccedd61424f1b85dcbf8f897f9754"
+  ]
+}

@@ -17,3 +17,6 @@
 /cvat-cli
 /profiles
 **/__pycache__
+# Local evaluation output and private pre-migration backups are not image inputs.
+/artifacts/autofit-eval/local-runs
+/artifacts/autofit-eval/nuscenes_manifest.json.gz

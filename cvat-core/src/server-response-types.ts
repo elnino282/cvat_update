@@ -271,8 +271,10 @@ export interface SerializedApiToken {
 }
 
 export type SerializedAttributes = { spec_id: number; value: string }[];
+export type { AutoFitMetadata } from './auto-fit-metadata';
 
 export interface SerializedShape {
+    auto_fit?: import('./auto-fit-metadata').AutoFitMetadata;
     id?: number;
     clientID?: number;
     label_id: number;
@@ -291,6 +293,7 @@ export interface SerializedShape {
 }
 
 export interface SerializedTrack {
+    auto_fit?: import('./auto-fit-metadata').AutoFitMetadata;
     id?: number;
     clientID?: number;
     label_id: number;

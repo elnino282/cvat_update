@@ -19,7 +19,11 @@ test('runtime taxonomy IDs are resolved, with a single two-wheels label and no s
     const runtime = structuredClone(labels);
     runtime[0].id = 1425;
     runtime[0].attributes[0].id = 6208;
-    assert.deepEqual(resolveSchema(runtime), { vehicleLabelId: 1425, typeAttributeId: 6208 });
+    runtime[1].id = 1426;
+    runtime[2].id = 1427;
+    runtime[2].attributes[0].id = 6211;
+    assert.deepEqual(resolveSchema(runtime), { vehicleLabelId: 1425, typeAttributeId: 6208,
+        pedestrianLabelId: 1426, twoWheelsLabelId: 1427, rideStateAttributeId: 6211 });
     assert.deepEqual(labels.find((label) => label.name === 'two-wheels').attributes.map((attribute) => attribute.name), ['ride_state']);
     runtime[0].attributes[0].values.reverse();
     assert.throws(() => resolveSchema(runtime), /taxonomy/);
@@ -40,6 +44,15 @@ test('PCD conversion preserves XYZ float32 order and rejects non-finite input', 
     assert.equal(pcd.readFloatLE(dataOffset + 12), 4);
     assert.equal(pcd.readFloatLE(dataOffset + 20), 6);
     assert.throws(() => toPCD([[NaN, 0, 0]]), /finite/);
+    const xyzi = toPCD([[1, 2, 3, 0.5], [4, 5, 6, 128]]);
+    const xyziOffset = xyzi.indexOf('DATA binary\n') + Buffer.byteLength('DATA binary\n');
+    assert.match(xyzi.subarray(0, xyziOffset).toString(), /FIELDS x y z intensity/);
+    assert.equal(xyzi.length - xyziOffset, 2 * 16);
+    assert.equal(xyzi.readFloatLE(xyziOffset + 12), 0.5);
+    assert.equal(xyzi.readFloatLE(xyziOffset + 16), 4);
+    assert.equal(xyzi.readFloatLE(xyziOffset + 28), 128);
+    assert.throws(() => toPCD([[1, 2, 3, NaN]]), /finite/);
+    assert.throws(() => toPCD([[1, 2, 3], [4, 5, 6, 7]]), /uniform/);
 });
 
 test('locked real fixture verifies manifest/cloud hash, held-out split and seed index', async () => {
@@ -55,9 +68,30 @@ test('locked real fixture verifies manifest/cloud hash, held-out split and seed 
         const manifestPath = path.join(root, 'manifest.json.gz');
         await writeFile(manifestPath, compressed);
         const env = { AUTOFIT_MANIFEST: manifestPath, AUTOFIT_MANIFEST_SHA256: sha256(compressed), NUSCENES_DATAROOT: root };
-        assert.equal((await loadRealFixture(env)).selected.case_id, 'case');
+        const realFixture = await loadRealFixture(env);
+        assert.equal(realFixture.selected.case_id, 'case');
+        assert.equal(realFixture.inputFields, 'xyzi');
+        const converted = realFixture.files[0].buffer;
+        const dataOffset = converted.indexOf('DATA binary\n') + Buffer.byteLength('DATA binary\n');
+        assert.deepEqual(converted.subarray(dataOffset), Buffer.concat([cloud.subarray(0, 16), cloud.subarray(20, 36)]));
+        assert.equal(converted.readFloatLE(dataOffset + realFixture.selected.seeds[0].pointIndex * 16), 4);
         await assert.rejects(() => loadRealFixture({ ...env, AUTOFIT_MANIFEST_SHA256: '0'.repeat(64) }), /Manifest SHA256/);
-        await assert.rejects(() => loadRealFixture({ ...env, AUTOFIT_CASE_ID: 'missing' }), /no requested held-out Car/);
+        await assert.rejects(() => loadRealFixture({ ...env, AUTOFIT_CASE_ID: 'missing' }), /no requested seedable/);
+        manifest.frames.dev = { ...manifest.frames.sample, split: 'dev',
+            lidar_to_global: [[1, 0, 0, 3], [0, 1, 0, 4], [0, 0, 1, 1], [0, 0, 0, 1]] };
+        manifest.cases.push({ ...manifest.cases[0], case_id: 'pedestrian', sample_token: 'dev', split: 'dev',
+            target_label: 'pedestrian', vehicles_type: null, source_category: 'human.pedestrian.adult' });
+        const updated = gzipSync(JSON.stringify(manifest));
+        await writeFile(manifestPath, updated);
+        const devEnv = { ...env, AUTOFIT_MANIFEST_SHA256: sha256(updated) };
+        assert.equal((await loadRealFixture(devEnv)).selected.case_id, 'case');
+        assert.equal((await loadRealFixture({ ...devEnv, AUTOFIT_CASE_ID: 'pedestrian' })).selected.target_label, 'pedestrian');
+        manifest.frames.dev.lidar_to_global[0][0] = 0;
+        const invalid = gzipSync(JSON.stringify(manifest));
+        await writeFile(manifestPath, invalid);
+        await assert.rejects(() => loadRealFixture({ ...devEnv, AUTOFIT_MANIFEST_SHA256: sha256(invalid),
+            AUTOFIT_CASE_ID: 'pedestrian' }), /calibration rotation/);
+        await writeFile(manifestPath, compressed);
         await writeFile(path.join(root, 'lidar.bin'), Buffer.alloc(40));
         await assert.rejects(() => loadRealFixture(env), /hash\/stride/);
     } finally {

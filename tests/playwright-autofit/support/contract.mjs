@@ -33,7 +33,15 @@ export function resolveSchema(taskLabels) {
         type.input_type !== 'select' || JSON.stringify(type.values) !== JSON.stringify(labels[0].attributes[0].values)) {
         throw new Error('Runtime task taxonomy does not match the locked vehicles/type contract');
     }
-    return { vehicleLabelId: vehicle.id, typeAttributeId: type.id };
+    const pedestrian = taskLabels.find((label) => label.name === 'pedestrian');
+    const twoWheels = taskLabels.find((label) => label.name === 'two-wheels');
+    const rideState = twoWheels?.attributes.find((attribute) => attribute.name === 'ride_state');
+    if (!Number.isInteger(pedestrian?.id) || !Number.isInteger(twoWheels?.id) ||
+        !Number.isInteger(rideState?.id) || rideState.input_type !== 'checkbox' || rideState.mutable !== false) {
+        throw new Error('Runtime task taxonomy does not match pedestrian/two-wheels contract');
+    }
+    return { vehicleLabelId: vehicle.id, typeAttributeId: type.id,
+        pedestrianLabelId: pedestrian.id, twoWheelsLabelId: twoWheels.id, rideStateAttributeId: rideState.id };
 }
 
 export function allowLocalSkip(env = process.env) {
@@ -47,12 +55,16 @@ export function prerequisites(real, env = process.env) {
 }
 
 export function toPCD(points) {
-    if (!points.length || points.some((point) => point.length < 3 || !point.slice(0, 3).every(Number.isFinite))) {
-        throw new Error('PCD fixture needs finite XYZ points; never silently reindex a seed');
+    const dimensions = points[0]?.length;
+    if (![3, 4].includes(dimensions) || points.some((point) =>
+        point.length !== dimensions || !point.every(Number.isFinite))) {
+        throw new Error('PCD fixture needs uniform finite XYZ or XYZI points; never silently reindex a seed');
     }
-    const header = `# .PCD v0.7\nVERSION 0.7\nFIELDS x y z\nSIZE 4 4 4\nTYPE F F F\nCOUNT 1 1 1\nWIDTH ${points.length}\nHEIGHT 1\nVIEWPOINT 0 0 0 1 0 0 0\nPOINTS ${points.length}\nDATA binary\n`;
-    const data = Buffer.alloc(points.length * 12);
-    points.forEach((point, index) => point.slice(0, 3).forEach((value, axis) => data.writeFloatLE(value, index * 12 + axis * 4)));
+    const fields = dimensions === 4 ? 'x y z intensity' : 'x y z';
+    const header = `# .PCD v0.7\nVERSION 0.7\nFIELDS ${fields}\nSIZE ${Array(dimensions).fill(4).join(' ')}\nTYPE ${Array(dimensions).fill('F').join(' ')}\nCOUNT ${Array(dimensions).fill(1).join(' ')}\nWIDTH ${points.length}\nHEIGHT 1\nVIEWPOINT 0 0 0 1 0 0 0\nPOINTS ${points.length}\nDATA binary\n`;
+    const stride = dimensions * 4;
+    const data = Buffer.alloc(points.length * stride);
+    points.forEach((point, index) => point.forEach((value, axis) => data.writeFloatLE(value, index * stride + axis * 4)));
     return Buffer.concat([Buffer.from(header), data]);
 }
 
@@ -70,27 +82,57 @@ export async function loadRealFixture(env = process.env) {
         throw new Error('Manifest SHA256 differs from the explicitly locked fixture');
     }
     const manifest = JSON.parse((bytes[0] === 0x1f && bytes[1] === 0x8b ? gunzipSync(bytes) : bytes).toString());
-    const candidates = manifest.cases.filter((item) => item.split === 'held_out' &&
-        item.target_label === 'vehicles' && item.vehicles_type === 'car' && item.seeds?.length);
+    // The default remains the locked Car regression fixture. Explicit cases are small development
+    // smoke tests, including sparse/adjacent failures; selecting one does not imply held-out acceptance.
+    const mapped = (item) => (item.target_label === 'vehicles' && ['car', 'truck', 'bus'].includes(item.vehicles_type)) ||
+        ['pedestrian', 'two-wheels'].includes(item.target_label);
+    const candidates = manifest.cases.filter((item) => ['dev', 'held_out'].includes(item.split) &&
+        mapped(item) && item.seeds?.length);
     candidates.sort((a, b) => a.annotation_token.localeCompare(b.annotation_token));
-    const selected = env.AUTOFIT_CASE_ID ? candidates.find((item) => item.case_id === env.AUTOFIT_CASE_ID) : candidates[0];
-    if (!selected) throw new Error('Locked manifest has no requested held-out Car with point support');
+    const selected = env.AUTOFIT_CASE_ID ? candidates.find((item) => item.case_id === env.AUTOFIT_CASE_ID) :
+        candidates.find((item) => item.split === 'held_out' && item.target_label === 'vehicles' && item.vehicles_type === 'car');
+    if (!selected) throw new Error('Locked manifest has no requested seedable mapped dev/held-out case or default held-out Car');
     const frame = manifest.frames[selected.sample_token];
-    if (!frame || frame.split !== 'held_out' || frame.point_dimensions !== 5) throw new Error('Invalid LiDAR frame contract');
+    if (!frame || frame.split !== selected.split || frame.point_dimensions !== 5) throw new Error('Invalid LiDAR frame contract');
+    // Frozen PR0 source mappings are semantic, not task numeric IDs. Van must remain an explicit
+    // request override of a Car–Van-pool fixture; never relabel vehicle.car as independent Van GT.
+    const category = selected.source_category;
+    if (category !== undefined) {
+        const validSource = (selected.target_label === 'vehicles' &&
+            ((selected.vehicles_type === 'car' && category === 'vehicle.car') ||
+             (selected.vehicles_type === 'truck' && category === 'vehicle.truck') ||
+             (selected.vehicles_type === 'bus' && category.startsWith('vehicle.bus.')))) ||
+            (selected.target_label === 'pedestrian' && category.startsWith('human.pedestrian.')) ||
+            (selected.target_label === 'two-wheels' && ['vehicle.bicycle', 'vehicle.motorcycle'].includes(category));
+        if (!validSource) throw new Error('Fixture source category conflicts with the locked public mapping');
+    }
+    if (frame.lidar_to_global !== undefined) {
+        const matrix = frame.lidar_to_global;
+        if (!Array.isArray(matrix) || matrix.length !== 4 || matrix.some((row) =>
+            !Array.isArray(row) || row.length !== 4 || !row.every(Number.isFinite)) ||
+            matrix[3].some((value, index) => Math.abs(value - (index === 3 ? 1 : 0)) > 1e-6)) {
+            throw new Error('Invalid frozen LiDAR calibration');
+        }
+        const [[a, b, c], [d, e, f], [g, h, i]] = matrix;
+        const determinant = a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g);
+        if (Math.abs(determinant - 1) > 1e-5) throw new Error('Invalid frozen LiDAR calibration rotation');
+    }
     const root = await realpath(env.NUSCENES_DATAROOT || path.join(os.homedir(), 'Datasets/nuScenes'));
     const cloudPath = await realpath(path.resolve(root, frame.lidar_path));
     if (!cloudPath.startsWith(`${root}${path.sep}`)) throw new Error('Manifest LiDAR path escapes dataroot');
     const cloud = await readFile(cloudPath);
     if (sha256(cloud) !== frame.sha256 || cloud.length % 20) throw new Error('LiDAR file hash/stride mismatch');
     const points = Array.from({ length: cloud.length / 20 }, (_, index) => (
-        [0, 1, 2].map((axis) => cloud.readFloatLE(index * 20 + axis * 4))
+        [0, 1, 2, 3].map((axis) => cloud.readFloatLE(index * 20 + axis * 4))
     ));
     const seed = selected.seeds[0];
     if (!Array.isArray(seed.point) || seed.point.length !== 3 || !seed.point.every(Number.isFinite) ||
         !Number.isInteger(seed.pointIndex) || !points[seed.pointIndex] ||
-        points[seed.pointIndex].some((value, axis) => Math.abs(value - seed.point[axis]) > 1e-5)) {
+        points[seed.pointIndex].slice(0, 3).some((value, axis) => Math.abs(value - seed.point[axis]) > 1e-5)) {
         throw new Error('Manifest seed does not identify the original LiDAR vertex');
     }
-    return { files: [{ name: '000000.pcd', buffer: toPCD(points) }], selected,
-        manifestHash: sha256(bytes), cloudHash: frame.sha256 };
+    // SNAP consumes intensity. Drop only ring, preserving every original XYZI float32 and index.
+    const pcd = toPCD(points);
+    return { files: [{ name: '000000.pcd', buffer: pcd }], selected,
+        manifestHash: sha256(bytes), cloudHash: frame.sha256, pcdHash: sha256(pcd), inputFields: 'xyzi' };
 }

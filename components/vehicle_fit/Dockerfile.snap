@@ -16,9 +16,8 @@ RUN python3 -m pip install --no-cache-dir -r /tmp/requirements-snap-cuda.txt && 
 RUN git clone https://github.com/neu-vi/SNAP.git /opt/SNAP && \
     git -C /opt/SNAP checkout 59fa79b3948e2a9aec4e69efccb1f0677bdb4295
 
-COPY components/vehicle_fit/__init__.py components/vehicle_fit/cloud.py \
-    components/vehicle_fit/geometry.py components/vehicle_fit/service.py \
-    components/vehicle_fit/snap_backend.py /app/components/vehicle_fit/
+COPY components/vehicle_fit/*.py /app/components/vehicle_fit/
+COPY components/vehicle_fit/data/ /app/components/vehicle_fit/data/
 ENV VEHICLE_FIT_BACKEND=snap VEHICLE_FIT_PORT=8093
 EXPOSE 8093
 CMD ["python3", "-m", "components.vehicle_fit.service"]

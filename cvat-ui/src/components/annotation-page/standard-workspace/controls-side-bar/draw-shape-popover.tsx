@@ -19,7 +19,7 @@ import { clamp } from 'utils/math';
 import LabelSelector from 'components/label-selector/label-selector';
 import CVATTooltip from 'components/common/cvat-tooltip';
 import {
-    autoFitAvailable, isCarLabel, isVehiclesLabel, vehicleTypeAttribute,
+    autoFitAvailable, isAutoFitLabel, isVehiclesLabel, isTwoWheelsLabel, vehicleTypeAttribute,
 } from 'utils/auto-fit';
 
 interface Props {
@@ -42,9 +42,11 @@ interface Props {
     jobInstance: any;
     autoFitEnabled: boolean;
     vehicleType?: string;
+    rideState: boolean;
     mockAutoFit: boolean;
     onChangeAutoFit(value: boolean): void;
     onChangeVehicleType(value: string): void;
+    onChangeRideState(value: boolean): void;
 }
 
 function DrawShapePopoverComponent(props: Props): JSX.Element {
@@ -68,9 +70,11 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
         jobInstance,
         autoFitEnabled,
         vehicleType,
+        rideState,
         mockAutoFit,
         onChangeAutoFit,
         onChangeVehicleType,
+        onChangeRideState,
     } = props;
 
     const is2D = jobInstance.dimension === DimensionType.DIMENSION_2D;
@@ -107,10 +111,9 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
                     <Col span={24}>
                         <Checkbox
                             className='cvat-auto-fit-box-checkbox'
-                            checked={autoFitEnabled && (isCarLabel(jobInstance, selectedLabelID) ||
-                                isVehiclesLabel(jobInstance, selectedLabelID))}
-                            disabled={!isCarLabel(jobInstance, selectedLabelID) &&
-                                !isVehiclesLabel(jobInstance, selectedLabelID)}
+                            data-testid='autofit-enabled'
+                            checked={autoFitEnabled && isAutoFitLabel(jobInstance, selectedLabelID)}
+                            disabled={!isAutoFitLabel(jobInstance, selectedLabelID)}
                             onChange={(event) => onChangeAutoFit(event.target.checked)}
                         >
                             Auto Fit Box
@@ -136,6 +139,29 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
                         />
                     </Col>
                 </Row>
+            )}
+            {autoFitAvailable && !is2D && shapeType === ShapeType.CUBOID && autoFitEnabled &&
+            isVehiclesLabel(jobInstance, selectedLabelID) && vehicleType === 'other' && (
+                <Text type='secondary' data-testid='autofit-manual-only'>Other: manual drawing</Text>
+            )}
+            {autoFitAvailable && !is2D && shapeType === ShapeType.CUBOID && autoFitEnabled &&
+            isTwoWheelsLabel(jobInstance, selectedLabelID) && (
+                <Row>
+                    <Checkbox
+                        className='cvat-auto-fit-ride-state'
+                        data-testid='autofit-ride-state'
+                        checked={rideState}
+                        onChange={(event) => onChangeRideState(event.target.checked)}
+                    >
+                        Rider / passenger present
+                    </Checkbox>
+                </Row>
+            )}
+            {autoFitAvailable && !is2D && shapeType === ShapeType.CUBOID && autoFitEnabled &&
+            isAutoFitLabel(jobInstance, selectedLabelID) &&
+            labels.find((label) => label.id === selectedLabelID)?.name.trim().toLowerCase() !== 'car' &&
+            !(isVehiclesLabel(jobInstance, selectedLabelID) && ['car', 'other'].includes(vehicleType || '')) && (
+                <Text type='secondary' data-testid='autofit-experimental'>Experimental — review fitted boxes</Text>
             )}
             {is2D && [ShapeType.RECTANGLE, ShapeType.ELLIPSE].includes(shapeType) && (
                 <>

@@ -572,6 +572,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
                                 points,
                                 ...(initState ? {
                                     attributes: { ...initState.attributes },
+                                    autoFit: initState.autoFit,
                                     group: initState.group?.id || null,
                                     label: initState.label,
                                     shapeType: initState.shapeType,
@@ -1420,7 +1421,12 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
         data.autoFit = undefined;
         this.dispatchEvent(new CustomEvent('canvas.drawn', {
             detail: {
-                state: { shapeType: 'cuboid', points: outcome.points, frame: outcome.request.frame },
+                state: {
+                    shapeType: 'cuboid',
+                    points: outcome.points,
+                    frame: outcome.request.frame,
+                    ...(outcome.autoFit ? { autoFit: outcome.autoFit } : {}),
+                },
                 autoFit: outcome.request,
                 autoFitQuality: outcome.quality,
                 duration: Date.now() - outcome.request.requestedAt,
@@ -1662,7 +1668,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
             if (data.autoFit && !data.initialState && !Number.isInteger(data.redraw)) {
                 this.autoFitPickKey = '';
                 this.cube.perspective.visible = false;
-                this.autoFitStatus('drawing', 'Double-click a visible LiDAR point on the car. Right-click or Esc to cancel.');
+                this.autoFitStatus('drawing', 'Double-click a visible LiDAR point on the object. Right-click or Esc to cancel.');
             }
         } else if (reason === UpdateReasons.OBJECTS_UPDATED) {
             this.setupObjectsIncremental(model.objects);

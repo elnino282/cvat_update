@@ -674,6 +674,7 @@ class ObjectItemContainer extends React.PureComponent<Props, State> {
         return (
             <>
                 <ObjectStateItemComponent
+                    autoFit={objectState.autoFit}
                     jobInstance={jobInstance}
                     zLayerDragProps={zLayerDragProps}
                     zLayerDragging={zLayerDragging}

@@ -11,7 +11,7 @@ import { createPortal } from 'react-dom';
 import { getCVATStore } from 'cvat-store';
 import {
     hasAutoFitLabel, isAutoFitIdentityCurrent, mockAutoFitEnabled, realAutoFitEnabled,
-    vehicleAnnotationAttribute,
+    vehicleAnnotationAttribute, rideAnnotationAttribute,
 } from 'utils/auto-fit';
 import { prepareRealAutoFitFrame } from 'utils/auto-fit-provider';
 import { connect, useDispatch, useSelector } from 'react-redux';
@@ -713,7 +713,12 @@ const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null =
             const vehicleAttribute = vehicleAnnotationAttribute(
                 canvasInstance, jobInstance.id, state.label, fitRequest?.vehicleType,
             );
-            if (vehicleAttribute) state.attributes = { ...(state.attributes || {}), ...vehicleAttribute };
+            const rideAttribute = rideAnnotationAttribute(
+                canvasInstance, jobInstance.id, state.label, fitRequest?.rideState,
+            );
+            if (vehicleAttribute || rideAttribute) {
+                state.attributes = { ...(state.attributes || {}), ...vehicleAttribute, ...rideAttribute };
+            }
         }
         state.occluded = state.occluded || false;
         state.frame = fitRequest?.frame ?? frame;
@@ -938,6 +943,7 @@ const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null =
     return autoFitNotice && noticeContainer ? createPortal(
         <div
             className='cvat-auto-fit-status'
+            data-testid='autofit-status'
             role='status'
             aria-live='polite'
             aria-atomic='true'

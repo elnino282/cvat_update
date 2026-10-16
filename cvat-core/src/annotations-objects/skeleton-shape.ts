@@ -123,6 +123,7 @@ export class SkeletonShape extends Shape {
             group: this.group,
             source: this.source,
             score: this.score,
+            auto_fit: { ...this.autoFit },
         };
 
         if (typeof this._serverId === 'number') {
@@ -170,6 +171,7 @@ export class SkeletonShape extends Shape {
             source: this.source,
             score: this.score,
             votes: this.votes,
+            autoFit: { ...this.autoFit },
             __internal: this.withContext(),
         };
     }

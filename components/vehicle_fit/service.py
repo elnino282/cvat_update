@@ -19,6 +19,13 @@ import numpy as np
 
 from .cloud import decode_cloud
 from .geometry import NoFit, VehiclePriors, apply_quality_policy, estimate_vehicle, fit_vehicle
+from .pedestrian import fit_pedestrian
+from .large_vehicle import fit_truck
+from .bus import fit_bus
+from .car_van import fit_car_van
+from .two_wheels import fit_two_wheels
+from .priors import REGISTRY
+from .shared import validate_seed
 
 LOGGER = logging.getLogger("vehicle_fit")
 SUPPORTED_VEHICLE_TYPES = {"car", "truck", "bus", "van", "other"}
@@ -26,6 +33,20 @@ MAX_BODY_BYTES = 128 * 1024 * 1024
 MAX_CACHE_ENTRIES = 512
 MAX_ACTIVE_REQUESTS = 16
 REQUEST_ID = re.compile(r"^[0-9a-fA-F-]{36}$")
+EXPERIMENTAL_FITTERS = {"pedestrian": fit_pedestrian, "vehicles/truck": fit_truck,
+                       "vehicles/bus": fit_bus, "vehicles/van": fit_car_van,
+                       "two-wheels": fit_two_wheels}
+IMPLEMENTED_EXPERIMENTAL = set(EXPERIMENTAL_FITTERS)
+
+
+def class_key_for(meta):
+    label = meta["labelName"].strip().lower()
+    if label == "car":
+        return "vehicles/car" if meta.get("vehicleType", "car") == "car" else None
+    if label == "vehicles":
+        kind = meta.get("vehicleType")
+        return f"vehicles/{kind}" if kind in SUPPORTED_VEHICLE_TYPES else None
+    return label if label in {"pedestrian", "two-wheels"} else None
 
 
 class PreparedFrameMissing(LookupError):
@@ -41,6 +62,11 @@ class FitRuntime:
         self.backend_error = None
         self.model_loading = self.backend_name == "snap"
         self.warmed = False
+        configured = {value.strip() for value in os.getenv("VEHICLE_FIT_EXPERIMENTAL_CLASSES", "").split(",") if value.strip()}
+        unknown = configured - {"pedestrian", "vehicles/truck", "vehicles/bus", "vehicles/van", "two-wheels"}
+        if unknown:
+            raise RuntimeError(f"Unknown experimental classes: {sorted(unknown)}")
+        self.experimental_classes = configured & IMPLEMENTED_EXPERIMENTAL
         defaults = VehiclePriors()
         self.priors = VehiclePriors(
             length=float(os.getenv("VEHICLE_FIT_PRIOR_LENGTH", str(defaults.length))),
@@ -135,6 +161,8 @@ class FitRuntime:
                                     "height": self.priors.height},
             "maxSurfaceScore": self.max_surface_score,
             "adaptiveSizeRefinement": self.adaptive_refinement,
+            "enabledExperimentalClasses": sorted(self.experimental_classes),
+            "priorVersion": REGISTRY.version,
             "provenance": getattr(self.backend, "provenance", {}),
         }
 
@@ -240,9 +268,8 @@ class FitRuntime:
                 prepared = None
                 cloud_hash = hashlib.sha256(cloud_bytes).hexdigest()
                 cloud, original_indices = decode_cloud(cloud_bytes, meta["cloud_format"])
-            seed = np.asarray([meta["seed"][axis] for axis in ("x", "y", "z")], dtype=np.float64)
-            if not np.isfinite(seed).all():
-                raise ValueError("seed contains a non-finite coordinate")
+            seed, seed_index = validate_seed(cloud, meta["seed"])
+            class_key = class_key_for(meta)
             entry = self._requests[self._key(meta)]
             allow_estimated = meta.get("allowEstimated") is True
             interactive = float(meta.get("timeout_ms", 16000)) <= 2000
@@ -288,7 +315,17 @@ class FitRuntime:
                         self._gpu.release()
                 else:
                     use_snap = False
-            if self.backend_name == "snap" and not use_snap:
+            if class_key != "vehicles/car":
+                if not use_snap:
+                    result_base["provider"] = "geometry-only"
+                    if self.backend_name == "snap":
+                        diagnostics.update(fallbackFrom="snap", fallbackReason="model-or-frame-not-ready")
+                fitter_options = {"ride_state": meta["rideState"]} if class_key == "two-wheels" else {}
+                fit = EXPERIMENTAL_FITTERS[class_key](cloud, seed, seed_index=seed_index,
+                                                       mask=mask if use_snap else None, cancelled=cancelled,
+                                                       **fitter_options)
+                fit = apply_quality_policy(fit, allow_estimated)
+            elif self.backend_name == "snap" and not use_snap:
                 diagnostics = {"fallbackFrom": "snap", "fallbackReason": "model-or-frame-not-ready"}
                 fit = estimate_vehicle(cloud, seed, priors=self.priors, cancelled=cancelled,
                                        adaptive_refinement=self.adaptive_refinement)
@@ -309,6 +346,19 @@ class FitRuntime:
                 diagnostics["maskIndices"] = original_indices[np.asarray(mask_indices, dtype=int)].tolist()
             diagnostics.update({"rawPoints": len(cloud), "cloudSHA256": cloud_hash,
                                 "latencyMilliseconds": (time.perf_counter() - started) * 1000})
+            prototype_key = diagnostics.get("prototypeKey")
+            if class_key == "two-wheels" and prototype_key is not None:
+                # Persist an opaque provenance key, never a source bicycle /
+                # motorcycle category as a public annotation subtype.
+                prototype_key = "two-wheels:" + hashlib.sha256(prototype_key.encode("utf-8")).hexdigest()[:12]
+            fit["autoFit"] = {
+                "version": 1, "request_id": str(meta["requestId"]), "frame": int(meta["frame"]),
+                "class_key": class_key, "quality": fit.get("quality", "confident"),
+                "fit_mode": diagnostics.get("fitMode", "hybrid_prior" if fit.get("quality") == "estimated" else "geometry"),
+                "yaw_uncertain": diagnostics.get("yawUncertain", False),
+                "prototype_key": prototype_key, "prior_version": diagnostics.get("priorVersion"),
+                "experimental": class_key != "vehicles/car",
+            }
             check()  # Includes diagnostic/index construction before publication.
             return {"status": "ok", **result_base, **fit, "diagnostics": diagnostics}
         except PreparedFrameMissing:
@@ -324,22 +374,21 @@ class FitRuntime:
                 reason = "timeout"
             return {"status": "no-fit", **result_base, "reason": reason, "diagnostics": diagnostics}
         except ValueError as exc:
-            return {"status": "no-fit", **result_base, "reason": "invalid-seed", "diagnostics": {"detail": str(exc)}}
+            return {"status": "no-fit", **result_base, "reason": "invalid-coordinates", "diagnostics": {"detail": str(exc)}}
         except Exception as exc:
             LOGGER.exception("Fit failed frame=%s", meta["frame"])
             return {"status": "no-fit", **result_base, "reason": "unavailable", "diagnostics": {"detail": str(exc)}}
 
     def fit_once(self, meta, cloud_bytes=b""):
-        label_name = meta["labelName"].strip().lower()
-        vehicle_type = meta.get("vehicleType", "car" if label_name == "car" else None)
-        if label_name not in {"car", "vehicles"} or vehicle_type not in SUPPORTED_VEHICLE_TYPES:
-            raise ValueError("Invalid vehicle label or type")
-        if label_name == "car" and vehicle_type != "car":
-            raise ValueError("The legacy Car label only supports car")
-        if vehicle_type != "car":
+        class_key = class_key_for(meta)
+        if class_key != "vehicles/car" and class_key not in self.experimental_classes:
             return {"status": "no-fit", "requestId": str(meta["requestId"]),
                     "frame": int(meta["frame"]), "provider": self.backend_name,
                     "reason": "unsupported-type"}
+        if class_key == "two-wheels" and type(meta.get("rideState")) is not bool:
+            return {"status": "no-fit", "requestId": str(meta["requestId"]),
+                    "frame": int(meta["frame"]), "provider": self.backend_name,
+                    "reason": "invalid-coordinates", "diagnostics": {"detail": "rideState must be boolean"}}
         if meta["cloud_format"] not in {"bin", "pcd"} or len(cloud_bytes) > MAX_BODY_BYTES:
             raise ValueError("Invalid cloud format or request size")
         budget = min(16.0, max(.001, float(meta.get("timeout_ms", 16000)) / 1000))

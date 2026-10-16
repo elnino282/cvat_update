@@ -13,3 +13,11 @@ COPY --chown=django:django \
     /opt/cvat/cvat/apps/engine/management/commands/migrate_autofit_vehicles.py
 COPY --chown=django:django cvat/apps/engine/tests/test_auto_fit.py /opt/cvat/cvat/apps/engine/tests/test_auto_fit.py
 COPY --chown=django:django cvat/apps/engine/tests/test_vehicle_migration.py /opt/cvat/cvat/apps/engine/tests/test_vehicle_migration.py
+COPY --chown=django:django cvat/apps/engine/models.py cvat/apps/engine/serializers.py \
+    cvat/apps/engine/auto_fit_metadata.py /opt/cvat/cvat/apps/engine/
+COPY --chown=django:django cvat/apps/engine/migrations/0109_annotation_auto_fit_metadata.py \
+    /opt/cvat/cvat/apps/engine/migrations/
+COPY --chown=django:django cvat/apps/dataset_manager/task.py /opt/cvat/cvat/apps/dataset_manager/task.py
+COPY --chown=django:django cvat/apps/engine/tests/test_auto_fit_multiclass_api.py \
+    cvat/apps/engine/tests/test_auto_fit_metadata.py cvat/apps/engine/tests/test_auto_fit_metadata_serializers.py \
+    /opt/cvat/cvat/apps/engine/tests/

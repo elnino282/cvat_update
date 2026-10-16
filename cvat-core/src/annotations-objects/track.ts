@@ -10,6 +10,7 @@ import type { Label } from '../labels';
 import type { SerializedTrack } from '../server-response-types';
 import { attrsAsAnObject, validateAttributeValue } from '../object-utils';
 import { Drawn } from './drawn';
+import { copyAutoFitMetadata, type AutoFitMetadata } from '../auto-fit-metadata';
 import { InterpolationNotPossibleError } from './image-object';
 import type { AnnotationInjection, InterpolatedPosition, TrackedShape } from './types';
 import {
@@ -17,6 +18,7 @@ import {
 } from './utils';
 
 export class Track extends Drawn {
+    public readonly autoFit: AutoFitMetadata;
     public shapes: Record<number, TrackedShape>;
     constructor(
         data: SerializedTrack | SerializedTrack['elements'][0],
@@ -25,6 +27,7 @@ export class Track extends Drawn {
         injection: AnnotationInjection,
     ) {
         super(data, clientID, color, injection);
+        this.autoFit = copyAutoFitMetadata(data.auto_fit);
         this.shapes = deserializeTrackedShapes(data.shapes);
     }
 
@@ -49,6 +52,7 @@ export class Track extends Drawn {
             frame: this.frame,
             group: this.group,
             source: this.source,
+            auto_fit: copyAutoFitMetadata(this.autoFit),
             attributes: serializeAttributes(this.attributes)
                 .filter((attr) => !labelAttributes[attr.spec_id].mutable),
             elements: [],
@@ -114,6 +118,7 @@ export class Track extends Drawn {
             },
             frame,
             source: this.source,
+            autoFit: copyAutoFitMetadata(this.autoFit),
             __internal: this.withContext(),
         };
     }

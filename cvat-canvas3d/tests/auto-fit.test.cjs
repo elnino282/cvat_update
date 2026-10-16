@@ -179,8 +179,39 @@ test('production/default gate is OFF and explicit real flag never reads mock ove
         assert.equal(exports.mockAutoFitEnabled, false);
         assert.equal(draw.provider.kind, 'geometry-only');
         annotation.job.instance.labels = [{ id: 4, name: 'Pedestrian' }];
-        assert.equal(exports.autoFitDrawData(canvas, 'cuboid', 4, 'shape'), undefined);
+        const pedestrian = exports.autoFitDrawData(canvas, 'cuboid', 4, 'shape');
+        assert.equal(pedestrian.isCurrent(), true);
+        assert.equal(pedestrian.identity.vehicleType, undefined);
         assert.equal(draw.isCurrent(), false);
+        annotation.job.instance.labels = [{ id: 4, name: 'Animal' }];
+        assert.equal(exports.autoFitDrawData(canvas, 'cuboid', 4, 'shape'), undefined);
+        annotation.job.instance.labels = [{ id: 4, name: 'vehicles', attributes: [{ id: 143,
+            name: 'type', inputType: 'select', mutable: false, values: ['car', 'truck', 'bus', 'van', 'other'],
+            defaultValue: 'other' }] }];
+        exports.setVehicleTypePreference(canvas, 2, 4, 'other');
+        assert.equal(exports.autoFitDrawData(canvas, 'cuboid', 4, 'shape', 'other'), undefined);
+        for (const type of ['car', 'truck', 'bus', 'van']) {
+            exports.setVehicleTypePreference(canvas, 2, 4, type);
+            const vehicle = exports.autoFitDrawData(canvas, 'cuboid', 4, 'shape', type);
+            assert.equal(vehicle.identity.typeAttributeId, 143);
+            assert.equal(vehicle.isCurrent(), true);
+            assert.equal(exports.autoFitDrawData(canvas, 'cuboid', 4, 'shape').identity.vehicleType, type);
+            exports.setVehicleTypePreference(canvas, 2, 4, 'other');
+            assert.equal(vehicle.isCurrent(), false);
+        }
+        annotation.job.instance.labels = [{ id: 4, name: 'two-wheels', attributes: [{ id: 294,
+            name: 'ride_state', inputType: 'checkbox', mutable: false, defaultValue: 'false' }] }];
+        const wheels = exports.autoFitDrawData(canvas, 'cuboid', 4, 'shape');
+        assert.equal(wheels.identity.rideState, false);
+        assert.equal(wheels.identity.rideStateAttributeId, 294);
+        assert.equal(wheels.isCurrent(), true);
+        exports.setRideStatePreference(canvas, 2, 4, true);
+        assert.equal(wheels.isCurrent(), false);
+        assert.equal(exports.rideAnnotationAttribute(canvas, 2, annotation.job.instance.labels[0])[294], 'true');
+        const rider = exports.autoFitDrawData(canvas, 'cuboid', 4, 'shape');
+        assert.equal(rider.isCurrent(), true);
+        annotation.job.instance.labels[0].attributes[0].id = 295;
+        assert.equal(rider.isCurrent(), false);
         annotation.job.instance.labels = [{ id: 4, name: 'Car' }];
         assert.equal(draw.isCurrent(), true);
         annotation.job.instance = { ...job }; // A same-job metadata refresh preserves the session.
@@ -491,4 +522,41 @@ test('destroy during a delayed PCD read cannot publish setup or attach geometry'
     await new Promise((resolve) => setImmediate(resolve));
     assert.equal(parseCalls, 0);
     assert.equal(events.length, 0);
+});
+
+
+test('provenance is validated and captured with the accepted creation transaction', async () => {
+    const metadata = { version: 1, request_id: 'fixture', frame: 3, class_key: 'pedestrian',
+        quality: 'estimated', fit_mode: 'hybrid_prior', yaw_uncertain: true, prototype_key: 'pedestrian:adult',
+        prior_version: 'pr0-dev', experimental: true };
+    const estimated = { ...result, quality: 'estimated', autoFit: metadata };
+    const estimatedRequest = { ...request, allowEstimated: true };
+    assert.equal(fitResultToPoints(estimated, estimatedRequest, 'mock').length, 16);
+    for (const override of [{ request_id: 'stale' }, { frame: 4 }, { quality: 'confident' },
+        { class_key: 'bicycle' }, { fit_mode: 'guess' }, { yaw_uncertain: 'true' }, { experimental: undefined },
+        { prototype_key: 42 }, { prior_version: {} }]) {
+        assert.throws(() => fitResultToPoints({ ...estimated, autoFit: { ...metadata, ...override } },
+            estimatedRequest, 'mock'));
+    }
+    const op = new AutoFitOperation();
+    const outcome = await op.start({ identity, isCurrent: () => true, allowEstimated: true,
+        provider: { kind: 'mock', fit: async (captured) => ({ ...estimated, requestId: captured.requestId,
+            autoFit: { ...metadata, request_id: captured.requestId } }) } }, seed);
+    assert.equal(outcome.status, 'ok');
+    assert.equal(outcome.request.coordinateSystem, 'lidar');
+    assert.equal(outcome.request.units, 'metres');
+    assert.equal(outcome.autoFit.request_id, outcome.request.requestId);
+    assert.equal(outcome.autoFit.yaw_uncertain, true);
+    assert.equal(outcome.autoFit.experimental, true);
+});
+
+
+test('unsafe fit reports missing reliable prior without manufacturing an annotation', async () => {
+    const op = new AutoFitOperation();
+    const outcome = await op.start({ identity, isCurrent: () => true, allowEstimated: true,
+        provider: { kind: 'snap', fit: async (captured) => ({ status: 'no-fit', reason: 'unsafe-fit',
+            requestId: captured.requestId, frame: captured.frame, diagnostics: { diagnosticFlags: ['prior-unavailable'] } }) } }, seed);
+    assert.equal(outcome.status, 'retry');
+    assert.match(outcome.hint, /reliable size prior is unavailable/);
+    assert.equal(op.inFlight, false);
 });

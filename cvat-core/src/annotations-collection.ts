@@ -1371,6 +1371,7 @@ export default class Collection {
 
                 if (state.objectType === 'shape') {
                     constructed.shapes.push({
+                        auto_fit: state.autoFit,
                         attributes,
                         descriptions: state.descriptions,
                         frame: state.frame,
@@ -1401,6 +1402,7 @@ export default class Collection {
                     });
                 } else if (state.objectType === 'track') {
                     constructed.tracks.push({
+                        auto_fit: state.autoFit,
                         attributes: attributes.filter((attr) => !labelAttributes[attr.spec_id].mutable),
                         descriptions: state.descriptions,
                         frame: state.frame,

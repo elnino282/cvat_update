@@ -19,8 +19,9 @@ import {
 } from 'cvat-core-wrapper';
 import openCVWrapper from 'utils/opencv-wrapper/opencv-wrapper';
 import {
-    autoFitPreference, setAutoFitPreference, autoFitDrawData, mockAutoFitEnabled, isCarLabel,
+    autoFitPreference, setAutoFitPreference, autoFitDrawData, mockAutoFitEnabled, isAutoFitLabel,
     isVehiclesLabel, getVehicleTypePreference, setVehicleTypePreference,
+    getRideStatePreference, setRideStatePreference,
 } from 'utils/auto-fit';
 
 interface OwnProps {
@@ -101,6 +102,7 @@ interface State {
     simplifyPoly: boolean;
     autoFitEnabled: boolean;
     vehicleType?: string;
+    rideState: boolean;
 }
 
 class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
@@ -127,6 +129,9 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
         const defaultCuboidDrawingMethod = CuboidDrawingMethod.CLASSIC;
         this.state = {
             selectedLabelID: defaultLabelID,
+            rideState: defaultLabelID === null ? false : getRideStatePreference(
+                props.canvasInstance, props.jobInstance.id, this.satisfiedLabels[0],
+            ),
             rectDrawingMethod: [ShapeType.RECTANGLE, ShapeType.ELLIPSE].includes(shapeType) ?
                 defaultRectDrawingMethod : undefined,
             cuboidDrawingMethod: shapeType === ShapeType.CUBOID ? defaultCuboidDrawingMethod : undefined,
@@ -248,11 +253,16 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
     private onChangeLabel = (value: Label): void => {
         if (this.state.autoFitEnabled && this.state.selectedLabelID !== value.id) this.props.canvasInstance.cancel();
         const autoFitEnabled = this.state.autoFitEnabled && (
-            isCarLabel(this.props.jobInstance, value.id) || isVehiclesLabel(this.props.jobInstance, value.id)
+            isAutoFitLabel(this.props.jobInstance, value.id)
         );
         setAutoFitPreference(this.props.canvasInstance, autoFitEnabled);
         const vehicleType = getVehicleTypePreference(this.props.canvasInstance, this.props.jobInstance.id, value.id);
-        this.setState({ selectedLabelID: value.id as number, autoFitEnabled, vehicleType });
+        this.setState({
+            selectedLabelID: value.id as number,
+            autoFitEnabled,
+            vehicleType,
+            rideState: getRideStatePreference(this.props.canvasInstance, this.props.jobInstance.id, value),
+        });
     };
 
     private onChangeVehicleType = (value: string): void => {
@@ -262,6 +272,15 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
         canvasInstance.cancel();
         setVehicleTypePreference(canvasInstance, jobInstance.id, selectedLabelID, value || undefined);
         this.setState({ vehicleType: value || undefined });
+    };
+
+    private onChangeRideState = (value: boolean): void => {
+        const { canvasInstance, jobInstance } = this.props;
+        const { selectedLabelID } = this.state;
+        if (selectedLabelID === null) return;
+        canvasInstance.cancel();
+        setRideStatePreference(canvasInstance, jobInstance.id, selectedLabelID, value);
+        this.setState({ rideState: value });
     };
 
     private onChangeAutoFit = (enabled: boolean): void => {
@@ -291,6 +310,8 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
                 jobInstance={jobInstance}
                 autoFitEnabled={this.state.autoFitEnabled}
                 vehicleType={this.state.vehicleType}
+                rideState={this.state.rideState}
+                onChangeRideState={this.onChangeRideState}
                 mockAutoFit={mockAutoFitEnabled}
                 onChangeAutoFit={this.onChangeAutoFit}
                 onChangeVehicleType={this.onChangeVehicleType}

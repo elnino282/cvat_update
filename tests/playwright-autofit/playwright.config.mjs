@@ -11,10 +11,11 @@ export default defineConfig({
     reporter: [['list'], ['html', { open: 'never' }], ['json', { outputFile: 'test-results/results.json' }]],
     use: {
         ...devices['Desktop Chrome'],
+        ...(process.env.AUTOFIT_BROWSER_CHANNEL ? { channel: process.env.AUTOFIT_BROWSER_CHANNEL } : {}),
         baseURL: process.env.CVAT_BASE_URL || 'http://localhost:8080',
         screenshot: 'only-on-failure',
         trace: 'retain-on-failure',
-        video: 'retain-on-failure',
+        video: process.env.AUTOFIT_VIDEO === 'off' ? 'off' : 'retain-on-failure',
         launchOptions: { args: ['--enable-webgl', '--use-gl=angle', '--use-angle=swiftshader'] },
     },
     projects: [

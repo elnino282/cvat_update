@@ -112,7 +112,8 @@ class PR0CoordinateAndRoutingCharacterization(unittest.TestCase):
         self.raw = self.cloud.tobytes()
         self.meta = metadata()
         self.meta.update(timeout_ms=8000, allowEstimated=True)
-        self.meta['seed'] = dict(x=10.05, y=.9, z=.75, pointIndex=0)
+        self.meta['seed'] = dict(x=10.05, y=.9, z=.75,
+                                pointIndex=int(np.argmin(np.linalg.norm(self.cloud[:, :3] - [10.05, .9, .75], axis=1))))
         # No real model/thread initialization: deterministic SNAP contract fixture.
         self.runtime.backend_name = 'snap'
         self.runtime.backend = Mock()
@@ -125,7 +126,7 @@ class PR0CoordinateAndRoutingCharacterization(unittest.TestCase):
                 self.meta['seed']['x'] = value
                 with patch('vehicle_fit.service.fit_vehicle') as fitter:
                     result = self.runtime.fit_once(self.meta, self.raw)
-                self.assertEqual(result['reason'], 'invalid-seed')
+                self.assertEqual(result['reason'], 'invalid-coordinates')
                 self.runtime.backend.segment.assert_not_called()
                 fitter.assert_not_called()
 
@@ -133,19 +134,18 @@ class PR0CoordinateAndRoutingCharacterization(unittest.TestCase):
         prepared = self.runtime.prepare(self.meta, self.raw)
         self.meta.update(frameToken=prepared['frameToken'], frame=self.meta['frame'] + 1)
         result = self.runtime.fit_once(self.meta)
-        self.assertEqual(result['reason'], 'invalid-seed')
+        self.assertEqual(result['reason'], 'invalid-coordinates')
         self.assertIn('scope mismatch', result['diagnostics']['detail'])
         self.runtime.backend.segment.assert_not_called()
 
-    def test_wrong_coordinate_space_currently_reaches_snap_before_rejection(self):
+    def test_wrong_coordinate_space_is_rejected_before_segmentation(self):
         self.meta['seed'].update(x=1000, y=1000, z=1000)
         result = self.runtime.fit_once(self.meta, self.raw)
-        self.assertEqual(result['reason'], 'invalid-seed')
-        self.runtime.backend.segment.assert_called_once()
+        self.assertEqual(result['reason'], 'invalid-coordinates')
+        self.runtime.backend.segment.assert_not_called()
 
-    @unittest.expectedFailure
     def test_requirement_wrong_coordinate_space_rejected_before_snap(self):
-        """PR1 gap: unsupported finite seed is checked by geometry after segmentation."""
+        """PR1 closes the PR0 pre-segmentation coordinate validation gap."""
         self.meta['seed'].update(x=1000, y=1000, z=1000)
         self.runtime.fit_once(self.meta, self.raw)
         self.runtime.backend.segment.assert_not_called()
@@ -157,18 +157,18 @@ class PR0CoordinateAndRoutingCharacterization(unittest.TestCase):
                 self.assertEqual(result['reason'], 'unsupported-type')
                 self.runtime.backend.segment.assert_not_called()
 
-    def test_sparse_pedestrian_route_currently_refuses_all_5_to_15_returns(self):
+    def test_sparse_pedestrian_route_is_gated_until_explicitly_enabled(self):
         for count in (5, 10, 15):
             with self.subTest(count=count):
                 support = np.array([[10, .05 * (i % 2), .3 + .1 * i, 0] for i in range(count)], dtype='<f4')
                 raw = np.vstack((self.cloud[self.cloud[:, 2] == 0], support)).tobytes()
-                with self.assertRaisesRegex(ValueError, 'Invalid vehicle label'):
-                    self.runtime.fit_once(dict(self.meta, labelName='pedestrian'), raw)
+                result = self.runtime.fit_once(dict(self.meta, labelName='pedestrian'), raw)
+                self.assertEqual(result['reason'], 'unsupported-type')
                 self.runtime.backend.segment.assert_not_called()
 
-    @unittest.expectedFailure
     def test_requirement_sparse_pedestrian_has_class_fit_attempt(self):
-        """PR2 gap: pedestrian has no route, even with real ground and 10 returns."""
+        """PR2 enables a separate fitter with a supported dev prototype."""
+        self.runtime.experimental_classes.add('pedestrian')
         support = np.array([[10, .05 * (i % 2), .3 + .1 * i, 0] for i in range(10)], dtype='<f4')
         cloud = np.vstack((self.cloud[self.cloud[:, 2] == 0], support))
         self.meta.update(labelName='pedestrian', seed=dict(x=10, y=0, z=.3, pointIndex=len(cloud) - 10))

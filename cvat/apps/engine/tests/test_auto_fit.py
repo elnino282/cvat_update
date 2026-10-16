@@ -140,9 +140,8 @@ class AutoFitAdapterTests(SimpleTestCase):
             with self.assertRaises(ValidationError):
                 fit_job_frame(self.request, self.job)
             self.data[field] = original
-        self.job.get_labels = lambda: [SimpleNamespace(id=4, name="Pedestrian")]
-        with self.assertRaises(ValidationError):
-            fit_job_frame(self.request, self.job)
+        self.job.get_labels = lambda: [SimpleNamespace(id=4, name="Animal")]
+        self.assertEqual(fit_job_frame(self.request, self.job).data["reason"], "unsupported-type")
         self.job.get_labels = lambda: [SimpleNamespace(id=4, name="Car")]
         self.task.data.deleted_frames = [3]
         with self.assertRaises(ValidationError):

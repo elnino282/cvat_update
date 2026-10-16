@@ -4215,6 +4215,19 @@ class ShapeSerializer(serializers.Serializer):
         return attrs
 
 
+class AutoFitMetadataField(serializers.JSONField):
+    """Only bounded, typed creation provenance is stored with annotations."""
+
+    def to_internal_value(self, data):
+        from cvat.apps.engine.auto_fit_metadata import validate_auto_fit_metadata
+
+        data = super().to_internal_value(data)
+        try:
+            return validate_auto_fit_metadata(data)
+        except ValueError as exc:
+            raise serializers.ValidationError(str(exc)) from exc
+
+
 class SubLabeledShapeSerializer(
     ShapeSerializer,
     AnnotationSerializer,
@@ -4222,7 +4235,7 @@ class SubLabeledShapeSerializer(
     AttributedAnnotationSerializer,
     ScoredAnnotationSerializer,
 ):
-    pass
+    auto_fit = AutoFitMetadataField(required=False)
 
 
 class LabeledShapeSerializer(SubLabeledShapeSerializer):
@@ -4289,6 +4302,7 @@ class LabeledShapeSerializerFromDB(serializers.BaseSerializer):
                     "group",
                     "source",
                     "score",
+                    "auto_fit",
                     "occluded",
                     "outside",
                     "z_order",
@@ -4320,7 +4334,9 @@ class LabeledTrackSerializerFromDB(serializers.BaseSerializer):
                 "points",
                 "attributes",
             ]
-            result = _convert_annotation(track, ["id", "label_id", "frame", "group", "source"])
+            result = _convert_annotation(
+                track, ["id", "label_id", "frame", "group", "source", "auto_fit"]
+            )
             result["shapes"] = [_convert_annotation(shape, shape_keys) for shape in track["shapes"]]
             result["attributes"] = _convert_attributes(track["attributes"])
             for shape in result["shapes"]:
@@ -4364,6 +4380,7 @@ class SubLabeledTrackSerializer(
     AnnotationSerializer, FrameAnnotationSerializer, AttributedAnnotationSerializer
 ):
     shapes = TrackedShapeSerializer(many=True, allow_empty=True)
+    auto_fit = AutoFitMetadataField(required=False)
 
 
 class LabeledTrackSerializer(SubLabeledTrackSerializer):

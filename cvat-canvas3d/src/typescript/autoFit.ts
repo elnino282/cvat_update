@@ -11,6 +11,8 @@ export interface FitIdentity {
     objectType: 'shape' | 'track';
     vehicleType?: 'car' | 'truck' | 'bus' | 'van' | 'other';
     typeAttributeId?: number;
+    rideState?: boolean;
+    rideStateAttributeId?: number;
 }
 
 export interface FitSeed {
@@ -27,6 +29,21 @@ export interface FitRequest extends FitIdentity {
     seed: FitSeed;
     frameToken?: string;
     allowEstimated?: boolean;
+    coordinateSystem?: 'lidar';
+    units?: 'metres';
+}
+
+export interface FitMetadata {
+    version: 1;
+    request_id: string;
+    frame: number;
+    class_key: string;
+    quality: 'confident' | 'estimated';
+    fit_mode: 'geometry' | 'hybrid_prior';
+    yaw_uncertain: boolean;
+    prototype_key: string | null;
+    prior_version: string | null;
+    experimental: boolean;
 }
 
 export type FitResult = {
@@ -40,12 +57,14 @@ export type FitResult = {
     confidence?: number;
     quality?: 'confident' | 'estimated';
     diagnostics?: Record<string, unknown>;
+    autoFit?: FitMetadata;
 } | {
     status: 'no-fit';
     requestId: string;
     frame: number;
     reason: 'no-points' | 'ambiguous' | 'insufficient-evidence' | 'unavailable' |
-    'timeout' | 'cancelled' | 'invalid-geometry' | 'invalid-seed' | 'frame-expired' | 'unsupported-type';
+    'timeout' | 'cancelled' | 'invalid-geometry' | 'invalid-seed' | 'frame-expired' | 'unsupported-type' |
+    'invalid-coordinates' | 'no-seed-support' | 'unsafe-fit';
     provider?: 'mock' | 'snap' | 'geometry-only';
     diagnostics?: Record<string, unknown>;
 };
@@ -84,10 +103,25 @@ export function fitResultToPoints(result: FitResult, request: FitRequest, provid
             result.confidence < 0 || result.confidence > 1))) {
         throw new Error('Auto Fit returned invalid cuboid geometry');
     }
+    if (result.autoFit) {
+        const metadata = result.autoFit;
+        if (metadata.version !== 1 || metadata.request_id !== request.requestId || metadata.frame !== request.frame ||
+            !['vehicles/car', 'vehicles/truck', 'vehicles/bus', 'vehicles/van', 'pedestrian', 'two-wheels']
+                .includes(metadata.class_key) || metadata.quality !== (result.quality || 'confident') ||
+            !['geometry', 'hybrid_prior'].includes(metadata.fit_mode) ||
+            typeof metadata.yaw_uncertain !== 'boolean' || typeof metadata.experimental !== 'boolean' ||
+            !(metadata.prototype_key === null || typeof metadata.prototype_key === 'string') ||
+            !(metadata.prior_version === null || typeof metadata.prior_version === 'string') ||
+            (request.vehicleType !== undefined && metadata.class_key !== `vehicles/${request.vehicleType}`) ||
+            (request.rideState !== undefined && metadata.class_key !== 'two-wheels')) {
+            throw new Error('Auto Fit returned invalid provenance');
+        }
+    }
     return [...result.center, ...result.rotation, ...result.size, 0, 0, 0, 0, 0, 0, 0];
 }
 
-export type FitOutcome = { status: 'ok'; request: FitRequest; points: number[]; quality: 'confident' | 'estimated' } |
+export type FitOutcome = { status: 'ok'; request: FitRequest; points: number[];
+    quality: 'confident' | 'estimated'; autoFit?: FitMetadata } |
 { status: 'retry'; hint: string } | { status: 'cancelled' };
 
 function requestUUID(): string {
@@ -130,6 +164,8 @@ export class AutoFitOperation {
             requestId: requestUUID(),
             requestedAt: Date.now(),
             allowEstimated: draw.allowEstimated || false,
+            coordinateSystem: 'lidar',
+            units: 'metres',
         };
         const abort = new AbortController();
         let timedOut = false;
@@ -152,9 +188,19 @@ export class AutoFitOperation {
                 throw new Error('Mismatched response');
             }
             if (result.status === 'no-fit') {
-                let hint = 'No confident fit. Double-click another LiDAR point to retry.';
+                let hint = 'No safe fit. Double-click another LiDAR point to retry.';
                 if (result.reason === 'timeout') hint = 'Auto Fit timed out. Double-click a LiDAR point to retry.';
                 if (result.reason === 'unavailable') hint = 'Auto Fit is unavailable. Try again later.';
+                if (result.reason === 'unsupported-type') hint = 'Auto Fit is not enabled for this class. Use manual drawing.';
+                if (result.reason === 'invalid-coordinates') hint = 'Invalid LiDAR coordinates. Reload the frame to retry.';
+                if (result.reason === 'no-seed-support') hint = 'No LiDAR support at this seed. Double-click a visible point.';
+                if (result.reason === 'unsafe-fit') {
+                    hint = result.diagnostics?.reason === 'prior-unavailable' || result.diagnostics?.prior_unavailable ||
+                        (Array.isArray(result.diagnostics?.diagnosticFlags) &&
+                            result.diagnostics.diagnosticFlags.includes('prior-unavailable')) ?
+                        'No safe fit: reliable size prior is unavailable. Use manual drawing.' :
+                        'No safe fit for this instance. Try another point or use manual drawing.';
+                }
                 return {
                     status: 'retry',
                     hint,
@@ -165,6 +211,7 @@ export class AutoFitOperation {
                 request,
                 points: fitResultToPoints(result, request, draw.provider.kind),
                 quality: result.quality || 'confident',
+                ...(result.autoFit ? { autoFit: { ...result.autoFit } } : {}),
             };
         } catch (_error) {
             if (this.pending !== pending || !draw.isCurrent()) return { status: 'cancelled' };

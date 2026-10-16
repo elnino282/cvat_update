@@ -19,6 +19,7 @@ from rest_framework.response import Response
 
 from cvat.apps.engine.media_io.frame_provider import FrameOutputType, JobFrameProvider
 from cvat.apps.engine.models import DimensionType, FrameQuality
+from cvat.apps.engine.auto_fit_metadata import validate_auto_fit_metadata
 
 logger = logging.getLogger(__name__)
 VEHICLE_TYPES = ("car", "truck", "bus", "van", "other")
@@ -49,6 +50,10 @@ class AutoFitRequestSerializer(serializers.Serializer):
     labelId = serializers.IntegerField(min_value=1)
     vehicleType = serializers.ChoiceField(choices=VEHICLE_TYPES, required=False)
     typeAttributeId = serializers.IntegerField(min_value=1, required=False)
+    rideState = serializers.BooleanField(required=False)
+    rideStateAttributeId = serializers.IntegerField(min_value=1, required=False)
+    coordinateSystem = serializers.ChoiceField(choices=["lidar"], default="lidar")
+    units = serializers.ChoiceField(choices=["metres"], default="metres")
     objectType = serializers.ChoiceField(choices=["shape", "track"])
     seed = AutoFitSeedSerializer()
     frameToken = serializers.RegexField(r"^[0-9a-f]{32}$", required=False)
@@ -91,6 +96,7 @@ def _valid_result(result, metadata):
             "no-points", "ambiguous", "insufficient-evidence", "unavailable", "timeout",
             "cancelled", "invalid-geometry", "invalid-seed",
             "frame-expired", "unsupported-type",
+            "invalid-coordinates", "no-seed-support", "unsafe-fit",
         }
     if result.get("status") != "ok":
         return False
@@ -107,6 +113,18 @@ def _valid_result(result, metadata):
             return False
     if any(n <= 0 for n in result["size"]):
         return False
+    if "autoFit" in result:
+        try:
+            provenance = validate_auto_fit_metadata(result["autoFit"])
+        except ValueError:
+            return False
+        if (not provenance or provenance["request_id"] != metadata["requestId"]
+                or provenance["frame"] != metadata["frame"]
+                or provenance["quality"] != result.get("quality", "confident")
+                or provenance["class_key"] != metadata.get("classKey", "vehicles/car")):
+            return False
+    elif metadata.get("classKey", "vehicles/car") != "vehicles/car":
+        return False
     confidence = result.get("confidence")
     return confidence is None or (
         isinstance(confidence, (float, int))
@@ -116,18 +134,18 @@ def _valid_result(result, metadata):
     )
 
 
-def _type_spec(label):
+def _attribute_spec(label, name):
     attributes = getattr(label, "attributes", None)
     if attributes is not None:
         for spec in attributes:
-            if getattr(spec, "name", None) == "type":
+            if getattr(spec, "name", None) == name:
                 return spec
     manager = getattr(label, "attributespec_set", None)
-    return manager.filter(name="type").first() if manager is not None else None
+    return manager.filter(name=name).first() if manager is not None else None
 
 
 def _valid_vehicle_type_spec(label):
-    spec = _type_spec(label)
+    spec = _attribute_spec(label, "type")
     if spec is None:
         return None
     values = getattr(spec, "values", "")
@@ -157,6 +175,42 @@ def _label_vehicle_type(label, metadata):
     return metadata["vehicleType"]
 
 
+def _valid_ride_state_spec(label):
+    spec = _attribute_spec(label, "ride_state")
+    return spec if spec is not None and spec.input_type == "checkbox" and spec.mutable is False else None
+
+
+def _label_class(label, metadata):
+    """Task schema is authoritative; numeric identifiers never select a fitter."""
+    name = label.name.strip().lower()
+    if name in {"car", "vehicles"}:
+        if "rideState" in metadata or "rideStateAttributeId" in metadata:
+            raise serializers.ValidationError("ride_state only applies to two-wheels")
+        return "vehicles/" + _label_vehicle_type(label, metadata)
+    if name in {"pedestrian", "two-wheels"}:
+        if "vehicleType" in metadata or "typeAttributeId" in metadata:
+            raise serializers.ValidationError("Vehicle type does not apply to this label")
+        if name == "pedestrian":
+            if "rideState" in metadata or "rideStateAttributeId" in metadata:
+                raise serializers.ValidationError("ride_state only applies to two-wheels")
+        else:
+            spec = _valid_ride_state_spec(label)
+            if spec is None or "rideState" not in metadata or metadata.get("rideStateAttributeId") != spec.id:
+                raise serializers.ValidationError("Two-wheels requires its runtime immutable ride_state checkbox")
+        return name
+    return None
+
+
+def _class_enabled(class_key):
+    if class_key == "vehicles/car":
+        return True
+    if class_key not in {"pedestrian", "vehicles/truck", "vehicles/bus", "vehicles/van", "two-wheels"}:
+        return False
+    configured = getattr(settings, "CVAT_AUTOFIT_EXPERIMENTAL_CLASSES", "")
+    enabled = configured.split(",") if isinstance(configured, str) else configured
+    return class_key in {value.strip() for value in enabled}
+
+
 def fit_job_frame(request, job):
     if not settings.CVAT_AUTOFIT_ENABLED:
         return Response({"detail": "Auto Fit is disabled"}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
@@ -175,9 +229,10 @@ def fit_job_frame(request, job):
     label = next((label for label in job.get_labels() if label.id == metadata["labelId"]), None)
     if label is None:
         raise serializers.ValidationError("Auto Fit label does not belong to this job")
-    vehicle_type = _label_vehicle_type(label, metadata)
-    if vehicle_type != "car":
+    class_key = _label_class(label, metadata)
+    if not _class_enabled(class_key):
         return _no_fit(metadata, "unsupported-type")
+    metadata["classKey"] = class_key
     provider = JobFrameProvider(job)
     try:
         provider.validate_frame_number(metadata["frame"])
@@ -196,7 +251,7 @@ def fit_job_frame(request, job):
     metadata.update(
         cloud_format="pcd",
         labelName=label.name,
-        vehicleType=vehicle_type,
+        **({"vehicleType": class_key.split("/", 1)[1]} if class_key.startswith("vehicles/") else {}),
         **({"typeAttributeId": metadata["typeAttributeId"]} if metadata.get("typeAttributeId") else {}),
         userId=request.user.id,
         timeout_ms=int(remaining * 1000),
@@ -244,10 +299,11 @@ def prepare_job_frame(request, job):
         raise serializers.ValidationError("Auto Fit requires the matching 3D job")
     if metadata["frame"] in task.data.deleted_frames:
         raise serializers.ValidationError("Auto Fit frame has been deleted")
-    if not any(label.name.strip().lower() == "car" or
+    if not any(label.name.strip().lower() in {"car", "pedestrian"} or
+               (label.name.strip().lower() == "two-wheels" and _valid_ride_state_spec(label) is not None) or
                (label.name.strip().lower() == "vehicles" and _valid_vehicle_type_spec(label) is not None)
                for label in job.get_labels()):
-        raise serializers.ValidationError("Auto Fit requires a Car or Vehicles label")
+        raise serializers.ValidationError("Auto Fit requires a supported 3D label")
     metadata.update(userId=request.user.id, cloud_format="pcd",
                     dataVersion=str(getattr(job.segment, "chunks_updated_date", "")))
     provider = JobFrameProvider(job)

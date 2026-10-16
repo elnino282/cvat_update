@@ -43,7 +43,7 @@ export class Tag extends ImageObject {
     public get(frame: number): Omit<Required<SerializedData>,
     'elements' | 'occluded' | 'outside' | 'rotation' | 'zOrder' |
     'points' | 'hidden' | 'pinned' | 'keyframe' | 'shapeType' |
-    'parentID' | 'descriptions' | 'keyframes' | 'score' | 'votes'
+    'parentID' | 'descriptions' | 'keyframes' | 'score' | 'votes' | 'autoFit'
     > {
         if (frame !== this.frame) {
             throw new ScriptingError('Received frame is not equal to the frame of the shape');

@@ -231,7 +231,8 @@ class RuntimeLifecycleTests(unittest.TestCase):
     def test_cold_inference_and_quality_are_independent_of_estimated_policy(self):
         from vehicle_fit.tests.test_geometry import road_scene
         cloud = road_scene().astype('<f4')
-        seed = {'x': 10.05, 'y': .9, 'z': .75, 'pointIndex': 0}
+        seed = {'x': 10.05, 'y': .9, 'z': .75,
+                'pointIndex': int(np.argmin(np.linalg.norm(cloud[:, :3] - [10.05, .9, .75], axis=1)))}
         self.runtime.backend_name = 'snap'
         self.runtime.backend = None
         responses = []
@@ -259,7 +260,8 @@ class RuntimeLifecycleTests(unittest.TestCase):
         responses = []
         for allow in (False, True):
             meta = dict(metadata('1ab2c3d4-e5f6-4789-8123-456789abcde' + str(int(allow))),
-                        seed={'x': 10.05, 'y': .9, 'z': .75, 'pointIndex': 0},
+                        seed={'x': 10.05, 'y': .9, 'z': .75,
+                              'pointIndex': int(np.argmin(np.linalg.norm(cloud[:, :3] - [10.05, .9, .75], axis=1)))},
                         frameToken=token, allowEstimated=allow)
             responses.append(self.runtime.fit_once(meta))
         self.assertEqual(self.runtime.backend.segment.call_count, 2)

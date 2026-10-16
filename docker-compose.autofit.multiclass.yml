@@ -1,0 +1,37 @@
+# Append to the already-running cvat project config; never replace data volumes.
+services:
+  cvat_server:
+    image: ${CVAT_MULTICLASS_SERVER_IMAGE:-cvat/server:multiclass-shared}
+    environment:
+      CVAT_AUTOFIT_ENABLED: 'true'
+      CVAT_AUTOFIT_BACKEND: snap
+      CVAT_AUTOFIT_EXPERIMENTAL_CLASSES: ${CVAT_MULTICLASS_ROUTES:-}
+    labels:
+      cvat.autofit.runtime: ${CVAT_MULTICLASS_BUILD:-multiclass-shared}
+  cvat_ui:
+    volumes:
+      - ${CVAT_MULTICLASS_UI_DIR:-./cvat-ui/dist/multiclass-shared}:/usr/share/nginx/html:ro
+    labels:
+      cvat.autofit.runtime: ${CVAT_MULTICLASS_BUILD:-multiclass-shared}
+  vehicle_fit:
+    image: ${CVAT_MULTICLASS_FIT_IMAGE:-cvat/vehicle-fit:multiclass-shared}
+    environment:
+      VEHICLE_FIT_EXPERIMENTAL_CLASSES: ${CVAT_MULTICLASS_ROUTES:-}
+    labels:
+      cvat.autofit.runtime: ${CVAT_MULTICLASS_BUILD:-multiclass-shared}
+  cvat_worker_utils:
+    image: ${CVAT_MULTICLASS_SERVER_IMAGE:-cvat/server:multiclass-shared}
+  cvat_worker_import:
+    image: ${CVAT_MULTICLASS_SERVER_IMAGE:-cvat/server:multiclass-shared}
+  cvat_worker_export:
+    image: ${CVAT_MULTICLASS_SERVER_IMAGE:-cvat/server:multiclass-shared}
+  cvat_worker_annotation:
+    image: ${CVAT_MULTICLASS_SERVER_IMAGE:-cvat/server:multiclass-shared}
+  cvat_worker_chunks:
+    image: ${CVAT_MULTICLASS_SERVER_IMAGE:-cvat/server:multiclass-shared}
+  cvat_worker_quality_reports:
+    image: ${CVAT_MULTICLASS_SERVER_IMAGE:-cvat/server:multiclass-shared}
+  cvat_worker_consensus:
+    image: ${CVAT_MULTICLASS_SERVER_IMAGE:-cvat/server:multiclass-shared}
+  cvat_worker_webhooks:
+    image: ${CVAT_MULTICLASS_SERVER_IMAGE:-cvat/server:multiclass-shared}

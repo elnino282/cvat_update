@@ -12,8 +12,10 @@ import { computeNewSource, isChildObject, serializeAttributes } from './utils';
 import { Drawn } from './drawn';
 import type { AnnotationInjection } from './types';
 import { ScoredMixin } from './scored';
+import { copyAutoFitMetadata, type AutoFitMetadata } from '../auto-fit-metadata';
 
 export class Shape extends ScoredMixin(Drawn) {
+    public readonly autoFit: AutoFitMetadata;
     public points: number[];
     public occluded: boolean;
     public outside: boolean;
@@ -27,6 +29,7 @@ export class Shape extends ScoredMixin(Drawn) {
         injection: AnnotationInjection,
     ) {
         super(data, clientID, color, injection);
+        this.autoFit = copyAutoFitMetadata(data.auto_fit);
         this.points = data.points;
         this.rotation = +(data.rotation ?? 0).toFixed(5);
         this.occluded = data.occluded || false;
@@ -61,6 +64,7 @@ export class Shape extends ScoredMixin(Drawn) {
             label_id: this.label.id,
             group: this.group,
             source: this.source,
+            auto_fit: copyAutoFitMetadata(this.autoFit),
             score: this.score,
         };
 
@@ -101,6 +105,7 @@ export class Shape extends ScoredMixin(Drawn) {
             pinned: this.pinned,
             frame,
             source: this.source,
+            autoFit: copyAutoFitMetadata(this.autoFit),
             score: this.score,
             votes: this.votes,
             __internal: this.withContext(),

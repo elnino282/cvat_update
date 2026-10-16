@@ -19,6 +19,7 @@ import ItemBasics from './object-item-basics';
 const INTERACTIVE_ELEMENT_SELECTOR = 'a, button, input, textarea, [role="button"], .ant-select, .anticon';
 
 interface Props {
+    autoFit?: { quality?: string; experimental?: boolean; yaw_uncertain?: boolean; frame?: number };
     normalizedKeyMap: Record<string, string>;
     activated: boolean;
     multiSelected: boolean;
@@ -67,6 +68,7 @@ interface Props {
 
 function ObjectItemComponent(props: Props): JSX.Element {
     const {
+        autoFit,
         activated,
         multiSelected,
         selectionActive,
@@ -228,6 +230,18 @@ function ObjectItemComponent(props: Props): JSX.Element {
                     simplify={simplify}
                     runAnnotationAction={runAnnotationAction}
                 />
+                {(autoFit?.quality === 'estimated' || autoFit?.experimental) && (
+                    <Text
+                        type='secondary'
+                        className='cvat-auto-fit-provenance'
+                        data-testid='autofit-provenance'
+                        title={`Auto Fit provenance at frame ${autoFit.frame}. Review dimensions${
+                            autoFit.yaw_uncertain ? ' and orientation' : ''}.`}
+                    >
+                        {[autoFit.quality === 'estimated' ? 'Estimated' : '', autoFit.experimental ? 'Experimental' : '']
+                            .filter(Boolean).join(' · ')}
+                    </Text>
+                )}
                 <ObjectButtonsContainer clientID={clientID} />
                 <ItemDetailsContainer
                     readonly={locked}

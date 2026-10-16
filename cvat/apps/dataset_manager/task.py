@@ -341,6 +341,7 @@ class JobAnnotation:
                 shapes = track.pop("shapes")
                 elements = track.pop("elements", [])
                 db_track = models.LabeledTrack(job=self.db_job, parent=parent_track, **track)
+                track["auto_fit"] = db_track.auto_fit
 
                 self._validate_label_for_existence(db_track.label_id)
 
@@ -422,6 +423,7 @@ class JobAnnotation:
                 # FIXME: need to clamp points (be sure that all of them inside the image)
                 # Should we check here or implement a validator?
                 db_shape = models.LabeledShape(job=self.db_job, parent=parent_shape, **shape)
+                shape["auto_fit"] = db_shape.auto_fit
 
                 self._validate_label_for_existence(db_shape.label_id)
 
@@ -554,6 +556,7 @@ class JobAnnotation:
 
     def put(self, data):
         data = self._validate_input_annotations(data)
+        self._preserve_auto_fit_metadata(data)
 
         deleted_data = self._delete()
         handle_annotations_change(self.db_job, deleted_data, "delete")
@@ -566,8 +569,30 @@ class JobAnnotation:
         if not deleted_data_is_empty or not self._data_is_empty(self.data):
             self._set_updated_date()
 
+    def _preserve_auto_fit_metadata(self, data):
+        # Older clients omit provenance. Keep it before update deletes/recreates
+        # rows, including child annotations, and only read IDs belonging to this job.
+        def missing_metadata(objects):
+            for obj in objects:
+                if "auto_fit" not in obj and obj.get("id") is not None:
+                    yield obj
+                yield from missing_metadata(obj.get("elements", []))
+
+        for key, manager in (
+            ("shapes", self.db_job.labeledshape_set),
+            ("tracks", self.db_job.labeledtrack_set),
+        ):
+            missing = list(missing_metadata(data[key]))
+            if missing:
+                existing = dict(
+                    manager.filter(pk__in=[obj["id"] for obj in missing]).values_list("id", "auto_fit")
+                )
+                for obj in missing:
+                    obj["auto_fit"] = existing.get(obj["id"], {})
+
     def update(self, data):
         data = self._validate_input_annotations(data)
+        self._preserve_auto_fit_metadata(data)
 
         # in case with "update" must be called prior any annotations in database changes
         # as this annotations are used to count removed/added shapes
@@ -741,6 +766,7 @@ class JobAnnotation:
                 "group",
                 "source",
                 "score",
+                "auto_fit",
                 "occluded",
                 "outside",
                 "z_order",
@@ -817,6 +843,7 @@ class JobAnnotation:
                 "label_id",
                 "group",
                 "source",
+                "auto_fit",
                 "parent",
             )
             .order_by("id")

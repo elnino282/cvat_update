@@ -218,6 +218,7 @@ export class SkeletonTrack extends Track {
             label: this.label,
             pinned: this.pinned,
             keyframes: this.deepBoundedKeyframes(frame),
+            autoFit: { ...this.autoFit },
             elements,
             frame,
             source: this.source,

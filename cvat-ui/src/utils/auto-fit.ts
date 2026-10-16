@@ -15,6 +15,7 @@ const preferences = new WeakMap<object, boolean>();
 type VehicleType = 'car' | 'truck' | 'bus' | 'van' | 'other';
 const vehicleTypes = new Set<VehicleType>(['car', 'truck', 'bus', 'van', 'other']);
 const vehiclePreferences = new WeakMap<object, Map<string, VehicleType>>();
+const ridePreferences = new WeakMap<object, Map<string, boolean>>();
 
 // A dedicated compile-time constant avoids dotenv redefining the requested environment flag in production.
 declare const CVAT_AUTOFIT_MOCK_BUILD_ENABLED: boolean;
@@ -40,9 +41,23 @@ export function isVehiclesLabel(job: { labels: any[] }, labelId: number | null):
         label.name.trim().toLowerCase() === 'vehicles' && vehicleTypeAttribute(label)));
 }
 
+export function rideStateAttribute(label: any): any | undefined {
+    const attribute = label?.attributes?.find((item: any) => item.name === 'ride_state');
+    return attribute?.inputType === 'checkbox' && attribute.mutable === false ? attribute : undefined;
+}
+
+export function isTwoWheelsLabel(job: { labels: any[] }, labelId: number | null): boolean {
+    return job.labels.some((label) => label.id === labelId &&
+        label.name.trim().toLowerCase() === 'two-wheels' && rideStateAttribute(label));
+}
+
+export function isAutoFitLabel(job: { labels: any[] }, labelId: number | null): boolean {
+    return isCarLabel(job, labelId) || isVehiclesLabel(job, labelId) || isTwoWheelsLabel(job, labelId) ||
+        job.labels.some((label) => label.id === labelId && label.name.trim().toLowerCase() === 'pedestrian');
+}
+
 export function hasAutoFitLabel(job: { labels: any[] }): boolean {
-    return job.labels.some((label) => label.name.trim().toLowerCase() === 'car' ||
-        (label.name.trim().toLowerCase() === 'vehicles' && vehicleTypeAttribute(label)));
+    return job.labels.some((label) => isAutoFitLabel(job, label.id));
 }
 
 const vehiclePreferenceKey = (jobId: number, labelId: number): string => `${jobId}:${labelId}`;
@@ -73,6 +88,26 @@ export function vehicleAnnotationAttribute(
     };
 }
 
+export function getRideStatePreference(canvas: object, jobId: number, label: any): boolean {
+    return ridePreferences.get(canvas)?.get(vehiclePreferenceKey(jobId, label.id)) ??
+        (rideStateAttribute(label)?.defaultValue === 'true');
+}
+
+export function setRideStatePreference(canvas: object, jobId: number, labelId: number, value: boolean): void {
+    const current = ridePreferences.get(canvas) || new Map<string, boolean>();
+    current.set(vehiclePreferenceKey(jobId, labelId), value);
+    ridePreferences.set(canvas, current);
+}
+
+export function rideAnnotationAttribute(
+    canvas: object, jobId: number, label: any, selectedValue?: boolean,
+): Record<number, string> | undefined {
+    if (label?.name?.trim().toLowerCase() !== 'two-wheels') return undefined;
+    const spec = rideStateAttribute(label);
+    if (!Number.isInteger(spec?.id)) return undefined;
+    return { [spec.id]: String(selectedValue ?? getRideStatePreference(canvas, jobId, label)) };
+}
+
 export function autoFitPreference(canvas: object): boolean {
     return preferences.get(canvas) || false;
 }
@@ -82,18 +117,28 @@ export function setAutoFitPreference(canvas: object, enabled: boolean): void {
 }
 
 export function isAutoFitIdentityCurrent(
-    request: Pick<FitRequest, 'taskId' | 'jobId' | 'frame' | 'labelId' | 'objectType' | 'vehicleType' | 'typeAttributeId'>,
+    request: Pick<FitRequest, 'taskId' | 'jobId' | 'frame' | 'labelId' | 'objectType' | 'vehicleType' |
+    'typeAttributeId' | 'rideState' | 'rideStateAttributeId'>,
 ): boolean {
     const {
         job, player, drawing, canvas,
     } = getCVATStore().getState().annotation;
-    return job.instance?.id === request.jobId && job.instance?.taskId === request.taskId &&
-        (isCarLabel(job.instance, request.labelId) || isVehiclesLabel(job.instance, request.labelId)) &&
-        (request.vehicleType === undefined || (isCarLabel(job.instance, request.labelId) ?
-            request.vehicleType === 'car' : request.vehicleType ===
-                getVehicleTypePreference(canvas.instance, request.jobId, request.labelId!) &&
-                vehicleTypeAttribute(job.instance.labels.find((label: any) => label.id === request.labelId))?.id ===
-                    request.typeAttributeId)) &&
+    if (!job.instance || !isAutoFitLabel(job.instance, request.labelId)) return false;
+    const label = job.instance.labels.find((item: any) => item.id === request.labelId);
+    let semanticCurrent = request.vehicleType === undefined && request.rideState === undefined &&
+        label?.name.trim().toLowerCase() === 'pedestrian';
+    if (isCarLabel(job.instance, request.labelId)) semanticCurrent = request.vehicleType === 'car';
+    if (isVehiclesLabel(job.instance, request.labelId)) {
+        semanticCurrent = request.vehicleType !== 'other' && request.vehicleType !== undefined &&
+            request.vehicleType === getVehicleTypePreference(canvas.instance, request.jobId, request.labelId) &&
+            vehicleTypeAttribute(label)?.id === request.typeAttributeId;
+    }
+    if (isTwoWheelsLabel(job.instance, request.labelId)) {
+        semanticCurrent = typeof request.rideState === 'boolean' && request.rideState ===
+            getRideStatePreference(canvas.instance, request.jobId, label) &&
+            rideStateAttribute(label)?.id === request.rideStateAttributeId;
+    }
+    return semanticCurrent && job.instance.id === request.jobId && job.instance.taskId === request.taskId &&
         player.frame.number === request.frame && !player.frame.fetching &&
         drawing.activeLabelID === request.labelId && drawing.activeObjectType === request.objectType &&
         drawing.activeShapeType === ShapeType.CUBOID && canvas.activeControl === ActiveControl.DRAW_CUBOID;
@@ -104,21 +149,27 @@ export function autoFitDrawData(
 ): AutoFitDraw | undefined {
     const { job: { instance: job }, player: { frame } } = getCVATStore().getState().annotation;
     if (!autoFitAvailable || !(canvas instanceof Canvas3d) || job.dimension !== DimensionType.DIMENSION_3D ||
-        !(isCarLabel(job, labelId) || isVehiclesLabel(job, labelId)) ||
+        !isAutoFitLabel(job, labelId) ||
         shape !== ShapeType.CUBOID || !autoFitPreference(canvas) || !['shape', 'track'].includes(type)) return undefined;
     const selectedLabel = job.labels.find((label: any) => label.id === labelId);
     const isVehicles = selectedLabel?.name.trim().toLowerCase() === 'vehicles';
-    const selectedType = isVehicles ? vehicleType : 'car';
+    let selectedType = vehicleType || getVehicleTypePreference(canvas, job.id, labelId);
+    if (!isVehicles) selectedType = isCarLabel(job, labelId) ? 'car' : undefined;
     const typeAttribute = isVehicles ? vehicleTypeAttribute(selectedLabel) : undefined;
-    if (!selectedType || (isVehicles && (!typeAttribute || selectedType !==
-        getVehicleTypePreference(canvas, job.id, labelId)))) return undefined;
+    if (isVehicles && (!selectedType || selectedType === 'other' || !typeAttribute || selectedType !==
+        getVehicleTypePreference(canvas, job.id, labelId))) return undefined;
+    const rideAttribute = isTwoWheelsLabel(job, labelId) ? rideStateAttribute(selectedLabel) : undefined;
     const identity = {
         taskId: job.taskId,
         jobId: job.id,
         frame: frame.number,
         labelId,
         objectType: type as 'shape' | 'track',
-        vehicleType: selectedType,
+        ...(selectedType ? { vehicleType: selectedType } : {}),
+        ...(rideAttribute ? {
+            rideState: getRideStatePreference(canvas, job.id, selectedLabel),
+            rideStateAttributeId: rideAttribute.id,
+        } : {}),
         ...(typeAttribute ? { typeAttributeId: typeAttribute.id } : {}),
     };
     let mode: MockMode = 'success';
@@ -131,18 +182,7 @@ export function autoFitDrawData(
     }
     let provider;
     if (mockAutoFitEnabled) {
-        provider = selectedType === 'car' ? createMockAutoFitProvider(mode, delay) : {
-            kind: 'mock' as const,
-            async fit(request: FitRequest) {
-                return {
-                    status: 'no-fit' as const,
-                    requestId: request.requestId,
-                    frame: request.frame,
-                    provider: 'mock' as const,
-                    reason: 'unsupported-type' as const,
-                };
-            },
-        };
+        provider = createMockAutoFitProvider(mode, delay);
     } else {
         provider = createRealAutoFitProvider(CVAT_AUTOFIT_BACKEND_KIND, canvas);
     }

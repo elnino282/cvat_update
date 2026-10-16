@@ -12,6 +12,7 @@ import {
     SerializedShape, SerializedTag, SerializedTrack,
 } from './server-response-types';
 import type { UpdateFlags } from './annotations-objects/types';
+import { copyAutoFitMetadata, type AutoFitMetadata } from './auto-fit-metadata';
 
 export interface SerializedData {
     objectType: ObjectType;
@@ -30,6 +31,7 @@ export interface SerializedData {
     color?: string;
     updated?: number;
     source?: Source;
+    autoFit?: AutoFitMetadata;
     score?: number;
     votes?: number;
     zOrder?: number;
@@ -63,6 +65,7 @@ export default class ObjectState {
     public readonly objectType: ObjectType;
     public readonly shapeType: ShapeType;
     public readonly source: Source;
+    public readonly autoFit: AutoFitMetadata;
     public readonly clientID: number | null;
     public readonly serverID: number | null;
     public readonly parentID: number | null;
@@ -156,6 +159,7 @@ export default class ObjectState {
             hidden: false,
             pinned: false,
             source: serialized.source || Source.MANUAL,
+            autoFit: copyAutoFitMetadata(serialized.autoFit),
             keyframes: serialized.keyframes || null,
             group: serialized.group || null,
             updated: serialized.updated || Date.now(),
@@ -190,6 +194,9 @@ export default class ObjectState {
                 },
                 source: {
                     get: () => data.source,
+                },
+                autoFit: {
+                    get: () => ({ ...data.autoFit }),
                 },
                 isGroundTruth: {
                     get: () => data.source === Source.GT,
@@ -507,6 +514,7 @@ export default class ObjectState {
             color: this.color,
             updated: this.updated,
             source: this.source,
+            autoFit: this.autoFit,
             score: this.score,
             votes: this.votes,
             zOrder: this.zOrder,

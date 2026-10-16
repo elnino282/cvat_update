@@ -8,6 +8,7 @@ import serverProxy, { sleep } from './server-proxy';
 import { Job, Task } from './session';
 import { DataError, ServerError } from './exceptions';
 import { SerializedCollection, SerializedTrack } from './server-response-types';
+import { AUTO_FIT_METADATA_KEYS } from './auto-fit-metadata';
 
 interface ExtractedIDs {
     shapes: number[];
@@ -26,6 +27,8 @@ type CollectionObject = SerializedCollection[keyof SerializedCollection][number]
 
 const COLLECTION_KEYS = ['shapes', 'tracks', 'tags', 'intervals'] as const;
 const JSON_SERIALIZER_KEYS = [
+    'auto_fit',
+    ...AUTO_FIT_METADATA_KEYS,
     'id',
     'label_id',
     'group',
@@ -126,6 +129,7 @@ const isTheSameShape = (
         a.frame === b.frame &&
         a.group === b.group &&
         a.source === b.source &&
+        _.isEqual(a.auto_fit ?? {}, b.auto_fit ?? {}) &&
         a.occluded === b.occluded &&
         a.z_order === b.z_order &&
         a.rotation === b.rotation &&
@@ -151,6 +155,7 @@ const isTheSameTrack = (
     const isSame = a.label_id === b.label_id &&
         a.group === b.group &&
         a.source === b.source &&
+        _.isEqual(a.auto_fit ?? {}, b.auto_fit ?? {}) &&
         isTheSameAttributes(a.attributes, b.attributes) &&
         isTheSameTrackedShapes(a.shapes, b.shapes);
 
