@@ -3,6 +3,7 @@
 //
 // SPDX-License-Identifier: MIT
 
+if (Cypress.spec.name.startsWith('auto_fit_box_')) require('./autofit-safe-failures');
 require('allure-cypress');
 require('./commands');
 require('./commands_projects');

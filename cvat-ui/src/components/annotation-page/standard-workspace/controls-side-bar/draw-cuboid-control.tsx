@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Popover from 'antd/lib/popover';
 import Icon from '@ant-design/icons';
 
@@ -26,11 +26,10 @@ export interface Props {
 const CustomPopover = withVisibilityHandling(Popover, 'draw-cuboid');
 function DrawCuboidControl(props: Props): JSX.Element {
     const { canvasInstance, isDrawing, disabled } = props;
-    const dynamicPopoverProps = isDrawing ? {
-        overlayStyle: {
-            display: 'none',
-        },
-    } : {};
+    const [popoverOpen, setPopoverOpen] = useState(false);
+    useEffect(() => {
+        if (isDrawing || disabled) setPopoverOpen(false);
+    }, [isDrawing, disabled]);
 
     const dynamicIconProps = isDrawing ? {
         className: 'cvat-draw-cuboid-control cvat-active-canvas-control',
@@ -50,7 +49,8 @@ function DrawCuboidControl(props: Props): JSX.Element {
         <Icon className='cvat-draw-cuboid-control cvat-disabled-canvas-control' component={CubeIcon} />
     ) : (
         <CustomPopover
-            {...dynamicPopoverProps}
+            open={popoverOpen && !isDrawing && !disabled}
+            onOpenChange={(open): void => setPopoverOpen(open && !isDrawing && !disabled)}
             overlayClassName='cvat-draw-shape-popover'
             placement='right'
             content={<DrawShapePopoverContainer shapeType={ShapeType.CUBOID} />}

@@ -9,6 +9,8 @@ export interface FitIdentity {
     frame: number;
     labelId: number;
     objectType: 'shape' | 'track';
+    vehicleType?: 'car' | 'truck' | 'bus' | 'van' | 'other';
+    typeAttributeId?: number;
 }
 
 export interface FitSeed {
@@ -43,7 +45,7 @@ export type FitResult = {
     requestId: string;
     frame: number;
     reason: 'no-points' | 'ambiguous' | 'insufficient-evidence' | 'unavailable' |
-    'timeout' | 'cancelled' | 'invalid-geometry' | 'invalid-seed' | 'frame-expired';
+    'timeout' | 'cancelled' | 'invalid-geometry' | 'invalid-seed' | 'frame-expired' | 'unsupported-type';
     provider?: 'mock' | 'snap' | 'geometry-only';
     diagnostics?: Record<string, unknown>;
 };

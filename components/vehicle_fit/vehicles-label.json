@@ -1,0 +1,13 @@
+{
+  "name": "Vehicles",
+  "type": "cuboid",
+  "attributes": [
+    {
+      "name": "type",
+      "mutable": false,
+      "input_type": "select",
+      "default_value": "other",
+      "values": ["car", "truck", "bus", "van", "other"]
+    }
+  ]
+}

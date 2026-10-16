@@ -20,6 +20,7 @@ import {
 import openCVWrapper from 'utils/opencv-wrapper/opencv-wrapper';
 import {
     autoFitPreference, setAutoFitPreference, autoFitDrawData, mockAutoFitEnabled, isCarLabel,
+    isVehiclesLabel, getVehicleTypePreference, setVehicleTypePreference,
 } from 'utils/auto-fit';
 
 interface OwnProps {
@@ -99,6 +100,7 @@ interface State {
     selectedLabelID: number | null;
     simplifyPoly: boolean;
     autoFitEnabled: boolean;
+    vehicleType?: string;
 }
 
 class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
@@ -130,6 +132,9 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
             cuboidDrawingMethod: shapeType === ShapeType.CUBOID ? defaultCuboidDrawingMethod : undefined,
             simplifyPoly: false,
             autoFitEnabled: autoFitPreference(props.canvasInstance),
+            vehicleType: defaultLabelID === null ? undefined : getVehicleTypePreference(
+                props.canvasInstance, props.jobInstance.id, defaultLabelID,
+            ),
         };
 
         if (shapeType === ShapeType.POLYGON) {
@@ -167,7 +172,7 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
         } = this.props;
 
         const {
-            rectDrawingMethod, cuboidDrawingMethod, numberOfPoints, selectedLabelID, simplifyPoly,
+            rectDrawingMethod, cuboidDrawingMethod, numberOfPoints, selectedLabelID, simplifyPoly, vehicleType,
         } = this.state;
         const effectiveSimplifyPoly = this.isPolyShape && typeof numberOfPoints !== 'undefined' ? false : simplifyPoly;
 
@@ -178,10 +183,14 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
         canvasInstance.cancel();
 
         const selectedLabel = labels.find((label) => label.id === selectedLabelID);
+        if (this.state.autoFitEnabled && isVehiclesLabel(this.props.jobInstance, selectedLabelID) && !vehicleType) {
+            message.warning('Select a vehicle type before drawing with Auto Fit');
+            return;
+        }
         if (selectedLabel) {
             canvasInstance.draw({
                 enabled: true,
-                autoFit: autoFitDrawData(canvasInstance, shapeType, selectedLabel.id, objectType),
+                autoFit: autoFitDrawData(canvasInstance, shapeType, selectedLabel.id, objectType, vehicleType as any),
                 rectDrawingMethod,
                 rotatedShapeFitter: rectDrawingMethod === RectDrawingMethod.ROTATED_POINTS ?
                     openCVWrapper.contours : undefined,
@@ -238,9 +247,21 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
 
     private onChangeLabel = (value: Label): void => {
         if (this.state.autoFitEnabled && this.state.selectedLabelID !== value.id) this.props.canvasInstance.cancel();
-        const autoFitEnabled = this.state.autoFitEnabled && isCarLabel(this.props.jobInstance, value.id);
+        const autoFitEnabled = this.state.autoFitEnabled && (
+            isCarLabel(this.props.jobInstance, value.id) || isVehiclesLabel(this.props.jobInstance, value.id)
+        );
         setAutoFitPreference(this.props.canvasInstance, autoFitEnabled);
-        this.setState({ selectedLabelID: value.id as number, autoFitEnabled });
+        const vehicleType = getVehicleTypePreference(this.props.canvasInstance, this.props.jobInstance.id, value.id);
+        this.setState({ selectedLabelID: value.id as number, autoFitEnabled, vehicleType });
+    };
+
+    private onChangeVehicleType = (value: string): void => {
+        const { canvasInstance, jobInstance } = this.props;
+        const { selectedLabelID } = this.state;
+        if (selectedLabelID === null) return;
+        canvasInstance.cancel();
+        setVehicleTypePreference(canvasInstance, jobInstance.id, selectedLabelID, value || undefined);
+        this.setState({ vehicleType: value || undefined });
     };
 
     private onChangeAutoFit = (enabled: boolean): void => {
@@ -269,8 +290,10 @@ class DrawShapePopoverContainer extends React.PureComponent<Props, State> {
             <DrawShapePopoverComponent
                 jobInstance={jobInstance}
                 autoFitEnabled={this.state.autoFitEnabled}
+                vehicleType={this.state.vehicleType}
                 mockAutoFit={mockAutoFitEnabled}
                 onChangeAutoFit={this.onChangeAutoFit}
+                onChangeVehicleType={this.onChangeVehicleType}
                 labels={satisfiedLabels}
                 shapeType={shapeType}
                 minimumPoints={this.minimumPoints}

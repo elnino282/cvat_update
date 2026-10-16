@@ -6,6 +6,9 @@
 const canvasSelector = '.cvat-canvas3d-perspective canvas';
 const objects = '.cvat-objects-sidebar-state-item';
 
+// Keep shared Save/Export helpers realistic in this spec: do not hide overlays with CSS.
+Cypress.Commands.overwrite('hideTooltips', () => cy.get('body').realHover({ position: 'topLeft' }));
+
 function createIsolatedTask(fixturePath, labels, taskName = `Auto Fit PR1 isolated ${Date.now()}`) {
     return cy.readFile(fixturePath, null).then((buffer) => cy.window().then(async (win) => {
         const file = new win.File([buffer], 'autofit-fixture.zip', { type: 'application/zip' });
@@ -27,13 +30,40 @@ context('Auto Fit Box PR1: point picking and annotation lifecycle', () => {
     let events;
     let observedCanvas;
 
+    function openDrawControl() {
+        cy.get('body').type('{esc}');
+        cy.get('.cvat-draw-cuboid-control').should(($control) => {
+            expect($control.hasClass('cvat-active-canvas-control'), 'drawing is idle').to.eq(false);
+        });
+        cy.get('.cvat-objects-sidebar').realClick({ position: 'top' });
+        cy.get('.cvat-draw-cuboid-control').realClick();
+        cy.get('.cvat-objects-sidebar').realHover({ position: 'top' });
+        cy.get('.cvat-draw-cuboid-popover').should(($popover) => {
+            expect(Cypress.dom.isVisible($popover), 'draw settings are visible').to.eq(true);
+            expect($popover.css('pointer-events'), 'draw settings accept input').not.to.eq('none');
+        });
+    }
+
+    function setAutoFitPreference(enabled) {
+        cy.get('.cvat-auto-fit-box-checkbox input').then(($input) => {
+            if ($input.prop('checked') !== enabled) {
+                cy.get('.cvat-auto-fit-box-checkbox')
+                    .realHover({ position: 'bottomRight' })
+                    .realClick({ position: 'bottomRight' });
+            }
+        });
+        cy.get('.cvat-auto-fit-box-checkbox input').should(($input) => {
+            expect($input.prop('checked'), 'Auto Fit preference').to.eq(enabled);
+        });
+    }
+
     function start(type = 'Shape', enabled = true, mode = 'success', delay = 300) {
         cy.window().then((win) => {
             win.localStorage.setItem('cvat.autofit.mock.mode', mode);
             win.localStorage.setItem('cvat.autofit.mock.delay', String(delay));
         });
-        cy.interactControlButton('draw-cuboid');
-        cy.get('.cvat-auto-fit-box-checkbox input')[enabled ? 'check' : 'uncheck']();
+        openDrawControl();
+        setAutoFitPreference(enabled);
         cy.get('.cvat-draw-cuboid-popover').contains('button', type).click();
     }
 
@@ -85,8 +115,21 @@ context('Auto Fit Box PR1: point picking and annotation lifecycle', () => {
         }
         cy.headlessLogin({ nextURL: '/tasks' });
         const fixturePath = Cypress.env('AUTOFIT_FIXTURE') || 'mounted_file_share/test_canvas3d.zip';
-        createIsolatedTask(fixturePath, [{ name: 'Car', type: 'cuboid', attributes: [] },
-            { name: 'Van', type: 'cuboid', attributes: [] }]).then((created) => {
+        createIsolatedTask(fixturePath, [
+            { name: 'Car', type: 'cuboid', attributes: [] },
+            { name: 'Van', type: 'cuboid', attributes: [] },
+            {
+                name: 'Vehicles',
+                type: 'cuboid',
+                attributes: [{
+                    name: 'type',
+                    mutable: false,
+                    input_type: 'select',
+                    default_value: 'other',
+                    values: ['car', 'truck', 'bus', 'van', 'other'],
+                }],
+            },
+        ]).then((created) => {
             [jobId] = created.jobIds;
             taskId = created.taskId;
             cy.writeFile('cypress/results/autofit-task.json', { taskId, jobId, fixturePath });
@@ -99,9 +142,34 @@ context('Auto Fit Box PR1: point picking and annotation lifecycle', () => {
         }
     });
 
+    function saveOpenFixtureJob() {
+        if (!taskId || !imageTask) return;
+        // Native clicks activate beforeunload protection. Save the UI's Job instance
+        // before replacing its fixture; a separately fetched SDK Job has its own cache.
+        cy.get('body').then(($body) => {
+            if ($body.find('.cvat-annotation-header-save-button').length) {
+                cy.location('pathname').should((pathname) => {
+                    const fixtureTaskIds = [taskId, imageTask.taskId];
+                    expect(fixtureTaskIds.some((id) => pathname.startsWith(`/tasks/${id}/jobs/`))).to.eq(true);
+                });
+                cy.get('body').type('{esc}');
+                cy.get('.cvat-objects-sidebar').realHover({ position: 'top' });
+                cy.get('body').trigger('mousedown');
+                cy.get('.cvat-annotation-header-save-button').click();
+                cy.get('.cvat-annotation-header-save-button')
+                    .should('not.have.class', 'cvat-annotation-disabled-header-button');
+                cy.get('.cvat-objects-sidebar').realHover({ position: 'top' });
+            }
+        });
+    }
+
+    after(() => { saveOpenFixtureJob(); });
+
     beforeEach(() => {
+        let annotationsReceived = false;
         events = { fitting: 0, drawn: [] };
         observedCanvas = null;
+        saveOpenFixtureJob();
         // Clear only annotations belonging to the isolated task created by this spec.
         cy.window().then(async (win) => {
             const [job] = await win.cvat.jobs.get({ jobID: jobId });
@@ -111,8 +179,12 @@ context('Auto Fit Box PR1: point picking and annotation lifecycle', () => {
             await job.annotations.save();
         });
         cy.intercept({ method: 'GET', pathname: `/api/jobs/${jobId}` }).as('loadJob');
+        cy.intercept({ method: 'GET', pathname: `/api/jobs/${jobId}/annotations` }, (request) => {
+            request.on('after:response', (response) => { annotationsReceived = response.statusCode === 200; });
+        });
         cy.visit(`/tasks/${taskId}/jobs/${jobId}`);
         cy.wait('@loadJob');
+        cy.wrap(null).should(() => { expect(annotationsReceived, 'annotations response completed').to.eq(true); });
         cy.get('.cvat-spinner').should('not.exist');
         cy.get(canvasSelector).should(([canvas]) => {
             expect(canvas.scene.children.some((child) => child.isPoints)).to.eq(true);
@@ -122,7 +194,7 @@ context('Auto Fit Box PR1: point picking and annotation lifecycle', () => {
     });
 
     it('UX01/02: defaults OFF below Label; manual creation remains available', () => {
-        cy.interactControlButton('draw-cuboid');
+        openDrawControl();
         cy.get('.cvat-auto-fit-box-checkbox input').should('not.be.checked');
         cy.get('.cvat-auto-fit-mock-indicator').should('contain.text', 'Mock Auto Fit');
         cy.get('.cvat-draw-shape-popover-content').then(([popover]) => {
@@ -166,13 +238,176 @@ context('Auto Fit Box PR1: point picking and annotation lifecycle', () => {
         });
     });
 
+    ['Shape', 'Track'].forEach((objectType) => {
+        it(`Vehicles/car ${objectType} preserves type and geometry through history, reload and export`, () => {
+            openDrawControl();
+            cy.switchLabel('Vehicles', 'draw-cuboid');
+            setAutoFitPreference(true);
+            cy.get('.cvat-auto-fit-vehicle-type').click();
+            cy.get('.ant-select-item-option').contains(/^car$/).click();
+            cy.get('.cvat-draw-cuboid-popover').contains('button', objectType).click();
+            confirmPoint();
+            cy.get(objects).should('have.length', 1);
+            let points;
+            cy.get(canvasSelector).should(([canvas]) => {
+                expect(canvas.getDrawnObjects()).to.have.length(1);
+            }).then(([canvas]) => {
+                const [drawn] = canvas.getDrawnObjects();
+                points = [...drawn.state.points];
+                expect(drawn.state.objectType).to.eq(objectType.toLowerCase());
+                expect(drawn.state.label.name).to.eq('Vehicles');
+                expect(Object.values(drawn.state.attributes)).to.include('car');
+            });
+            // The synthetic dblclick omits the outside mousedown that normally closes the popover.
+            cy.get('body').trigger('mousedown');
+            cy.get('.cvat-draw-cuboid-popover').should('be.hidden');
+            cy.get('.cvat-annotation-header-undo-button').should('have.css', 'pointer-events', 'auto').click();
+            cy.get(objects).should('not.exist');
+            cy.get('.cvat-annotation-header-redo-button').should('have.css', 'pointer-events', 'auto').click();
+            cy.get(objects).should('have.length', 1);
+            cy.saveJob();
+            cy.reload();
+            cy.get('.cvat-spinner').should('not.exist');
+            cy.get(objects).should('have.length', 1);
+            cy.get(canvasSelector).should(([canvas]) => {
+                expect(canvas.getDrawnObjects()).to.have.length(1);
+            }).then(([canvas]) => {
+                const [drawn] = canvas.getDrawnObjects();
+                expect(drawn.state.label.name).to.eq('Vehicles');
+                expect(Object.values(drawn.state.attributes)).to.include('car');
+                expect(drawn.state.points).to.deep.eq(points);
+            });
+            cy.exportJob({ type: 'dataset', format: 'Datumaro 3D 1.0' });
+            cy.downloadExport().then((file) => cy.verifyDownload(file));
+            cy.goBack();
+        });
+    });
+
+    ['Shape', 'Track'].forEach((objectType) => {
+        it(`Vehicles ${objectType} copy/paste keeps source type through Undo/Redo and Save/Reload`, () => {
+            openDrawControl();
+            cy.switchLabel('Vehicles', 'draw-cuboid');
+            cy.get('.cvat-draw-cuboid-popover').contains('button', objectType).click();
+            cy.get('.cvat-canvas3d-perspective').trigger('mousemove', 480, 160);
+            cy.get('.cvat-canvas3d-perspective').dblclick(480, 160);
+            cy.get(objects).should('have.length', 1);
+            cy.get(canvasSelector).should(([canvas]) => {
+                expect(Object.values(canvas.getDrawnObjects()[0].state.attributes)).to.include('other');
+            });
+            // The next drawing preference must never rewrite copied annotations.
+            openDrawControl();
+            setAutoFitPreference(true);
+            cy.get('.cvat-auto-fit-vehicle-type').click();
+            cy.get('.ant-select-item-option').contains(/^car$/).click();
+            cy.get('body').trigger('mousedown');
+            cy.get('.cvat-draw-cuboid-popover').should('be.hidden');
+            cy.get(objects).first().invoke('attr', 'id').then((id) => {
+                cy.interactAnnotationObjectMenu(`#${id}`, 'Make a copy');
+            });
+            cy.get('.cvat-canvas3d-perspective').trigger('mousemove', 360, 270);
+            cy.get('.cvat-canvas3d-perspective').dblclick(360, 270);
+            let copiedPoints;
+            const assertCopies = () => cy.get(canvasSelector).should(([canvas]) => {
+                const drawn = canvas.getDrawnObjects();
+                expect(drawn).to.have.length(2);
+                drawn.forEach(({ state }) => {
+                    expect(state.objectType).to.eq(objectType.toLowerCase());
+                    expect(Object.values(state.attributes)).to.include('other');
+                });
+                if (copiedPoints) expect(drawn.map(({ state }) => state.points)).to.deep.eq(copiedPoints);
+            });
+            cy.get(objects).should('have.length', 2);
+            assertCopies();
+            cy.get(canvasSelector).then(([canvas]) => {
+                copiedPoints = canvas.getDrawnObjects().map(({ state }) => [...state.points]);
+            });
+            cy.get('.cvat-annotation-header-undo-button').click();
+            cy.get(objects).should('have.length', 1);
+            cy.get('.cvat-annotation-header-redo-button').click();
+            cy.get(objects).should('have.length', 2);
+            assertCopies();
+            cy.saveJob();
+            cy.reload();
+            cy.get('.cvat-spinner').should('not.exist');
+            cy.get(objects).should('have.length', 2);
+            assertCopies();
+        });
+    });
+
+    it('requires an explicit vehicle type before Auto Fit starts', () => {
+        openDrawControl();
+        cy.switchLabel('Vehicles', 'draw-cuboid');
+        setAutoFitPreference(true);
+        cy.get('.cvat-draw-cuboid-shape-button').click();
+        cy.contains('Select a vehicle type before drawing with Auto Fit').should('be.visible');
+        cy.get(objects).should('not.exist');
+        cy.then(() => expect(events.fitting).to.eq(0));
+    });
+
+    it('changing vehicle type drops the pending car result', () => {
+        cy.window().then((win) => {
+            win.localStorage.setItem('cvat.autofit.mock.mode', 'success');
+            win.localStorage.setItem('cvat.autofit.mock.delay', '1200');
+        });
+        openDrawControl();
+        cy.switchLabel('Vehicles', 'draw-cuboid');
+        setAutoFitPreference(true);
+        cy.get('.cvat-auto-fit-vehicle-type').click();
+        cy.get('.ant-select-item-option').contains(/^car$/).click();
+        cy.get('.cvat-draw-cuboid-shape-button').click();
+        confirmPoint();
+        cy.get('.cvat-auto-fit-status').should('contain.text', 'in progress');
+        cy.get('.cvat-draw-cuboid-control').click();
+        openDrawControl();
+        cy.get('.cvat-auto-fit-vehicle-type').click();
+        cy.get('.ant-select-item-option').contains(/^truck$/).click();
+        cy.get('.cvat-draw-cuboid-shape-button').click();
+        cy.wait(1400); // Wait beyond the old provider delay to detect a late commit.
+        cy.get(objects).should('not.exist');
+        confirmPoint();
+        cy.get('.cvat-auto-fit-status').should('contain.text', 'retry');
+        cy.get(objects).should('not.exist');
+        cy.then(() => expect(events.drawn).to.have.length(0));
+    });
+
+    ['truck', 'bus', 'van', 'other'].forEach((vehicleType) => {
+        it(`Vehicles/${vehicleType} returns no-fit and creates no cuboid`, () => {
+            openDrawControl();
+            cy.switchLabel('Vehicles', 'draw-cuboid');
+            setAutoFitPreference(true);
+            cy.get('.cvat-auto-fit-vehicle-type').click();
+            cy.get('.ant-select-item-option').contains(vehicleType).click();
+            cy.get('.cvat-draw-cuboid-shape-button').click();
+            confirmPoint();
+            cy.get('.cvat-auto-fit-status').should('contain.text', 'retry');
+            cy.get(objects).should('not.exist');
+            cy.then(() => expect(events.drawn).to.have.length(0));
+        });
+    });
+
+    it('Vehicles supports ordinary manual Draw Cuboid with its default type', () => {
+        openDrawControl();
+        cy.switchLabel('Vehicles', 'draw-cuboid');
+        cy.get('.cvat-auto-fit-box-checkbox input').should('not.be.checked');
+        cy.get('.cvat-draw-cuboid-shape-button').click();
+        cy.get('.cvat-canvas3d-perspective').trigger('mousemove', 480, 160);
+        cy.get('.cvat-canvas3d-perspective').dblclick(480, 160);
+        cy.get(objects).should('have.length', 1);
+        cy.get(canvasSelector).then(([canvas]) => {
+            const [drawn] = canvas.getDrawnObjects();
+            expect(drawn.state.label.name).to.eq('Vehicles');
+            expect(Object.values(drawn.state.attributes)).to.include('other');
+        });
+        cy.then(() => expect(events.fitting).to.eq(0));
+    });
+
     it('UX03: 2D rectangle and cuboid tools do not show Auto Fit', () => {
         cy.visit(`/tasks/${imageTask.taskId}/jobs/${imageTask.jobIds[0]}`);
         cy.get('.cvat-spinner').should('not.exist');
         cy.interactControlButton('draw-rectangle');
         cy.get('.cvat-auto-fit-box-checkbox').should('not.exist');
         cy.get('body').trigger('mousedown');
-        cy.interactControlButton('draw-cuboid');
+        openDrawControl();
         cy.get('.cvat-auto-fit-box-checkbox').should('not.exist');
     });
 
@@ -263,7 +498,7 @@ context('Auto Fit Box PR1: point picking and annotation lifecycle', () => {
         confirmPoint();
         cy.get('.cvat-auto-fit-status').should('contain.text', 'in progress');
         cy.get('.cvat-draw-cuboid-control').click();
-        cy.interactControlButton('draw-cuboid');
+        openDrawControl();
         cy.switchLabel('Van', 'draw-cuboid');
         cy.get('.cvat-draw-cuboid-track-button').click();
         cy.wait(1400);
@@ -291,8 +526,10 @@ context('Auto Fit Box PR1: point picking and annotation lifecycle', () => {
         confirmPoint();
         cy.get(objects).should('have.length', 1);
         let original;
+        let originalId;
         cy.get(canvasSelector).then(([canvas]) => {
             original = [...canvas.getDrawnObjects()[0].state.points];
+            originalId = canvas.getDrawnObjects()[0].state.clientID;
         });
         start('Shape', true, 'reject');
         confirmPoint();
@@ -300,6 +537,9 @@ context('Auto Fit Box PR1: point picking and annotation lifecycle', () => {
         cy.get(objects).should('have.length', 1);
         cy.get(canvasSelector).then(([canvas]) => {
             expect(canvas.getDrawnObjects()[0].state.points).to.deep.eq(original);
+            expect(canvas.getDrawnObjects()[0].state.clientID).to.eq(originalId);
+            expect(events.fitting, 'both the successful and rejected fits ran').to.eq(2);
+            expect(events.drawn.length, 'rejection did not publish another cuboid').to.eq(1);
         });
     });
 

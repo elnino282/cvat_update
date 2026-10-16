@@ -10,6 +10,7 @@ import InputNumber from 'antd/lib/input-number';
 import Radio, { RadioChangeEvent } from 'antd/lib/radio';
 import Switch from 'antd/lib/switch';
 import Checkbox from 'antd/lib/checkbox';
+import Select from 'antd/lib/select';
 import Text from 'antd/lib/typography/Text';
 import { RectDrawingMethod, CuboidDrawingMethod } from 'cvat-canvas-wrapper';
 
@@ -17,7 +18,9 @@ import { ShapeType, Label, DimensionType } from 'cvat-core-wrapper';
 import { clamp } from 'utils/math';
 import LabelSelector from 'components/label-selector/label-selector';
 import CVATTooltip from 'components/common/cvat-tooltip';
-import { autoFitAvailable, isCarLabel } from 'utils/auto-fit';
+import {
+    autoFitAvailable, isCarLabel, isVehiclesLabel, vehicleTypeAttribute,
+} from 'utils/auto-fit';
 
 interface Props {
     shapeType: ShapeType;
@@ -38,8 +41,10 @@ interface Props {
     onDrawShape(): void;
     jobInstance: any;
     autoFitEnabled: boolean;
+    vehicleType?: string;
     mockAutoFit: boolean;
     onChangeAutoFit(value: boolean): void;
+    onChangeVehicleType(value: string): void;
 }
 
 function DrawShapePopoverComponent(props: Props): JSX.Element {
@@ -62,8 +67,10 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
         onChangeSimplifyPoly,
         jobInstance,
         autoFitEnabled,
+        vehicleType,
         mockAutoFit,
         onChangeAutoFit,
+        onChangeVehicleType,
     } = props;
 
     const is2D = jobInstance.dimension === DimensionType.DIMENSION_2D;
@@ -100,13 +107,33 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
                     <Col span={24}>
                         <Checkbox
                             className='cvat-auto-fit-box-checkbox'
-                            checked={autoFitEnabled && isCarLabel(jobInstance, selectedLabelID)}
-                            disabled={!isCarLabel(jobInstance, selectedLabelID)}
+                            checked={autoFitEnabled && (isCarLabel(jobInstance, selectedLabelID) ||
+                                isVehiclesLabel(jobInstance, selectedLabelID))}
+                            disabled={!isCarLabel(jobInstance, selectedLabelID) &&
+                                !isVehiclesLabel(jobInstance, selectedLabelID)}
                             onChange={(event) => onChangeAutoFit(event.target.checked)}
                         >
                             Auto Fit Box
                         </Checkbox>
                         {mockAutoFit && <Text type='secondary' className='cvat-auto-fit-mock-indicator'>Mock Auto Fit</Text>}
+                    </Col>
+                </Row>
+            )}
+            {autoFitAvailable && jobInstance.dimension === DimensionType.DIMENSION_3D &&
+            shapeType === ShapeType.CUBOID && autoFitEnabled && isVehiclesLabel(jobInstance, selectedLabelID) && (
+                <Row className='cvat-auto-fit-vehicle-type-row'>
+                    <Col span={24}>
+                        <Text className='cvat-text-color'>Vehicle type</Text>
+                        <Select
+                            aria-label='Vehicle type'
+                            className='cvat-auto-fit-vehicle-type'
+                            style={{ width: '100%' }}
+                            value={vehicleType}
+                            placeholder='Select type'
+                            onChange={onChangeVehicleType}
+                            options={vehicleTypeAttribute(labels.find((label) => label.id === selectedLabelID))?.values
+                                .map((value: string) => ({ value, label: value })) || []}
+                        />
                     </Col>
                 </Row>
             )}
@@ -223,11 +250,17 @@ function DrawShapePopoverComponent(props: Props): JSX.Element {
             ) : null}
             <Row justify='space-around'>
                 <Col span={24}>
-                    <CVATTooltip title={`Press ${repeatShapeShortcut} to draw again`}>
+                    <CVATTooltip
+                        title={`Press ${repeatShapeShortcut} to draw again`}
+                        placement={shapeType === ShapeType.CUBOID ? 'bottom' : undefined}
+                    >
                         <Button className={`cvat-draw-${shapeType}-shape-button`} onClick={onDrawShape}>Shape</Button>
                     </CVATTooltip>
                     {shapeType !== ShapeType.MASK && (
-                        <CVATTooltip title={`Press ${repeatShapeShortcut} to draw again`}>
+                        <CVATTooltip
+                            title={`Press ${repeatShapeShortcut} to draw again`}
+                            placement={shapeType === ShapeType.CUBOID ? 'bottom' : undefined}
+                        >
                             <Button
                                 className={`cvat-draw-${shapeType}-track-button`}
                                 onClick={onDrawTrack}

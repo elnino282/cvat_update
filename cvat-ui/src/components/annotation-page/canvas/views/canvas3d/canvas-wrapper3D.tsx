@@ -8,7 +8,10 @@ import React, {
     useCallback, useEffect, useRef, useState,
 } from 'react';
 import { getCVATStore } from 'cvat-store';
-import { isAutoFitIdentityCurrent, mockAutoFitEnabled, realAutoFitEnabled } from 'utils/auto-fit';
+import {
+    hasAutoFitLabel, isAutoFitIdentityCurrent, mockAutoFitEnabled, realAutoFitEnabled,
+    vehicleAnnotationAttribute,
+} from 'utils/auto-fit';
 import { prepareRealAutoFitFrame } from 'utils/auto-fit-provider';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import {
@@ -629,8 +632,7 @@ const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null =
 
     useEffect(() => {
         setAutoFitHint('');
-        if (!realAutoFitEnabled || !frameData || frameData.deleted ||
-            !jobInstance.labels.some((label) => label.name.trim().toLowerCase() === 'car')) return undefined;
+        if (!realAutoFitEnabled || !frameData || frameData.deleted || !hasAutoFitLabel(jobInstance)) return undefined;
         return prepareRealAutoFitFrame(canvasInstance, { taskId: jobInstance.taskId, jobId: jobInstance.id, frame });
     }, [canvasInstance, jobInstance.id, frame, frameData]);
 
@@ -696,6 +698,14 @@ const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null =
         state.objectType = fitRequest?.objectType || state.objectType || activeObjectType;
         state.label = state.label || jobInstance.labels
             .filter((label: any) => label.id === (fitRequest?.labelId ?? activeLabelID))[0];
+        // Pasted states carry their source label and attributes. Only new drawings
+        // receive the current type preference (or the captured Auto Fit type).
+        if (isDrawnFromScratch) {
+            const vehicleAttribute = vehicleAnnotationAttribute(
+                canvasInstance, jobInstance.id, state.label, fitRequest?.vehicleType,
+            );
+            if (vehicleAttribute) state.attributes = { ...(state.attributes || {}), ...vehicleAttribute };
+        }
         state.occluded = state.occluded || false;
         state.frame = fitRequest?.frame ?? frame;
         state.zOrder = 0;

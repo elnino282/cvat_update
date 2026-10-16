@@ -49,7 +49,17 @@ context('Auto Fit Box real service verified: KITTI RAW consecutive 50 frames', (
             const name = `Auto Fit KITTI RAW ${window.start}-${window.start + window.count - 1} ${Date.now()}`;
             const task = new win.cvat.classes.Task({
                 name,
-                labels: [{ name: 'Car', type: 'cuboid', attributes: [] }],
+                labels: [{
+                    name: 'Vehicles',
+                    type: 'cuboid',
+                    attributes: [{
+                        name: 'type',
+                        mutable: false,
+                        input_type: 'select',
+                        default_value: 'other',
+                        values: ['car', 'truck', 'bus', 'van', 'other'],
+                    }],
+                }],
                 image_quality: 100,
                 segment_size: window.count,
                 use_zip_chunks: true,
@@ -88,6 +98,8 @@ context('Auto Fit Box real service verified: KITTI RAW consecutive 50 frames', (
         cy.interactControlButton('draw-cuboid');
         cy.get('.cvat-auto-fit-box-checkbox input').should('be.enabled').check();
         cy.get('.cvat-auto-fit-mock-indicator').should('not.exist');
+        cy.get('.cvat-auto-fit-vehicle-type').click();
+        cy.get('.ant-select-item-option').contains(/^car$/).click();
         cy.get('.cvat-draw-cuboid-popover').contains('button', 'Shape').click();
         return visibleSeed(seed).then(({ canvas, clientX, clientY }) => {
             requestStartedAt = Date.now();
@@ -114,6 +126,8 @@ context('Auto Fit Box real service verified: KITTI RAW consecutive 50 frames', (
                 expect(response, 'authorized CVAT service response').not.to.eq(undefined);
                 expect(request.body.jobId).to.eq(jobId);
                 expect(request.body.labelId).to.be.a('number');
+                expect(request.body.vehicleType).to.eq('car');
+                expect(request.body.typeAttributeId).to.be.a('number');
                 expect(request.body.seed.pointIndex).to.be.a('number');
                 return cy.get(canvasSelector).then(([currentCanvas]) => {
                     const pointCloud = currentCanvas.scene.children.find((child) => child.isPoints);
@@ -246,7 +260,11 @@ context('Auto Fit Box real service verified: KITTI RAW consecutive 50 frames', (
                 entry.annotation_delta = 1;
                 entry.ui_commit_ms = Date.now() - result.uiRequestStartedAt;
                 windowRuns.push(entry);
-                return verifyNativeHistory(taskFrame);
+                return cy.get(canvasSelector).then(([canvas]) => {
+                    const [drawn] = canvas.getDrawnObjects();
+                    expect(drawn.state.label.name).to.eq('Vehicles');
+                    expect(Object.values(drawn.state.attributes)).to.include('car');
+                }).then(() => verifyNativeHistory(taskFrame));
             });
         };
 
