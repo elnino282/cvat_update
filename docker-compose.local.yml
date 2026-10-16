@@ -1,0 +1,49 @@
+# Local CVAT using the rebuilt images and the existing CVAT data volumes.
+# Start: CVAT_VERSION=dev docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --no-build --pull never
+# Build UI from cvat-ui first:
+# CVAT_AUTOFIT_ENABLED=true CVAT_AUTOFIT_BACKEND=snap CVAT_AUTOFIT_MOCK=false ../node_modules/.bin/webpack --config webpack.config.js --mode production --output-path dist-autofit-local
+services:
+  cvat_server:
+    image: cvat/server:dev
+    environment:
+      CVAT_AUTOFIT_ENABLED: 'true'
+      CVAT_AUTOFIT_BACKEND: snap
+      CVAT_AUTOFIT_SERVICE_URL: http://vehicle_fit:8093
+
+  cvat_ui:
+    image: cvat/ui:dev
+    volumes:
+      - ./cvat-ui/dist-autofit-local:/usr/share/nginx/html:ro
+
+  vehicle_fit:
+    image: cvat/vehicle-fit:autofit-fast
+    restart: unless-stopped
+    environment:
+      VEHICLE_FIT_BACKEND: snap
+      VEHICLE_FIT_PRIOR_LENGTH: '3.7'
+      VEHICLE_FIT_PRIOR_WIDTH: '1.61'
+      VEHICLE_FIT_PRIOR_HEIGHT: '1.49'
+      VEHICLE_FIT_MAX_SURFACE_SCORE: '0.10'
+      VEHICLE_FIT_ADAPTIVE_SIZE_REFINEMENT: 'false'
+      SNAP_CHECKPOINT: /weights/SNAP_Outdoor.pth
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '2'
+    volumes:
+      - ./components/vehicle_fit/weights/SNAP_Outdoor.pth:/weights/SNAP_Outdoor.pth:ro
+    ports:
+      - '127.0.0.1:8093:8093'
+    networks:
+      - cvat
+    healthcheck:
+      test: ['CMD', 'python3', '-c', 'import urllib.request; urllib.request.urlopen("http://127.0.0.1:8093/health", timeout=3)']
+      interval: 15s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

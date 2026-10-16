@@ -345,6 +345,12 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
         });
 
         canvasPerspectiveView.addEventListener('contextmenu', (e: MouseEvent): void => {
+            if (this.model.mode === Mode.DRAW && this.model.data.drawData.autoFit) {
+                e.preventDefault();
+                this.model.cancel();
+                return;
+            }
+
             if (this.model.data.activeElement.clientID !== null) {
                 this.dispatchEvent(
                     new CustomEvent('canvas.contextmenu', {
@@ -1399,7 +1405,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
         this.cube.perspective.visible = true;
         // start() acquires its guard before the first await or UI notification.
         const operation = this.autoFitOperation.start(draw, seed);
-        this.autoFitStatus('fitting', 'Auto Fit in progress… Press Escape to cancel.');
+        this.autoFitStatus('fitting', 'Auto Fit in progress… Right-click or Esc to cancel.');
         const outcome = await operation;
         if (outcome.status === 'cancelled' || this.controller.drawData !== data ||
             this.mode !== Mode.DRAW || !data.enabled || !draw.isCurrent()) return;
@@ -1410,8 +1416,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
         // Disable synchronously before notifying consumers; exactly one existing creation transaction.
         data.enabled = false;
         this.mode = Mode.IDLE;
-        this.autoFitStatus('done', outcome.quality === 'estimated' ?
-            'Estimated box — review its position, size and rotation.' : '');
+        this.autoFitStatus('done', '');
         data.autoFit = undefined;
         this.dispatchEvent(new CustomEvent('canvas.drawn', {
             detail: {
@@ -1657,7 +1662,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
             if (data.autoFit && !data.initialState && !Number.isInteger(data.redraw)) {
                 this.autoFitPickKey = '';
                 this.cube.perspective.visible = false;
-                this.autoFitStatus('drawing', 'Double-click a visible LiDAR point on the car.');
+                this.autoFitStatus('drawing', 'Double-click a visible LiDAR point on the car. Right-click or Esc to cancel.');
             }
         } else if (reason === UpdateReasons.OBJECTS_UPDATED) {
             this.setupObjectsIncremental(model.objects);
@@ -1673,7 +1678,7 @@ export class Canvas3dViewImpl implements Canvas3dView, Listener {
             this.deactivateObject();
         } else if (reason === UpdateReasons.CANCEL) {
             this.autoFitOperation.cancel();
-            if (this.controller.drawData.autoFit) this.autoFitStatus('cancelled', 'Auto Fit cancelled. Draw again to retry.');
+            if (this.controller.drawData.autoFit) this.autoFitStatus('cancelled', 'Auto Fit cancelled.');
             this.controller.drawData.autoFit = undefined;
             if (this.mode === Mode.DRAG_CANVAS) {
                 this.isPerspectiveBeingDragged = false;

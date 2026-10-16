@@ -67,6 +67,7 @@ cvat-ui/dist-autofit-dev
 cvat-ui/dist-autofit-prod-check
 cvat-ui/dist-autofit-real
 cvat-ui/dist-autofit-fast
+cvat-ui/dist-autofit-local
 
 # produced by prepare in the root package.json script
 .husky

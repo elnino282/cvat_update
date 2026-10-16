@@ -217,6 +217,7 @@ context('Auto Fit Box PR1: point picking and annotation lifecycle', () => {
             cy.get('.cvat-auto-fit-status').should('contain.text', 'in progress');
             cy.get(objects).should('not.exist');
             cy.get(objects).should('have.length', 1);
+            cy.get('.cvat-auto-fit-status').should('not.exist');
             cy.get(canvasSelector).should(([canvas]) => {
                 expect(canvas.getDrawnObjects()).to.have.length(1);
             }).then(([canvas]) => {
@@ -468,6 +469,32 @@ context('Auto Fit Box PR1: point picking and annotation lifecycle', () => {
         cy.get('body').type('{esc}');
         cy.get('.cvat-auto-fit-status').should('contain.text', 'cancelled');
         cy.wait(1400); // Wait beyond provider delay to assert no late creation.
+        cy.get(objects).should('not.exist');
+        cy.then(() => expect(events.drawn).to.have.length(0));
+    });
+
+    it('right-click cancels Auto Fit before selecting a point', () => {
+        start();
+        cy.get(canvasSelector).rightclick(10, 10);
+        cy.get('.cvat-auto-fit-status').should('contain.text', 'cancelled');
+        cy.get(objects).should('not.exist');
+        cy.then(() => expect(events.fitting).to.eq(0));
+    });
+
+    it('right-click cancels a slow result and prevents the browser context menu', () => {
+        start('Shape', true, 'success', 1200);
+        confirmPoint();
+        cy.get('.cvat-auto-fit-status').should('contain.text', 'in progress');
+        let contextMenuPrevented = false;
+        cy.get(canvasSelector).then(([canvas]) => {
+            canvas.addEventListener('contextmenu', (event) => {
+                contextMenuPrevented = event.defaultPrevented;
+            }, { once: true });
+        });
+        cy.get(canvasSelector).rightclick(10, 10);
+        cy.get('.cvat-auto-fit-status').should('contain.text', 'cancelled');
+        cy.then(() => expect(contextMenuPrevented).to.eq(true));
+        cy.wait(1400); // Wait beyond provider delay to detect a late commit.
         cy.get(objects).should('not.exist');
         cy.then(() => expect(events.drawn).to.have.length(0));
     });
