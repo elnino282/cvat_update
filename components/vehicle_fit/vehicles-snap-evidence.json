@@ -1,0 +1,97 @@
+{
+  "recorded_at_utc": "2026-10-15T20:44:48.389224+00:00",
+  "regression_gate": "PASS",
+  "absolute_quality_gate": "No absolute quality threshold was specified; metrics are measured, not an independent held-out acceptance claim.",
+  "protocol": "First GT-assisted observed seed, no retries; every Vehicles/car result paired with legacy Car on the same prepared cloud and checkpoint.",
+  "dataset": {
+    "frames_in_source": 154,
+    "frames_with_car_test_cases": 45,
+    "car_cases": 248,
+    "annotation_sha256": "3b724bbe50b78962d18e8d1b2f1232e0c5b79fc1d3af2818c30b46edc1bcd54b",
+    "archive_sha256": "117e60680faad28c33e6bb398459909752280c0f5b1aeeade0ff156e165a321b",
+    "tracklet_sha256": "37b2fb315b0ed2cb8c1231fc2a685379ba3bccae25195ce22c68164bfc77072b"
+  },
+  "results": {
+    "status_counts": {
+      "ok": 184,
+      "no-fit": 64,
+      "unseedable": 0,
+      "prepare-unavailable": 0,
+      "transport-error": 0
+    },
+    "quality_counts": {
+      "confident": 0,
+      "estimated": 184
+    },
+    "accepted_coverage": 0.7419354838709677,
+    "no_fit_reasons": {
+      "ambiguous": 55,
+      "insufficient-evidence": 9
+    },
+    "wrong_instance_accepts": 0,
+    "accepted_seed_inside_count": 180,
+    "iou_3d_accepted": {
+      "n": 184,
+      "mean": 0.7645622487272622,
+      "median": 0.8044315206559987,
+      "ge_070": 152
+    },
+    "mean_iou_all_cases_no_fit_as_zero": 0.5672558619589365,
+    "center_error_mean_m": 0.24140400935494266,
+    "seed_outside_same_in_legacy": [
+      {
+        "case_id": "drive0005-frame-0000000128-annotation-697",
+        "outside_m": 0.007229978131340853,
+        "legacy_geometry_equal": true
+      },
+      {
+        "case_id": "drive0005-frame-0000000140-annotation-649",
+        "outside_m": 0.005131199093744709,
+        "legacy_geometry_equal": true
+      },
+      {
+        "case_id": "drive0005-frame-0000000142-annotation-683",
+        "outside_m": 0.002488292170501172,
+        "legacy_geometry_equal": true
+      },
+      {
+        "case_id": "drive0005-frame-0000000145-annotation-714",
+        "outside_m": 0.0015548787636424644,
+        "legacy_geometry_equal": true
+      }
+    ]
+  },
+  "parity": {
+    "paired_cases": 248,
+    "equal_results": 248,
+    "geometry_max_abs_difference": 0.0,
+    "equal_masks": 248
+  },
+  "runtime": {
+    "qa_image_id": "sha256:515842da1e3bcbe74d5fe0c373f97ecf48dad9c356547d6a720c25d982fe5a46",
+    "host_cuda": {
+      "code": 0,
+      "detail": "no error"
+    },
+    "model_revision": "59fa79b3948e2a9aec4e69efccb1f0677bdb4295",
+    "checkpoint_sha256": "266b00df105b494e9c86d416f4715bf615baf2ba6c830c298f02e3dbebedd8bb",
+    "torch": "2.7.1+cu128",
+    "cuda": "12.8",
+    "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "priors": {
+      "length": 3.7,
+      "width": 1.61,
+      "height": 1.49
+    },
+    "adaptive_refinement": false,
+    "geometry_sha256": "46ba9fa4330fd70dffe244c9a4f73a89ecdf88f727c37e9492eb4f77b5239c60",
+    "snap_backend_sha256": "fe84280793cc7a6e244e0ff11ed07ac3ed74e32222c84af9c34415b7892040d5"
+  },
+  "evidence": {
+    "directory": "components/vehicle_fit/evidence/vehicles-audit-fixes/gpu",
+    "cases_sha256": "13e09017c65a4c733b5031b207379b1c141962ed122a6c0639e42bd1cc854793",
+    "summary_sha256": "037095d0b62f882a48f2352d87124770d629fe7f4c8d92d46223eab27f56bfde"
+  },
+  "original_container_restored": true,
+  "original_container_health": "healthy"
+}

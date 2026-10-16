@@ -21,6 +21,7 @@ from .cloud import decode_cloud
 from .geometry import NoFit, VehiclePriors, apply_quality_policy, estimate_vehicle, fit_vehicle
 
 LOGGER = logging.getLogger("vehicle_fit")
+SUPPORTED_VEHICLE_TYPES = {"car", "truck", "bus", "van", "other"}
 MAX_BODY_BYTES = 128 * 1024 * 1024
 MAX_CACHE_ENTRIES = 512
 MAX_ACTIVE_REQUESTS = 16
@@ -329,8 +330,16 @@ class FitRuntime:
             return {"status": "no-fit", **result_base, "reason": "unavailable", "diagnostics": {"detail": str(exc)}}
 
     def fit_once(self, meta, cloud_bytes=b""):
-        if meta["labelName"].strip().lower() != "car":
-            raise ValueError("Only the Car label is supported")
+        label_name = meta["labelName"].strip().lower()
+        vehicle_type = meta.get("vehicleType", "car" if label_name == "car" else None)
+        if label_name not in {"car", "vehicles"} or vehicle_type not in SUPPORTED_VEHICLE_TYPES:
+            raise ValueError("Invalid vehicle label or type")
+        if label_name == "car" and vehicle_type != "car":
+            raise ValueError("The legacy Car label only supports car")
+        if vehicle_type != "car":
+            return {"status": "no-fit", "requestId": str(meta["requestId"]),
+                    "frame": int(meta["frame"]), "provider": self.backend_name,
+                    "reason": "unsupported-type"}
         if meta["cloud_format"] not in {"bin", "pcd"} or len(cloud_bytes) > MAX_BODY_BYTES:
             raise ValueError("Invalid cloud format or request size")
         budget = min(16.0, max(.001, float(meta.get("timeout_ms", 16000)) / 1000))

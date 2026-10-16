@@ -73,6 +73,60 @@ class AutoFitAdapterTests(SimpleTestCase):
         self.assertEqual(metadata["labelName"], "Car")
         self.assertLessEqual(metadata["timeout_ms"], 16000)
 
+    def test_vehicles_car_routes_to_existing_fitter_and_forwards_validated_type(self):
+        type_spec = SimpleNamespace(
+            id=9, name="type", mutable=False, input_type="select",
+            values="car\ntruck\nbus\nvan\nother",
+        )
+        self.job.get_labels = lambda: [SimpleNamespace(id=4, name="Vehicles", attributes=[type_spec])]
+        self.data.update(vehicleType="car", typeAttributeId=9)
+
+        response = fit_job_frame(self.request, self.job)
+
+        self.assertEqual(response.data, self.result)
+        metadata = json.loads(self.post.call_args.kwargs["data"]["metadata"])
+        self.assertEqual(metadata["vehicleType"], "car")
+        self.assertEqual(metadata["typeAttributeId"], 9)
+        self.assertEqual(metadata["labelName"], "Vehicles")
+
+    def test_unsupported_vehicles_type_returns_no_fit_before_reading_or_fitting(self):
+        type_spec = SimpleNamespace(
+            id=9, name="type", mutable=False, input_type="select",
+            values="car\ntruck\nbus\nvan\nother",
+        )
+        self.job.get_labels = lambda: [SimpleNamespace(id=4, name="Vehicles", attributes=[type_spec])]
+        for vehicle_type in ("truck", "bus", "van", "other"):
+            with self.subTest(vehicle_type=vehicle_type):
+                self.data.update(vehicleType=vehicle_type, typeAttributeId=9)
+                response = fit_job_frame(self.request, self.job)
+
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.data["status"], "no-fit")
+                self.assertEqual(response.data["reason"], "unsupported-type")
+        self.provider.get_frame.assert_not_called()
+        self.post.assert_not_called()
+
+    def test_vehicles_requires_the_exact_immutable_select_schema_and_selection(self):
+        valid = SimpleNamespace(
+            id=9, name="type", mutable=False, input_type="select",
+            values="car\ntruck\nbus\nvan\nother",
+        )
+        self.job.get_labels = lambda: [SimpleNamespace(id=4, name="Vehicles", attributes=[valid])]
+        self.data["vehicleType"] = "car"
+        for missing in ({"typeAttributeId": None}, {"vehicleType": None}):
+            data = {**self.data, **missing}
+            with self.assertRaises(ValidationError):
+                fit_job_frame(SimpleNamespace(data=data, user=self.request.user), self.job)
+        self.data["typeAttributeId"] = 10
+        with self.assertRaises(ValidationError):
+            fit_job_frame(self.request, self.job)
+        self.data["typeAttributeId"] = 9
+        valid.mutable = True
+        with self.assertRaises(ValidationError):
+            fit_job_frame(self.request, self.job)
+        self.provider.get_frame.assert_not_called()
+        self.post.assert_not_called()
+
     def test_feature_off_never_reads_cloud_or_calls_service(self):
         with override_settings(CVAT_AUTOFIT_ENABLED=False):
             self.assertEqual(fit_job_frame(self.request, self.job).status_code, 503)
@@ -198,4 +252,24 @@ class AutoFitAdapterTests(SimpleTestCase):
             get.return_value.json.return_value = ready
             self.assertEqual(prepare_job_frame(request, self.job).data, ready)
             self.assertEqual(get.call_args.kwargs["params"]["userId"], 7)
+        self.provider.get_frame.assert_not_called()
+
+    def test_prepare_accepts_only_the_complete_vehicles_type_schema(self):
+        spec = SimpleNamespace(
+            id=9, name="type", mutable=False, input_type="select",
+            values="car\ntruck\nbus\nvan\nother",
+        )
+        self.job.get_labels = lambda: [SimpleNamespace(id=4, name="Vehicles", attributes=[spec])]
+        request = SimpleNamespace(
+            method="POST", data={"taskId": 1, "jobId": 2, "frame": 3},
+            user=SimpleNamespace(id=7),
+        )
+        ready = {"state": "ready", "frame": 3, "frameToken": "a" * 32, "backend": "geometry-only"}
+        self.post.return_value.json.return_value = ready
+        self.assertEqual(prepare_job_frame(request, self.job).data, ready)
+        self.provider.get_frame.assert_called_once()
+        self.provider.get_frame.reset_mock()
+        spec.mutable = True
+        with self.assertRaises(ValidationError):
+            prepare_job_frame(request, self.job)
         self.provider.get_frame.assert_not_called()

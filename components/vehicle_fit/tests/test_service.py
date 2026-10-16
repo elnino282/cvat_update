@@ -120,6 +120,33 @@ class RuntimeLifecycleTests(unittest.TestCase):
             self.runtime = FitRuntime()
         self.raw = np.array([[1, 2, 3, .5]], dtype='<f4').tobytes()
 
+    def test_unsupported_vehicle_type_returns_no_fit_without_decoding_or_fitting(self):
+        for vehicle_type in ("truck", "bus", "van", "other"):
+            with self.subTest(vehicle_type=vehicle_type):
+                meta = metadata()
+                meta.update(labelName="Vehicles", vehicleType=vehicle_type)
+                with patch('vehicle_fit.service.decode_cloud', side_effect=AssertionError('must not decode')), \
+                     patch('vehicle_fit.service.fit_vehicle', side_effect=AssertionError('must not fit')):
+                    result = self.runtime.fit_once(meta, b'invalid point cloud')
+                self.assertEqual(result['status'], 'no-fit')
+                self.assertEqual(result['reason'], 'unsupported-type')
+                self.assertEqual(result['requestId'], meta['requestId'])
+
+    def test_vehicles_car_and_legacy_car_use_the_same_fitter_geometry(self):
+        cloud = np.array([[1, 2, 3, .5]], dtype=np.float32)
+        legacy = metadata("5a1d01d4-ec74-4660-8d95-0d5608a72110")
+        vehicles = metadata("69d540a5-a0df-4bde-a865-a0e7d8a54f1f")
+        vehicles.update(labelName="Vehicles", vehicleType="car")
+        with patch('vehicle_fit.service.decode_cloud', return_value=(cloud, np.array([0]))), \
+             patch('vehicle_fit.service.fit_vehicle', side_effect=fake_fit) as fit:
+            old_result = self.runtime.fit_once(legacy, self.raw)
+            new_result = self.runtime.fit_once(vehicles, self.raw)
+        self.assertEqual(fit.call_count, 2)
+        for key in ('center', 'size', 'rotation', 'confidence'):
+            self.assertEqual(new_result[key], old_result[key])
+        self.assertEqual(old_result['status'], 'ok')
+        self.assertEqual(new_result['status'], 'ok')
+
     def test_prepared_scope_expiry_and_cache_skip_decode(self):
         meta = metadata()
         prepared = self.runtime.prepare(meta, self.raw)
