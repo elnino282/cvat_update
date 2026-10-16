@@ -7,6 +7,7 @@ import './styles.scss';
 import React, {
     useCallback, useEffect, useRef, useState,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { getCVATStore } from 'cvat-store';
 import {
     hasAutoFitLabel, isAutoFitIdentityCurrent, mockAutoFitEnabled, realAutoFitEnabled,
@@ -15,7 +16,7 @@ import {
 import { prepareRealAutoFitFrame } from 'utils/auto-fit-provider';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import {
-    ArrowDownOutlined, ArrowLeftOutlined, ArrowRightOutlined, ArrowUpOutlined,
+    ArrowDownOutlined, ArrowLeftOutlined, ArrowRightOutlined, ArrowUpOutlined, CloseOutlined,
 } from '@ant-design/icons';
 import Button from 'antd/lib/button';
 import Spin from 'antd/lib/spin';
@@ -593,7 +594,7 @@ export const FrontViewComponent = React.memo(
 
 const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null => {
     const animateId = useRef(0);
-    const [autoFitHint, setAutoFitHint] = useState('');
+    const [autoFitNotice, setAutoFitNotice] = useState<{ status: string; hint: string } | null>(null);
     const committedAutoFitRequests = useRef(new Set<string>());
 
     const {
@@ -631,7 +632,15 @@ const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null =
     const { canvasInstance } = props as { canvasInstance: Canvas3d };
 
     useEffect(() => {
-        setAutoFitHint('');
+        if (!autoFitNotice || autoFitNotice.status === 'fitting') return undefined;
+        const timeout = window.setTimeout(() => {
+            setAutoFitNotice((current) => (current === autoFitNotice ? null : current));
+        }, autoFitNotice.status === 'cancelled' ? 2500 : 2500);
+        return () => window.clearTimeout(timeout);
+    }, [autoFitNotice]);
+
+    useEffect(() => {
+        setAutoFitNotice(null);
         if (!realAutoFitEnabled || !frameData || frameData.deleted || !hasAutoFitLabel(jobInstance)) return undefined;
         return prepareRealAutoFitFrame(canvasInstance, { taskId: jobInstance.taskId, jobId: jobInstance.id, frame });
     }, [canvasInstance, jobInstance.id, frame, frameData]);
@@ -781,7 +790,8 @@ const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null =
         let fittingIdentity: Parameters<typeof isAutoFitIdentityCurrent>[0] | null = null;
         const onAutoFit = (event: CustomEvent): void => {
             fittingIdentity = event.detail.status === 'fitting' ? event.detail.identity : null;
-            setAutoFitHint(event.detail.hint);
+            const { status, hint } = event.detail;
+            setAutoFitNotice(status !== 'done' && hint ? { status, hint } : null);
         };
         canvasInstanceDOM.perspective.addEventListener('canvas.autofit', onAutoFit as EventListener);
         // Synchronous Redux subscription invalidates the lifetime even if the user switches away and back
@@ -924,18 +934,30 @@ const Canvas3DWrapperComponent = React.memo((props: Props): JSX.Element | null =
         };
     }, [frameData, annotations, hiddenZLayers, activeLabelID, contextMenuVisibility, activeObjectType]);
 
-    return autoFitHint ? (
+    const noticeContainer = canvasInstance.html().perspective.closest('.cvat-canvas3d-perspective');
+    return autoFitNotice && noticeContainer ? createPortal(
         <div
             className='cvat-auto-fit-status'
             role='status'
             aria-live='polite'
-            style={{
-                position: 'absolute', top: 8, left: 8, padding: 8, background: '#fff', zIndex: 1, pointerEvents: 'none',
-            }}
+            aria-atomic='true'
         >
-            {mockAutoFitEnabled && <span>Mock Auto Fit · </span>}
-            {autoFitHint}
-        </div>
+            {autoFitNotice.status === 'fitting' && <Spin size='small' />}
+            <span>
+                {mockAutoFitEnabled && 'Mock Auto Fit · '}
+                {autoFitNotice.hint}
+            </span>
+            <Button
+                type='text'
+                size='small'
+                className='cvat-auto-fit-status-close'
+                aria-label='Dismiss Auto Fit message'
+                title='Dismiss'
+                icon={<CloseOutlined />}
+                onClick={() => setAutoFitNotice(null)}
+            />
+        </div>,
+        noticeContainer,
     ) : null;
 });
 

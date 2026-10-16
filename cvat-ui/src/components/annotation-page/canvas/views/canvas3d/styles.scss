@@ -12,6 +12,36 @@
     padding: $grid-unit-size * 0.5;
 }
 
+.cvat-auto-fit-status {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: max-content;
+    max-width: calc(100% - 32px);
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+
+    > span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .cvat-auto-fit-status-close {
+        flex-shrink: 0;
+        pointer-events: auto;
+    }
+}
+
 .cvat-canvas3d-orthographic-views {
     height: 50%;
     position: relative;

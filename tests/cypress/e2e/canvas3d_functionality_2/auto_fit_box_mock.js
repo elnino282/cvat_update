@@ -499,6 +499,40 @@ context('Auto Fit Box PR1: point picking and annotation lifecycle', () => {
         cy.then(() => expect(events.drawn).to.have.length(0));
     });
 
+    it('status notices expire, can be dismissed, and never clear a newer fitting message', () => {
+        cy.clock(Date.now(), ['setTimeout', 'clearTimeout']);
+        const publish = (status, hint) => cy.get(canvasSelector).then(([canvas]) => {
+            canvas.dispatchEvent(new canvas.ownerDocument.defaultView.CustomEvent('canvas.autofit', {
+                detail: { status, hint },
+            }));
+        });
+
+        publish('cancelled', 'Auto Fit cancelled.');
+        cy.get('.cvat-auto-fit-status').should('contain.text', 'cancelled');
+        cy.tick(2500);
+        cy.get('.cvat-auto-fit-status').should('not.exist');
+
+        publish('retry', 'Double-click another point to retry.');
+        cy.get('.cvat-auto-fit-status').should('contain.text', 'retry');
+        cy.tick(6000);
+        cy.get('.cvat-auto-fit-status').should('not.exist');
+
+        publish('drawing', 'Choose a point.');
+        cy.get('.cvat-auto-fit-status').should('contain.text', 'Choose a point');
+        cy.tick(1000);
+        publish('fitting', 'Auto Fit in progress…');
+        cy.get('.cvat-auto-fit-status').should('contain.text', 'in progress');
+        cy.tick(6000);
+        cy.get('.cvat-auto-fit-status').should('contain.text', 'in progress');
+        cy.get('[aria-label="Dismiss Auto Fit message"]').click();
+        cy.get('.cvat-auto-fit-status').should('not.exist');
+
+        publish('retry', 'Try again.');
+        cy.get('.cvat-auto-fit-status').should('contain.text', 'Try again');
+        publish('done', '');
+        cy.get('.cvat-auto-fit-status').should('not.exist');
+    });
+
     it('UX09: navigating to another frame drops a slow response', () => {
         start('Shape', true, 'success', 1200);
         confirmPoint();
