@@ -206,3 +206,188 @@ completion of geometry verification. `dimensionSourceLWH`, `placementSource`
 and related fields distinguish measurements, priors and estimated placement.
 Complete traces are evaluator-only. Refinement remains disabled by default;
 new independent evaluation is blocked until a genuinely unused dataset exists.
+
+## Vehicles label and migration
+
+For new 3D tasks or projects, use [`vehicles-label.json`](vehicles-label.json):
+it defines a cuboid label with immutable select attribute `type` and values
+`car`, `truck`, `bus`, `van`, and `other`. `other` is the manual drawing
+default. Auto Fit requires a deliberate selection in the Draw Cuboid popover.
+
+The migration command is read-only by default. First inspect the selected scope,
+then create a protected annotation/schema snapshot before applying changes:
+
+```bash
+python manage.py migrate_autofit_vehicles --task-id 123 --mode dry-run
+python manage.py migrate_autofit_vehicles --task-id 123 --mode backup \
+  --backup /secure/path/task-123-before.json
+python manage.py migrate_autofit_vehicles --task-id 123 --mode apply \
+  --backup /secure/path/task-123-before.json --confirm-scope task:123
+python manage.py migrate_autofit_vehicles --task-id 123 --mode rollback \
+  --backup /secure/path/task-123-before.json
+```
+
+For a project-wide scope, use `--project-id 456` and confirm `project:456`.
+Store the snapshot outside the CVAT database and retain it until reload and
+export checks pass. Apply requires a matching unchanged snapshot and explicit
+scope confirmation. Rollback stops if the affected annotations or schema changed
+after apply.
+Both apply (including repeated apply) and rollback verify the stored `before`
+snapshot checksum before writing backup status or database rows. A mismatched
+checksum is rejected. This detects accidental snapshot edits; it is not a
+signature against someone who can replace both the snapshot and its checksum.
+Copy/paste preserves the source vehicle type; the drawing preference applies
+only to newly drawn cuboids.
+
+## Vehicles implementation evidence
+
+Audit baseline was `e634cbe53` on `feat/auto-fit-pedestrian`; the existing
+`.gitignore` edit and untracked `docker-compose.local.yml` were left untouched.
+The [acceptance record](vehicles-acceptance.json) contains source hashes,
+per-PR gates, and paths to the captured logs and GT snapshots.
+
+**PR1 — Schema and UX:** The complete Chrome acceptance spec passes **33/33 twice**, in independent Cypress processes with **retries=0**, identical source hashes, no skipped tests, and 33 passing Allure results per run. Both Shape/Track paste regressions, failed-fit preservation, and UX16 pass. Final TypeScript, ESLint and production webpack build pass; the build reports two bundle-size warnings and was not deployed. The mock fitter validates UI lifecycle only, not SNAP quality.
+
+Draw Cuboid now controls the popover's `open` state and closes it when drawing starts, instead of hiding an internally open popover with CSS. This prevents stale open/close state on the next draw. Cuboid Shape/Track shortcut tooltips appear below their buttons so they do not cover Auto Fit. Test interactions use one normal opening sequence and retain the original successful-fit-then-rejection scenario, checking cuboid identity, geometry and event counts.
+
+For Auto Fit Cypress specs, the failure listener registered before Allure bounds `actual`/`expected` diagnostics (including DOM and shared object graphs), preserving the error message, stack and failure status. A separate negative probe confirmed that two deliberately failing DOM/shared-graph assertions remain FAIL in Cypress and Allure with their original messages and no `RangeError`. These expected failures are separate from the 33-case acceptance suite.
+
+The backend, fitter, SNAP and migration results below are retained from the earlier passing runs; their source hashes still match. The browser fixes were verified separately in the two new acceptance runs.
+
+**PR2 — Router:** The vehicle fitter passes **78 tests**, including paired
+legacy-Car versus Vehicles/car routing through the same fitter and early no-fit
+for truck, bus, van, and other. The Django HTTP view was also exercised against
+the imported GT in QA: four unsupported types did not read a frame or call the
+fitter, four invalid selections returned 400, and car forwarded the real PCD
+once to a stubbed service. Stored annotations stayed identical.
+The canvas Node suite, type check, lint, and webpack build pass.
+
+After the user rebooted the host, CUDA initialization returned 0 and the real
+SNAP regression **passed all 248 paired cases** across the 45 frames containing
+Car GT. Every mask and fit/no-fit result matched the legacy Car route; maximum
+geometry difference was exactly 0. There were 184 returned cuboids, all marked
+`estimated`, and 64 no-fits (55 ambiguous, nine insufficient-evidence). No returned box matched a different GT vehicle.
+180/184 returned boxes contained the seed at tolerance 1e-6; four seeds were
+1.6–7.2 mm outside, identically in both legacy Car and Vehicles/car routes.
+Accepted-box 3D IoU was mean 0.76456, median 0.80443; 152 reached IoU >= 0.70.
+Coverage was 74.19%; mean IoU with no-fits scored as zero was 0.56726.
+This establishes compatibility with the existing Car fitter. No separate
+absolute production-quality threshold was specified; estimated boxes still
+require review. Full provenance and metrics are in the
+[SNAP evidence](vehicles-snap-evidence.json).
+
+The earlier run was blocked by host CUDA error 999 and kernel Xid 154
+(`Node Reboot Required`). After this successful run, the original fitter was restored with the same
+image and verified healthy. No driver settings were changed. The runner checks
+host CUDA before interrupting a service and always restores the original
+container in cleanup.
+
+**PR3 — Migration:** Eight ORM fixture tests cover missing/valid/invalid Car type,
+repeat apply, tampered snapshots before any write, task and multi-task project
+scopes, backup/apply/rollback, shape and track IDs, geometry, keyframes, mutable
+and immutable attributes, and rollback refusal after a later edit. Full GT
+import, backup/apply, Datumaro 3D export/import and rollback now **PASS** in the
+dedicated `cvat-vehicles-qa` stack (154 frames, 15 tracks). Migration and rollback
+preserve exact annotation values and IDs; export/import preserves semantics
+with geometry tolerance 1e-6. No production task or project was migrated.
+The initial CVAT import contains 722 keyframes (717 visible, five outside),
+with original custom attributes and flags preserved. Geometry is rounded to
+two decimals by the existing import path before migration (maximum observed
+coordinate difference 0.00499933). Migration comparisons use that imported
+snapshot; fitter scoring uses the original full-precision GT file.
+The 25 current Django adapter and migration tests
+passed in a temporary test database, which Django destroyed after the run.
+
+The supplied GT audit found 154 frames, 248 visible Car cuboids, 293 Van
+cuboids, and five outside track-termination shapes. All 717 visible cuboids
+matched the source tracklet geometry; all 248 Cars have at least one observed
+seed. The PCD payload hashes for frames 104–153 and the tracklet XML hash match
+the existing RAW50 corpus. This is a regression sample, not an independent
+held-out dataset.
+
+The read-only evaluator freezes the input hashes and GT-derived observed seeds,
+then compares Vehicles/car against the legacy Car route on identical seeds.
+Use the isolated GPU runner after authorizing the temporary service interruption:
+
+```bash
+docker build -f components/vehicle_fit/Dockerfile.runtime \
+  --build-arg VEHICLE_FIT_RUNTIME_BASE=cvat/vehicle-fit:autofit-fast \
+  -t cvat/vehicle-fit:vehicles-qa .
+python3 tests/vehicles_gpu_regression.py \
+  --dataset ~/Datasets/cvat_drive_0005_3d \
+  --output components/vehicle_fit/evidence/vehicles-next-run \
+  --allow-service-interruption
+```
+
+The completed run is in `evidence/vehicles-post-reboot/` in this workspace.
+The evaluator has tests that mark unavailable preparation as **BLOCKED** and
+never as a quality pass. The fitter algorithm, model, priors, thresholds, and
+fallback were not changed.
+
+Commands validated: `node_modules/.bin/tsc -p cvat-ui/tsconfig.json --noEmit`,
+ESLint on changed TypeScript/Cypress files,
+`node --test cvat-canvas3d/tests/auto-fit.test.cjs`, Django tests
+`cvat.apps.engine.tests.test_auto_fit` and `test_vehicle_migration`, the complete
+`components/vehicle_fit` Python suite (**78 passed**), and a development
+webpack build into `/tmp`.
+
+Reproduce the isolated browser/backend checks using these helpers:
+
+```bash
+docker build -f Dockerfile.autofit-pr3 -t cvat/server:autofit-pr3 .
+python3 tests/vehicles_qa_compose.py --output /tmp/cvat-vehicles-qa.yml
+docker compose -f /tmp/cvat-vehicles-qa.yml up -d --pull never
+docker compose -f /tmp/cvat-vehicles-qa.yml exec -T \
+  -e DJANGO_SUPERUSER_PASSWORD=12qwaszx cvat_server python manage.py createsuperuser \
+  --noinput --username admin --email admin@localhost.company
+# Start the frontend from cvat-ui, in another terminal:
+CVAT_AUTOFIT_MOCK=true CVAT_UI_HOST=localhost CVAT_UI_PORT=13000 \
+  ../node_modules/.bin/webpack serve --config webpack.config.js \
+  --mode development --env API_URL=http://localhost:18080
+# From tests, in another terminal:
+BASE_URL=http://localhost:13000 ./node_modules/.bin/cypress run --browser chrome \
+  --config 'specPattern=cypress/e2e/canvas3d_functionality_2/auto_fit_box_mock.js,video=false,retries=0'
+# From the repository root:
+python3 tests/vehicles_gt_roundtrip.py --dataset ~/Datasets/cvat_drive_0005_3d \
+  --output components/vehicle_fit/evidence/vehicles-gt-roundtrip-new
+docker compose -f /tmp/cvat-vehicles-qa.yml exec -T cvat_server \
+  python manage.py shell < tests/vehicles_qa_router.py
+```
+
+The [browser evidence](vehicles-browser-evidence.json) records both complete 33-case acceptance runs. Logs, source hashes and separate Allure artifacts are retained under `evidence/vehicles-final-browser`; the earlier failures and negative reporter probe remain under `evidence/vehicles-native-pointer`. Run the full browser command twice in separate Cypress processes to reproduce the gate. The migration backup was recovered
+from the stopped QA container to `evidence/vehicles-post-reboot/migration-backup.json`;
+its rolled-back status and both snapshot checksums were verified. Detailed new
+SNAP results are stored in the workspace rather than `/tmp`.
+The QA stack is stopped with its volumes retained. The GPU runner requires explicit
+`--allow-service-interruption` authorization and restores the original fitter
+in a `finally` block; it must never be launched silently on a shared GPU.
+
+## Local Vehicles review deployment
+
+The earlier Vehicles review baseline was deployed at `http://localhost:8080` using
+`docker-compose.vehicles-review.yml` after the existing local override.
+The frontend is a production build with real SNAP enabled and mock fitting
+disabled, stored separately in `cvat-ui/dist/vehicles-review`.
+The served JavaScript hash and deployed backend/fitter source hashes were
+verified against the build and workspace at that time. The current popover,
+tooltip and reporter fixes were built locally and tested in isolated QA only;
+they have not been deployed. The startup command checks the
+existing database schema without running migrations. Deployment evidence is
+in `evidence/vehicles-deployment.json`.
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.local.yml \
+  -f docker-compose.vehicles-review.yml up -d --no-deps --no-build --pull never \
+  cvat_server cvat_ui vehicle_fit
+```
+
+For a new 3D test task, use `vehicles-label.json` to expose the vehicle type
+selector. Existing Car annotations are not converted by deploying the code.
+Reload the browser after deployment to load the new bundle.
+
+To restore the previous local code and UI bundle:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.local.yml \
+  up -d --no-deps --no-build --pull never cvat_server cvat_ui vehicle_fit
+```

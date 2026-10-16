@@ -1,0 +1,24 @@
+# Vehicles review build on the existing local CVAT stack.
+# Use after docker-compose.yml and docker-compose.local.yml.
+services:
+  cvat_server:
+    image: cvat/server:autofit-pr3
+    # The database is already initialized. Check its schema without running migrations.
+    command: run server nginx
+    environment:
+      CVAT_AUTOFIT_ENABLED: 'true'
+      CVAT_AUTOFIT_BACKEND: snap
+      CVAT_AUTOFIT_SERVICE_URL: http://vehicle_fit:8093
+    labels:
+      cvat.autofit.runtime: vehicles-review
+
+  cvat_ui:
+    volumes:
+      - ./cvat-ui/dist/vehicles-review:/usr/share/nginx/html:ro
+    labels:
+      cvat.autofit.runtime: vehicles-review
+
+  vehicle_fit:
+    image: cvat/vehicle-fit:vehicles-qa
+    labels:
+      cvat.autofit.runtime: vehicles-review

@@ -8,4 +8,8 @@ COPY --chown=django:django cvat/apps/engine/auto_fit.py /opt/cvat/cvat/apps/engi
 COPY --chown=django:django cvat/apps/engine/views.py /opt/cvat/cvat/apps/engine/views.py
 COPY --chown=django:django cvat/apps/engine/permissions.py /opt/cvat/cvat/apps/engine/permissions.py
 COPY --chown=django:django cvat/settings/base.py /opt/cvat/cvat/settings/base.py
+COPY --chown=django:django \
+    cvat/apps/engine/management/commands/migrate_autofit_vehicles.py \
+    /opt/cvat/cvat/apps/engine/management/commands/migrate_autofit_vehicles.py
 COPY --chown=django:django cvat/apps/engine/tests/test_auto_fit.py /opt/cvat/cvat/apps/engine/tests/test_auto_fit.py
+COPY --chown=django:django cvat/apps/engine/tests/test_vehicle_migration.py /opt/cvat/cvat/apps/engine/tests/test_vehicle_migration.py

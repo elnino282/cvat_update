@@ -1,0 +1,415 @@
+{
+  "recorded_at_utc": "2026-10-16T02:12:27.927151+00:00",
+  "branch": "feat/auto-fit-pedestrian",
+  "base_commit": "e634cbe53ffd19709fc2b3243d960a766dea9407",
+  "overall_status": "PASS - all three PR gates; browser 33/33 twice with retries=0",
+  "commits_created": 3,
+  "staged_files": [],
+  "source_sha256": {
+    "components/vehicle_fit/evaluation/drive_0005.py": "56fceca38cda2d9aba25fc7b098db91520f4b8e6287b1e837dd33f539d5e728c",
+    "components/vehicle_fit/evaluation/test_drive_0005.py": "2755c09e5f4439cb08031cc53b53bdf697987d7a618c80e0312c85d27ae306b9",
+    "components/vehicle_fit/geometry.py": "46ba9fa4330fd70dffe244c9a4f73a89ecdf88f727c37e9492eb4f77b5239c60",
+    "components/vehicle_fit/service.py": "aabbfe1f53b0a90fc32973000cacbd3c4db39c57c166f0ba7baceb8a1eab2101",
+    "components/vehicle_fit/snap_backend.py": "fe84280793cc7a6e244e0ff11ed07ac3ed74e32222c84af9c34415b7892040d5",
+    "components/vehicle_fit/tests/test_service.py": "5864a98e716affb283366c19b65628a39ebb2f99d7b588a692f5fae116d72599",
+    "cvat-canvas3d/src/typescript/autoFit.ts": "00fb99ad9efcf7355b53aca4e50e9f7ea2d9e8e13546855a2cc413e7481b0bf8",
+    "cvat-ui/src/components/annotation-page/canvas/views/canvas3d/canvas-wrapper3D.tsx": "4a11b29e496cf4e6dcf85507e437d8e1858777abd555d9a4cd0e1662aa8af8b3",
+    "cvat-ui/src/components/annotation-page/standard-workspace/controls-side-bar/draw-cuboid-control.tsx": "14f8325fb79f8ca8c1ace1ed2375c357475b313f308857b501cf10c42c859db7",
+    "cvat-ui/src/components/annotation-page/standard-workspace/controls-side-bar/draw-shape-popover.tsx": "a212086d732bc86d17d97c47e63da6a374a98cbc0451a121c613c9ccdf31f2cc",
+    "cvat-ui/src/containers/annotation-page/standard-workspace/controls-side-bar/draw-shape-popover.tsx": "545d5a03d2ca4aac1dbab82df8dcc4c5808275a986007f4f84d6205d3fbd1173",
+    "cvat-ui/src/utils/auto-fit.ts": "367e1164547efec7a3b0133733cdfff7bc3eea4b931bf4891deac7efe96eccb6",
+    "cvat/apps/engine/auto_fit.py": "a4a760de3609b1a6358fc5eaf73876d2ebcf218e1186655615652dc4d9cf6093",
+    "cvat/apps/engine/management/commands/migrate_autofit_vehicles.py": "912d95c43976ccf2cbed8b713246a037df6ce17e9dbeeb809ca2a95c5ed765cd",
+    "cvat/apps/engine/tests/test_auto_fit.py": "2ee93eb511f40e124c7b591f74ae88277e22e6143a0db02c15f79ef686c0fdb1",
+    "cvat/apps/engine/tests/test_vehicle_migration.py": "ade3b38659c696789e5651e99f70b17bad01231194edaaad6488879d04febac9",
+    "tests/cypress/e2e/canvas3d_functionality_2/auto_fit_box_mock.js": "8ba5203c879a987fcddb2b4978460e69a0bf77defc8e756e98bdb89d8d1dcb20",
+    "tests/cypress/support/autofit-safe-failures.js": "24340986484eab86fbba8998116c7293ab12f5325b5a79bf6d5f837a73774255",
+    "tests/cypress/support/e2e.js": "70b13800b1eb723f27631e0fc2c104cd0dad6968107855d402e35c6a852b1172",
+    "tests/vehicles_gpu_regression.py": "2762b31208d79a5296358bea615d507a1ef745df7b6b26fd57331d7787f43d3a",
+    "tests/vehicles_gt_roundtrip.py": "7523652863abcfb3fec6a332992dfa47e87cc53af02977e3fc7ae76685e38634",
+    "tests/vehicles_qa_compose.py": "efd984c542b0a1c8a9b970299754f2d98e31bff7c1078132f017b2b8092dc67b",
+    "tests/vehicles_qa_router.py": "89b6bd3c16cb1741a00c7c0522669c3e192a6e4e498c57bc36de6a166bf41992"
+  },
+  "pr1": {
+    "status": "PASS",
+    "browser_tests": 33,
+    "passed": 33,
+    "failed": 0,
+    "retries": 0,
+    "two_new_paste_regressions": "PASS in both complete acceptance runs",
+    "typescript": "PASS - final source checked with tsc --noEmit",
+    "eslint": "PASS - zero warnings/errors",
+    "production_build": "PASS - mock disabled, two bundle-size warnings; build only, not deployed",
+    "provider": "mock",
+    "log": "components/vehicle_fit/evidence/vehicles-final-browser/acceptance-2.log",
+    "browser_evidence": "components/vehicle_fit/vehicles-browser-evidence.json",
+    "unresolved": [],
+    "acceptance_runs": 2,
+    "runs": [
+      {
+        "number": 1,
+        "status": "PASS",
+        "started_at_utc": "2026-10-16T02:03:00.665481+00:00",
+        "command": [
+          "./node_modules/.bin/cypress",
+          "run",
+          "--browser",
+          "chrome",
+          "--config",
+          "specPattern=cypress/e2e/canvas3d_functionality_2/auto_fit_box_mock.js,video=false,retries=0"
+        ],
+        "finished_at_utc": "2026-10-16T02:07:16.121790+00:00",
+        "exit_code": 0,
+        "total": 33,
+        "passed": 33,
+        "log": "components/vehicle_fit/evidence/vehicles-final-browser/acceptance-1.log",
+        "log_sha256": "c7f36149c889477ef37b7cdb4697f2092191a09b30e972c9c17e89d2b54fd580",
+        "allure_directory": "components/vehicle_fit/evidence/vehicles-final-browser/allure-1",
+        "test_names": [
+          "Vehicles/other returns no-fit and creates no cuboid",
+          "UX07/11: infinity rejects with zero annotations and recovers for retry",
+          "UX10: unmount drops a slow response",
+          "provider deadline recovers without creating an annotation",
+          "Vehicles supports ordinary manual Draw Cuboid with its default type",
+          "Vehicles/van returns no-fit and creates no cuboid",
+          "UX04/05/12/13: Track commits once after repeated double-clicks, from real XYZ",
+          "UX07/11: wrong-provider rejects with zero annotations and recovers for retry",
+          "UX07/11: nan rejects with zero annotations and recovers for retry",
+          "requires an explicit vehicle type before Auto Fit starts",
+          "UX08: Escape cancels a slow result",
+          "UX07/11: wrong-request rejects with zero annotations and recovers for retry",
+          "UX10: changing label and object type cancels the previous request",
+          "UX01/02: defaults OFF below Label; manual creation remains available",
+          "UX03: 2D rectangle and cuboid tools do not show Auto Fit",
+          "Vehicles/car Track preserves type and geometry through history, reload and export",
+          "Vehicles Shape copy/paste keeps source type through Undo/Redo and Save/Reload",
+          "changing vehicle type drops the pending car result",
+          "UX16: session preference survives repeat drawing; OFF restores manual drawing",
+          "UX06: empty-space hit creates no request or annotation; same draw can retry",
+          "UX14/15: Shape Undo/Redo and Save/Reload preserve one cuboid and its geometry",
+          "failed fit preserves an existing cuboid",
+          "UX07/11: wrong-frame rejects with zero annotations and recovers for retry",
+          "UX09: navigating to another frame drops a slow response",
+          "Vehicles/bus returns no-fit and creates no cuboid",
+          "UX14/15: Track Undo/Redo and Save/Reload preserve one cuboid and its geometry",
+          "UX07/11: reject rejects with zero annotations and recovers for retry",
+          "UX07/11: no-fit rejects with zero annotations and recovers for retry",
+          "Vehicles Track copy/paste keeps source type through Undo/Redo and Save/Reload",
+          "Vehicles/truck returns no-fit and creates no cuboid",
+          "Vehicles/car Shape preserves type and geometry through history, reload and export",
+          "UX07/11: negative rejects with zero annotations and recovers for retry",
+          "UX04/05/12/13: Shape commits once after repeated double-clicks, from real XYZ"
+        ]
+      },
+      {
+        "number": 2,
+        "status": "PASS",
+        "started_at_utc": "2026-10-16T02:07:16.131497+00:00",
+        "command": [
+          "./node_modules/.bin/cypress",
+          "run",
+          "--browser",
+          "chrome",
+          "--config",
+          "specPattern=cypress/e2e/canvas3d_functionality_2/auto_fit_box_mock.js,video=false,retries=0"
+        ],
+        "finished_at_utc": "2026-10-16T02:11:46.162936+00:00",
+        "exit_code": 0,
+        "total": 33,
+        "passed": 33,
+        "log": "components/vehicle_fit/evidence/vehicles-final-browser/acceptance-2.log",
+        "log_sha256": "d124cffe6f60b84213d216ee155e64435a0bccefcc47b33a7d36b0cde508ca3d",
+        "allure_directory": "components/vehicle_fit/evidence/vehicles-final-browser/allure-2",
+        "test_names": [
+          "UX09: navigating to another frame drops a slow response",
+          "Vehicles/car Track preserves type and geometry through history, reload and export",
+          "UX07/11: wrong-provider rejects with zero annotations and recovers for retry",
+          "UX10: unmount drops a slow response",
+          "UX07/11: nan rejects with zero annotations and recovers for retry",
+          "requires an explicit vehicle type before Auto Fit starts",
+          "UX07/11: negative rejects with zero annotations and recovers for retry",
+          "Vehicles Shape copy/paste keeps source type through Undo/Redo and Save/Reload",
+          "Vehicles/truck returns no-fit and creates no cuboid",
+          "UX14/15: Track Undo/Redo and Save/Reload preserve one cuboid and its geometry",
+          "UX07/11: infinity rejects with zero annotations and recovers for retry",
+          "UX07/11: wrong-frame rejects with zero annotations and recovers for retry",
+          "UX10: changing label and object type cancels the previous request",
+          "UX04/05/12/13: Shape commits once after repeated double-clicks, from real XYZ",
+          "failed fit preserves an existing cuboid",
+          "UX07/11: wrong-request rejects with zero annotations and recovers for retry",
+          "UX03: 2D rectangle and cuboid tools do not show Auto Fit",
+          "UX16: session preference survives repeat drawing; OFF restores manual drawing",
+          "provider deadline recovers without creating an annotation",
+          "changing vehicle type drops the pending car result",
+          "Vehicles/other returns no-fit and creates no cuboid",
+          "Vehicles/bus returns no-fit and creates no cuboid",
+          "UX06: empty-space hit creates no request or annotation; same draw can retry",
+          "Vehicles/car Shape preserves type and geometry through history, reload and export",
+          "UX14/15: Shape Undo/Redo and Save/Reload preserve one cuboid and its geometry",
+          "UX08: Escape cancels a slow result",
+          "UX01/02: defaults OFF below Label; manual creation remains available",
+          "UX07/11: no-fit rejects with zero annotations and recovers for retry",
+          "Vehicles supports ordinary manual Draw Cuboid with its default type",
+          "UX04/05/12/13: Track commits once after repeated double-clicks, from real XYZ",
+          "Vehicles/van returns no-fit and creates no cuboid",
+          "UX07/11: reject rejects with zero annotations and recovers for retry",
+          "Vehicles Track copy/paste keeps source type through Undo/Redo and Save/Reload"
+        ]
+      }
+    ],
+    "reporter_negative_check": {
+      "status": "PASS",
+      "expected_failures": 2,
+      "allure_failed_results": 2,
+      "original_messages_preserved": true,
+      "range_errors": 0,
+      "log": "components/vehicle_fit/evidence/vehicles-native-pointer/reporter-negative-final.log"
+    },
+    "root_causes_and_fixes": [
+      "Draw Cuboid hid an internally open popover with display:none. React now controls open and closes it when drawing starts or the control is disabled.",
+      "The repeat-drawing tooltip was placed above the buttons over Auto Fit. Cuboid button tooltips now use bottom placement.",
+      "Allure serialized DOM/scene assertion values without bounds. A listener registered before Allure bounds diagnostic actual/expected for Auto Fit specs while preserving the original error and FAIL status."
+    ]
+  },
+  "pr2": {
+    "status": "PASS",
+    "fitter_python_tests": 78,
+    "django_adapter_tests": 17,
+    "http_view_router": "PASS on imported QA GT, car service stubbed, zero annotation mutations",
+    "snap_paired_cases": 248,
+    "snap_equal_results": 248,
+    "snap_mismatches": 0,
+    "protected_algorithm_files_unchanged": true,
+    "snap_evidence": "components/vehicle_fit/vehicles-snap-evidence.json"
+  },
+  "pr3": {
+    "status": "PASS",
+    "migration_tests": 8,
+    "coverage": [
+      "Car/type missing, valid, invalid",
+      "repeat apply",
+      "tampered before snapshot rejected before apply, repeat apply and rollback",
+      "database and backup bytes unchanged on integrity rejection",
+      "Shape/Track/keyframe/attribute preservation",
+      "task/project roundtrip and refusal after subsequent edits"
+    ],
+    "roundtrip": {
+      "gates": {
+        "import": "PASS",
+        "migration_preserves_ids_geometry_attributes": "PASS",
+        "export_import": "PASS",
+        "rollback": "PASS"
+      },
+      "task_ids": [
+        13,
+        14
+      ],
+      "source_import_audit": {
+        "keyframes": 722,
+        "custom_attributes_exact": true,
+        "flags_exact": true,
+        "max_geometry_coordinate_difference": 0.004999329150571441,
+        "note": "CVAT import rounds geometry before migration; migration/rollback preserve that snapshot exactly."
+      },
+      "complete": true
+    },
+    "evidence": "components/vehicle_fit/evidence/vehicles-audit-fixes/gt-roundtrip",
+    "production_migration_performed": false
+  },
+  "regression_red": {
+    "migration": {
+      "tests": 8,
+      "failures": 3,
+      "errors": 1,
+      "log": "components/vehicle_fit/evidence/vehicles-audit-fixes/migration-red.log"
+    },
+    "browser": {
+      "tests": 33,
+      "passed": 31,
+      "failed": 2,
+      "failures": "Both pasted Shape and Track changed source other to selected car",
+      "log": "components/vehicle_fit/evidence/vehicles-audit-fixes/browser-red.log"
+    }
+  },
+  "attempt_history": [
+    {
+      "log": "components/vehicle_fit/evidence/vehicles-audit-fixes/browser-red.log",
+      "status": "EXPECTED_RED",
+      "result": "31/33; both pasted Shape and Track changed source type from other to car before product fix"
+    },
+    {
+      "logs": [
+        "components/vehicle_fit/evidence/vehicles-audit-fixes/browser-green.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/browser-run-1.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/browser-candidate.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/final-1.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/final-2.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/browser-acceptance.log"
+      ],
+      "status": "FAIL_OR_ABORTED",
+      "note": "Tooltips/overlay regressions encountered during iterative test-helper diagnosis"
+    },
+    {
+      "log": "components/vehicle_fit/evidence/vehicles-native-pointer/acceptance-sidebar-click-1.log",
+      "status": "FAIL",
+      "passed": 31,
+      "failed": 2,
+      "retries": 0
+    },
+    {
+      "status": "DIAGNOSTIC_RUNS",
+      "note": "Includes passing targeted probes, failures and interrupted helper experiments; none counts toward the complete two-run acceptance gate.",
+      "logs": [
+        "components/vehicle_fit/evidence/vehicles-native-pointer/blocker-probe.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/control-race-probe.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/failed-fit-manual-existing-probe.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/final-blocker-paste-probe-2-aborted.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/final-blocker-paste-probe-3-aborted.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/final-blocker-paste-probe-4-aborted.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/final-blocker-paste-probe-5.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/final-blocker-paste-probe-aborted.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/retry-and-blocker-probe-2-aborted.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/retry-and-blocker-probe-aborted.log",
+        "components/vehicle_fit/evidence/vehicles-native-pointer/retry-and-blocker-probe.log"
+      ]
+    },
+    {
+      "status": "PASS",
+      "tests": 4,
+      "passed": 4,
+      "log": "components/vehicle_fit/evidence/vehicles-native-pointer/controlled-popover-probe.log"
+    },
+    {
+      "status": "PASS",
+      "passed": 33,
+      "failed": 0,
+      "retries": 0,
+      "log": "components/vehicle_fit/evidence/vehicles-final-browser/acceptance-1.log",
+      "allure_directory": "components/vehicle_fit/evidence/vehicles-final-browser/allure-1"
+    },
+    {
+      "status": "PASS",
+      "passed": 33,
+      "failed": 0,
+      "retries": 0,
+      "log": "components/vehicle_fit/evidence/vehicles-final-browser/acceptance-2.log",
+      "allure_directory": "components/vehicle_fit/evidence/vehicles-final-browser/allure-2"
+    }
+  ],
+  "qa": {
+    "project": "cvat-vehicles-qa",
+    "backend_port": 18080,
+    "frontend_port": 13000,
+    "volumes_retained": true,
+    "backend_and_frontend_stopped": true,
+    "cleanup_evidence": "components/vehicle_fit/evidence/vehicles-final-browser/cleanup.json"
+  },
+  "production": {
+    "migration_performed_this_run": false,
+    "audit_fixes_deployed": false,
+    "original_fitter_restored": true,
+    "original_fitter_health": "healthy",
+    "fitter_untouched_this_run": true
+  },
+  "preserved_user_files": [
+    ".gitignore",
+    "docker-compose.local.yml"
+  ],
+  "evidence_directory": "components/vehicle_fit/evidence/vehicles-final-browser",
+  "previous_deployment": {
+    "verified_at_utc": "2026-10-15T15:56:15.232619+00:00",
+    "status": "PASS",
+    "url": "http://localhost:8080",
+    "mode": "production",
+    "mock": false,
+    "backend": "snap",
+    "bundle": "cvat-ui.8fea093af16dc842d4e8.min.js",
+    "bundle_sha256": "d0ff7d0721f3d6f5de37912856d2eaac3b1d3eec65d26f366263eb9c714ea23e",
+    "images": {
+      "/cvat_server": "sha256:d7b6b4ada3228857bf883fdeb8ee79892d064067e4aa03a4790cb3710992e45e",
+      "/cvat_ui": "sha256:b44336af8533c5d0270a6d5aa527f05ee69a8cf896e858ccd73311985160564d",
+      "/cvat-vehicle_fit-1": "sha256:515842da1e3bcbe74d5fe0c373f97ecf48dad9c356547d6a720c25d982fe5a46"
+    },
+    "source_hashes_match_workspace": false,
+    "annotation_migration_performed": false,
+    "server_startup_runs_migrations": false,
+    "evidence": "components/vehicle_fit/evidence/vehicles-deployment.json",
+    "override": "docker-compose.vehicles-review.yml",
+    "note": "Historical deployment only; the current browser fixes were built locally and verified in isolated QA, not deployed."
+  },
+  "previous_live_schema_repairs": [
+    {
+      "task_id": 66,
+      "label_id": 94,
+      "attribute_id": 93,
+      "status": "APPLIED_AND_VERIFIED",
+      "annotation_mutations": 0,
+      "before_sha256": "eac35e669ec9496661ede51af1414e8ca06ddb8c85d75422fd9ae3e881445a4d",
+      "after_sha256": "3a6eb75b5f8abad5d27151e5b68a1bf839e4904bfc442a4c0bc5f105ea1dc166",
+      "verified_at_utc": "2026-10-15T16:13:24.815071+00:00",
+      "evidence": "components/vehicle_fit/evidence/task-66-schema-repair",
+      "kind": "text-to-select schema repair; no label or annotation conversion"
+    }
+  ],
+  "log_sha256": {
+    "migration-red.log": "5ec4d39fcad1e060fcf2626079af8e55011412dd3badb7257bfc64925344c20e",
+    "django-green-final.log": "7602e45d04224fa01fb70371bbde76497e57b68ce3ba8eee5a66a701821b9871",
+    "fitter-unit.log": "2eae98285bb662a34eeb7f9e91e942e543aea3f530ae30e4327b0ace93a1bb00",
+    "canvas-unit.log": "b6e40f5947c5f10aa693fb8d7433f30dac2df935804fde602c3439b84b2dbf60",
+    "typecheck-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "eslint-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "eslint-browser-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production-build.log": "0238b9d59e331d7837ff1fba13a0866cdd4c8595d70faf7e27a2a6908c415699",
+    "browser-red.log": "38736dc5c33e4a04001ddcf7eaf6f63803570d0e9295fbea95e8a2aa49290c95",
+    "browser-green.log": "e7ee980ae3da43f84713039a629de3234780030bc34ef97e0b5e3e614093cad8",
+    "browser-acceptance.log": "950daec9b15bef1a416f5972b12248e896d61dc2313c7da5ce25f4702d053da0",
+    "gt-roundtrip.log": "fdd8790f89f563683d7ba2147f4d2a0b7951c6e78d0b93a8868abb028d7f8369",
+    "qa-router.log": "1f6a8c7ecb086976cc1cd74603ffd57c6a1c67006f141d76b1bdeb1dbf2316a5",
+    "gpu-run.log": "56085041d7087f636a6dce0ba7f7d7a815e98ddf58081260084633c3722ad4ba",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/acceptance-sidebar-click-1.log": "55ce49b58a531a3b61ba0ddb03bacac2a0b44d695f20d4a0d8e9cab1662dd0c4",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/eslint.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/qa-stop-final.log": "cddd84dac35d62749167fc440d8425707fb207e61428bace60b61acb09a2796d",
+    "components/vehicle_fit/evidence/vehicles-final-browser/qa-stop.log": "9e88bcaf53c20aa6923aa02b41a2ac987bf94e7fc82d85d763cc401806b1981f",
+    "components/vehicle_fit/evidence/vehicles-final-browser/acceptance-2.log": "d124cffe6f60b84213d216ee155e64435a0bccefcc47b33a7d36b0cde508ca3d",
+    "components/vehicle_fit/evidence/vehicles-final-browser/acceptance-1.log": "c7f36149c889477ef37b7cdb4697f2092191a09b30e972c9c17e89d2b54fd580",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/final-typecheck.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/final-1.log": "31c9d1641e1d23a13d24e792d7e22602d83d294b6b1c2b0e123ba1729fda00c7",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/final-blocker-paste-probe-aborted.log": "a244cdbeca9c115fef048b5a78263b1b8641b4f10aa31f4713018ce30d1909d1",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/final-eslint.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/final-blocker-paste-probe-4-aborted.log": "899ae75c61981a657811aa04a943f529dd0e8dde3e76f86f265ff2c1ccdea449",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/final-production-build.log": "15943ea553eec72e1e6832c755bc772e82f52ace91509848f24f91d57ce6f348",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/final-blocker-paste-probe-2-aborted.log": "bf084c75c1afdad0af8482bc1f5484e6508e59236f8514f28dc314a7f9d72e0b",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/final-blocker-paste-probe-3-aborted.log": "962c5e2a6e4d099b84fee9b58427fb5a47c33f199f58e2aaa942f111cffa4713",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/final-blocker-paste-probe-5.log": "a2fbc6f3abdad1c77e8364ebfec3fc3eae2aca363ce4c94d744c6459d8442ebd",
+    "components/vehicle_fit/evidence/vehicles-native-pointer/reporter-negative-final.log": "bc032b02d0bb890c37bfbfcf4d94d7b11a48472438927f4871e9581ae2b69de1"
+  },
+  "inherited_validation": {
+    "reason": "Backend, fitter, evaluator and migration sources match the previously recorded passing evidence; browser-only fixes do not alter those results.",
+    "django_adapter_and_migration_tests": 25,
+    "fitter_tests": 78,
+    "snap_paired_equal": 248,
+    "gt_roundtrip": "PASS",
+    "matching_previous_source_hashes": {
+      "components/vehicle_fit/evaluation/drive_0005.py": "56fceca38cda2d9aba25fc7b098db91520f4b8e6287b1e837dd33f539d5e728c",
+      "components/vehicle_fit/geometry.py": "46ba9fa4330fd70dffe244c9a4f73a89ecdf88f727c37e9492eb4f77b5239c60",
+      "components/vehicle_fit/service.py": "aabbfe1f53b0a90fc32973000cacbd3c4db39c57c166f0ba7baceb8a1eab2101",
+      "components/vehicle_fit/snap_backend.py": "fe84280793cc7a6e244e0ff11ed07ac3ed74e32222c84af9c34415b7892040d5",
+      "cvat-ui/src/components/annotation-page/canvas/views/canvas3d/canvas-wrapper3D.tsx": "4a11b29e496cf4e6dcf85507e437d8e1858777abd555d9a4cd0e1662aa8af8b3",
+      "cvat-ui/src/utils/auto-fit.ts": "367e1164547efec7a3b0133733cdfff7bc3eea4b931bf4891deac7efe96eccb6",
+      "cvat/apps/engine/auto_fit.py": "a4a760de3609b1a6358fc5eaf73876d2ebcf218e1186655615652dc4d9cf6093",
+      "cvat/apps/engine/management/commands/migrate_autofit_vehicles.py": "912d95c43976ccf2cbed8b713246a037df6ce17e9dbeeb809ca2a95c5ed765cd",
+      "cvat/apps/engine/tests/test_auto_fit.py": "2ee93eb511f40e124c7b591f74ae88277e22e6143a0db02c15f79ef686c0fdb1",
+      "cvat/apps/engine/tests/test_vehicle_migration.py": "ade3b38659c696789e5651e99f70b17bad01231194edaaad6488879d04febac9",
+      "tests/vehicles_gpu_regression.py": "2762b31208d79a5296358bea615d507a1ef745df7b6b26fd57331d7787f43d3a",
+      "tests/vehicles_gt_roundtrip.py": "7523652863abcfb3fec6a332992dfa47e87cc53af02977e3fc7ae76685e38634",
+      "tests/vehicles_qa_compose.py": "efd984c542b0a1c8a9b970299754f2d98e31bff7c1078132f017b2b8092dc67b",
+      "tests/vehicles_qa_router.py": "89b6bd3c16cb1741a00c7c0522669c3e192a6e4e498c57bc36de6a166bf41992"
+    }
+  },
+  "commit_subjects": [
+    "feat: add Vehicles types and reliable Auto Fit controls",
+    "feat: route Vehicles car requests through the existing fitter",
+    "feat: add reversible Vehicles annotation migration and acceptance evidence"
+  ],
+  "local_commit_evidence": "components/vehicle_fit/evidence/vehicles-final-browser/local-commits.json"
+}
