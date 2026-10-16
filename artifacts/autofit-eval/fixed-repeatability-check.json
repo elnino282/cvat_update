@@ -1,0 +1,28 @@
+{
+  "car_cases": 100,
+  "changed_masks": [],
+  "changed_outcomes": [],
+  "compared_fields": [
+    "status",
+    "quality",
+    "reason",
+    "provider",
+    "center",
+    "size",
+    "rotation"
+  ],
+  "exact_match": true,
+  "input_sha256": [
+    {
+      "cases.jsonl": "8702d2f1ec5324ed612820f1d4a175159b92b3a72056bb44bc39322af5d5aa2d",
+      "identity.json": "d64ee9887c8dc3683ebb5a6b98d463826a7720e8e5ec437798eb9fe0abc2718c"
+    },
+    {
+      "cases.jsonl": "346a1eb33cd1e36736d6e2648acef90118af79a89250cea7bc21e865fcdde067",
+      "identity.json": "86bf9e8b00eb68b4e1a0be40a319a7f895d1135864667fd5dd97a3f4d9c53d4e"
+    }
+  ],
+  "response_differences": [],
+  "schema_version": 1,
+  "scope": "Same manifest/config/source/primary seeds; compare response semantics and saved mask indices after full cache rebuild. Timing/UUIDs excluded; saved successful masks may be fitter-filtered."
+}

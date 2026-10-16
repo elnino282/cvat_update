@@ -1,0 +1,344 @@
+[
+  {
+    "sample_token": "050b2d9c4bb647b7ab4ee94bdb538e1d",
+    "data_load_seconds": 0.0007492000004276633,
+    "upload_http_seconds": 0.0134976250001273,
+    "prepare_ready_seconds": 0.11491959300019516
+  },
+  {
+    "sample_token": "134ae8a8f5c340f9894a414fc0966af4",
+    "data_load_seconds": 0.0008740650000618189,
+    "upload_http_seconds": 0.012627821999558364,
+    "prepare_ready_seconds": 0.3170671420002691
+  },
+  {
+    "sample_token": "2021b6b367984ad7b18464a550d0ae8d",
+    "data_load_seconds": 0.0007647320007890812,
+    "upload_http_seconds": 0.012078987000677444,
+    "prepare_ready_seconds": 0.2151912639992588
+  },
+  {
+    "sample_token": "236f1ecb6ee7459d918cd011831674d6",
+    "data_load_seconds": 0.0008254770000348799,
+    "upload_http_seconds": 0.012227330000314396,
+    "prepare_ready_seconds": 0.31698771999981545
+  },
+  {
+    "sample_token": "25a4a6aa9096458285cba35c950f2717",
+    "data_load_seconds": 0.000728373999663745,
+    "upload_http_seconds": 0.01182797000001301,
+    "prepare_ready_seconds": 0.31603564099987125
+  },
+  {
+    "sample_token": "2690c36281244c06b709e9f4eeb1317a",
+    "data_load_seconds": 0.0007001069998295861,
+    "upload_http_seconds": 0.0123897230005241,
+    "prepare_ready_seconds": 0.3163083370000095
+  },
+  {
+    "sample_token": "26f99f91a8e14038bd52aee4d00df394",
+    "data_load_seconds": 0.000828379000267887,
+    "upload_http_seconds": 0.011655808999421424,
+    "prepare_ready_seconds": 0.3166180140005963
+  },
+  {
+    "sample_token": "27900b9c3cfb48ed8b49087098d4a15a",
+    "data_load_seconds": 0.0007603920003020903,
+    "upload_http_seconds": 0.011172788999829208,
+    "prepare_ready_seconds": 0.2143920030002846
+  },
+  {
+    "sample_token": "2c77ee386aa0444aaf27140fe6cc8364",
+    "data_load_seconds": 0.0008040100001380779,
+    "upload_http_seconds": 0.011950317999435356,
+    "prepare_ready_seconds": 0.31653945600010047
+  },
+  {
+    "sample_token": "32e2619879854a83953c08ec8557f3bb",
+    "data_load_seconds": 0.0008014199993340299,
+    "upload_http_seconds": 0.014096392999817908,
+    "prepare_ready_seconds": 0.21727159799957008
+  },
+  {
+    "sample_token": "36aa1c0eeb50457b97911c3bd742a730",
+    "data_load_seconds": 0.0008464800002911943,
+    "upload_http_seconds": 0.011905094000212557,
+    "prepare_ready_seconds": 0.3164712440002404
+  },
+  {
+    "sample_token": "3a064c48e47b489a8b442b8081f877b6",
+    "data_load_seconds": 0.0006723300002704491,
+    "upload_http_seconds": 0.010973331999593938,
+    "prepare_ready_seconds": 0.2140654889999496
+  },
+  {
+    "sample_token": "3ff58ee0fc4748d9895300f02114aa56",
+    "data_load_seconds": 0.0008008109998627333,
+    "upload_http_seconds": 0.01170792899938533,
+    "prepare_ready_seconds": 0.3160949269995399
+  },
+  {
+    "sample_token": "3ffc4360d1084e6eae5067e87d79503f",
+    "data_load_seconds": 0.0006369590000758762,
+    "upload_http_seconds": 0.012027619000036793,
+    "prepare_ready_seconds": 0.21550584399938089
+  },
+  {
+    "sample_token": "4ae9c033164e4e01a0392672686d095c",
+    "data_load_seconds": 0.0007276759997694171,
+    "upload_http_seconds": 0.011976134000178718,
+    "prepare_ready_seconds": 0.21544386000005034
+  },
+  {
+    "sample_token": "4e169e93acb346d59de1af7f2b4882e1",
+    "data_load_seconds": 0.0006643409997195704,
+    "upload_http_seconds": 0.011979222999798367,
+    "prepare_ready_seconds": 0.31595832699986204
+  },
+  {
+    "sample_token": "59bd7a9fae8a45bcb76f1847cf09e000",
+    "data_load_seconds": 0.0006915940002727439,
+    "upload_http_seconds": 0.011167846999342146,
+    "prepare_ready_seconds": 0.21427938499982702
+  },
+  {
+    "sample_token": "5bbeb4e68d51413f81a370cb33ef27fb",
+    "data_load_seconds": 0.0008243760003097123,
+    "upload_http_seconds": 0.011420587999964482,
+    "prepare_ready_seconds": 0.21450804600044648
+  },
+  {
+    "sample_token": "6873840fc1df4796a7b959e13e9fb78a",
+    "data_load_seconds": 0.0006969200003368314,
+    "upload_http_seconds": 0.011296497000330419,
+    "prepare_ready_seconds": 0.2146472950007592
+  },
+  {
+    "sample_token": "6dabc0fb1df045558f802246dd186b3f",
+    "data_load_seconds": 0.0007082810006977525,
+    "upload_http_seconds": 0.011130805999528093,
+    "prepare_ready_seconds": 0.2143491159995392
+  },
+  {
+    "sample_token": "7147d8d1b51b428fb408f34799325111",
+    "data_load_seconds": 0.000821371000711224,
+    "upload_http_seconds": 0.013771874999292777,
+    "prepare_ready_seconds": 0.31857978599964554
+  },
+  {
+    "sample_token": "739b12938d0e410d9b8fc832dfad5510",
+    "data_load_seconds": 0.0008952300004239078,
+    "upload_http_seconds": 0.011597513999731746,
+    "prepare_ready_seconds": 0.2144915620001484
+  },
+  {
+    "sample_token": "8336b62c3f6f4bb988c3865cc5df4446",
+    "data_load_seconds": 0.000721207999959006,
+    "upload_http_seconds": 0.01825876899965806,
+    "prepare_ready_seconds": 0.32298392499978945
+  },
+  {
+    "sample_token": "8687ba92abd3406aa797115b874ebeba",
+    "data_load_seconds": 0.0007617169994773576,
+    "upload_http_seconds": 0.01101154600019072,
+    "prepare_ready_seconds": 0.2138257619999422
+  },
+  {
+    "sample_token": "8cc06390249d4895b5b9b860f0952f24",
+    "data_load_seconds": 0.0006755559998055105,
+    "upload_http_seconds": 0.011605636000240338,
+    "prepare_ready_seconds": 0.3163232560000324
+  },
+  {
+    "sample_token": "8e5512a630dc44c08d3e3f692b34f808",
+    "data_load_seconds": 0.0007516420000683866,
+    "upload_http_seconds": 0.011290333999568247,
+    "prepare_ready_seconds": 0.31581162000020413
+  },
+  {
+    "sample_token": "93f4f8ac1145418cadcf14dfd2a9cf78",
+    "data_load_seconds": 0.0007751370003461489,
+    "upload_http_seconds": 0.011354373999893141,
+    "prepare_ready_seconds": 0.31596476400045503
+  },
+  {
+    "sample_token": "99f903d3f74a4f76a05a4f1e10e49329",
+    "data_load_seconds": 0.0006514630003948696,
+    "upload_http_seconds": 0.01445856400005141,
+    "prepare_ready_seconds": 0.31906027199966047
+  },
+  {
+    "sample_token": "9bd27a83e6ee47f9aa372bbe8a8573c8",
+    "data_load_seconds": 0.000655097000162641,
+    "upload_http_seconds": 0.012089751999155851,
+    "prepare_ready_seconds": 0.31644267400042736
+  },
+  {
+    "sample_token": "a480496a5988410fbe3d8ed6c84da996",
+    "data_load_seconds": 0.0007861370004320634,
+    "upload_http_seconds": 0.011395720999644254,
+    "prepare_ready_seconds": 0.31563261700011935
+  },
+  {
+    "sample_token": "a860c02c06e54d9dbe83ce7b694f6c17",
+    "data_load_seconds": 0.0006972410001253593,
+    "upload_http_seconds": 0.011477566999928968,
+    "prepare_ready_seconds": 0.21484633599993685
+  },
+  {
+    "sample_token": "abf3d91d3c28407e80e3334fe89c03cb",
+    "data_load_seconds": 0.0006830250003986293,
+    "upload_http_seconds": 0.01266986500013445,
+    "prepare_ready_seconds": 0.3175464710002416
+  },
+  {
+    "sample_token": "ac452a60e8b34a7080c938c904b23057",
+    "data_load_seconds": 0.0006541689999721712,
+    "upload_http_seconds": 0.01177288300004875,
+    "prepare_ready_seconds": 0.21432370399998035
+  },
+  {
+    "sample_token": "ace4b20b94cf47d0b68addac79fe68de",
+    "data_load_seconds": 0.0007095359997038031,
+    "upload_http_seconds": 0.01282257699949696,
+    "prepare_ready_seconds": 0.3176530900000216
+  },
+  {
+    "sample_token": "b4c279e61abf49bd871ff2ec4b13e115",
+    "data_load_seconds": 0.0006814059997850563,
+    "upload_http_seconds": 0.012378252999951656,
+    "prepare_ready_seconds": 0.31662977799987857
+  },
+  {
+    "sample_token": "b7f64f73e8a548488e6d85d9b0e13242",
+    "data_load_seconds": 0.000809248000223306,
+    "upload_http_seconds": 0.012862243000199669,
+    "prepare_ready_seconds": 0.2165753350000159
+  },
+  {
+    "sample_token": "b8766f4291d5449d95bab459ca724ad8",
+    "data_load_seconds": 0.0006906170001457212,
+    "upload_http_seconds": 0.011625930000263907,
+    "prepare_ready_seconds": 0.21462104199963505
+  },
+  {
+    "sample_token": "b902d29df24c4efda414a9a88ed57031",
+    "data_load_seconds": 0.0007094109996614861,
+    "upload_http_seconds": 0.011898106000444386,
+    "prepare_ready_seconds": 0.3164089130004868
+  },
+  {
+    "sample_token": "b993550e60054741983f8052ba97b0b0",
+    "data_load_seconds": 0.0011379869993106695,
+    "upload_http_seconds": 0.022875890999785042,
+    "prepare_ready_seconds": 0.3281514619993686
+  },
+  {
+    "sample_token": "c36e8482feb041de9f081e76396cf4fe",
+    "data_load_seconds": 0.0009855680000327993,
+    "upload_http_seconds": 0.019034730000385025,
+    "prepare_ready_seconds": 0.32375591900017753
+  },
+  {
+    "sample_token": "c4f9b75136384ec4a76c4adfc28b4259",
+    "data_load_seconds": 0.000734799999918323,
+    "upload_http_seconds": 0.01728759799971158,
+    "prepare_ready_seconds": 0.22065919800024858
+  },
+  {
+    "sample_token": "c631b61375a642b6b110f5bd5543ef7a",
+    "data_load_seconds": 0.0007121600001482875,
+    "upload_http_seconds": 0.012691758000073605,
+    "prepare_ready_seconds": 0.3172373139996125
+  },
+  {
+    "sample_token": "c9e812f2705b4b198f4675dfaa33812d",
+    "data_load_seconds": 0.0007342239996432909,
+    "upload_http_seconds": 0.01521733099980338,
+    "prepare_ready_seconds": 0.320291685000484
+  },
+  {
+    "sample_token": "d2ae3c5bbb5343a393882b44d56f8da3",
+    "data_load_seconds": 0.0009292140002798988,
+    "upload_http_seconds": 0.012146198999289481,
+    "prepare_ready_seconds": 0.2153674459996182
+  },
+  {
+    "sample_token": "d61ef2ae3bd54793b8beec55061940f0",
+    "data_load_seconds": 0.0007434219996866887,
+    "upload_http_seconds": 0.01236528899971745,
+    "prepare_ready_seconds": 0.31679565600006754
+  },
+  {
+    "sample_token": "d7bea9a3552b40e29d42324108dff575",
+    "data_load_seconds": 0.0008540009994248976,
+    "upload_http_seconds": 0.01161415400019905,
+    "prepare_ready_seconds": 0.21459585599950515
+  },
+  {
+    "sample_token": "d7cb9aa06de1442d8e2a22d562045cb4",
+    "data_load_seconds": 0.0008398620002481039,
+    "upload_http_seconds": 0.011876291000589845,
+    "prepare_ready_seconds": 0.3167177059995083
+  },
+  {
+    "sample_token": "dc03fe4e0a374592af7701c66d5276c4",
+    "data_load_seconds": 0.0009109769998758566,
+    "upload_http_seconds": 0.012983502000679437,
+    "prepare_ready_seconds": 0.2161660829997345
+  },
+  {
+    "sample_token": "dc4c80e8a1534ff8a3eb80307341161c",
+    "data_load_seconds": 0.0008077830007096054,
+    "upload_http_seconds": 0.016345813000043563,
+    "prepare_ready_seconds": 0.3205825969998841
+  },
+  {
+    "sample_token": "dc53cf076d114df7bb59c2a0b3bc3154",
+    "data_load_seconds": 0.0009078550001504482,
+    "upload_http_seconds": 0.012972771000022476,
+    "prepare_ready_seconds": 0.31777338000028976
+  },
+  {
+    "sample_token": "dcbe451d383e450786aaad04ab9d3790",
+    "data_load_seconds": 0.0009901030007313238,
+    "upload_http_seconds": 0.012962247999894316,
+    "prepare_ready_seconds": 0.21630913099943427
+  },
+  {
+    "sample_token": "e9a1c915c0d641d0b0a3019112a1ee90",
+    "data_load_seconds": 0.0009225750000041444,
+    "upload_http_seconds": 0.013133604999893578,
+    "prepare_ready_seconds": 0.21595535799951904
+  },
+  {
+    "sample_token": "ecd49e3c38624c77b8aac8df445d49ba",
+    "data_load_seconds": 0.0007494640003642417,
+    "upload_http_seconds": 0.017550823999954446,
+    "prepare_ready_seconds": 0.2211542360000749
+  },
+  {
+    "sample_token": "eff61ec3657c4d1c9327e3fe6ca639d3",
+    "data_load_seconds": 0.0006508249998660176,
+    "upload_http_seconds": 0.012232436999511265,
+    "prepare_ready_seconds": 0.3167318189998696
+  },
+  {
+    "sample_token": "f2a6d0e38153467ba0d02706024e258d",
+    "data_load_seconds": 0.0008591219993832055,
+    "upload_http_seconds": 0.013711189999412454,
+    "prepare_ready_seconds": 0.31833986999936315
+  },
+  {
+    "sample_token": "f5b8088835f247b8a5434a9f0daadc20",
+    "data_load_seconds": 0.000972159999946598,
+    "upload_http_seconds": 0.011624363000009907,
+    "prepare_ready_seconds": 0.21491858100034733
+  },
+  {
+    "sample_token": "fc8ed14d78fa4879898315f5dee21d38",
+    "data_load_seconds": 0.0008218539996960317,
+    "upload_http_seconds": 0.014470430000073975,
+    "prepare_ready_seconds": 0.31969782399937685
+  }
+]

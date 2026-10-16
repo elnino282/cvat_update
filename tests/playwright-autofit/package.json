@@ -1,0 +1,13 @@
+{
+  "name": "cvat-autofit-pr0-playwright",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "playwright test",
+    "test:fixtures": "node --test support/contract.test.mjs",
+    "test:mocked": "playwright test --project=autofit-ui-mocked",
+    "test:real": "playwright test --project=autofit-real-nuscenes"
+  },
+  "devDependencies": { "playwright": "1.64.1" }
+}

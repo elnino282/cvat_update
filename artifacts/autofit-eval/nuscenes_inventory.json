@@ -1,0 +1,3583 @@
+{
+  "annotations_by_attribute": {
+    "cycle.with_rider": 305,
+    "cycle.without_rider": 434,
+    "pedestrian.moving": 3875,
+    "pedestrian.sitting_lying_down": 111,
+    "pedestrian.standing": 1029,
+    "vehicle.moving": 2715,
+    "vehicle.parked": 4674,
+    "vehicle.stopped": 1545
+  },
+  "annotations_by_source_category": {
+    "human.pedestrian.adult": 4765,
+    "human.pedestrian.child": 46,
+    "human.pedestrian.construction_worker": 193,
+    "human.pedestrian.personal_mobility": 25,
+    "human.pedestrian.police_officer": 11,
+    "movable_object.barrier": 2323,
+    "movable_object.debris": 13,
+    "movable_object.pushable_pullable": 82,
+    "movable_object.trafficcone": 1378,
+    "static_object.bicycle_rack": 54,
+    "vehicle.bicycle": 243,
+    "vehicle.bus.bendy": 57,
+    "vehicle.bus.rigid": 353,
+    "vehicle.car": 7619,
+    "vehicle.construction": 196,
+    "vehicle.motorcycle": 471,
+    "vehicle.trailer": 60,
+    "vehicle.truck": 649
+  },
+  "artifacts": {
+    "nuscenes_manifest.json.gz": "f4b2fe3beac2fab88c731d08e57487863a56360a54e8021fb45792c9368f0a1c",
+    "nuscenes_priors.json": "91610855d38745f949f157a2d1a743ff0aced46687d202e5f40caec531322f79"
+  },
+  "available_versions": [
+    "v1.0-mini"
+  ],
+  "broken_references": [
+    {
+      "field": "log_tokens",
+      "missing": "0986cb758b1d43fdaa051ab23d45582b",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "1c9b302455ff44a9a290c372b31aa3ce",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "e60234ec7c324789ac7c8441a5e49731",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "46123a03f41e4657adc82ed9ddbe0ba2",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "a5bb7f9dd1884f1ea0de299caefe7ef4",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "bc41a49366734ebf978d6a71981537dc",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "f8699afb7a2247e38549e4d250b4581b",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "d0450edaed4a46f898403f45fa9e5f0d",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "f38ef5a1e9c941aabb2155768670b92a",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ddc03471df3e4c9bb9663629a4097743",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "31e9939f05c1485b88a8f68ad2cf9fa4",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "783683d957054175bda1b326453a13f4",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "343d984344e440c7952d1e403b572b2a",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "92af2609d31445e5a71b2d895376fed6",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "47620afea3c443f6a761e885273cb531",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "d31dc715d1c34b99bd5afb0e3aea26ed",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "34d0574ea8f340179c82162c6ac069bc",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "d7fd2bb9696d43af901326664e42340b",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "b5622d4dcb0d4549b813b3ffb96fbdc9",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "da04ae0b72024818a6219d8dd138ea4b",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "6b6513e6c8384cec88775cae30b78c0e",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "eda311bda86f4e54857b0554639d6426",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "cfe71bf0b5c54aed8f56d4feca9a7f59",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ee155e99938a4c2698fed50fc5b5d16a",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "700b800c787842ba83493d9b2775234a",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "6434493562e64d9aa36774bf8d98870e",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "8e0ced20b9d847608afcfbc23056460e",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ec6814dc8ae34963908357a73d3f710e",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "efa31cf3cd2f452789ca7f3e7541ea69",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "0d68b81100a640129a185cca5aa1edd7",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ff72da4810f74d18bee85070726cbade",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ca6d14b008ed4e0bb6b1eaaedadbd6c1",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "485a0831e0964529b0b45d476139c68b",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "eb987ba9054e427c8c3aae464c43e61c",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "246e7da6bb344941bac92be421a545e2",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "84ff0dbb8d7343ab95e776c4955d5884",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "6577357788b24c35a3b0419c138f50db",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "169c1773af08486c80ed3e9540528290",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "4de1fda752ae4cf8b650a5245734eb4c",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "20db5722b62c4c17bbff2d7b265a3c51",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "8aa38e0d963f48ba84708bc8eb1a07c2",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "bd38be48fba140f1941bf7c84a33255d",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "55de0e85b8584ab59862e6afa690a0b8",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "69271ec7af1f446ca16820ac46d2047a",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "65629cfc47fe489fabc497ead466a313",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "b2d2f313e9cf446aa50656117847d41b",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "6c12081a828548b6b0a36f12d53be6ca",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "8c66d9d518c54aed98dce7e3095501bc",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "b2685a235700404581dc7354dd5b4eda",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "01ebe4444f624b4699ec6bf58837b153",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "08ba46dd716d42a69d108638fef5bbb9",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ceb76203d8d7415f83ae3f81e112a0ca",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "3313a6a85b264e4c86ee44d6e6329cf3",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ab1e1b004548466f86b31f879a2d9e50",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "7a0fde44c3504eaeb18f9ad83bed65bc",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "b90078a405814fcfa19b1ba24c022eb2",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "cb3e914a6f0b4deea0efc8521ca1e671",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "b05f285d53744542a3413476d6dd9270",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "6f5b61bfb298454eb6fe7ba279792815",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "0f1b01dd18d8438794fb3445517633df",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "6175c3299ae0482791f4ab1e9d54b326",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "75f5ca2350b346d19a39aa7439f61755",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "bdddfb02215942cbbdcd26a34b90cdad",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "f61e86a4241b484484da143725dce8fc",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "c9b039c47ec54cc7b5c0fcc7a5730e38",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "c7971f19b24442d895e07f60ecd2a4d6",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "18f99982fba24684a9ea03c0cdc53fc8",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "2edbe8ba666e47d8b9a9664a63bd059a",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "2f3c08142bc04ac3af6a8cf6c721b816",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "4d5897fcc70e4b10b68aadc401e649d8",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "f4ac03962abe49b8b1849faf91efff75",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "853a9f9fe7e84bb8b24bff8ebf23f287",
+      "table": "map",
+      "token": "37819e65e09e5547b8a3ceaefba56bb2"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "e55205b1f2894b49957905d7ddfdb96d",
+      "table": "map",
+      "token": "37819e65e09e5547b8a3ceaefba56bb2"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "f93e8d66ce4b4fbea7062d19b1fe29fb",
+      "table": "map",
+      "token": "37819e65e09e5547b8a3ceaefba56bb2"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "89a56a5dc3aa4e56a2e57b52de738da5",
+      "table": "map",
+      "token": "37819e65e09e5547b8a3ceaefba56bb2"
+    }
+  ],
+  "dataset_root": "/home/quynhhn/Datasets/nuScenes",
+  "dataset_version": "v1.0-mini",
+  "distributions": {
+    "dev": {
+      "pedestrian": {
+        "annotations": 4009,
+        "bins": {
+          "adjacency": {
+            "adjacent": 2446,
+            "isolated": 1563
+          },
+          "distance": {
+            "0-20m": 1209,
+            "20-40m": 1967,
+            ">40m": 833
+          },
+          "motion": {
+            "moving": 3096,
+            "static": 888,
+            "unknown": 25
+          },
+          "points": {
+            "0": 580,
+            "1-4": 1948,
+            "16-50": 349,
+            "5-15": 1017,
+            ">50": 115
+          },
+          "ride_state": {
+            "unknown": 4009
+          },
+          "visibility": {
+            "1": 1204,
+            "2": 342,
+            "3": 463,
+            "4": 2000
+          }
+        },
+        "dimensions_lwh": {
+          "count": 4009,
+          "mad": [
+            0.14700000000000002,
+            0.052999999999999936,
+            0.06899999999999995
+          ],
+          "max": [
+            1.284,
+            1.019,
+            2.211
+          ],
+          "median": [
+            0.736,
+            0.674,
+            1.766
+          ],
+          "min": [
+            0.331,
+            0.345,
+            1.15
+          ],
+          "p10": [
+            0.548,
+            0.585,
+            1.622
+          ],
+          "p90": [
+            0.958,
+            0.834,
+            1.904
+          ]
+        },
+        "distance_m": {
+          "count": 4009,
+          "mad": 9.447334478369509,
+          "max": 106.04795444338498,
+          "median": 26.393459946448207,
+          "min": 2.423128665337614,
+          "p10": 11.590251526292855,
+          "p90": 49.39124064208704
+        },
+        "held_out_100_target_status": "not-applicable",
+        "instances": 193,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [],
+          "points": [],
+          "visibility": []
+        },
+        "num_lidar_pts": {
+          "count": 4009,
+          "mad": 2.0,
+          "max": 649.0,
+          "median": 3.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 18.0
+        },
+        "observed_lidar_points": {
+          "count": 4009,
+          "mad": 2.0,
+          "max": 649.0,
+          "median": 3.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 18.0
+        },
+        "seedable": 3429
+      },
+      "two-wheels": {
+        "annotations": 554,
+        "bins": {
+          "adjacency": {
+            "adjacent": 385,
+            "isolated": 169
+          },
+          "distance": {
+            "0-20m": 195,
+            "20-40m": 256,
+            ">40m": 103
+          },
+          "motion": {
+            "unknown": 554
+          },
+          "points": {
+            "0": 80,
+            "1-4": 225,
+            "16-50": 58,
+            "5-15": 153,
+            ">50": 38
+          },
+          "ride_state": {
+            "no-rider": 434,
+            "rider": 120
+          },
+          "visibility": {
+            "1": 152,
+            "2": 79,
+            "3": 139,
+            "4": 184
+          }
+        },
+        "dimensions_lwh": {
+          "count": 554,
+          "mad": [
+            0.15500000000000003,
+            0.07400000000000007,
+            0.11599999999999988
+          ],
+          "max": [
+            2.751,
+            1.273,
+            1.932
+          ],
+          "median": [
+            1.961,
+            0.646,
+            1.321
+          ],
+          "min": [
+            1.336,
+            0.434,
+            0.953
+          ],
+          "p10": [
+            1.77,
+            0.55,
+            1.082
+          ],
+          "p90": [
+            2.368,
+            0.844,
+            1.839
+          ]
+        },
+        "distance_m": {
+          "count": 554,
+          "mad": 8.779820811374929,
+          "max": 75.79914329767286,
+          "median": 24.546229969890952,
+          "min": 6.5274520142781896,
+          "p10": 10.922806620163229,
+          "p90": 47.03377485582397
+        },
+        "held_out_100_target_status": "not-applicable",
+        "instances": 29,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [
+            "moving",
+            "static"
+          ],
+          "points": [],
+          "ride_state": [],
+          "visibility": []
+        },
+        "num_lidar_pts": {
+          "count": 554,
+          "mad": 3.0,
+          "max": 211.0,
+          "median": 4.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 33.0
+        },
+        "observed_lidar_points": {
+          "count": 554,
+          "mad": 3.0,
+          "max": 211.0,
+          "median": 4.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 33.0
+        },
+        "seedable": 474
+      },
+      "vehicles/bus": {
+        "annotations": 214,
+        "bins": {
+          "adjacency": {
+            "adjacent": 63,
+            "isolated": 151
+          },
+          "distance": {
+            "0-20m": 41,
+            "20-40m": 56,
+            ">40m": 117
+          },
+          "motion": {
+            "moving": 106,
+            "static": 108
+          },
+          "points": {
+            "0": 17,
+            "1-4": 40,
+            "16-50": 39,
+            "5-15": 39,
+            ">50": 79
+          },
+          "ride_state": {
+            "unknown": 214
+          },
+          "visibility": {
+            "1": 15,
+            "2": 14,
+            "3": 17,
+            "4": 168
+          }
+        },
+        "dimensions_lwh": {
+          "count": 214,
+          "mad": [
+            1.0380000000000003,
+            0.18100000000000005,
+            0.1389999999999998
+          ],
+          "max": [
+            13.818,
+            3.523,
+            4.593
+          ],
+          "median": [
+            12.086,
+            2.951,
+            3.419
+          ],
+          "min": [
+            6.908,
+            2.764,
+            3.224
+          ],
+          "p10": [
+            8.78,
+            2.764,
+            3.261
+          ],
+          "p90": [
+            13.818,
+            3.523,
+            4.593
+          ]
+        },
+        "distance_m": {
+          "count": 214,
+          "mad": 17.064938955247776,
+          "max": 112.93583795257206,
+          "median": 43.61279511762322,
+          "min": 4.945029756545369,
+          "p10": 17.104196117510522,
+          "p90": 82.03622892467692
+        },
+        "held_out_100_target_status": "not-applicable",
+        "instances": 8,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [],
+          "points": [],
+          "visibility": []
+        },
+        "num_lidar_pts": {
+          "count": 214,
+          "mad": 21.5,
+          "max": 7024.0,
+          "median": 22.5,
+          "min": 0.0,
+          "p10": 1.0,
+          "p90": 434.3000000000002
+        },
+        "observed_lidar_points": {
+          "count": 214,
+          "mad": 21.5,
+          "max": 7024.0,
+          "median": 22.5,
+          "min": 0.0,
+          "p10": 1.0,
+          "p90": 434.3000000000002
+        },
+        "seedable": 197
+      },
+      "vehicles/car": {
+        "annotations": 5415,
+        "bins": {
+          "adjacency": {
+            "adjacent": 2489,
+            "isolated": 2926
+          },
+          "distance": {
+            "0-20m": 1358,
+            "20-40m": 2549,
+            ">40m": 1508
+          },
+          "motion": {
+            "moving": 693,
+            "static": 4722
+          },
+          "points": {
+            "0": 1270,
+            "1-4": 1302,
+            "16-50": 816,
+            "5-15": 1031,
+            ">50": 996
+          },
+          "ride_state": {
+            "unknown": 5415
+          },
+          "visibility": {
+            "1": 2097,
+            "2": 710,
+            "3": 741,
+            "4": 1867
+          }
+        },
+        "dimensions_lwh": {
+          "count": 5415,
+          "mad": [
+            0.20199999999999996,
+            0.10400000000000009,
+            0.11499999999999999
+          ],
+          "max": [
+            6.524,
+            2.56,
+            3.065
+          ],
+          "median": [
+            4.617,
+            1.907,
+            1.65
+          ],
+          "min": [
+            3.484,
+            1.482,
+            1.318
+          ],
+          "p10": [
+            4.184,
+            1.6747999999999998,
+            1.489
+          ],
+          "p90": [
+            5.006,
+            2.094,
+            1.998
+          ]
+        },
+        "distance_m": {
+          "count": 5415,
+          "mad": 10.41525181577872,
+          "max": 117.33517421903831,
+          "median": 28.800849910361976,
+          "min": 3.1115974256575605,
+          "p10": 13.196803554610485,
+          "p90": 57.35874510558028
+        },
+        "held_out_100_target_status": "not-applicable",
+        "instances": 264,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [],
+          "points": [],
+          "visibility": []
+        },
+        "num_lidar_pts": {
+          "count": 5415,
+          "mad": 5.0,
+          "max": 2703.0,
+          "median": 5.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 132.60000000000036
+        },
+        "observed_lidar_points": {
+          "count": 5415,
+          "mad": 5.0,
+          "max": 2703.0,
+          "median": 5.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 132.60000000000036
+        },
+        "seedable": 4145
+      },
+      "vehicles/truck": {
+        "annotations": 544,
+        "bins": {
+          "adjacency": {
+            "adjacent": 170,
+            "isolated": 374
+          },
+          "distance": {
+            "0-20m": 133,
+            "20-40m": 191,
+            ">40m": 220
+          },
+          "motion": {
+            "moving": 105,
+            "static": 439
+          },
+          "points": {
+            "0": 79,
+            "1-4": 99,
+            "16-50": 85,
+            "5-15": 98,
+            ">50": 183
+          },
+          "ride_state": {
+            "unknown": 544
+          },
+          "visibility": {
+            "1": 165,
+            "2": 60,
+            "3": 106,
+            "4": 213
+          }
+        },
+        "dimensions_lwh": {
+          "count": 544,
+          "mad": [
+            0.6379999999999999,
+            0.30100000000000016,
+            0.528
+          ],
+          "max": [
+            10.201,
+            2.877,
+            3.608
+          ],
+          "median": [
+            6.013,
+            2.291,
+            2.558
+          ],
+          "min": [
+            4.535,
+            1.787,
+            1.715
+          ],
+          "p10": [
+            4.74,
+            1.879,
+            1.82
+          ],
+          "p90": [
+            10.107,
+            2.853,
+            3.595
+          ]
+        },
+        "distance_m": {
+          "count": 544,
+          "mad": 14.989798504461804,
+          "max": 125.9606554867478,
+          "median": 33.68578526418089,
+          "min": 3.031714975940832,
+          "p10": 11.19336502376477,
+          "p90": 66.6116175867325
+        },
+        "held_out_100_target_status": "not-applicable",
+        "instances": 22,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [],
+          "points": [],
+          "visibility": []
+        },
+        "num_lidar_pts": {
+          "count": 544,
+          "mad": 15.0,
+          "max": 10032.0,
+          "median": 15.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 664.5999999999998
+        },
+        "observed_lidar_points": {
+          "count": 544,
+          "mad": 15.0,
+          "max": 10032.0,
+          "median": 15.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 664.5999999999998
+        },
+        "seedable": 465
+      }
+    },
+    "held_out": {
+      "pedestrian": {
+        "annotations": 866,
+        "bins": {
+          "adjacency": {
+            "adjacent": 471,
+            "isolated": 395
+          },
+          "distance": {
+            "0-20m": 579,
+            "20-40m": 106,
+            ">40m": 181
+          },
+          "motion": {
+            "moving": 617,
+            "static": 249
+          },
+          "points": {
+            "0": 104,
+            "1-4": 234,
+            "16-50": 295,
+            "5-15": 207,
+            ">50": 26
+          },
+          "ride_state": {
+            "unknown": 866
+          },
+          "visibility": {
+            "1": 169,
+            "2": 68,
+            "3": 58,
+            "4": 571
+          }
+        },
+        "dimensions_lwh": {
+          "count": 866,
+          "mad": [
+            0.11699999999999999,
+            0.08500000000000008,
+            0.06299999999999994
+          ],
+          "max": [
+            1.027,
+            0.921,
+            1.986
+          ],
+          "median": [
+            0.756,
+            0.592,
+            1.717
+          ],
+          "min": [
+            0.409,
+            0.408,
+            1.325
+          ],
+          "p10": [
+            0.438,
+            0.484,
+            1.598
+          ],
+          "p90": [
+            0.935,
+            0.786,
+            1.821
+          ]
+        },
+        "distance_m": {
+          "count": 866,
+          "mad": 4.5494875351808854,
+          "max": 94.01576817735605,
+          "median": 13.34981940276799,
+          "min": 7.156893781968976,
+          "p10": 8.785919040289844,
+          "p90": 64.92391252381381
+        },
+        "held_out_100_target_status": "available",
+        "instances": 23,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [],
+          "points": [],
+          "visibility": []
+        },
+        "num_lidar_pts": {
+          "count": 866,
+          "mad": 7.0,
+          "max": 71.0,
+          "median": 8.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 35.0
+        },
+        "observed_lidar_points": {
+          "count": 866,
+          "mad": 7.0,
+          "max": 71.0,
+          "median": 8.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 35.0
+        },
+        "seedable": 762
+      },
+      "two-wheels": {
+        "annotations": 129,
+        "bins": {
+          "adjacency": {
+            "adjacent": 3,
+            "isolated": 126
+          },
+          "distance": {
+            "0-20m": 46,
+            "20-40m": 42,
+            ">40m": 41
+          },
+          "motion": {
+            "unknown": 129
+          },
+          "points": {
+            "0": 32,
+            "1-4": 41,
+            "16-50": 18,
+            "5-15": 33,
+            ">50": 5
+          },
+          "ride_state": {
+            "rider": 129
+          },
+          "visibility": {
+            "1": 41,
+            "2": 2,
+            "3": 1,
+            "4": 85
+          }
+        },
+        "dimensions_lwh": {
+          "count": 129,
+          "mad": [
+            0.016000000000000014,
+            0.008000000000000007,
+            0.010000000000000009
+          ],
+          "max": [
+            1.958,
+            0.919,
+            1.706
+          ],
+          "median": [
+            1.284,
+            0.517,
+            1.696
+          ],
+          "min": [
+            1.268,
+            0.47,
+            1.633
+          ],
+          "p10": [
+            1.268,
+            0.47,
+            1.633
+          ],
+          "p90": [
+            1.958,
+            0.919,
+            1.706
+          ]
+        },
+        "distance_m": {
+          "count": 129,
+          "mad": 11.137195119200868,
+          "max": 81.8557845772887,
+          "median": 27.888958156908572,
+          "min": 5.076630006974118,
+          "p10": 13.798834318490242,
+          "p90": 54.96385851282664
+        },
+        "held_out_100_target_status": "insufficient-data",
+        "instances": 4,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [
+            "moving",
+            "static"
+          ],
+          "points": [],
+          "ride_state": [
+            "no-rider"
+          ],
+          "visibility": []
+        },
+        "num_lidar_pts": {
+          "count": 129,
+          "mad": 3.0,
+          "max": 628.0,
+          "median": 3.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 22.400000000000006
+        },
+        "observed_lidar_points": {
+          "count": 129,
+          "mad": 3.0,
+          "max": 628.0,
+          "median": 3.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 22.400000000000006
+        },
+        "seedable": 97
+      },
+      "vehicles/bus": {
+        "annotations": 141,
+        "bins": {
+          "adjacency": {
+            "adjacent": 57,
+            "isolated": 84
+          },
+          "distance": {
+            "0-20m": 4,
+            "20-40m": 64,
+            ">40m": 73
+          },
+          "motion": {
+            "moving": 100,
+            "static": 41
+          },
+          "points": {
+            "0": 21,
+            "1-4": 24,
+            "16-50": 10,
+            "5-15": 27,
+            ">50": 59
+          },
+          "ride_state": {
+            "unknown": 141
+          },
+          "visibility": {
+            "1": 13,
+            "2": 11,
+            "3": 3,
+            "4": 114
+          }
+        },
+        "dimensions_lwh": {
+          "count": 141,
+          "mad": [
+            1.2359999999999989,
+            0.028000000000000025,
+            0.08999999999999986
+          ],
+          "max": [
+            12.145,
+            2.908,
+            4.454
+          ],
+          "median": [
+            10.909,
+            2.753,
+            4.364
+          ],
+          "min": [
+            7.407,
+            2.557,
+            2.811
+          ],
+          "p10": [
+            7.407,
+            2.557,
+            2.811
+          ],
+          "p90": [
+            12.145,
+            2.908,
+            4.454
+          ]
+        },
+        "distance_m": {
+          "count": 141,
+          "mad": 15.934466515463033,
+          "max": 132.55162779864855,
+          "median": 42.29014347474685,
+          "min": 17.726155129311397,
+          "p10": 26.355540599159603,
+          "p90": 101.22427825814367
+        },
+        "held_out_100_target_status": "available",
+        "instances": 4,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [],
+          "points": [],
+          "visibility": []
+        },
+        "num_lidar_pts": {
+          "count": 141,
+          "mad": 15.0,
+          "max": 316.0,
+          "median": 15.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 114.0
+        },
+        "observed_lidar_points": {
+          "count": 141,
+          "mad": 15.0,
+          "max": 316.0,
+          "median": 15.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 114.0
+        },
+        "seedable": 120
+      },
+      "vehicles/car": {
+        "annotations": 1019,
+        "bins": {
+          "adjacency": {
+            "adjacent": 167,
+            "isolated": 852
+          },
+          "distance": {
+            "0-20m": 230,
+            "20-40m": 305,
+            ">40m": 484
+          },
+          "motion": {
+            "moving": 508,
+            "static": 511
+          },
+          "points": {
+            "0": 409,
+            "1-4": 185,
+            "16-50": 83,
+            "5-15": 157,
+            ">50": 185
+          },
+          "ride_state": {
+            "unknown": 1019
+          },
+          "visibility": {
+            "1": 309,
+            "2": 29,
+            "3": 34,
+            "4": 647
+          }
+        },
+        "dimensions_lwh": {
+          "count": 1019,
+          "mad": [
+            0.16199999999999992,
+            0.10999999999999988,
+            0.09399999999999986
+          ],
+          "max": [
+            4.869,
+            2.217,
+            1.981
+          ],
+          "median": [
+            4.562,
+            1.979,
+            1.567
+          ],
+          "min": [
+            4.047,
+            1.65,
+            1.281
+          ],
+          "p10": [
+            4.204,
+            1.745,
+            1.473
+          ],
+          "p90": [
+            4.755,
+            2.172,
+            1.91
+          ]
+        },
+        "distance_m": {
+          "count": 1019,
+          "mad": 19.602901208238826,
+          "max": 158.45844977518735,
+          "median": 36.702246401476316,
+          "min": 3.6534423815832904,
+          "p10": 7.035063932972704,
+          "p90": 72.82362823309008
+        },
+        "held_out_100_target_status": "available",
+        "instances": 38,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [],
+          "points": [],
+          "visibility": []
+        },
+        "num_lidar_pts": {
+          "count": 1019,
+          "mad": 2.0,
+          "max": 2633.0,
+          "median": 2.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 485.0
+        },
+        "observed_lidar_points": {
+          "count": 1019,
+          "mad": 2.0,
+          "max": 2633.0,
+          "median": 2.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 485.0
+        },
+        "seedable": 610
+      },
+      "vehicles/truck": {
+        "annotations": 76,
+        "bins": {
+          "adjacency": {
+            "adjacent": 48,
+            "isolated": 28
+          },
+          "distance": {
+            "0-20m": 41,
+            "20-40m": 17,
+            ">40m": 18
+          },
+          "motion": {
+            "moving": 35,
+            "static": 41
+          },
+          "points": {
+            "0": 19,
+            "1-4": 3,
+            "16-50": 2,
+            "5-15": 5,
+            ">50": 47
+          },
+          "ride_state": {
+            "unknown": 76
+          },
+          "visibility": {
+            "1": 11,
+            "4": 65
+          }
+        },
+        "dimensions_lwh": {
+          "count": 76,
+          "mad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            6.418,
+            2.806,
+            3.964
+          ],
+          "median": [
+            6.418,
+            2.339,
+            3.964
+          ],
+          "min": [
+            5.907,
+            2.339,
+            2.268
+          ],
+          "p10": [
+            5.907,
+            2.339,
+            2.268
+          ],
+          "p90": [
+            6.418,
+            2.806,
+            3.964
+          ]
+        },
+        "distance_m": {
+          "count": 76,
+          "mad": 2.2593663565828592e-05,
+          "max": 86.28451599491194,
+          "median": 7.818451438490518,
+          "min": 7.818417502268613,
+          "p10": 7.818433076831092,
+          "p90": 62.073019703834746
+        },
+        "held_out_100_target_status": "insufficient-data",
+        "instances": 2,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [],
+          "points": [],
+          "visibility": [
+            "2",
+            "3"
+          ]
+        },
+        "num_lidar_pts": {
+          "count": 76,
+          "mad": 16.5,
+          "max": 1401.0,
+          "median": 1379.5,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 1393.5
+        },
+        "observed_lidar_points": {
+          "count": 76,
+          "mad": 16.5,
+          "max": 1401.0,
+          "median": 1379.5,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 1393.5
+        },
+        "seedable": 57
+      }
+    },
+    "validation": {
+      "pedestrian": {
+        "annotations": 165,
+        "bins": {
+          "adjacency": {
+            "adjacent": 52,
+            "isolated": 113
+          },
+          "distance": {
+            "0-20m": 37,
+            "20-40m": 64,
+            ">40m": 64
+          },
+          "motion": {
+            "moving": 162,
+            "static": 3
+          },
+          "points": {
+            "0": 46,
+            "1-4": 76,
+            "16-50": 14,
+            "5-15": 20,
+            ">50": 9
+          },
+          "ride_state": {
+            "unknown": 165
+          },
+          "visibility": {
+            "1": 80,
+            "2": 27,
+            "3": 2,
+            "4": 56
+          }
+        },
+        "dimensions_lwh": {
+          "count": 165,
+          "mad": [
+            0.008000000000000007,
+            0.15500000000000003,
+            0.016000000000000014
+          ],
+          "max": [
+            0.784,
+            0.809,
+            2.0
+          ],
+          "median": [
+            0.729,
+            0.654,
+            1.674
+          ],
+          "min": [
+            0.36,
+            0.355,
+            1.658
+          ],
+          "p10": [
+            0.36,
+            0.355,
+            1.658
+          ],
+          "p90": [
+            0.737,
+            0.809,
+            2.0
+          ]
+        },
+        "distance_m": {
+          "count": 165,
+          "mad": 13.366126311837146,
+          "max": 97.33789193512459,
+          "median": 32.750825349641794,
+          "min": 5.744756382477206,
+          "p10": 10.33131278756563,
+          "p90": 71.32333700977307
+        },
+        "held_out_100_target_status": "not-applicable",
+        "instances": 11,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [],
+          "points": [],
+          "visibility": []
+        },
+        "num_lidar_pts": {
+          "count": 165,
+          "mad": 2.0,
+          "max": 240.0,
+          "median": 2.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 21.599999999999994
+        },
+        "observed_lidar_points": {
+          "count": 165,
+          "mad": 2.0,
+          "max": 240.0,
+          "median": 2.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 21.599999999999994
+        },
+        "seedable": 119
+      },
+      "two-wheels": {
+        "annotations": 31,
+        "bins": {
+          "adjacency": {
+            "adjacent": 3,
+            "isolated": 28
+          },
+          "distance": {
+            "0-20m": 8,
+            "20-40m": 11,
+            ">40m": 12
+          },
+          "motion": {
+            "unknown": 31
+          },
+          "points": {
+            "0": 6,
+            "1-4": 10,
+            "16-50": 5,
+            "5-15": 7,
+            ">50": 3
+          },
+          "ride_state": {
+            "rider": 31
+          },
+          "visibility": {
+            "1": 7,
+            "4": 24
+          }
+        },
+        "dimensions_lwh": {
+          "count": 31,
+          "mad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            2.106,
+            1.412,
+            1.776
+          ],
+          "median": [
+            2.072,
+            0.702,
+            1.619
+          ],
+          "min": [
+            2.072,
+            0.702,
+            1.619
+          ],
+          "p10": [
+            2.072,
+            0.702,
+            1.619
+          ],
+          "p90": [
+            2.106,
+            1.412,
+            1.776
+          ]
+        },
+        "distance_m": {
+          "count": 31,
+          "mad": 13.80129483651955,
+          "max": 77.86371456618268,
+          "median": 31.924065438777195,
+          "min": 7.630757986518285,
+          "p10": 11.597357087255846,
+          "p90": 60.617886282063715
+        },
+        "held_out_100_target_status": "not-applicable",
+        "instances": 2,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [
+            "moving",
+            "static"
+          ],
+          "points": [],
+          "ride_state": [
+            "no-rider"
+          ],
+          "visibility": [
+            "2",
+            "3"
+          ]
+        },
+        "num_lidar_pts": {
+          "count": 31,
+          "mad": 4.0,
+          "max": 149.0,
+          "median": 4.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 41.0
+        },
+        "observed_lidar_points": {
+          "count": 31,
+          "mad": 4.0,
+          "max": 149.0,
+          "median": 4.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 41.0
+        },
+        "seedable": 25
+      },
+      "vehicles/bus": {
+        "annotations": 55,
+        "bins": {
+          "adjacency": {
+            "adjacent": 4,
+            "isolated": 51
+          },
+          "distance": {
+            "0-20m": 2,
+            "20-40m": 14,
+            ">40m": 39
+          },
+          "motion": {
+            "moving": 55
+          },
+          "points": {
+            "0": 8,
+            "1-4": 9,
+            "16-50": 6,
+            "5-15": 15,
+            ">50": 17
+          },
+          "ride_state": {
+            "unknown": 55
+          },
+          "visibility": {
+            "1": 2,
+            "2": 9,
+            "3": 7,
+            "4": 37
+          }
+        },
+        "dimensions_lwh": {
+          "count": 55,
+          "mad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            12.9,
+            3.53,
+            4.581
+          ],
+          "median": [
+            12.704,
+            2.92,
+            4.464
+          ],
+          "min": [
+            9.466,
+            2.846,
+            3.094
+          ],
+          "p10": [
+            9.466,
+            2.846,
+            3.094
+          ],
+          "p90": [
+            12.9,
+            3.53,
+            4.581
+          ]
+        },
+        "distance_m": {
+          "count": 55,
+          "mad": 25.503208231393884,
+          "max": 125.20871619658581,
+          "median": 63.6800745690641,
+          "min": 17.273105837117342,
+          "p10": 24.61362975788159,
+          "p90": 101.674157391227
+        },
+        "held_out_100_target_status": "not-applicable",
+        "instances": 3,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [
+            "static"
+          ],
+          "points": [],
+          "visibility": []
+        },
+        "num_lidar_pts": {
+          "count": 55,
+          "mad": 9.0,
+          "max": 835.0,
+          "median": 9.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 321.6
+        },
+        "observed_lidar_points": {
+          "count": 55,
+          "mad": 9.0,
+          "max": 835.0,
+          "median": 9.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 321.6
+        },
+        "seedable": 47
+      },
+      "vehicles/car": {
+        "annotations": 1185,
+        "bins": {
+          "adjacency": {
+            "adjacent": 69,
+            "isolated": 1116
+          },
+          "distance": {
+            "0-20m": 174,
+            "20-40m": 382,
+            ">40m": 629
+          },
+          "motion": {
+            "moving": 1075,
+            "static": 110
+          },
+          "points": {
+            "0": 424,
+            "1-4": 271,
+            "16-50": 156,
+            "5-15": 173,
+            ">50": 161
+          },
+          "ride_state": {
+            "unknown": 1185
+          },
+          "visibility": {
+            "1": 184,
+            "2": 100,
+            "3": 81,
+            "4": 820
+          }
+        },
+        "dimensions_lwh": {
+          "count": 1185,
+          "mad": [
+            0.1589999999999998,
+            0.08000000000000007,
+            0.06799999999999984
+          ],
+          "max": [
+            5.837,
+            2.732,
+            2.124
+          ],
+          "median": [
+            4.614,
+            2.052,
+            1.638
+          ],
+          "min": [
+            4.099,
+            1.615,
+            1.474
+          ],
+          "p10": [
+            4.398,
+            1.851,
+            1.55
+          ],
+          "p90": [
+            4.977,
+            2.197,
+            1.827
+          ]
+        },
+        "distance_m": {
+          "count": 1185,
+          "mad": 19.120462961744984,
+          "max": 141.99361027160597,
+          "median": 42.56869819463625,
+          "min": 3.3007373015588284,
+          "p10": 16.519595085800386,
+          "p90": 86.02875579946736
+        },
+        "held_out_100_target_status": "not-applicable",
+        "instances": 88,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [],
+          "points": [],
+          "visibility": []
+        },
+        "num_lidar_pts": {
+          "count": 1185,
+          "mad": 2.0,
+          "max": 3185.0,
+          "median": 2.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 80.0
+        },
+        "observed_lidar_points": {
+          "count": 1185,
+          "mad": 2.0,
+          "max": 3185.0,
+          "median": 2.0,
+          "min": 0.0,
+          "p10": 0.0,
+          "p90": 80.0
+        },
+        "seedable": 761
+      },
+      "vehicles/truck": {
+        "annotations": 29,
+        "bins": {
+          "adjacency": {
+            "adjacent": 2,
+            "isolated": 27
+          },
+          "distance": {
+            "0-20m": 5,
+            "20-40m": 10,
+            ">40m": 14
+          },
+          "motion": {
+            "moving": 27,
+            "static": 2
+          },
+          "points": {
+            "0": 3,
+            "1-4": 8,
+            "16-50": 4,
+            "5-15": 6,
+            ">50": 8
+          },
+          "ride_state": {
+            "unknown": 29
+          },
+          "visibility": {
+            "1": 1,
+            "2": 14,
+            "4": 14
+          }
+        },
+        "dimensions_lwh": {
+          "count": 29,
+          "mad": [
+            0.6140000000000008,
+            0.133,
+            0.054999999999999716
+          ],
+          "max": [
+            6.855,
+            2.932,
+            2.272
+          ],
+          "median": [
+            5.751,
+            2.052,
+            2.217
+          ],
+          "min": [
+            5.137,
+            1.919,
+            1.998
+          ],
+          "p10": [
+            5.137,
+            1.919,
+            1.998
+          ],
+          "p90": [
+            5.751,
+            2.052,
+            2.272
+          ]
+        },
+        "distance_m": {
+          "count": 29,
+          "mad": 15.039625387634008,
+          "max": 102.36127029867814,
+          "median": 36.54973578719139,
+          "min": 11.620394080128719,
+          "p10": 15.394281858011205,
+          "p90": 70.36981928570586
+        },
+        "held_out_100_target_status": "not-applicable",
+        "instances": 4,
+        "insufficient_data_bins": {
+          "adjacency": [],
+          "distance": [],
+          "motion": [],
+          "points": [],
+          "visibility": [
+            "3"
+          ]
+        },
+        "num_lidar_pts": {
+          "count": 29,
+          "mad": 8.0,
+          "max": 232.0,
+          "median": 8.0,
+          "min": 0.0,
+          "p10": 0.8000000000000003,
+          "p90": 145.79999999999995
+        },
+        "observed_lidar_points": {
+          "count": 29,
+          "mad": 8.0,
+          "max": 232.0,
+          "median": 8.0,
+          "min": 0.0,
+          "p10": 0.8000000000000003,
+          "p90": 145.79999999999995
+        },
+        "seedable": 26
+      }
+    }
+  },
+  "lidar_point_count_differences": {
+    "annotations_differing_from_num_lidar_pts": 1,
+    "difference_observed_minus_source": {
+      "count": 14432,
+      "mad": 0.0,
+      "max": 1.0,
+      "median": 0.0,
+      "min": 0.0,
+      "p10": 0.0,
+      "p90": 0.0
+    }
+  },
+  "limitations": [
+    "vehicle.car includes Car/Van/SUV: Van insufficient-ground-truth",
+    "Mini splits are local scene holdouts, not official nuScenes test acceptance",
+    "Visibility is source camera-annotation metadata; no camera or sweep inference inputs",
+    "GT seed selection is oracle-assisted and does not measure UI picking accuracy",
+    "human.pedestrian.* maps per PRD, including personal_mobility; category counts retained"
+  ],
+  "mapped_annotations": 14432,
+  "missing_files": [],
+  "nonblocking_map_log_references": [
+    {
+      "field": "log_tokens",
+      "missing": "0986cb758b1d43fdaa051ab23d45582b",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "1c9b302455ff44a9a290c372b31aa3ce",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "e60234ec7c324789ac7c8441a5e49731",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "46123a03f41e4657adc82ed9ddbe0ba2",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "a5bb7f9dd1884f1ea0de299caefe7ef4",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "bc41a49366734ebf978d6a71981537dc",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "f8699afb7a2247e38549e4d250b4581b",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "d0450edaed4a46f898403f45fa9e5f0d",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "f38ef5a1e9c941aabb2155768670b92a",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ddc03471df3e4c9bb9663629a4097743",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "31e9939f05c1485b88a8f68ad2cf9fa4",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "783683d957054175bda1b326453a13f4",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "343d984344e440c7952d1e403b572b2a",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "92af2609d31445e5a71b2d895376fed6",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "47620afea3c443f6a761e885273cb531",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "d31dc715d1c34b99bd5afb0e3aea26ed",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "34d0574ea8f340179c82162c6ac069bc",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "d7fd2bb9696d43af901326664e42340b",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "b5622d4dcb0d4549b813b3ffb96fbdc9",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "da04ae0b72024818a6219d8dd138ea4b",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "6b6513e6c8384cec88775cae30b78c0e",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "eda311bda86f4e54857b0554639d6426",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "cfe71bf0b5c54aed8f56d4feca9a7f59",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ee155e99938a4c2698fed50fc5b5d16a",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "700b800c787842ba83493d9b2775234a",
+      "table": "map",
+      "token": "53992ee3023e5494b90c316c183be829"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "6434493562e64d9aa36774bf8d98870e",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "8e0ced20b9d847608afcfbc23056460e",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ec6814dc8ae34963908357a73d3f710e",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "efa31cf3cd2f452789ca7f3e7541ea69",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "0d68b81100a640129a185cca5aa1edd7",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ff72da4810f74d18bee85070726cbade",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ca6d14b008ed4e0bb6b1eaaedadbd6c1",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "485a0831e0964529b0b45d476139c68b",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "eb987ba9054e427c8c3aae464c43e61c",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "246e7da6bb344941bac92be421a545e2",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "84ff0dbb8d7343ab95e776c4955d5884",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "6577357788b24c35a3b0419c138f50db",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "169c1773af08486c80ed3e9540528290",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "4de1fda752ae4cf8b650a5245734eb4c",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "20db5722b62c4c17bbff2d7b265a3c51",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "8aa38e0d963f48ba84708bc8eb1a07c2",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "bd38be48fba140f1941bf7c84a33255d",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "55de0e85b8584ab59862e6afa690a0b8",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "69271ec7af1f446ca16820ac46d2047a",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "65629cfc47fe489fabc497ead466a313",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "b2d2f313e9cf446aa50656117847d41b",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "6c12081a828548b6b0a36f12d53be6ca",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "8c66d9d518c54aed98dce7e3095501bc",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "b2685a235700404581dc7354dd5b4eda",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "01ebe4444f624b4699ec6bf58837b153",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "08ba46dd716d42a69d108638fef5bbb9",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ceb76203d8d7415f83ae3f81e112a0ca",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "3313a6a85b264e4c86ee44d6e6329cf3",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "ab1e1b004548466f86b31f879a2d9e50",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "7a0fde44c3504eaeb18f9ad83bed65bc",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "b90078a405814fcfa19b1ba24c022eb2",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "cb3e914a6f0b4deea0efc8521ca1e671",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "b05f285d53744542a3413476d6dd9270",
+      "table": "map",
+      "token": "36092f0b03a857c6a3403e25b4b7aab3"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "6f5b61bfb298454eb6fe7ba279792815",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "0f1b01dd18d8438794fb3445517633df",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "6175c3299ae0482791f4ab1e9d54b326",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "75f5ca2350b346d19a39aa7439f61755",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "bdddfb02215942cbbdcd26a34b90cdad",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "f61e86a4241b484484da143725dce8fc",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "c9b039c47ec54cc7b5c0fcc7a5730e38",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "c7971f19b24442d895e07f60ecd2a4d6",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "18f99982fba24684a9ea03c0cdc53fc8",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "2edbe8ba666e47d8b9a9664a63bd059a",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "2f3c08142bc04ac3af6a8cf6c721b816",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "4d5897fcc70e4b10b68aadc401e649d8",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "f4ac03962abe49b8b1849faf91efff75",
+      "table": "map",
+      "token": "93406b464a165eaba6d9de76ca09f5da"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "853a9f9fe7e84bb8b24bff8ebf23f287",
+      "table": "map",
+      "token": "37819e65e09e5547b8a3ceaefba56bb2"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "e55205b1f2894b49957905d7ddfdb96d",
+      "table": "map",
+      "token": "37819e65e09e5547b8a3ceaefba56bb2"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "f93e8d66ce4b4fbea7062d19b1fe29fb",
+      "table": "map",
+      "token": "37819e65e09e5547b8a3ceaefba56bb2"
+    },
+    {
+      "field": "log_tokens",
+      "missing": "89a56a5dc3aa4e56a2e57b52de738da5",
+      "table": "map",
+      "token": "37819e65e09e5547b8a3ceaefba56bb2"
+    }
+  ],
+  "scene_splits": {
+    "dev": [
+      "scene-0061",
+      "scene-0103",
+      "scene-0655",
+      "scene-0757",
+      "scene-0916",
+      "scene-1094"
+    ],
+    "held_out": [
+      "scene-0553",
+      "scene-1100"
+    ],
+    "validation": [
+      "scene-0796",
+      "scene-1077"
+    ]
+  },
+  "sensor_files": {
+    "CAM_BACK": {
+      "bytes": 374080336,
+      "existing_files": 2315,
+      "keyframes": 404,
+      "sweeps": 1911
+    },
+    "CAM_BACK_LEFT": {
+      "bytes": 407100414,
+      "existing_files": 2327,
+      "keyframes": 404,
+      "sweeps": 1923
+    },
+    "CAM_BACK_RIGHT": {
+      "bytes": 431669904,
+      "existing_files": 2342,
+      "keyframes": 404,
+      "sweeps": 1938
+    },
+    "CAM_FRONT": {
+      "bytes": 423237341,
+      "existing_files": 2342,
+      "keyframes": 404,
+      "sweeps": 1938
+    },
+    "CAM_FRONT_LEFT": {
+      "bytes": 426441538,
+      "existing_files": 2344,
+      "keyframes": 404,
+      "sweeps": 1940
+    },
+    "CAM_FRONT_RIGHT": {
+      "bytes": 438554698,
+      "existing_files": 2338,
+      "keyframes": 404,
+      "sweeps": 1934
+    },
+    "LIDAR_TOP": {
+      "bytes": 2732543360,
+      "existing_files": 3935,
+      "keyframes": 404,
+      "sweeps": 3531
+    },
+    "RADAR_BACK_LEFT": {
+      "bytes": 22789648,
+      "existing_files": 2634,
+      "keyframes": 404,
+      "sweeps": 2230
+    },
+    "RADAR_BACK_RIGHT": {
+      "bytes": 23085671,
+      "existing_files": 2635,
+      "keyframes": 404,
+      "sweeps": 2231
+    },
+    "RADAR_FRONT": {
+      "bytes": 24435398,
+      "existing_files": 2635,
+      "keyframes": 404,
+      "sweeps": 2231
+    },
+    "RADAR_FRONT_LEFT": {
+      "bytes": 14745866,
+      "existing_files": 2686,
+      "keyframes": 404,
+      "sweeps": 2282
+    },
+    "RADAR_FRONT_RIGHT": {
+      "bytes": 17128783,
+      "existing_files": 2673,
+      "keyframes": 404,
+      "sweeps": 2269
+    }
+  },
+  "source_category_distributions": {
+    "human.pedestrian.adult": {
+      "dimensions_lwh": {
+        "count": 4765,
+        "mad": [
+          0.137,
+          0.05800000000000005,
+          0.07499999999999996
+        ],
+        "max": [
+          1.235,
+          1.019,
+          2.211
+        ],
+        "median": [
+          0.737,
+          0.67,
+          1.757
+        ],
+        "min": [
+          0.36,
+          0.355,
+          1.15
+        ],
+        "p10": [
+          0.548,
+          0.552,
+          1.622
+        ],
+        "p90": [
+          0.9572000000000007,
+          0.822,
+          1.905
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 4765,
+        "mad": 2.0,
+        "max": 649.0,
+        "median": 3.0,
+        "min": 0.0,
+        "p10": 0.0,
+        "p90": 25.0
+      },
+      "visibility": {
+        "1": 1358,
+        "2": 382,
+        "3": 502,
+        "4": 2523
+      }
+    },
+    "human.pedestrian.child": {
+      "dimensions_lwh": {
+        "count": 46,
+        "mad": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          0.519,
+          0.522,
+          1.489
+        ],
+        "median": [
+          0.519,
+          0.522,
+          1.348
+        ],
+        "min": [
+          0.331,
+          0.345,
+          1.326
+        ],
+        "p10": [
+          0.331,
+          0.345,
+          1.326
+        ],
+        "p90": [
+          0.519,
+          0.522,
+          1.479
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 46,
+        "mad": 2.5,
+        "max": 17.0,
+        "median": 3.5,
+        "min": 0.0,
+        "p10": 1.0,
+        "p90": 9.5
+      },
+      "visibility": {
+        "1": 10,
+        "2": 1,
+        "3": 1,
+        "4": 34
+      }
+    },
+    "human.pedestrian.construction_worker": {
+      "dimensions_lwh": {
+        "count": 193,
+        "mad": [
+          0.02200000000000002,
+          0.07200000000000006,
+          0.006000000000000005
+        ],
+        "max": [
+          0.851,
+          0.775,
+          1.938
+        ],
+        "median": [
+          0.829,
+          0.703,
+          1.76
+        ],
+        "min": [
+          0.493,
+          0.594,
+          1.746
+        ],
+        "p10": [
+          0.498,
+          0.595,
+          1.746
+        ],
+        "p90": [
+          0.851,
+          0.775,
+          1.835
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 193,
+        "mad": 3.0,
+        "max": 130.0,
+        "median": 3.0,
+        "min": 0.0,
+        "p10": 0.0,
+        "p90": 17.600000000000023
+      },
+      "visibility": {
+        "1": 80,
+        "2": 47,
+        "3": 20,
+        "4": 46
+      }
+    },
+    "human.pedestrian.personal_mobility": {
+      "dimensions_lwh": {
+        "count": 25,
+        "mad": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.284,
+          0.826,
+          1.869
+        ],
+        "median": [
+          1.284,
+          0.826,
+          1.869
+        ],
+        "min": [
+          1.284,
+          0.826,
+          1.869
+        ],
+        "p10": [
+          1.284,
+          0.826,
+          1.869
+        ],
+        "p90": [
+          1.284,
+          0.826,
+          1.869
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 25,
+        "mad": 52.0,
+        "max": 470.0,
+        "median": 59.0,
+        "min": 1.0,
+        "p10": 7.4,
+        "p90": 386.0000000000001
+      },
+      "visibility": {
+        "1": 2,
+        "4": 23
+      }
+    },
+    "human.pedestrian.police_officer": {
+      "dimensions_lwh": {
+        "count": 11,
+        "mad": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          0.474,
+          0.595,
+          1.807
+        ],
+        "median": [
+          0.474,
+          0.595,
+          1.807
+        ],
+        "min": [
+          0.474,
+          0.595,
+          1.807
+        ],
+        "p10": [
+          0.474,
+          0.595,
+          1.807
+        ],
+        "p90": [
+          0.474,
+          0.595,
+          1.807
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 11,
+        "mad": 2.0,
+        "max": 17.0,
+        "median": 5.0,
+        "min": 0.0,
+        "p10": 1.0,
+        "p90": 7.0
+      },
+      "visibility": {
+        "1": 3,
+        "2": 7,
+        "4": 1
+      }
+    },
+    "movable_object.barrier": {
+      "dimensions_lwh": {
+        "count": 2323,
+        "mad": [
+          0.07499999999999996,
+          0.11399999999999988,
+          0.06999999999999984
+        ],
+        "max": [
+          0.78,
+          3.586,
+          1.385
+        ],
+        "median": [
+          0.639,
+          2.068,
+          1.078
+        ],
+        "min": [
+          0.395,
+          1.73,
+          0.885
+        ],
+        "p10": [
+          0.416,
+          1.911,
+          0.919
+        ],
+        "p90": [
+          0.721,
+          3.118,
+          1.1962000000000035
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 2323,
+        "mad": 5.0,
+        "max": 1136.0,
+        "median": 5.0,
+        "min": 0.0,
+        "p10": 0.0,
+        "p90": 44.0
+      },
+      "visibility": {
+        "1": 703,
+        "2": 103,
+        "3": 178,
+        "4": 1339
+      }
+    },
+    "movable_object.debris": {
+      "dimensions_lwh": {
+        "count": 13,
+        "mad": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.428,
+          0.426,
+          0.459
+        ],
+        "median": [
+          1.428,
+          0.426,
+          0.459
+        ],
+        "min": [
+          1.428,
+          0.426,
+          0.459
+        ],
+        "p10": [
+          1.428,
+          0.426,
+          0.459
+        ],
+        "p90": [
+          1.428,
+          0.426,
+          0.459
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 13,
+        "mad": 2.0,
+        "max": 8.0,
+        "median": 4.0,
+        "min": 1.0,
+        "p10": 1.0,
+        "p90": 6.800000000000001
+      },
+      "visibility": {
+        "1": 1,
+        "2": 2,
+        "3": 10
+      }
+    },
+    "movable_object.pushable_pullable": {
+      "dimensions_lwh": {
+        "count": 82,
+        "mad": [
+          0.07300000000000006,
+          0.017500000000000016,
+          0.17250000000000004
+        ],
+        "max": [
+          0.937,
+          0.599,
+          1.265
+        ],
+        "median": [
+          0.762,
+          0.48350000000000004,
+          1.0145
+        ],
+        "min": [
+          0.689,
+          0.466,
+          0.842
+        ],
+        "p10": [
+          0.689,
+          0.466,
+          0.842
+        ],
+        "p90": [
+          0.937,
+          0.599,
+          1.265
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 82,
+        "mad": 3.0,
+        "max": 136.0,
+        "median": 8.0,
+        "min": 0.0,
+        "p10": 1.0,
+        "p90": 14.800000000000011
+      },
+      "visibility": {
+        "1": 9,
+        "2": 2,
+        "3": 11,
+        "4": 60
+      }
+    },
+    "movable_object.trafficcone": {
+      "dimensions_lwh": {
+        "count": 1378,
+        "mad": [
+          0.045999999999999985,
+          0.04899999999999999,
+          0.041000000000000036
+        ],
+        "max": [
+          0.734,
+          1.214,
+          1.37
+        ],
+        "median": [
+          0.451,
+          0.439,
+          0.754
+        ],
+        "min": [
+          0.305,
+          0.214,
+          0.514
+        ],
+        "p10": [
+          0.359,
+          0.363,
+          0.703
+        ],
+        "p90": [
+          0.533,
+          0.5367999999999988,
+          0.858
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 1378,
+        "mad": 1.0,
+        "max": 276.0,
+        "median": 1.0,
+        "min": 0.0,
+        "p10": 0.0,
+        "p90": 10.0
+      },
+      "visibility": {
+        "1": 258,
+        "2": 30,
+        "3": 71,
+        "4": 1019
+      }
+    },
+    "static_object.bicycle_rack": {
+      "dimensions_lwh": {
+        "count": 54,
+        "mad": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          14.465,
+          4.739,
+          1.401
+        ],
+        "median": [
+          14.465,
+          1.641,
+          1.4
+        ],
+        "min": [
+          1.338,
+          1.641,
+          1.4
+        ],
+        "p10": [
+          1.338,
+          1.641,
+          1.4
+        ],
+        "p90": [
+          14.465,
+          4.739,
+          1.401
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 54,
+        "mad": 11.5,
+        "max": 504.0,
+        "median": 11.5,
+        "min": 0.0,
+        "p10": 0.0,
+        "p90": 257.5000000000002
+      },
+      "visibility": {
+        "1": 20,
+        "2": 1,
+        "3": 5,
+        "4": 28
+      }
+    },
+    "vehicle.bicycle": {
+      "dimensions_lwh": {
+        "count": 243,
+        "mad": [
+          0.03699999999999992,
+          0.07099999999999995,
+          0.27000000000000013
+        ],
+        "max": [
+          2.072,
+          0.933,
+          1.932
+        ],
+        "median": [
+          1.807,
+          0.646,
+          1.223
+        ],
+        "min": [
+          1.336,
+          0.434,
+          0.953
+        ],
+        "p10": [
+          1.622,
+          0.525,
+          0.953
+        ],
+        "p90": [
+          2.025,
+          0.717,
+          1.839
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 243,
+        "mad": 3.0,
+        "max": 137.0,
+        "median": 3.0,
+        "min": 0.0,
+        "p10": 0.0,
+        "p90": 12.0
+      },
+      "visibility": {
+        "1": 72,
+        "2": 42,
+        "3": 22,
+        "4": 107
+      }
+    },
+    "vehicle.bus.bendy": {
+      "dimensions_lwh": {
+        "count": 57,
+        "mad": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          9.48,
+          2.951,
+          3.374
+        ],
+        "median": [
+          9.48,
+          2.764,
+          3.374
+        ],
+        "min": [
+          8.78,
+          2.764,
+          3.224
+        ],
+        "p10": [
+          8.78,
+          2.764,
+          3.224
+        ],
+        "p90": [
+          9.48,
+          2.951,
+          3.374
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 57,
+        "mad": 32.0,
+        "max": 7024.0,
+        "median": 33.0,
+        "min": 0.0,
+        "p10": 1.6000000000000005,
+        "p90": 2315.599999999999
+      },
+      "visibility": {
+        "4": 57
+      }
+    },
+    "vehicle.bus.rigid": {
+      "dimensions_lwh": {
+        "count": 353,
+        "mad": [
+          1.0380000000000003,
+          0.1549999999999998,
+          0.758
+        ],
+        "max": [
+          13.818,
+          3.53,
+          4.593
+        ],
+        "median": [
+          12.086,
+          2.908,
+          3.606
+        ],
+        "min": [
+          6.908,
+          2.557,
+          2.811
+        ],
+        "p10": [
+          9.466,
+          2.725,
+          3.094
+        ],
+        "p90": [
+          13.124,
+          3.523,
+          4.581
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 353,
+        "mad": 17.0,
+        "max": 1694.0,
+        "median": 17.0,
+        "min": 0.0,
+        "p10": 0.0,
+        "p90": 271.2000000000001
+      },
+      "visibility": {
+        "1": 30,
+        "2": 34,
+        "3": 27,
+        "4": 262
+      }
+    },
+    "vehicle.car": {
+      "dimensions_lwh": {
+        "count": 7619,
+        "mad": [
+          0.18100000000000005,
+          0.10899999999999999,
+          0.11099999999999999
+        ],
+        "max": [
+          6.524,
+          2.732,
+          3.065
+        ],
+        "median": [
+          4.606,
+          1.935,
+          1.637
+        ],
+        "min": [
+          3.484,
+          1.482,
+          1.281
+        ],
+        "p10": [
+          4.204,
+          1.706,
+          1.489
+        ],
+        "p90": [
+          4.983,
+          2.129,
+          1.975
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 7619,
+        "mad": 4.0,
+        "max": 3185.0,
+        "median": 4.0,
+        "min": 0.0,
+        "p10": 0.0,
+        "p90": 134.0
+      },
+      "visibility": {
+        "1": 2590,
+        "2": 839,
+        "3": 856,
+        "4": 3334
+      }
+    },
+    "vehicle.construction": {
+      "dimensions_lwh": {
+        "count": 196,
+        "mad": [
+          0.8340000000000005,
+          0.19199999999999973,
+          0.17899999999999983
+        ],
+        "max": [
+          7.556,
+          3.342,
+          2.931
+        ],
+        "median": [
+          4.549,
+          2.525,
+          2.252
+        ],
+        "min": [
+          3.715,
+          2.111,
+          2.033
+        ],
+        "p10": [
+          3.715,
+          2.111,
+          2.033
+        ],
+        "p90": [
+          7.556,
+          3.016,
+          2.916
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 196,
+        "mad": 36.5,
+        "max": 2291.0,
+        "median": 36.5,
+        "min": 0.0,
+        "p10": 0.0,
+        "p90": 430.0
+      },
+      "visibility": {
+        "1": 31,
+        "2": 32,
+        "3": 20,
+        "4": 113
+      }
+    },
+    "vehicle.motorcycle": {
+      "dimensions_lwh": {
+        "count": 471,
+        "mad": [
+          0.268,
+          0.08899999999999997,
+          0.127
+        ],
+        "max": [
+          2.751,
+          1.412,
+          1.931
+        ],
+        "median": [
+          1.961,
+          0.595,
+          1.399
+        ],
+        "min": [
+          1.268,
+          0.47,
+          1.186
+        ],
+        "p10": [
+          1.284,
+          0.506,
+          1.205
+        ],
+        "p90": [
+          2.368,
+          0.919,
+          1.745
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 471,
+        "mad": 4.0,
+        "max": 628.0,
+        "median": 4.0,
+        "min": 0.0,
+        "p10": 0.0,
+        "p90": 45.0
+      },
+      "visibility": {
+        "1": 128,
+        "2": 39,
+        "3": 118,
+        "4": 186
+      }
+    },
+    "vehicle.trailer": {
+      "dimensions_lwh": {
+        "count": 60,
+        "mad": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          14.01,
+          2.33,
+          3.889
+        ],
+        "median": [
+          14.01,
+          2.33,
+          3.889
+        ],
+        "min": [
+          1.787,
+          2.166,
+          3.314
+        ],
+        "p10": [
+          1.787,
+          2.166,
+          3.314
+        ],
+        "p90": [
+          14.01,
+          2.33,
+          3.889
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 60,
+        "mad": 3.0,
+        "max": 340.0,
+        "median": 333.0,
+        "min": 0.0,
+        "p10": 3.0,
+        "p90": 336.0
+      },
+      "visibility": {
+        "1": 8,
+        "2": 1,
+        "4": 51
+      }
+    },
+    "vehicle.truck": {
+      "dimensions_lwh": {
+        "count": 649,
+        "mad": [
+          0.5449999999999999,
+          0.30000000000000027,
+          0.536
+        ],
+        "max": [
+          10.201,
+          2.932,
+          3.964
+        ],
+        "median": [
+          5.907,
+          2.292,
+          2.558
+        ],
+        "min": [
+          4.535,
+          1.787,
+          1.715
+        ],
+        "p10": [
+          5.137,
+          1.919,
+          1.82
+        ],
+        "p90": [
+          10.107,
+          2.853,
+          3.608
+        ]
+      },
+      "num_lidar_pts": {
+        "count": 649,
+        "mad": 16.0,
+        "max": 10032.0,
+        "median": 16.0,
+        "min": 0.0,
+        "p10": 0.0,
+        "p90": 1377.4
+      },
+      "visibility": {
+        "1": 177,
+        "2": 74,
+        "3": 106,
+        "4": 292
+      }
+    }
+  },
+  "source_hashes": {
+    "v1.0-mini/attribute.json": "dc01438363e29188f25785884bb2431a7aa27ba0debbc359cb21cf1f00652210",
+    "v1.0-mini/calibrated_sensor.json": "13d35eeb08bfbc4d0c9eaede7824ff65efe16f8bf345aa7ba9fd75f9866a8d0f",
+    "v1.0-mini/category.json": "30f64fb175e5bd7db99892d90f9034481bca491f26600c5c0d1a56106b198dfe",
+    "v1.0-mini/ego_pose.json": "62817fd8b1633ed7925db46a29ec4c70f77116b866f248f0dc1bac4774459d70",
+    "v1.0-mini/instance.json": "38bbfcf53fb78469ec2c5b07fdafc9a44e9fbf9ab858d35a007dd8347428a14a",
+    "v1.0-mini/log.json": "d543b6fd127a6496ab9fa8de5c96a0887e0996e56f7a6c606de6d8b34827df58",
+    "v1.0-mini/map.json": "6b1d504987d0630e7e32affb7ae0d99fe9b427c757a315ec2f56fb09ebd1bfce",
+    "v1.0-mini/sample.json": "3c47794e2e6c09af4be7907b83f50750351180008d059899f42a9d405ed68586",
+    "v1.0-mini/sample_annotation.json": "49703705e98ddea281ca321aae3b7352a8b6495840fe654cf0717c5b7b721080",
+    "v1.0-mini/sample_data.json": "db18a189bd73648013d3e77ce6f5236d7c5997c0bdbf71166ddd8a6cb5c2c288",
+    "v1.0-mini/scene.json": "cc4dfeac83ac4f5d3e7fc899f90156891a21fa08bc0f8a1ac0e0a27cc1a0bfa6",
+    "v1.0-mini/sensor.json": "4d5c96570e2d8b09b88ce4c605e40ee43c4909f97bea5741185f18f92eb491ae",
+    "v1.0-mini/visibility.json": "87088bf2c78d070e1e215ff108f9c5c0958d124a14cce8f72bfb5d9651295749"
+  },
+  "sources": [
+    "https://github.com/nutonomy/nuscenes-devkit/blob/master/docs/schema_nuscenes.md",
+    "https://github.com/nutonomy/nuscenes-devkit/blob/master/docs/instructions_nuscenes.md"
+  ],
+  "table_counts": {
+    "attribute": 8,
+    "calibrated_sensor": 120,
+    "category": 23,
+    "ego_pose": 31206,
+    "instance": 911,
+    "log": 8,
+    "map": 4,
+    "sample": 404,
+    "sample_annotation": 18538,
+    "sample_data": 31206,
+    "scene": 10,
+    "sensor": 12,
+    "visibility": 4
+  },
+  "two_wheels_rider_annotations": {
+    "vehicle.bicycle": {
+      "with_rider": 104,
+      "without_rider": 139
+    },
+    "vehicle.motorcycle": {
+      "with_rider": 176,
+      "without_rider": 295
+    }
+  }
+}

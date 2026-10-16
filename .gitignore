@@ -89,6 +89,7 @@ cvat-ui/dist-autofit-local
 **/!.yarn/versions
 /docs/*
 !/docs/vehicle-size-refinement/
+!/docs/autofit/
 
 # Local Auto Fit checkpoint, mounted read-only and never committed
 components/vehicle_fit/weights/

@@ -1,0 +1,52 @@
+{
+  "fitter_service": {
+    "total": 75,
+    "pass": 70,
+    "expected_failure": 5,
+    "command": "PYTHONPATH=components python3 -m unittest discover -s components/vehicle_fit/tests -v"
+  },
+  "evaluation_tooling": {
+    "total": 45,
+    "pass": 45,
+    "command": "PYTHONPATH=components python3 -m unittest discover -s components/vehicle_fit/evaluation -t components -v"
+  },
+  "canvas3d_node": {
+    "total": 17,
+    "pass": 17,
+    "command": "node cvat-canvas3d/tests/auto-fit.test.cjs"
+  },
+  "engine_adapter_container": {
+    "total": 17,
+    "pass": 17,
+    "database_used": false,
+    "module": "cvat.apps.engine.tests.test_auto_fit"
+  },
+  "playwright_fixture_contracts": {
+    "total": 5,
+    "pass": 5,
+    "command": "node tests/playwright-autofit/support/contract.test.mjs"
+  },
+  "playwright_discovery": {
+    "mocked": 9,
+    "real_nuscenes": 1,
+    "browser_executed": false,
+    "reason": "CVAT_USERNAME/CVAT_PASSWORD absent; task creation not exercised"
+  },
+  "cypress": {
+    "executed": false,
+    "reason": "No shared UI/CVAT production behavior modified in PR0; existing suite retained"
+  },
+  "real_gpu": {
+    "primary_before_correction": 454,
+    "car_repeat_before_correction": 100,
+    "primary_after_correction": 454,
+    "car_repeat_after_correction": 100,
+    "fixed_exact_same_masks_and_semantics": 100
+  },
+  "dataset_generator": {
+    "runs": 2,
+    "artifacts_byte_identical": true
+  },
+  "production_correction_deployed_to_existing_stack": false,
+  "owned_temporary_gpu_container_removed": true
+}

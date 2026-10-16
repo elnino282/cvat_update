@@ -1,0 +1,91 @@
+{
+  "started_utc": "2026-10-16T03:06:55.908528+00:00",
+  "manifest_sha256": "f4b2fe3beac2fab88c731d08e57487863a56360a54e8021fb45792c9368f0a1c",
+  "selection_sha256": "c534eff4462a2693435ebb33593619c0d3864384976eed9a1528882cf7af3a75",
+  "git_commit": "403631ed1c7b9ec694ce61f8f6f2c61a056be425",
+  "script_sha256": "cfee54273f6e74bbf0d9a1f103e92b690f99e44266cb944847ba7f66a25da3b2",
+  "health": {
+    "status": "ready",
+    "backend": "snap",
+    "snapAvailable": true,
+    "geometryAvailable": true,
+    "error": null,
+    "vehiclePriorsMetres": {
+      "length": 3.7,
+      "width": 1.61,
+      "height": 1.49
+    },
+    "maxSurfaceScore": 0.1,
+    "adaptiveSizeRefinement": false,
+    "provenance": {
+      "backend": "snap-outdoor",
+      "modelRevision": "59fa79b3948e2a9aec4e69efccb1f0677bdb4295",
+      "checkpointSHA256": "266b00df105b494e9c86d416f4715bf615baf2ba6c830c298f02e3dbebedd8bb",
+      "checkpointSource": "https://drive.google.com/file/d/128PoQvnmupWmWWLWNfzHyyQrv2nUpukq/view",
+      "missingWeights": [],
+      "unexpectedWeights": [
+        "merge_text.p2p_sa.mha.in_proj_weight",
+        "merge_text.p2p_sa.mha.in_proj_bias",
+        "merge_text.p2p_sa.mha.out_proj.weight",
+        "merge_text.p2p_sa.mha.out_proj.bias",
+        "merge_text.p2p_sa.norm.weight",
+        "merge_text.p2p_sa.norm.bias",
+        "merge_text.p2t_ca.mha.in_proj_weight",
+        "merge_text.p2t_ca.mha.in_proj_bias",
+        "merge_text.p2t_ca.mha.out_proj.weight",
+        "merge_text.p2t_ca.mha.out_proj.bias",
+        "merge_text.p2t_ca.norm.weight",
+        "merge_text.p2t_ca.norm.bias",
+        "merge_text.p2p_ca.mha.in_proj_weight",
+        "merge_text.p2p_ca.mha.in_proj_bias",
+        "merge_text.p2p_ca.mha.out_proj.weight",
+        "merge_text.p2p_ca.mha.out_proj.bias",
+        "merge_text.p2p_ca.norm.weight",
+        "merge_text.p2p_ca.norm.bias",
+        "merge_text.ffn.linear1.weight",
+        "merge_text.ffn.linear1.bias",
+        "merge_text.ffn.linear2.weight",
+        "merge_text.ffn.linear2.bias",
+        "merge_text.ffn.norm.weight",
+        "merge_text.ffn.norm.bias",
+        "confidence_head.0.weight",
+        "confidence_head.0.bias",
+        "confidence_head.2.weight",
+        "confidence_head.2.bias",
+        "iou_token_queries.weight",
+        "bg_query_feat.weight"
+      ],
+      "torch": "2.7.1+cu128",
+      "cuda": "12.8",
+      "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "computeCapability": [
+        12,
+        0
+      ],
+      "attention": "flash",
+      "gridSizeMetres": 0.05,
+      "serializationShuffle": false
+    }
+  },
+  "dataset_version": "v1.0-mini",
+  "random_seed": 20261016,
+  "timeout_ms": 1700,
+  "seed_tolerance_m": 0.05,
+  "source_hashes": {
+    "snap_backend.py": "fe84280793cc7a6e244e0ff11ed07ac3ed74e32222c84af9c34415b7892040d5",
+    "service.py": "aabbfe1f53b0a90fc32973000cacbd3c4db39c57c166f0ba7baceb8a1eab2101",
+    "geometry.py": "46ba9fa4330fd70dffe244c9a4f73a89ecdf88f727c37e9492eb4f77b5239c60",
+    "__init__.py": "9d02bfb6ae00062a1506b7ebdc43993c42065de44eb06b2695631b2d087b6ef5",
+    "cloud.py": "09ce6d69e955bbf650225af3b6037d16ed0c7adaccf292448fc2df8c875c3aa9"
+  },
+  "scope": "Private service HTTP; prepared warm prompts; one frame only; first-frame unprepared cold prompt measured separately; no model reload",
+  "limitations": [
+    "GT-assisted observed-point seed, no GT geometry sent to service",
+    "Correct-instance is max 3D-IoU GT association plus seed containment, not independently curated identity truth",
+    "Ground-contact compares box lowest Z to GT lowest Z, not independently labelled road plane",
+    "Yaw modulo pi only; no semantic front/back evidence",
+    "No UI/engine latency. Service does not expose separate fitting/serialization timing.",
+    "Wilson intervals assume independent annotations; repeated tracks in two scenes violate independence and intervals are optimistic"
+  ],
+  "config_sha256": "1a8ef6225db7b972e85f294791ad1dd4ac7c25cc809651bd15c2ed87552598c2"
+}

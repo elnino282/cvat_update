@@ -1,0 +1,36 @@
+{
+  "audit_started_date": "2026-10-16",
+  "branch": "feat/auto-fit-pedestrian",
+  "baseline_commit": "403631ed1c7b9ec694ce61f8f6f2c61a056be425",
+  "initial_git_status_porcelain": "",
+  "initial_worktrees": [
+    "/home/quynhhn/Desktop/cvat_update 403631ed1 [feat/auto-fit-pedestrian]"
+  ],
+  "initial_uncommitted_changes": [],
+  "production_files_modified_by_pr0": [
+    "components/vehicle_fit/snap_backend.py"
+  ],
+  "fitter_container": "cvat-vehicle_fit-1",
+  "fitter_image_id": "sha256:515842da1e3bcbe74d5fe0c373f97ecf48dad9c356547d6a720c25d982fe5a46",
+  "container_python_hashes_match_checkout": true,
+  "fitter_source_sha256": {
+    "components/vehicle_fit/__init__.py": "9d02bfb6ae00062a1506b7ebdc43993c42065de44eb06b2695631b2d087b6ef5",
+    "components/vehicle_fit/cloud.py": "09ce6d69e955bbf650225af3b6037d16ed0c7adaccf292448fc2df8c875c3aa9",
+    "components/vehicle_fit/geometry.py": "46ba9fa4330fd70dffe244c9a4f73a89ecdf88f727c37e9492eb4f77b5239c60",
+    "components/vehicle_fit/service.py": "aabbfe1f53b0a90fc32973000cacbd3c4db39c57c166f0ba7baceb8a1eab2101",
+    "components/vehicle_fit/snap_backend.py": "fe84280793cc7a6e244e0ff11ed07ac3ed74e32222c84af9c34415b7892040d5"
+  },
+  "dataset_write_policy": "Read-only; artifacts under repository or /tmp, no raw dataset changes",
+  "notes": [
+    "No commit/stash/reset performed",
+    "Docker read access and localhost HTTP require sandbox escalation",
+    "Hash parity checked with docker exec read-only Python SHA-256 for all five fitter .py modules"
+  ],
+  "engine_adapter_container_path": "/opt/cvat/cvat/apps/engine/auto_fit.py",
+  "engine_adapter_container_sha256": "a4a760de3609b1a6358fc5eaf73876d2ebcf218e1186655615652dc4d9cf6093",
+  "engine_adapter_checkout_sha256": "a4a760de3609b1a6358fc5eaf73876d2ebcf218e1186655615652dc4d9cf6093",
+  "engine_adapter_hash_match": true,
+  "production_correction": "Disable leftover nested SNAP pooling serialization shuffle;17added lines,2newtests.Original baseline source hashes remain preserved above.",
+  "post_correction_snap_backend_sha256": "f8223dbf4017f7f9345886cddbfaae803d8a05ed3b1396b51cb144d3dfbf2827",
+  "deployment": "Existing CVAT/server/fitter8093 unchanged; fixed source measured only in temporary isolated container8094, subsequently stopped."
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "archive": "raw-evidence.tar.gz",
+  "archive_sha256": "68298d981149baad81f9f9a7936785233a81eeb3246537c441e35280b7695a0f",
+  "archive_bytes": 1589698,
+  "compression": "gzip mtime=0; tar uid/gid/mtime=0; original bytes unchanged",
+  "entries": [
+    {
+      "path": "baseline-fixed-snap/cases.jsonl",
+      "bytes": 1476603,
+      "sha256": "8702d2f1ec5324ed612820f1d4a175159b92b3a72056bb44bc39322af5d5aa2d"
+    },
+    {
+      "path": "baseline-fixed-snap/cold.json",
+      "bytes": 12499,
+      "sha256": "f025030304553f21bdffd6fd0af1b36e08d19de8a82119c4c0da8a66435fee33"
+    },
+    {
+      "path": "baseline-fixed-snap/summary.json",
+      "bytes": 191982,
+      "sha256": "f16a1e589fd675546d8e18018f2eb6c7334fe78b2038105f039c3d51b4593fa4"
+    },
+    {
+      "path": "baseline-fixed-snap-repeat/cases.jsonl",
+      "bytes": 1148109,
+      "sha256": "346a1eb33cd1e36736d6e2648acef90118af79a89250cea7bc21e865fcdde067"
+    },
+    {
+      "path": "baseline-fixed-snap-repeat/cold.json",
+      "bytes": 12498,
+      "sha256": "c014762c49ecb00daeae6ef4d278e1b70cd1a7377be319f9dd23dee8beb2ca92"
+    },
+    {
+      "path": "baseline-fixed-snap-repeat/summary.json",
+      "bytes": 48286,
+      "sha256": "3598c786d36771bf24c9192f2801a675e4d2ce7506a70bba58276f0ade568077"
+    },
+    {
+      "path": "baseline-snap/cases.jsonl",
+      "bytes": 1446092,
+      "sha256": "90123332092d3c33d305de2de4bd77c3273c8724ae081683777f9fd4c3da04d0"
+    },
+    {
+      "path": "baseline-snap/cold.json",
+      "bytes": 12213,
+      "sha256": "ea04028138886ca8bda373d8c453c8b6ac8b33db79dfb9f7c8a627d584123f97"
+    },
+    {
+      "path": "baseline-snap/summary.json",
+      "bytes": 192059,
+      "sha256": "eba112ffdb3e97957dcf557ae2b9bf867f4c5d3a58e8313041859c997a41abd9"
+    },
+    {
+      "path": "baseline-snap-repeat/cases.jsonl",
+      "bytes": 1137280,
+      "sha256": "b00908edf42cb6fc44730e268e1d1a94b09808c1c979a6792459a13dd2d14f4b"
+    },
+    {
+      "path": "baseline-snap-repeat/cold.json",
+      "bytes": 12293,
+      "sha256": "d028ed0a08cfa8df75a68a520659353832abe503818f3935f348e9b3c96f46b8"
+    },
+    {
+      "path": "baseline-snap-repeat/summary.json",
+      "bytes": 48281,
+      "sha256": "a8d900b3487b0a398b7c3650795f85d2efa111d1605965ffa3e0a6fffa989869"
+    },
+    {
+      "path": "frozen-mask-replay/run-3/cases.jsonl",
+      "bytes": 92155,
+      "sha256": "6b81763eef7c5b74f522348be72bebf91da86553a16b05b03c6e771fcbc79eb1"
+    },
+    {
+      "path": "frozen-mask-replay/run-3/summary.json",
+      "bytes": 42533,
+      "sha256": "d67ac3ad7383c3fe5e9645667db6b788d0861b79e43cbe774661a82867bdeb2d"
+    },
+    {
+      "path": "frozen-mask-replay/run-4/cases.jsonl",
+      "bytes": 92145,
+      "sha256": "db62f8edb8cbb0c16d8c356d81f38ac2da185a18714a5c91e06ace89435fa296"
+    },
+    {
+      "path": "frozen-mask-replay/run-4/summary.json",
+      "bytes": 42893,
+      "sha256": "9bca400e77422c8c4d34e09d25fa3fe667297be67d8566766dc2bc474ba4a055"
+    }
+  ],
+  "regenerated_manifest": {
+    "path": "nuscenes_manifest.json.gz",
+    "sha256": "f4b2fe3beac2fab88c731d08e57487863a56360a54e8021fb45792c9368f0a1c",
+    "bytes": 8030063,
+    "tracked": false
+  }
+}

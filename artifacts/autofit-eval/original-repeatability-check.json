@@ -1,0 +1,707 @@
+{
+  "car_cases": 100,
+  "changed_masks": [
+    {
+      "case_id": "8c273f6c96ac4a8687cd6e75f718db70",
+      "first_count": 547,
+      "repeat_count": 552,
+      "symmetric_difference": 29
+    },
+    {
+      "case_id": "a17016e33ada4b279dc502641a1d3eb8",
+      "first_count": 166,
+      "repeat_count": 255,
+      "symmetric_difference": 91
+    },
+    {
+      "case_id": "ce11542264c642c789a4715671b29405",
+      "first_count": 933,
+      "repeat_count": 982,
+      "symmetric_difference": 63
+    },
+    {
+      "case_id": "195b2a23af1348d9b1f4f261b333b072",
+      "first_count": 424,
+      "repeat_count": 444,
+      "symmetric_difference": 30
+    },
+    {
+      "case_id": "60dcec6b3a2944249334b1b06bc6d69f",
+      "first_count": 317,
+      "repeat_count": 325,
+      "symmetric_difference": 30
+    },
+    {
+      "case_id": "afb98cc768e6441386239b011ba762a5",
+      "first_count": 3157,
+      "repeat_count": 3129,
+      "symmetric_difference": 38
+    },
+    {
+      "case_id": "02274f020deb45828664a49631fe3540",
+      "first_count": 171,
+      "repeat_count": 169,
+      "symmetric_difference": 10
+    },
+    {
+      "case_id": "13a7c060eff64c7ea8ad5e353dbe1f2c",
+      "first_count": 185,
+      "repeat_count": 187,
+      "symmetric_difference": 12
+    },
+    {
+      "case_id": "e813f4e3da8c4e41a95a72e9d52ce884",
+      "first_count": 57,
+      "repeat_count": 58,
+      "symmetric_difference": 9
+    },
+    {
+      "case_id": "579042ec63504d79af16a102d5e1f128",
+      "first_count": 337,
+      "repeat_count": 328,
+      "symmetric_difference": 21
+    },
+    {
+      "case_id": "813563c1c09e4dfcadc65ec57c701d94",
+      "first_count": 1186,
+      "repeat_count": 1165,
+      "symmetric_difference": 21
+    },
+    {
+      "case_id": "411804d047fa4ffea504d57daf828f92",
+      "first_count": 1880,
+      "repeat_count": 1886,
+      "symmetric_difference": 10
+    },
+    {
+      "case_id": "fba498ce94394be5943103121af9d855",
+      "first_count": 89,
+      "repeat_count": 27,
+      "symmetric_difference": 64
+    },
+    {
+      "case_id": "f3b5761b52964a7286691d1db109556b",
+      "first_count": 20,
+      "repeat_count": 19,
+      "symmetric_difference": 1
+    },
+    {
+      "case_id": "2d3f3e1cf011448996d791dfd773691a",
+      "first_count": 274,
+      "repeat_count": 308,
+      "symmetric_difference": 34
+    },
+    {
+      "case_id": "fc523f75ff7a46d79bbfe7a2c3049f80",
+      "first_count": 110,
+      "repeat_count": 113,
+      "symmetric_difference": 15
+    },
+    {
+      "case_id": "794696e3da2942d88b174b7f4af7daa6",
+      "first_count": 46,
+      "repeat_count": 16,
+      "symmetric_difference": 30
+    },
+    {
+      "case_id": "fe18c6e08f494840820df02b0b419ef3",
+      "first_count": 696,
+      "repeat_count": 959,
+      "symmetric_difference": 271
+    },
+    {
+      "case_id": "a36666d4b9b040fbb5c5e4abf795836a",
+      "first_count": 21,
+      "repeat_count": 20,
+      "symmetric_difference": 1
+    },
+    {
+      "case_id": "5da97198768a4667ae06e8ab358db2de",
+      "first_count": 3001,
+      "repeat_count": 2993,
+      "symmetric_difference": 28
+    },
+    {
+      "case_id": "691796fc819343869939545a7789d813",
+      "first_count": 1004,
+      "repeat_count": 1006,
+      "symmetric_difference": 8
+    },
+    {
+      "case_id": "fe99721b26b14658bddd7068b6ba3fa3",
+      "first_count": 20,
+      "repeat_count": 17,
+      "symmetric_difference": 3
+    },
+    {
+      "case_id": "21a16cc6b1be4f539630e8d683706e31",
+      "first_count": 6150,
+      "repeat_count": 6153,
+      "symmetric_difference": 111
+    },
+    {
+      "case_id": "c4c018a01fd645cb952795eb3d4b3018",
+      "first_count": 1924,
+      "repeat_count": 1978,
+      "symmetric_difference": 54
+    },
+    {
+      "case_id": "de32597578ef42df9c4f8d9ce1c73da9",
+      "first_count": 56,
+      "repeat_count": 52,
+      "symmetric_difference": 6
+    },
+    {
+      "case_id": "2c9da414ddd44ceea698da1cdc39c013",
+      "first_count": 1765,
+      "repeat_count": 1775,
+      "symmetric_difference": 14
+    },
+    {
+      "case_id": "d700d17a807748e7abc99a18a09382a8",
+      "first_count": 370,
+      "repeat_count": 380,
+      "symmetric_difference": 10
+    },
+    {
+      "case_id": "735dfda204424eeebd9eab6411a2d4ad",
+      "first_count": 7,
+      "repeat_count": 6,
+      "symmetric_difference": 1
+    },
+    {
+      "case_id": "4945f84a149e4b4181709ece16fa9507",
+      "first_count": 32,
+      "repeat_count": 33,
+      "symmetric_difference": 1
+    },
+    {
+      "case_id": "52b6898d97064b98a55bbd32f6256570",
+      "first_count": 9342,
+      "repeat_count": 9457,
+      "symmetric_difference": 115
+    },
+    {
+      "case_id": "dda564db342346d19349d15460535e64",
+      "first_count": 7974,
+      "repeat_count": 7886,
+      "symmetric_difference": 88
+    },
+    {
+      "case_id": "f032d70ec4c64a19b00e42adc339e677",
+      "first_count": 83,
+      "repeat_count": 164,
+      "symmetric_difference": 81
+    },
+    {
+      "case_id": "03e3447677f04a82ac34f83e279ef5e3",
+      "first_count": 11441,
+      "repeat_count": 11306,
+      "symmetric_difference": 145
+    },
+    {
+      "case_id": "50218be1912e43fc824333d1b88fb0e5",
+      "first_count": 243,
+      "repeat_count": 212,
+      "symmetric_difference": 35
+    },
+    {
+      "case_id": "b929f005cc644e44a8c8d333939c192a",
+      "first_count": 172,
+      "repeat_count": 177,
+      "symmetric_difference": 9
+    },
+    {
+      "case_id": "adac6cefc54f4d429f4a995f26530bbc",
+      "first_count": 213,
+      "repeat_count": 204,
+      "symmetric_difference": 9
+    },
+    {
+      "case_id": "8b2629367e5e440ea5ed80a6015efebe",
+      "first_count": 39,
+      "repeat_count": 104,
+      "symmetric_difference": 65
+    },
+    {
+      "case_id": "f998e053693d4b0faa537b694cb407fc",
+      "first_count": 294,
+      "repeat_count": 275,
+      "symmetric_difference": 27
+    },
+    {
+      "case_id": "8a647bd5a6064ffeb06fd36dac0ce551",
+      "first_count": 180,
+      "repeat_count": 181,
+      "symmetric_difference": 5
+    },
+    {
+      "case_id": "d137d342b3fb429d925281e93e9add5d",
+      "first_count": 6266,
+      "repeat_count": 6220,
+      "symmetric_difference": 66
+    },
+    {
+      "case_id": "cb1eb12d85054ceba9a9939999156e8b",
+      "first_count": 77,
+      "repeat_count": 69,
+      "symmetric_difference": 8
+    },
+    {
+      "case_id": "4b2df137eafe4d21b5f88dc9dc713e79",
+      "first_count": 874,
+      "repeat_count": 946,
+      "symmetric_difference": 76
+    },
+    {
+      "case_id": "2c73d46e637f419fb2b90544d5666b95",
+      "first_count": 30,
+      "repeat_count": 43,
+      "symmetric_difference": 13
+    },
+    {
+      "case_id": "17d6e7b2b520493eaff9c559b08d7382",
+      "first_count": 204,
+      "repeat_count": 241,
+      "symmetric_difference": 41
+    },
+    {
+      "case_id": "79af5730dd4048bd99a4c8ecda6ea322",
+      "first_count": 83,
+      "repeat_count": 89,
+      "symmetric_difference": 6
+    },
+    {
+      "case_id": "cedd97dda6b546f19e6ed52387049e7d",
+      "first_count": 2291,
+      "repeat_count": 2311,
+      "symmetric_difference": 26
+    },
+    {
+      "case_id": "8191a4aa789c43f8b86483cfef5dd997",
+      "first_count": 191,
+      "repeat_count": 190,
+      "symmetric_difference": 1
+    },
+    {
+      "case_id": "c62b4660fa21488c9714d5865157ab92",
+      "first_count": 828,
+      "repeat_count": 805,
+      "symmetric_difference": 43
+    },
+    {
+      "case_id": "f2209c6331c447cb84cb0a1e8caec560",
+      "first_count": 1000,
+      "repeat_count": 767,
+      "symmetric_difference": 233
+    },
+    {
+      "case_id": "145388d893f4474ca8be7b5b82fe75ae",
+      "first_count": 3980,
+      "repeat_count": 5349,
+      "symmetric_difference": 1369
+    },
+    {
+      "case_id": "18dff87c284546fdbe9977aad9e4c6c7",
+      "first_count": 34,
+      "repeat_count": 33,
+      "symmetric_difference": 17
+    },
+    {
+      "case_id": "444a07729a4c449590602726e0fff78f",
+      "first_count": 2789,
+      "repeat_count": 2732,
+      "symmetric_difference": 57
+    },
+    {
+      "case_id": "6db3a4e8cc0d4f8f978f54a03d525939",
+      "first_count": 260,
+      "repeat_count": 265,
+      "symmetric_difference": 5
+    },
+    {
+      "case_id": "7746211c34864960989648d66c52c251",
+      "first_count": 297,
+      "repeat_count": 962,
+      "symmetric_difference": 665
+    },
+    {
+      "case_id": "6fbc1e0b96a24e67bf2d1d4d9d0fbce5",
+      "first_count": 2015,
+      "repeat_count": 1977,
+      "symmetric_difference": 70
+    },
+    {
+      "case_id": "0aa17afa86354013a7531a1b7382e075",
+      "first_count": 77,
+      "repeat_count": 78,
+      "symmetric_difference": 1
+    },
+    {
+      "case_id": "120a6d2742a9499d893203b6a7cd5a6d",
+      "first_count": 44,
+      "repeat_count": 37,
+      "symmetric_difference": 7
+    },
+    {
+      "case_id": "62dee432583648deafd23e4ac0bde081",
+      "first_count": 536,
+      "repeat_count": 555,
+      "symmetric_difference": 21
+    },
+    {
+      "case_id": "016ec0e9f8964df9a955c96260e0a740",
+      "first_count": 3335,
+      "repeat_count": 3385,
+      "symmetric_difference": 72
+    },
+    {
+      "case_id": "0f0e346608004f799d7f68d71361a171",
+      "first_count": 52,
+      "repeat_count": 26,
+      "symmetric_difference": 26
+    },
+    {
+      "case_id": "3745628f4cc4458ba8f2c53a4056b647",
+      "first_count": 62,
+      "repeat_count": 57,
+      "symmetric_difference": 5
+    },
+    {
+      "case_id": "9b5d30432fc147afa1ed06f385151778",
+      "first_count": 440,
+      "repeat_count": 448,
+      "symmetric_difference": 10
+    },
+    {
+      "case_id": "d4e20523f40e47e1ac537fe64b53b30f",
+      "first_count": 239,
+      "repeat_count": 229,
+      "symmetric_difference": 20
+    },
+    {
+      "case_id": "0185ad0c12834154a0a1153d4a409ba1",
+      "first_count": 142,
+      "repeat_count": 129,
+      "symmetric_difference": 15
+    },
+    {
+      "case_id": "35ac2c0d2bf742c7a77b0b884cc6f714",
+      "first_count": 2457,
+      "repeat_count": 2341,
+      "symmetric_difference": 116
+    },
+    {
+      "case_id": "83dbe92294e8433ca90a576252e714d5",
+      "first_count": 223,
+      "repeat_count": 191,
+      "symmetric_difference": 32
+    },
+    {
+      "case_id": "a8f55ae672bb42f5b3eb471087ebc589",
+      "first_count": 81,
+      "repeat_count": 85,
+      "symmetric_difference": 10
+    },
+    {
+      "case_id": "14527c998c4a42a3875a2e46a93d789f",
+      "first_count": 180,
+      "repeat_count": 166,
+      "symmetric_difference": 24
+    },
+    {
+      "case_id": "485937ce0fa14de4b63c33159fe84f0b",
+      "first_count": 219,
+      "repeat_count": 262,
+      "symmetric_difference": 43
+    },
+    {
+      "case_id": "1b808e1513c540e596b64bc503ede968",
+      "first_count": 3022,
+      "repeat_count": 2985,
+      "symmetric_difference": 73
+    },
+    {
+      "case_id": "8575be21c31a40489ac0715ae3b32c0d",
+      "first_count": 129,
+      "repeat_count": 128,
+      "symmetric_difference": 3
+    },
+    {
+      "case_id": "de53c10de069439bab4be5767b3ba6a4",
+      "first_count": 6241,
+      "repeat_count": 6150,
+      "symmetric_difference": 113
+    },
+    {
+      "case_id": "739e21d4e51f42e095d0336b926ba449",
+      "first_count": 598,
+      "repeat_count": 551,
+      "symmetric_difference": 47
+    },
+    {
+      "case_id": "0e4b9792818148449c5a69840fc593b9",
+      "first_count": 59,
+      "repeat_count": 59,
+      "symmetric_difference": 2
+    },
+    {
+      "case_id": "5be2672b7182434eb6922cd616a6ca58",
+      "first_count": 82,
+      "repeat_count": 143,
+      "symmetric_difference": 65
+    },
+    {
+      "case_id": "f5fd618c149949d5b790f452187526a6",
+      "first_count": 259,
+      "repeat_count": 477,
+      "symmetric_difference": 284
+    },
+    {
+      "case_id": "03a2a6e67afc4b5199723b89de2fcf27",
+      "first_count": 18,
+      "repeat_count": 16,
+      "symmetric_difference": 4
+    },
+    {
+      "case_id": "59bdfd8d90af4f5dae209154ba9869e2",
+      "first_count": 207,
+      "repeat_count": 169,
+      "symmetric_difference": 52
+    },
+    {
+      "case_id": "7e36f46601404156a0173a3c94235d84",
+      "first_count": 5366,
+      "repeat_count": 5215,
+      "symmetric_difference": 151
+    },
+    {
+      "case_id": "deb2686c35c44c20b52f6039049ca0c4",
+      "first_count": 834,
+      "repeat_count": 876,
+      "symmetric_difference": 42
+    },
+    {
+      "case_id": "10e23d7a32f3411488cf634cd7689cfe",
+      "first_count": 6173,
+      "repeat_count": 5991,
+      "symmetric_difference": 194
+    },
+    {
+      "case_id": "3f8df3041617459f8b32727b79eee9a7",
+      "first_count": 2917,
+      "repeat_count": 2904,
+      "symmetric_difference": 23
+    },
+    {
+      "case_id": "49ffcdf6ebb04993b8072895e02eb906",
+      "first_count": 644,
+      "repeat_count": 665,
+      "symmetric_difference": 23
+    },
+    {
+      "case_id": "b3acb8840cc24639bdb017d0dc35286b",
+      "first_count": 14,
+      "repeat_count": 15,
+      "symmetric_difference": 1
+    },
+    {
+      "case_id": "0323b066fa5845f69b905e943f0458fd",
+      "first_count": 6061,
+      "repeat_count": 6040,
+      "symmetric_difference": 107
+    },
+    {
+      "case_id": "e03bed774f7c4d04ad84abe8780eae49",
+      "first_count": 2999,
+      "repeat_count": 3058,
+      "symmetric_difference": 113
+    },
+    {
+      "case_id": "edf1f51f06e14dbeafddae23804f5eb2",
+      "first_count": 58,
+      "repeat_count": 49,
+      "symmetric_difference": 9
+    },
+    {
+      "case_id": "534b7b78adfd481abc190ece1ffe91e9",
+      "first_count": 139,
+      "repeat_count": 154,
+      "symmetric_difference": 15
+    },
+    {
+      "case_id": "8b1e328cba964f7cb38c0e6ba9ab9733",
+      "first_count": 230,
+      "repeat_count": 229,
+      "symmetric_difference": 9
+    }
+  ],
+  "changed_outcomes": [
+    "fba498ce94394be5943103121af9d855",
+    "a36666d4b9b040fbb5c5e4abf795836a"
+  ],
+  "compared_fields": [
+    "status",
+    "quality",
+    "reason",
+    "provider",
+    "center",
+    "size",
+    "rotation"
+  ],
+  "exact_match": false,
+  "input_sha256": [
+    {
+      "cases.jsonl": "90123332092d3c33d305de2de4bd77c3273c8724ae081683777f9fd4c3da04d0",
+      "identity.json": "d34d1a894b3e1330a264fad650f9836db751beb3131293ddc09f943eeb08fde6"
+    },
+    {
+      "cases.jsonl": "b00908edf42cb6fc44730e268e1d1a94b09808c1c979a6792459a13dd2d14f4b",
+      "identity.json": "9df34fd2651c58c82a68e3076ce5fa7db83be0772cbfeba378760864acd23de7"
+    }
+  ],
+  "response_differences": [
+    {
+      "case_id": "fba498ce94394be5943103121af9d855",
+      "fields": [
+        "status",
+        "quality",
+        "reason",
+        "center",
+        "size",
+        "rotation"
+      ],
+      "first": {
+        "center": null,
+        "quality": null,
+        "reason": "ambiguous",
+        "rotation": null,
+        "size": null,
+        "status": "no-fit"
+      },
+      "repeat": {
+        "center": [
+          -3.4216979018251754,
+          20.584318352323105,
+          -0.11526494344682015
+        ],
+        "quality": "estimated",
+        "reason": null,
+        "rotation": [
+          0.0,
+          0.0,
+          -0.13962634015954656
+        ],
+        "size": [
+          3.7,
+          1.61,
+          1.49
+        ],
+        "status": "ok"
+      }
+    },
+    {
+      "case_id": "a36666d4b9b040fbb5c5e4abf795836a",
+      "fields": [
+        "status",
+        "quality",
+        "reason",
+        "center",
+        "size",
+        "rotation"
+      ],
+      "first": {
+        "center": null,
+        "quality": null,
+        "reason": "insufficient-evidence",
+        "rotation": null,
+        "size": null,
+        "status": "no-fit"
+      },
+      "repeat": {
+        "center": [
+          12.822092322952466,
+          -14.503705257134966,
+          -1.7239952773300553
+        ],
+        "quality": "estimated",
+        "reason": null,
+        "rotation": [
+          0.0,
+          0.0,
+          -1.2566370614359172
+        ],
+        "size": [
+          3.7,
+          1.61,
+          1.49
+        ],
+        "status": "ok"
+      }
+    },
+    {
+      "case_id": "0aa17afa86354013a7531a1b7382e075",
+      "fields": [
+        "center",
+        "size"
+      ],
+      "first": {
+        "center": [
+          11.492299419790811,
+          -10.329042164013396,
+          -1.5801861193406808
+        ],
+        "size": [
+          3.7,
+          1.638100516796249,
+          1.49
+        ]
+      },
+      "repeat": {
+        "center": [
+          11.492174669544296,
+          -10.329094744178986,
+          -1.5801870505414062
+        ],
+        "size": [
+          3.7,
+          1.6378083740608202,
+          1.49
+        ]
+      }
+    },
+    {
+      "case_id": "0e4b9792818148449c5a69840fc593b9",
+      "fields": [
+        "center",
+        "size"
+      ],
+      "first": {
+        "center": [
+          -0.43643976924718864,
+          -10.893007960697284,
+          -1.363465785586047
+        ],
+        "size": [
+          2.6,
+          1.5325331254825696,
+          1.49
+        ]
+      },
+      "repeat": {
+        "center": [
+          -0.43430946125955305,
+          -10.892476815261285,
+          -1.3634986997855494
+        ],
+        "size": [
+          2.6,
+          1.53692417437611,
+          1.49
+        ]
+      }
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Same manifest/config/source/primary seeds; compare response semantics and saved mask indices after full cache rebuild. Timing/UUIDs excluded; saved successful masks may be fitter-filtered."
+}

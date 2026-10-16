@@ -1,0 +1,25 @@
+{
+  "artifacts": [
+    {
+      "artifact": "nuscenes_manifest.json.gz",
+      "bytes": 8030063,
+      "second_generation_byte_identical": true,
+      "sha256": "f4b2fe3beac2fab88c731d08e57487863a56360a54e8021fb45792c9368f0a1c"
+    },
+    {
+      "artifact": "nuscenes_priors.json",
+      "bytes": 55143,
+      "second_generation_byte_identical": true,
+      "sha256": "91610855d38745f949f157a2d1a743ff0aced46687d202e5f40caec531322f79"
+    },
+    {
+      "artifact": "nuscenes_inventory.json",
+      "bytes": 82046,
+      "second_generation_byte_identical": true,
+      "sha256": "7c743f29b8c99104f4df865fdff750beeb7956d7000735f26db5dc6e6244b5a8"
+    }
+  ],
+  "command": "python3 -m components.vehicle_fit.evaluation.nuscenes_dataset --output /tmp/cvat-pr0-dataset-repro --created-at 2026-10-16",
+  "numpy": "1.26.4",
+  "python": "3.10.12"
+}

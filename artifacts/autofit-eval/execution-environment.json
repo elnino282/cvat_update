@@ -1,0 +1,15 @@
+{
+  "python": "3.10.12",
+  "numpy": "1.26.4",
+  "scipy": "1.15.3",
+  "fixed_container_id": "0aeb60da8bdaa28afce21da995b002d0fdcf27ff08a29ab498771ca0ff6f9ea8",
+  "fixed_container_image": "sha256:515842da1e3bcbe74d5fe0c373f97ecf48dad9c356547d6a720c25d982fe5a46",
+  "mounts_readonly": [
+    "SNAP_Outdoor.pth",
+    "components/vehicle_fit/snap_backend.py"
+  ],
+  "endpoint": "http://127.0.0.1:8094",
+  "warmup": "One dev split LiDAR frame before measurement; no camera/sweeps",
+  "existing_stack_redeployed": false,
+  "cleanup": "docker stop exact owned container with --rm; result recorded in report"
+}

@@ -63,6 +63,21 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def disable_serialization_shuffle(model: Any) -> list[str]:
+    """Pin nested pooling orders too: upstream does not inherit the root flag.
+
+    SerializedPooling uses torch.randperm even in eval mode. Setting only the
+    backbone constructor flag leaves cache rebuilds dependent on process RNG.
+    This changes ordering only, never checkpoint parameters or neighborhood size.
+    """
+    configured = []
+    for name, module in model.named_modules():
+        if hasattr(module, "shuffle_orders"):
+            module.shuffle_orders = False
+            configured.append(name or "<root>")
+    return configured
+
+
 class SNAPBackend:
     """One-worker, one-frame-cache GPU instance segmentation adapter.
 
@@ -162,6 +177,7 @@ class SNAPBackend:
                     f"checkpoint mismatch: missing={incompatible.missing_keys}, "
                     f"unexpected={incompatible.unexpected_keys}"
                 )
+            fixed_order_modules = disable_serialization_shuffle(model)
             self.model = model.eval().cuda()
             self.torch = torch
             self.provenance.update({
@@ -175,6 +191,7 @@ class SNAPBackend:
                 "attention": self.attention,
                 "gridSizeMetres": self.grid_size,
                 "serializationShuffle": False,
+                "fixedSerializationOrderModules": fixed_order_modules,
             })
         except SNAPUnavailable:
             raise

@@ -1,0 +1,24 @@
+{
+  "baseline-snap": {
+    "car_cases": 100,
+    "car_instances": 28,
+    "accepted_instances": 6,
+    "accepted": 6,
+    "all_case_median_iou_zero_for_no_fit": 0.0,
+    "accepted_center_error_le_0_5m": 3,
+    "accepted_iou_3d_ge_0_7": 1,
+    "accepted_bev_iou_ge_0_5": 4,
+    "accepted_ground_error_p50": 0.11468749156093672
+  },
+  "baseline-snap-repeat": {
+    "car_cases": 100,
+    "car_instances": 28,
+    "accepted_instances": 7,
+    "accepted": 8,
+    "all_case_median_iou_zero_for_no_fit": 0.0,
+    "accepted_center_error_le_0_5m": 5,
+    "accepted_iou_3d_ge_0_7": 2,
+    "accepted_bev_iou_ge_0_5": 6,
+    "accepted_ground_error_p50": 0.11468749156093672
+  }
+}

@@ -1,0 +1,13 @@
+# Regenerate the full manifest from read-only nuScenes metadata and LiDAR.
+/nuscenes_manifest.json.gz
+
+# Original bytes are versioned together in raw-evidence.tar.gz.
+/**/cases.jsonl
+/**/summary.json
+/**/cold.json
+
+# Local test runner output; verified counts and commands live in verification.json.
+/test-logs/
+
+# Future measurements must opt into a separately reviewed evidence snapshot.
+/local-runs/

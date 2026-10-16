@@ -1,0 +1,146 @@
+{
+  "cases": 100,
+  "accepted": 6,
+  "outcomes": {
+    "insufficient-evidence": 53,
+    "estimated": 6,
+    "ambiguous": 41
+  },
+  "coverage": {
+    "numerator": 6,
+    "denominator": 100,
+    "rate": 0.06,
+    "wilson_95": [
+      0.02778612396318876,
+      0.1247681544589569
+    ]
+  },
+  "correct_instance_proxy": {
+    "numerator": 6,
+    "denominator": 6,
+    "rate": 1.0,
+    "wilson_95": [
+      0.6096657120978477,
+      1.0
+    ]
+  },
+  "seed_containment": {
+    "numerator": 6,
+    "denominator": 6,
+    "rate": 1.0,
+    "wilson_95": [
+      0.6096657120978477,
+      1.0
+    ]
+  },
+  "false_confident": {
+    "numerator": 0,
+    "denominator": 0,
+    "rate": null,
+    "wilson_95": null
+  },
+  "metrics_accepted": {
+    "iou_3d": {
+      "count": 6,
+      "p50": 0.5188747186999576,
+      "p95": 0.7384719253188641,
+      "p99": 0.7582016436758587
+    },
+    "iou_bev": {
+      "count": 6,
+      "p50": 0.5826856845704338,
+      "p95": 0.80678400113863,
+      "p99": 0.8325815465819489
+    },
+    "center_error_m": {
+      "count": 6,
+      "p50": 0.5169643592179446,
+      "p95": 1.494676995152495,
+      "p99": 1.6437878118811566
+    },
+    "yaw_error_rad_mod_pi": {
+      "count": 6,
+      "p50": 0.05684935312922346,
+      "p95": 1.1851916237168532,
+      "p99": 1.468302113211565
+    },
+    "ground_contact_error_m": {
+      "count": 6,
+      "p50": 0.1146874915609375,
+      "p95": 0.3520234918314039,
+      "p99": 0.3966357157073381
+    }
+  },
+  "iou_all_cases_zero_for_unreturned": {
+    "count": 100,
+    "p50": 0.0,
+    "p95": 0.2141870489686071,
+    "p99": 0.6654719673979845
+  },
+  "dimension_relative_error_lwh": [
+    {
+      "count": 6,
+      "p50": 0.16080264127082708,
+      "p95": 0.34162397036121017,
+      "p99": 0.37355790539479194
+    },
+    {
+      "count": 6,
+      "p50": 0.14265511825761454,
+      "p95": 0.205226473084716,
+      "p99": 0.2062498288702699
+    },
+    {
+      "count": 6,
+      "p50": 0.03277606399940684,
+      "p95": 0.13569746618005624,
+      "p99": 0.147937214033732
+    }
+  ],
+  "geometry_seconds": {
+    "count": 100,
+    "p50": 0.012526249499842379,
+    "p95": 0.14047761319980054,
+    "p99": 0.22184259040028392
+  },
+  "semantic_sha256": "e8b8b3a724291af4c36cca50209cd067a70b20acdfd53335cc71c3c96b756dff",
+  "original_service_comparison": {
+    "changed_outcomes": [],
+    "changed_geometry": [
+      "29724345dcd24e39a3e23e4004c85645",
+      "5fa0a7e3bdf3451b9e0cbb32b099876d",
+      "13d99250a6554a0a9202e96ac6ae2077",
+      "0aa17afa86354013a7531a1b7382e075",
+      "0e4b9792818148449c5a69840fc593b9"
+    ],
+    "changed_metrics": [
+      "29724345dcd24e39a3e23e4004c85645",
+      "5fa0a7e3bdf3451b9e0cbb32b099876d",
+      "13d99250a6554a0a9202e96ac6ae2077",
+      "0aa17afa86354013a7531a1b7382e075",
+      "0e4b9792818148449c5a69840fc593b9"
+    ],
+    "max_absolute_geometry_delta": {
+      "center": 3.1086244689504383e-15,
+      "size": 8.881784197001252e-16,
+      "rotation": 0.0
+    }
+  },
+  "repeat_comparison": {
+    "changed_outcomes": [],
+    "changed_geometry": [],
+    "changed_metrics": [],
+    "max_absolute_geometry_delta": {
+      "center": 0.0,
+      "size": 0.0,
+      "rotation": 0.0
+    },
+    "semantic_exact_match": true,
+    "reference_cases_sha256": "6b81763eef7c5b74f522348be72bebf91da86553a16b05b03c6e771fcbc79eb1"
+  },
+  "full_summary": {
+    "archive": "raw-evidence.tar.gz",
+    "path": "frozen-mask-replay/run-4/summary.json",
+    "sha256": "9bca400e77422c8c4d34e09d25fa3fe667297be67d8566766dc2bc474ba4a055"
+  }
+}

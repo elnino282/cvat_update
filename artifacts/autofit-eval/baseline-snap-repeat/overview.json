@@ -1,0 +1,166 @@
+{
+  "car": {
+    "cases": 100,
+    "accepted": 8,
+    "coverage": {
+      "numerator": 8,
+      "denominator": 100,
+      "rate": 0.08,
+      "wilson_95": [
+        0.04109346148438136,
+        0.14998107700948496
+      ]
+    },
+    "status": {
+      "insufficient-evidence": 52,
+      "estimated": 8,
+      "ambiguous": 40
+    },
+    "reasons": {
+      "insufficient-evidence": 52,
+      "ambiguous": 40
+    },
+    "correct_instance_proxy": {
+      "numerator": 8,
+      "denominator": 8,
+      "rate": 1.0,
+      "wilson_95": [
+        0.6755924351161318,
+        1.0
+      ]
+    },
+    "seed_containment": {
+      "numerator": 8,
+      "denominator": 8,
+      "rate": 1.0,
+      "wilson_95": [
+        0.6755924351161318,
+        1.0
+      ]
+    },
+    "false_confident": {
+      "numerator": 0,
+      "denominator": 0,
+      "rate": null,
+      "wilson_95": null
+    },
+    "metrics": {
+      "iou_3d": {
+        "count": 8,
+        "p50": 0.5317697188816476,
+        "p95": 0.7553764792210783,
+        "p99": 0.7614789978201838
+      },
+      "iou_bev": {
+        "count": 8,
+        "p50": 0.617103626541947,
+        "p95": 0.8273224077358748,
+        "p99": 0.8365695200864774
+      },
+      "center_error_m": {
+        "count": 8,
+        "p50": 0.32760306608618117,
+        "p95": 1.420121586788164,
+        "p99": 1.6288767302082903
+      },
+      "yaw_error_rad_mod_pi": {
+        "count": 8,
+        "p50": 0.048934379397382655,
+        "p95": 1.0436363789694965,
+        "p99": 1.4399910642620932
+      },
+      "ground_contact_error_m": {
+        "count": 8,
+        "p50": 0.11468749156093672,
+        "p95": 0.33651828365466124,
+        "p99": 0.39350834271238616
+      }
+    },
+    "dimension_relative_error_lwh": [
+      {
+        "count": 8,
+        "p50": 0.16080264127082708,
+        "p95": 0.32565700284441923,
+        "p99": 0.3703645118914337
+      },
+      {
+        "count": 8,
+        "p50": 0.14147789335318012,
+        "p95": 0.22131958785263267,
+        "p99": 0.22770096879120624
+      },
+      {
+        "count": 8,
+        "p50": 0.03277606399940684,
+        "p95": 0.12957759225321833,
+        "p99": 0.1467132392483644
+      }
+    ],
+    "warm_http_seconds": {
+      "count": 100,
+      "p50": 0.016350334999970073,
+      "p95": 0.10073973850021502,
+      "p99": 0.13795678950990864
+    },
+    "warm_snap_seconds": {
+      "count": 100,
+      "p50": 0.0038015105005797523,
+      "p95": 0.00438062349971915,
+      "p99": 0.004408659599621389
+    },
+    "cache_hits": 100,
+    "providers": {
+      "snap": 100
+    }
+  },
+  "routes": {
+    "vehicles/car": {
+      "cases": 100,
+      "accepted": 8,
+      "status": {
+        "insufficient-evidence": 52,
+        "estimated": 8,
+        "ambiguous": 40
+      },
+      "reasons": {
+        "insufficient-evidence": 52,
+        "ambiguous": 40
+      },
+      "warm_http_seconds": {
+        "count": 100,
+        "p50": 0.016350334999970073,
+        "p95": 0.10073973850021502,
+        "p99": 0.13795678950990864
+      }
+    },
+    "vehicles/van": {
+      "cases": 0,
+      "status": "insufficient-ground-truth"
+    }
+  },
+  "timings": {
+    "cold_unprepared_http_seconds": {
+      "count": 1,
+      "p50": 0.2824193380001816,
+      "p95": 0.2824193380001816,
+      "p99": 0.2824193380001816
+    },
+    "preparation_seconds": {
+      "count": 57,
+      "p50": 0.31587339700035955,
+      "p95": 0.3194184354000754,
+      "p99": 0.3202849743998013
+    },
+    "data_load_seconds": {
+      "count": 57,
+      "p50": 0.0007684479996896698,
+      "p95": 0.0008925399997679049,
+      "p99": 0.0009712642003432846
+    }
+  },
+  "full_summary": {
+    "archive": "raw-evidence.tar.gz",
+    "path": "baseline-snap-repeat/summary.json",
+    "sha256": "a8d900b3487b0a398b7c3650795f85d2efa111d1605965ffa3e0a6fffa989869"
+  }
+}

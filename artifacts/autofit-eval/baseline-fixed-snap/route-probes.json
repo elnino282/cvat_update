@@ -1,0 +1,98 @@
+[
+  {
+    "label": "vehicles",
+    "vehicle_type": "truck",
+    "http_status": 200,
+    "http_seconds": 0.010077966000608285,
+    "response": {
+      "status": "no-fit",
+      "requestId": "aec3f5d5-2e8e-4ce7-bf86-4697dbb62764",
+      "frame": 80,
+      "provider": "snap",
+      "reason": "unsupported-type"
+    },
+    "scope": "routing contract only; not class accuracy or Van GT"
+  },
+  {
+    "label": "vehicles",
+    "vehicle_type": "bus",
+    "http_status": 200,
+    "http_seconds": 0.010939640999822586,
+    "response": {
+      "status": "no-fit",
+      "requestId": "4a6e546a-0f74-4cd6-8aef-963ade804c81",
+      "frame": 80,
+      "provider": "snap",
+      "reason": "unsupported-type"
+    },
+    "scope": "routing contract only; not class accuracy or Van GT"
+  },
+  {
+    "label": "vehicles",
+    "vehicle_type": "van",
+    "http_status": 200,
+    "http_seconds": 0.009967755000616307,
+    "response": {
+      "status": "no-fit",
+      "requestId": "464ea5dd-29da-42d1-9e92-6131db3f2180",
+      "frame": 80,
+      "provider": "snap",
+      "reason": "unsupported-type"
+    },
+    "scope": "routing contract only; not class accuracy or Van GT"
+  },
+  {
+    "label": "vehicles",
+    "vehicle_type": "other",
+    "http_status": 200,
+    "http_seconds": 0.009534042999803205,
+    "response": {
+      "status": "no-fit",
+      "requestId": "f836cc7c-8a4b-49d6-a39d-dd79ad1e6dd9",
+      "frame": 80,
+      "provider": "snap",
+      "reason": "unsupported-type"
+    },
+    "scope": "routing contract only; not class accuracy or Van GT"
+  },
+  {
+    "label": "pedestrian",
+    "vehicle_type": null,
+    "http_status": 400,
+    "http_seconds": 0.01273306299935939,
+    "response": {
+      "detail": "Invalid vehicle label or type"
+    },
+    "scope": "routing contract only; not class accuracy or Van GT"
+  },
+  {
+    "label": "two-wheels",
+    "vehicle_type": null,
+    "http_status": 400,
+    "http_seconds": 0.014358941999489616,
+    "response": {
+      "detail": "Invalid vehicle label or type"
+    },
+    "scope": "routing contract only; not class accuracy or Van GT"
+  },
+  {
+    "label": "Animal",
+    "vehicle_type": null,
+    "http_status": 400,
+    "http_seconds": 0.010690252999665972,
+    "response": {
+      "detail": "Invalid vehicle label or type"
+    },
+    "scope": "routing contract only; not class accuracy or Van GT"
+  },
+  {
+    "label": "Obstacle",
+    "vehicle_type": null,
+    "http_status": 400,
+    "http_seconds": 0.010538053999880503,
+    "response": {
+      "detail": "Invalid vehicle label or type"
+    },
+    "scope": "routing contract only; not class accuracy or Van GT"
+  }
+]
